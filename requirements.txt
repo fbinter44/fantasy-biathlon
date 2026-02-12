@@ -3,5 +3,4 @@ pandas
 altair
 requests
 rapidfuzz
-unicodedata
 plotly
