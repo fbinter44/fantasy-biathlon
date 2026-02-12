@@ -1,0 +1,170 @@
+import streamlit as st
+import pandas as pd
+import altair as alt
+
+from scorer.players_points import load_players_data, compute_all_players_points
+from scorer.results_data import BiathlonStandings
+
+players_predictions = load_players_data()
+standings_men = BiathlonStandings("Men")
+standings_men.load_all()
+standings_women = BiathlonStandings("Women")
+standings_women.load_all()
+scoring_summary = compute_all_players_points(players_predictions, standings_men, standings_women)
+
+st.set_page_config(layout="wide")
+
+st.title("🏆 Classement général")
+
+# ---------------------------------------------------------
+# Construction du DataFrame
+# ---------------------------------------------------------
+ranking = sorted(
+    scoring_summary.values(),
+    key=lambda p: p.total_points,
+    reverse=True
+)
+
+df = pd.DataFrame([
+    {
+        "Joueur": p.player,
+        "Total": p.total_points,
+        "Hommes": p.total_men_points,
+        "Femmes": p.total_women_points,
+        "Bonus place": p.bonus_right_place,
+        "Bonus globes": p.bonus_globes,
+    }
+    for p in ranking
+])
+
+# ---------------------------------------------------------
+# Mise en avant du Top 3
+# ---------------------------------------------------------
+st.subheader("🥇 Top 3")
+
+col1, col2, col3 = st.columns(3)
+
+for col, (i, row) in zip([col1, col2, col3], df.head(3).iterrows()):
+    col.metric(
+        label=f"{i+1}. {row['Joueur']}",
+        value=f"{row['Total']} pts",
+        delta=f"+{row['Bonus place'] + row['Bonus globes']} bonus"
+    )
+
+st.markdown("---")
+
+# ---------------------------------------------------------
+# Tableau complet
+# ---------------------------------------------------------
+st.subheader("📋 Tableau complet")
+
+st.dataframe(df, use_container_width=True)
+
+st.markdown("---")
+
+# ---------------------------------------------------------
+# Graphique comparatif
+# ---------------------------------------------------------
+st.subheader("📊 Répartition des points")
+
+chart = alt.Chart(df).mark_bar(size=25).encode(
+    x=alt.X(
+        "Joueur:N",
+        sort=df["Joueur"].tolist(),                 # ordre imposé
+        axis=alt.Axis(title=None, labelAngle=0)
+    ),
+    y=alt.Y("Total:Q", title="Points"),
+    color=alt.Color("Joueur:N", legend=None)
+)
+
+labels = alt.Chart(df).mark_text(
+    align="center",
+    baseline="bottom",
+    dy=-5,
+    color="black",
+    fontSize=12
+).encode(
+    x=alt.X("Joueur:N", sort=df["Joueur"].tolist()),
+    y="Total:Q",
+    text="Total:Q"
+)
+
+st.altair_chart((chart + labels).properties(height=400), use_container_width=True)
+
+
+
+# ---------------------------------------------------------
+# Graphique Hommes vs Femmes
+# ---------------------------------------------------------
+st.subheader("👥 Points Hommes vs Femmes")
+
+df_long = df.melt(id_vars="Joueur", value_vars=["Hommes", "Femmes"])
+
+bars = alt.Chart(df_long).mark_bar(size=25).encode(
+    x=alt.X(
+        "Joueur:N",
+        sort=df["Joueur"].tolist(),                 # ordre imposé
+        axis=alt.Axis(title=None, labelAngle=0)
+    ),
+    y=alt.Y("value:Q", title="Points"),
+    color=alt.Color("variable:N", title="Catégorie"),
+    xOffset="variable:N"
+)
+
+labels = alt.Chart(df_long).mark_text(
+    align="center",
+    baseline="bottom",
+    dy=-5,
+    color="black",
+    fontSize=11
+).encode(
+    x=alt.X("Joueur:N", sort=df["Joueur"].tolist()),
+    y="value:Q",
+    text="value:Q",
+    xOffset="variable:N"
+)
+
+st.altair_chart((bars + labels).properties(height=400), use_container_width=True)
+
+# -----------------------------
+# BONUS GOURMAND
+# -----------------------------
+st.subheader("🍫 Bonus Gourmand")
+
+# On passe en format long
+df_bonus = df.melt(
+    id_vars="Joueur",
+    value_vars=["Bonus place", "Bonus globes"],
+    var_name="Type",
+    value_name="Points"
+)
+
+# Barres empilées
+bars_bonus = alt.Chart(df_bonus).mark_bar(size=25).encode(
+    x=alt.X(
+        "Joueur:N",
+        sort=df["Joueur"].tolist(),                 # ordre du classement
+        axis=alt.Axis(title=None, labelAngle=0)
+    ),
+    y=alt.Y("Points:Q", title="Points bonus"),
+    color=alt.Color("Type:N", title="Type de bonus")
+)
+
+# Labels au-dessus de la barre totale
+# On calcule la somme des bonus par joueur
+df_bonus_total = df_bonus.groupby("Joueur")["Points"].sum().reset_index()
+
+labels_bonus = alt.Chart(df_bonus_total).mark_text(
+    align="center",
+    baseline="bottom",
+    dy=-5,
+    color="black",
+    fontSize=12
+).encode(
+    x=alt.X("Joueur:N", sort=df["Joueur"].tolist()),
+    y="Points:Q",
+    text="Points:Q"
+)
+
+st.altair_chart((bars_bonus + labels_bonus).properties(height=400), use_container_width=True)
+
