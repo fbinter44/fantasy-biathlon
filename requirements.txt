@@ -4,3 +4,4 @@ altair
 requests
 rapidfuzz
 plotly
+openpyxl
