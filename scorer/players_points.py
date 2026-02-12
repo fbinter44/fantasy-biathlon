@@ -151,7 +151,7 @@ def compute_globe_winner_bonus(pred_winners: dict, df_top10):
 
 
 def load_players_data():
-    path = "data\game_predictions.xlsx"
+    path = "data/game_predictions.xlsx"
     top5_h, top5_f, players, globes = load_pronostics(path)
     players_predictions = fill_player_predictions(top5_h, top5_f, players, globes)
     return players_predictions
