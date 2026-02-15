@@ -5,3 +5,5 @@ requests
 rapidfuzz
 plotly
 openpyxl
+gspread
+google-auth
