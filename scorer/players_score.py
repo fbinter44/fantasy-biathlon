@@ -1,4 +1,7 @@
+import gspread
+from google.oauth2.service_account import Credentials
 import pandas as pd
+import streamlit as st
 
 
 class PlayerBet:
@@ -19,6 +22,82 @@ class PlayerBet:
         self.individual_winners = in_winners
         self.mass_start_winners = ms_winners
 
+
+def load_pronostics_from_gsheet():
+    # Scopes nécessaires
+    scope = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+
+    # Authentification via secrets
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=scope
+    )
+
+    client = gspread.authorize(creds)
+
+    # Ouverture de la Google Sheet
+    sheet = client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Pronostics")
+
+    # Récupération des données
+    data = sheet.get_all_records()
+
+    # Conversion en DataFrame
+    df = pd.DataFrame(data)
+
+    return df
+
+
+def load_players_data_from_gsheet():
+    df = load_pronostics_from_gsheet()
+
+    # Liste des joueurs
+    players_list = df["player"].tolist()
+
+    # Top 5 hommes
+    top_men = {
+        row["player"]: row["top5_h"].split(",")
+        for _, row in df.iterrows()
+    }
+
+    # Top 5 femmes
+    top_women = {
+        row["player"]: row["top5_f"].split(",")
+        for _, row in df.iterrows()
+    }
+
+    # Globes
+    globes_winners = {
+        "Sprint": {
+            "H": df["globe_sprint_h"].tolist(),
+            "F": df["globe_sprint_f"].tolist()
+        },
+        "Poursuite": {
+            "H": df["globe_pursuit_h"].tolist(),
+            "F": df["globe_pursuit_f"].tolist()
+        },
+        "Individuel": {
+            "H": df["globe_individual_h"].tolist(),
+            "F": df["globe_individual_f"].tolist()
+        },
+        "Mass-start": {
+            "H": df["globe_mass_start_h"].tolist(),
+            "F": df["globe_mass_start_f"].tolist()
+        }
+    }
+
+    return top_men, top_women, players_list, globes_winners
+
+
+def get_player_row(sheet, player_name):
+    players = sheet.col_values(1)  # colonne "player"
+    if player_name in players:
+        row_index = players.index(player_name) + 1
+        row_values = sheet.row_values(row_index)
+        return row_index, row_values
+    return None, None
 
 def load_pronostics(path):
     # Lecture brute de la feuille

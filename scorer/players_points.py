@@ -1,6 +1,6 @@
 import unicodedata
 from rapidfuzz import fuzz, process
-from scorer.players_score import load_pronostics, fill_player_predictions
+from scorer.players_score import load_players_data_from_gsheet, fill_player_predictions
 from scorer.results_data import BiathlonStandings
 
 
@@ -151,8 +151,7 @@ def compute_globe_winner_bonus(pred_winners: dict, df_top10):
 
 
 def load_players_data():
-    path = "data/game_predictions.xlsx"
-    top5_h, top5_f, players, globes = load_pronostics(path)
+    top5_h, top5_f, players, globes = load_players_data_from_gsheet()
     players_predictions = fill_player_predictions(top5_h, top5_f, players, globes)
     return players_predictions
 
