@@ -1,0 +1,21 @@
+# --- Streamlit secrets ---
+.streamlit/secrets.toml
+
+# --- Google Service Account ---
+*.json
+
+# --- Python cache ---
+__pycache__/
+*.pyc
+
+# --- Virtual environments ---
+venv/
+.env/
+.venv/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
