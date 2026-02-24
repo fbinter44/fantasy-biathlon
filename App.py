@@ -1,7 +1,25 @@
 import streamlit as st
+from utils.ui import sidebar_menu, user_header
 
-st.set_page_config(page_title="Fantasy Biathlon", layout="wide")
+st.set_page_config(
+    page_title="MPG Biathlon",
+    page_icon="🎯",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
-st.title("🏆 Fantasy Biathlon")
-st.write("Bienvenue dans l'app officielle du Fantasy Biathlon.")
-st.write("Utilise le menu à gauche pour naviguer.")
+# Masquer la sidebar native de Streamlit
+hide_sidebar_style = """
+    <style>
+        [data-testid="stSidebarNav"] {display: none;}
+    </style>
+"""
+st.markdown(hide_sidebar_style, unsafe_allow_html=True)
+
+# Menu personnalisé + header utilisateur
+sidebar_menu()
+user_header()
+
+st.title("🏠 Accueil MPG Biathlon")
+
+st.write("Bienvenue sur l'application !")

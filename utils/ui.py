@@ -1,5 +1,27 @@
 import streamlit as st
 
+def sidebar_menu():
+    st.sidebar.title("Navigation")
+
+    user = st.session_state.get("user")
+
+    if user:
+        # Pages visibles uniquement si connecté
+        st.sidebar.page_link("pages/1_Saisie_Pronostics.py", label="Saisie des pronostics")
+        st.sidebar.page_link("pages/2_Classement.py", label="Classement")
+        st.sidebar.page_link("pages/3_Resultats_Officiels.py", label="Résultats officiels")
+        st.sidebar.page_link("pages/4_Mon_Compte.py", label="Mon compte")
+
+        # Déconnexion
+        if st.sidebar.button("Se déconnecter"):
+            st.session_state.clear()
+            st.rerun()
+
+    else:
+        # Pages visibles uniquement si déconnecté
+        st.sidebar.page_link("pages/0_Login.py", label="Connexion / Inscription")
+
+
 def user_header():
     st.markdown(
         """
@@ -50,22 +72,4 @@ def user_header():
         if user:
             if st.button("Déconnexion"):
                 st.session_state.clear()
-                st.experimental_rerun()
-
-
-def sidebar_menu():
-    st.sidebar.title("Navigation")
-
-    if "user" in st.session_state:
-        # Pages visibles uniquement si connecté
-        st.sidebar.page_link("pages/1_Saisie_Pronostics.py", label="Saisie des pronostics")
-        st.sidebar.page_link("pages/2_Classement.py", label="Classement")
-
-        # Bouton déconnexion
-        if st.sidebar.button("Se déconnecter"):
-            st.session_state.clear()
-            st.rerun()
-
-    else:
-        # Pages visibles uniquement si déconnecté
-        st.sidebar.page_link("pages/0_Login.py", label="Connexion / Inscription")
+                st.rerun()
