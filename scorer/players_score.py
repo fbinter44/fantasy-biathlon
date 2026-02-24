@@ -54,7 +54,10 @@ def load_players_data_from_gsheet():
     df = load_pronostics_from_gsheet()
 
     # Liste des joueurs
-    players_list = df["player"].tolist()
+    try:
+        players_list = df["player"].tolist()
+    except KeyError:
+        raise KeyError("NO_PRONOS")
 
     # Top 5 hommes
     top_men = {

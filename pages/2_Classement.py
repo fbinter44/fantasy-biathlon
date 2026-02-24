@@ -15,7 +15,17 @@ if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
-players_predictions = load_players_data()
+try:
+    players_predictions = load_players_data()
+except KeyError as e:
+    if str(e) == "'NO_PRONOS'":
+        st.info(
+            "Aucun joueur n’a encore rempli ses pronostics.\n\n"
+            "👉 Commence par saisir les tiens dans la page **Saisie des pronostics**."
+        )
+        st.stop()
+    else:
+        raise
 standings_men = BiathlonStandings("Men")
 standings_men.load_all()
 standings_women = BiathlonStandings("Women")

@@ -10,7 +10,7 @@ def sidebar_menu():
         st.sidebar.page_link("pages/1_Saisie_Pronostics.py", label="Saisie des pronostics")
         st.sidebar.page_link("pages/2_Classement.py", label="Classement")
         st.sidebar.page_link("pages/3_Resultats_Officiels.py", label="Résultats officiels")
-        st.sidebar.page_link("pages/4_Mon_Compte.py", label="Mon compte")
+        # st.sidebar.page_link("pages/4_Mon_Compte.py", label="Mon compte")
 
         # Déconnexion
         if st.sidebar.button("Se déconnecter"):
