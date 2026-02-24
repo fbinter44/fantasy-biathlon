@@ -4,19 +4,23 @@ from google.oauth2.service_account import Credentials
 from scorer.players_score import get_player_row
 from utils.ui import sidebar_menu, user_header
 
+# -------------------------
+# UI
+# -------------------------
 sidebar_menu()
 user_header()
 
-
+# Vérification connexion
 user = st.session_state.get("user")
-
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
-player = st.session_state["user"]
+player = user
 
+# -------------------------
 # Connexion Google Sheets
+# -------------------------
 scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
@@ -28,20 +32,12 @@ creds = Credentials.from_service_account_info(
 )
 
 client = gspread.authorize(creds)
-
 sheet = client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Pronostics")
 
 # -------------------------
-# Formulaire
+# Récupération des valeurs existantes
 # -------------------------
-
-st.title("📝 Saisie des pronostics")
-
-player = st.text_input("Ton nom / pseudo")
-
-row_index, row_values = None, None
-if player:
-    row_index, row_values = get_player_row(sheet, player)
+row_index, row_values = get_player_row(sheet, player)
 
 if row_values:
     existing_top5_h = row_values[1].split(",")
@@ -66,19 +62,65 @@ else:
     existing_globe_mass_start_h = ""
     existing_globe_mass_start_f = ""
 
-top5_h = [st.text_input(f"Place {i} (H)", value=existing_top5_h[i-1], key=f"h{i}") for i in range(1, 6)]
-top5_f = [st.text_input(f"Place {i} (F)", value=existing_top5_f[i-1], key=f"f{i}") for i in range(1, 6)]
+# -------------------------
+# Formulaire
+# -------------------------
+st.title("📝 Saisie des pronostics")
 
-globe_sprint_h = st.text_input("Vainqueur du globe sprint Hommes", value=existing_globe_sprint_h)
-globe_sprint_f = st.text_input("Vainqueur du globe sprint Femmes", value=existing_globe_sprint_f)
-globe_pursuit_h = st.text_input("Vainqueur du globe poursuite Hommes", value=existing_globe_pursuit_h)
-globe_pursuit_f = st.text_input("Vainqueur du globe poursuite Femmes", value=existing_globe_pursuit_f)
-globe_individual_h = st.text_input("Vainqueur du globe individuel Hommes", value=existing_globe_individual_h)
-globe_individual_f = st.text_input("Vainqueur du globe individuel Femmes", value=existing_globe_individual_f)
-globe_mass_h = st.text_input("Vainqueur du globe mass start Hommes", value=existing_globe_mass_start_h)
-globe_mass_f = st.text_input("Vainqueur du globe mass start Femmes", value=existing_globe_mass_start_f)
+col_h, col_f = st.columns(2)
 
-if st.button("💾 Enregistrer mes pronostics"):
+# --- HOMMES ---
+with col_h:
+    st.subheader("🧔 Hommes — Top 5 général")
+    top5_h = [
+        st.text_input(f"Place {i}", value=existing_top5_h[i-1], key=f"top5_h_{i}")
+        for i in range(1, 6)
+    ]
+
+    st.subheader("Globes Hommes")
+    globe_sprint_h = st.text_input("Globe Sprint", value=existing_globe_sprint_h, key="globe_sprint_h")
+    globe_pursuit_h = st.text_input("Globe Poursuite", value=existing_globe_pursuit_h, key="globe_pursuit_h")
+    globe_individual_h = st.text_input("Globe Individuel", value=existing_globe_individual_h, key="globe_individual_h")
+    globe_mass_h = st.text_input("Globe Mass Start", value=existing_globe_mass_start_h, key="globe_mass_h")
+
+# --- FEMMES ---
+with col_f:
+    st.subheader("👩 Femmes — Top 5 général")
+    top5_f = [
+        st.text_input(f"Place {i}", value=existing_top5_f[i-1], key=f"top5_f_{i}")
+        for i in range(1, 6)
+    ]
+
+    st.subheader("Globes Femmes")
+    globe_sprint_f = st.text_input("Globe Sprint", value=existing_globe_sprint_f, key="globe_sprint_f")
+    globe_pursuit_f = st.text_input("Globe Poursuite", value=existing_globe_pursuit_f, key="globe_pursuit_f")
+    globe_individual_f = st.text_input("Globe Individuel", value=existing_globe_individual_f, key="globe_individual_f")
+    globe_mass_f = st.text_input("Globe Mass Start", value=existing_globe_mass_start_f, key="globe_mass_f")
+
+# -------------------------
+# Validation
+# -------------------------
+all_filled = all([
+    *top5_h,
+    *top5_f,
+    globe_sprint_h,
+    globe_sprint_f,
+    globe_pursuit_h,
+    globe_pursuit_f,
+    globe_individual_h,
+    globe_individual_f,
+    globe_mass_h,
+    globe_mass_f
+])
+
+if not all_filled:
+    st.warning("Merci de remplir **tous** les pronostics avant de sauvegarder.")
+
+# -------------------------
+# Sauvegarde
+# -------------------------
+if st.button("💾 Enregistrer mes pronostics", disabled=not all_filled):
+
     row_values = [
         player,
         ",".join(top5_h),
@@ -92,17 +134,13 @@ if st.button("💾 Enregistrer mes pronostics"):
         globe_mass_h,
         globe_mass_f
     ]
-    
-    # 1) On récupère toute la colonne "player"
-    players_column = sheet.col_values(1)  # 1 = première colonne
+
+    players_column = sheet.col_values(1)
 
     if player in players_column:
-        # 2) Le joueur existe déjà → on met à jour sa ligne
-        row_index = players_column.index(player) + 1  # +1 car gspread est 1-based
-        sheet.update(f"A{row_index}:H{row_index}", [row_values])
+        row_index = players_column.index(player) + 1
+        sheet.update(f"A{row_index}:K{row_index}", [row_values])
         st.success("Tes pronostics ont été mis à jour ✅")
     else:
-        # 3) Nouveau joueur → on ajoute une ligne
         sheet.append_row(row_values)
         st.success("Tes pronostics ont été enregistrés ✅")
-
