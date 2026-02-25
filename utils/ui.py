@@ -6,10 +6,12 @@ def sidebar_menu():
     user = st.session_state.get("user")
 
     if user:
-        # Pages visibles uniquement si connecté
-        st.sidebar.page_link("pages/1_Saisie_Pronostics.py", label="Saisie des pronostics")
-        st.sidebar.page_link("pages/2_Classement.py", label="Classement")
-        st.sidebar.page_link("pages/3_Resultats_Officiels.py", label="Résultats officiels")
+        with st.sidebar.expander("📌 Pronostics", expanded=True):
+            st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
+            st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
+
+        st.sidebar.page_link("pages/3_Classement.py", label="Classement")
+        st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="Résultats officiels")
         # st.sidebar.page_link("pages/4_Mon_Compte.py", label="Mon compte")
 
         # Déconnexion

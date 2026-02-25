@@ -4,6 +4,8 @@ import json
 from google.oauth2.service_account import Credentials
 from scorer.players_score import get_player_row
 from utils.ui import sidebar_menu, user_header
+from datetime import datetime
+from utils.config import PRONOS_DEADLINE
 
 # -------------------------
 # UI
@@ -18,6 +20,11 @@ if not user:
     st.stop()
 
 player = user
+
+deadline_passed = datetime.now() > PRONOS_DEADLINE
+
+if deadline_passed:
+    st.error("⛔ La saison a débuté, tu ne peux plus saisir ou modifier tes pronos !")
 
 # -------------------------
 # Chargement des athlètes
@@ -112,7 +119,7 @@ else:
 # -------------------------
 # Formulaire
 # -------------------------
-st.title("📝 Saisie des pronostics")
+st.title("📝 Voir/Modifier mes pronostics")
 
 col_h, col_f = st.columns(2)
 
@@ -128,7 +135,8 @@ with col_h:
             f"Place {i}",
             DISPLAY_H,
             index=get_index(DISPLAY_H, existing_display),
-            key=f"top5_h_{i}"
+            key=f"top5_h_{i}",
+            disabled=deadline_passed
         )
 
         top5_h.append(DISPLAY_TO_IBUID[selected_display])
@@ -139,28 +147,32 @@ with col_h:
         "Globe Sprint",
         DISPLAY_H,
         index=get_index(DISPLAY_H, display_label(existing_globe_sprint_h)),
-        key="globe_sprint_h"
+        key="globe_sprint_h",
+        disabled=deadline_passed
     )]
 
     globe_pursuit_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_H,
         index=get_index(DISPLAY_H, display_label(existing_globe_pursuit_h)),
-        key="globe_pursuit_h"
+        key="globe_pursuit_h",
+        disabled=deadline_passed
     )]
 
     globe_individual_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_H,
         index=get_index(DISPLAY_H, display_label(existing_globe_individual_h)),
-        key="globe_individual_h"
+        key="globe_individual_h",
+        disabled=deadline_passed
     )]
 
     globe_mass_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_H,
         index=get_index(DISPLAY_H, display_label(existing_globe_mass_start_h)),
-        key="globe_mass_h"
+        key="globe_mass_h",
+        disabled=deadline_passed
     )]
 
 # --- FEMMES ---
@@ -175,7 +187,8 @@ with col_f:
             f"Place {i}",
             DISPLAY_F,
             index=get_index(DISPLAY_F, existing_display),
-            key=f"top5_f_{i}"
+            key=f"top5_f_{i}",
+            disabled=deadline_passed
         )
 
         top5_f.append(DISPLAY_TO_IBUID[selected_display])
@@ -186,28 +199,32 @@ with col_f:
         "Globe Sprint",
         DISPLAY_F,
         index=get_index(DISPLAY_F, display_label(existing_globe_sprint_f)),
-        key="globe_sprint_f"
+        key="globe_sprint_f",
+        disabled=deadline_passed
     )]
 
     globe_pursuit_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_F,
         index=get_index(DISPLAY_F, display_label(existing_globe_pursuit_f)),
-        key="globe_pursuit_f"
+        key="globe_pursuit_f",
+        disabled=deadline_passed
     )]
 
     globe_individual_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_F,
         index=get_index(DISPLAY_F, display_label(existing_globe_individual_f)),
-        key="globe_individual_f"
+        key="globe_individual_f",
+        disabled=deadline_passed
     )]
 
     globe_mass_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_F,
         index=get_index(DISPLAY_F, display_label(existing_globe_mass_start_f)),
-        key="globe_mass_f"
+        key="globe_mass_f",
+        disabled=deadline_passed
     )]
 
 # -------------------------
@@ -232,7 +249,7 @@ if not all_filled:
 # -------------------------
 # Sauvegarde
 # -------------------------
-if st.button("💾 Enregistrer mes pronostics", disabled=not all_filled):
+if st.button("💾 Enregistrer mes pronostics", disabled=not all_filled or deadline_passed):
 
     row_values = [
         player,

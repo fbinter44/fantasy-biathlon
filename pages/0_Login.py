@@ -37,7 +37,7 @@ if mode == "Se connecter":
         if ok:
             st.session_state["user"] = result  # result = username normalisé
             st.success("Connexion réussie")
-            st.switch_page("pages/2_Classement.py")
+            st.switch_page("pages/3_Classement.py")
         else:
             st.error(result)
 
