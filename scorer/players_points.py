@@ -77,28 +77,20 @@ def fuzzy_match(norm_name, candidate_norm_names, threshold=80):
 def compute_points(pred_list, df_top10):
     points_table = [90, 75, 65, 55, 50, 45, 41, 37, 34, 31]
 
-    # Préparer les noms normalisés du top 10
     df_top10 = df_top10.copy()
-    df_top10["norm"] = df_top10["name"].apply(normalize_name)
-
-    candidate_norms = df_top10["norm"].tolist()
+    candidate_ids = df_top10["id"].tolist()
 
     total = 0
     total_bonus = 0
     details = {}
 
     for predicted_rank, athlete in enumerate(pred_list, start=1):
-        norm_pred = normalize_name(athlete)
-
-        # fuzzy match → nom normalisé du top 10
-        matched_norm = fuzzy_match(norm_pred, candidate_norms)
-
-        if matched_norm is None:
+        if athlete not in candidate_ids:
             details[athlete] = 0
             continue
 
         # retrouver la ligne correspondante
-        row = df_top10[df_top10["norm"] == matched_norm].iloc[0]
+        row = df_top10[df_top10["id"] == athlete].iloc[0]
         real_rank = row["rank"]
 
         # points du barème
@@ -122,25 +114,19 @@ def compute_globe_winner_bonus(pred_winners: dict, df_top10):
     """
     # Normalisation des noms du top 10
     df_top10 = df_top10.copy()
-    df_top10["norm"] = df_top10["name"].apply(normalize_name)
 
     # On récupère le vainqueur réel (rank = 1)
     real_winner_row = df_top10[df_top10["rank"] == "1"].iloc[0]
-    real_winner_norm = real_winner_row["norm"]
+    real_winner_id = real_winner_row["id"]
 
-    # Liste des noms normalisés pour fuzzy matching
-    candidate_norms = df_top10["norm"].tolist()
+    # # Liste des noms normalisés pour fuzzy matching
+    # candidate_norms = df_top10["norm"].tolist()
 
     results = {}
     total_bonus = 0
 
-    for category, predicted_name in pred_winners.items():
-        norm_pred = normalize_name(predicted_name)
-
-        # fuzzy match
-        matched_norm = fuzzy_match(norm_pred, candidate_norms)
-
-        if matched_norm == real_winner_norm:
+    for category, predicted_id in pred_winners.items():
+        if predicted_id == real_winner_id:
             results[category] = 50
             total_bonus += 50
         else:

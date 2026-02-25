@@ -22,63 +22,45 @@ player = user
 # -------------------------
 # Chargement des athlètes
 # -------------------------
-with open("biathletes/athletes_h.json", encoding="utf-8") as f:
-    BIATHLETES_H = json.load(f)
-
-with open("biathletes/athletes_f.json", encoding="utf-8") as f:
-    BIATHLETES_F = json.load(f)
-
 with open("biathletes/athletes_info.json", encoding="utf-8") as f:
     ATHLETES_INFO = json.load(f)
 
+# Dictionnaire par IBUId
+ATHLETES_BY_IBUID = {a["IBUId"]: a for a in ATHLETES_INFO.values()}
+
 # -------------------------
-# Fonction drapeau
+# Drapeaux emoji (fiables partout)
 # -------------------------
-def flag(country_code):
-    if not country_code:
+FLAG = {
+    "FRA": "🇫🇷", "NOR": "🇳🇴", "SWE": "🇸🇪", "GER": "🇩🇪", "ITA": "🇮🇹",
+    "SUI": "🇨🇭", "AUT": "🇦🇹", "FIN": "🇫🇮", "USA": "🇺🇸", "CAN": "🇨🇦",
+    "CZE": "🇨🇿", "SVK": "🇸🇰", "SLO": "🇸🇮", "POL": "🇵🇱", "UKR": "🇺🇦",
+    "BLR": "🇧🇾", "RUS": "🇷🇺", "KAZ": "🇰🇿", "JPN": "🇯🇵", "CHN": "🇨🇳",
+}
+
+# -------------------------
+# Construction des listes internes (IBUId)
+# -------------------------
+BIATHLETES_H = [""] + [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "M"]
+BIATHLETES_F = [""] + [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "W"]
+
+# -------------------------
+# Label affiché = drapeau + nom + prénom
+# -------------------------
+def display_label(ibuid):
+    if ibuid == "":
         return ""
-    return "".join(chr(127397 + ord(c)) for c in country_code.upper())
+    info = ATHLETES_BY_IBUID[ibuid]
+    nat = info["NAT"]
+    flag = FLAG.get(nat, "🏳️")
+    # import pdb
+    # pdb.set_trace()
+    return f"{flag} {info['FamilyName']} {info['GivenName']}"
 
-# -------------------------
-# Construction des listes affichées
-# -------------------------
-BIATHLETES_H = [""] + BIATHLETES_H
-BIATHLETES_F = [""] + BIATHLETES_F
+DISPLAY_H = [display_label(i) for i in BIATHLETES_H]
+DISPLAY_F = [display_label(i) for i in BIATHLETES_F]
 
-DISPLAY_H = []
-DISPLAY_F = []
-DISPLAY_TO_SHORT = {}
-
-# Hommes
-for short in BIATHLETES_H:
-    if short == "":
-        DISPLAY_H.append("")
-        DISPLAY_TO_SHORT[""] = ""
-        continue
-    nat = ATHLETES_INFO[short]["NAT"]
-    disp = f"{flag(nat)} {short}"
-    DISPLAY_H.append(disp)
-    DISPLAY_TO_SHORT[disp] = short
-
-# Femmes
-for short in BIATHLETES_F:
-    if short == "":
-        DISPLAY_F.append("")
-        DISPLAY_TO_SHORT[""] = ""
-        continue
-    nat = ATHLETES_INFO[short]["NAT"]
-    disp = f"{flag(nat)} {short}"
-    DISPLAY_F.append(disp)
-    DISPLAY_TO_SHORT[disp] = short
-
-# -------------------------
-# Utilitaire index
-# -------------------------
-def get_display_value(shortname):
-    if not shortname:
-        return ""
-    nat = ATHLETES_INFO[shortname]["NAT"]
-    return f"{flag(nat)} {shortname}"
+DISPLAY_TO_IBUID = {display_label(i): i for i in BIATHLETES_H + BIATHLETES_F}
 
 def get_index(lst, value):
     return lst.index(value) if value in lst else 0
@@ -140,42 +122,44 @@ with col_h:
 
     top5_h = []
     for i in range(1, 6):
-        existing_display = get_display_value(existing_top5_h[i-1])
+        existing_display = display_label(existing_top5_h[i-1])
+
         selected_display = st.selectbox(
             f"Place {i}",
             DISPLAY_H,
             index=get_index(DISPLAY_H, existing_display),
             key=f"top5_h_{i}"
         )
-        top5_h.append(DISPLAY_TO_SHORT[selected_display])
+
+        top5_h.append(DISPLAY_TO_IBUID[selected_display])
 
     st.subheader("Globes Hommes")
 
-    globe_sprint_h = DISPLAY_TO_SHORT[st.selectbox(
+    globe_sprint_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Sprint",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, get_display_value(existing_globe_sprint_h)),
+        index=get_index(DISPLAY_H, display_label(existing_globe_sprint_h)),
         key="globe_sprint_h"
     )]
 
-    globe_pursuit_h = DISPLAY_TO_SHORT[st.selectbox(
+    globe_pursuit_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, get_display_value(existing_globe_pursuit_h)),
+        index=get_index(DISPLAY_H, display_label(existing_globe_pursuit_h)),
         key="globe_pursuit_h"
     )]
 
-    globe_individual_h = DISPLAY_TO_SHORT[st.selectbox(
+    globe_individual_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, get_display_value(existing_globe_individual_h)),
+        index=get_index(DISPLAY_H, display_label(existing_globe_individual_h)),
         key="globe_individual_h"
     )]
 
-    globe_mass_h = DISPLAY_TO_SHORT[st.selectbox(
+    globe_mass_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, get_display_value(existing_globe_mass_start_h)),
+        index=get_index(DISPLAY_H, display_label(existing_globe_mass_start_h)),
         key="globe_mass_h"
     )]
 
@@ -185,42 +169,44 @@ with col_f:
 
     top5_f = []
     for i in range(1, 6):
-        existing_display = get_display_value(existing_top5_f[i-1])
+        existing_display = display_label(existing_top5_f[i-1])
+
         selected_display = st.selectbox(
             f"Place {i}",
             DISPLAY_F,
             index=get_index(DISPLAY_F, existing_display),
             key=f"top5_f_{i}"
         )
-        top5_f.append(DISPLAY_TO_SHORT[selected_display])
+
+        top5_f.append(DISPLAY_TO_IBUID[selected_display])
 
     st.subheader("Globes Femmes")
 
-    globe_sprint_f = DISPLAY_TO_SHORT[st.selectbox(
+    globe_sprint_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Sprint",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, get_display_value(existing_globe_sprint_f)),
+        index=get_index(DISPLAY_F, display_label(existing_globe_sprint_f)),
         key="globe_sprint_f"
     )]
 
-    globe_pursuit_f = DISPLAY_TO_SHORT[st.selectbox(
+    globe_pursuit_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, get_display_value(existing_globe_pursuit_f)),
+        index=get_index(DISPLAY_F, display_label(existing_globe_pursuit_f)),
         key="globe_pursuit_f"
     )]
 
-    globe_individual_f = DISPLAY_TO_SHORT[st.selectbox(
+    globe_individual_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, get_display_value(existing_globe_individual_f)),
+        index=get_index(DISPLAY_F, display_label(existing_globe_individual_f)),
         key="globe_individual_f"
     )]
 
-    globe_mass_f = DISPLAY_TO_SHORT[st.selectbox(
+    globe_mass_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, get_display_value(existing_globe_mass_start_f)),
+        index=get_index(DISPLAY_F, display_label(existing_globe_mass_start_f)),
         key="globe_mass_f"
     )]
 

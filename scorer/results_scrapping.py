@@ -45,6 +45,7 @@ def get_cup_results(gender, discipline):
     rows = data["Rows"][:10]  # top 10
 
     df = pd.DataFrame([{
+        "id": r["IBUId"],
         "rank": r["Rank"],
         "name": r["Name"],
         "nation": r["Nat"],
