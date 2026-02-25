@@ -1,5 +1,6 @@
 import streamlit as st
 import gspread
+import json
 from google.oauth2.service_account import Credentials
 from scorer.players_score import get_player_row
 from utils.ui import sidebar_menu, user_header
@@ -17,6 +18,70 @@ if not user:
     st.stop()
 
 player = user
+
+# -------------------------
+# Chargement des athlètes
+# -------------------------
+with open("biathletes/athletes_h.json", encoding="utf-8") as f:
+    BIATHLETES_H = json.load(f)
+
+with open("biathletes/athletes_f.json", encoding="utf-8") as f:
+    BIATHLETES_F = json.load(f)
+
+with open("biathletes/athletes_info.json", encoding="utf-8") as f:
+    ATHLETES_INFO = json.load(f)
+
+# -------------------------
+# Fonction drapeau
+# -------------------------
+def flag(country_code):
+    if not country_code:
+        return ""
+    return "".join(chr(127397 + ord(c)) for c in country_code.upper())
+
+# -------------------------
+# Construction des listes affichées
+# -------------------------
+BIATHLETES_H = [""] + BIATHLETES_H
+BIATHLETES_F = [""] + BIATHLETES_F
+
+DISPLAY_H = []
+DISPLAY_F = []
+DISPLAY_TO_SHORT = {}
+
+# Hommes
+for short in BIATHLETES_H:
+    if short == "":
+        DISPLAY_H.append("")
+        DISPLAY_TO_SHORT[""] = ""
+        continue
+    nat = ATHLETES_INFO[short]["NAT"]
+    disp = f"{flag(nat)} {short}"
+    DISPLAY_H.append(disp)
+    DISPLAY_TO_SHORT[disp] = short
+
+# Femmes
+for short in BIATHLETES_F:
+    if short == "":
+        DISPLAY_F.append("")
+        DISPLAY_TO_SHORT[""] = ""
+        continue
+    nat = ATHLETES_INFO[short]["NAT"]
+    disp = f"{flag(nat)} {short}"
+    DISPLAY_F.append(disp)
+    DISPLAY_TO_SHORT[disp] = short
+
+# -------------------------
+# Utilitaire index
+# -------------------------
+def get_display_value(shortname):
+    if not shortname:
+        return ""
+    nat = ATHLETES_INFO[shortname]["NAT"]
+    return f"{flag(nat)} {shortname}"
+
+def get_index(lst, value):
+    return lst.index(value) if value in lst else 0
 
 # -------------------------
 # Connexion Google Sheets
@@ -72,30 +137,92 @@ col_h, col_f = st.columns(2)
 # --- HOMMES ---
 with col_h:
     st.subheader("🧔 Hommes — Top 5 général")
-    top5_h = [
-        st.text_input(f"Place {i}", value=existing_top5_h[i-1], key=f"top5_h_{i}")
-        for i in range(1, 6)
-    ]
+
+    top5_h = []
+    for i in range(1, 6):
+        existing_display = get_display_value(existing_top5_h[i-1])
+        selected_display = st.selectbox(
+            f"Place {i}",
+            DISPLAY_H,
+            index=get_index(DISPLAY_H, existing_display),
+            key=f"top5_h_{i}"
+        )
+        top5_h.append(DISPLAY_TO_SHORT[selected_display])
 
     st.subheader("Globes Hommes")
-    globe_sprint_h = st.text_input("Globe Sprint", value=existing_globe_sprint_h, key="globe_sprint_h")
-    globe_pursuit_h = st.text_input("Globe Poursuite", value=existing_globe_pursuit_h, key="globe_pursuit_h")
-    globe_individual_h = st.text_input("Globe Individuel", value=existing_globe_individual_h, key="globe_individual_h")
-    globe_mass_h = st.text_input("Globe Mass Start", value=existing_globe_mass_start_h, key="globe_mass_h")
+
+    globe_sprint_h = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Sprint",
+        DISPLAY_H,
+        index=get_index(DISPLAY_H, get_display_value(existing_globe_sprint_h)),
+        key="globe_sprint_h"
+    )]
+
+    globe_pursuit_h = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Poursuite",
+        DISPLAY_H,
+        index=get_index(DISPLAY_H, get_display_value(existing_globe_pursuit_h)),
+        key="globe_pursuit_h"
+    )]
+
+    globe_individual_h = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Individuel",
+        DISPLAY_H,
+        index=get_index(DISPLAY_H, get_display_value(existing_globe_individual_h)),
+        key="globe_individual_h"
+    )]
+
+    globe_mass_h = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Mass Start",
+        DISPLAY_H,
+        index=get_index(DISPLAY_H, get_display_value(existing_globe_mass_start_h)),
+        key="globe_mass_h"
+    )]
 
 # --- FEMMES ---
 with col_f:
     st.subheader("👩 Femmes — Top 5 général")
-    top5_f = [
-        st.text_input(f"Place {i}", value=existing_top5_f[i-1], key=f"top5_f_{i}")
-        for i in range(1, 6)
-    ]
+
+    top5_f = []
+    for i in range(1, 6):
+        existing_display = get_display_value(existing_top5_f[i-1])
+        selected_display = st.selectbox(
+            f"Place {i}",
+            DISPLAY_F,
+            index=get_index(DISPLAY_F, existing_display),
+            key=f"top5_f_{i}"
+        )
+        top5_f.append(DISPLAY_TO_SHORT[selected_display])
 
     st.subheader("Globes Femmes")
-    globe_sprint_f = st.text_input("Globe Sprint", value=existing_globe_sprint_f, key="globe_sprint_f")
-    globe_pursuit_f = st.text_input("Globe Poursuite", value=existing_globe_pursuit_f, key="globe_pursuit_f")
-    globe_individual_f = st.text_input("Globe Individuel", value=existing_globe_individual_f, key="globe_individual_f")
-    globe_mass_f = st.text_input("Globe Mass Start", value=existing_globe_mass_start_f, key="globe_mass_f")
+
+    globe_sprint_f = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Sprint",
+        DISPLAY_F,
+        index=get_index(DISPLAY_F, get_display_value(existing_globe_sprint_f)),
+        key="globe_sprint_f"
+    )]
+
+    globe_pursuit_f = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Poursuite",
+        DISPLAY_F,
+        index=get_index(DISPLAY_F, get_display_value(existing_globe_pursuit_f)),
+        key="globe_pursuit_f"
+    )]
+
+    globe_individual_f = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Individuel",
+        DISPLAY_F,
+        index=get_index(DISPLAY_F, get_display_value(existing_globe_individual_f)),
+        key="globe_individual_f"
+    )]
+
+    globe_mass_f = DISPLAY_TO_SHORT[st.selectbox(
+        "Globe Mass Start",
+        DISPLAY_F,
+        index=get_index(DISPLAY_F, get_display_value(existing_globe_mass_start_f)),
+        key="globe_mass_f"
+    )]
 
 # -------------------------
 # Validation
