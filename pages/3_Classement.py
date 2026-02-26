@@ -30,8 +30,6 @@ standings_men = BiathlonStandings("Men")
 standings_men.load_all()
 standings_women = BiathlonStandings("Women")
 standings_women.load_all()
-# import pdb
-# pdb.set_trace()
 scoring_summary = compute_all_players_points(players_predictions, standings_men, standings_women)
 
 st.set_page_config(layout="wide")
@@ -80,7 +78,7 @@ st.markdown("---")
 # ---------------------------------------------------------
 st.subheader("📋 Tableau complet")
 
-st.dataframe(df, use_container_width=True)
+st.dataframe(df, use_container_width=True, hide_index=True)
 
 st.markdown("---")
 
