@@ -13,7 +13,7 @@ def sidebar_menu():
 
         st.sidebar.page_link("pages/3_Classement.py", label="📈 Classement")
         st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
-        # st.sidebar.page_link("pages/4_Mon_Compte.py", label="Mon compte")
+        st.sidebar.page_link("pages/6_Mon_Compte.py", label="👤 Mon Compte")
 
         # Déconnexion
         if st.sidebar.button("Se déconnecter"):
