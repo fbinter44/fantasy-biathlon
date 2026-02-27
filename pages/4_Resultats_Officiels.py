@@ -47,6 +47,9 @@ for attr, display_name in DISCIPLINES:
     df_men = getattr(men_results, attr)
     df_women = getattr(women_results, attr)
 
+    df_men.drop("id", axis=1, inplace=True)
+    df_women.drop("id", axis=1, inplace=True)
+
     with col1:
         st.subheader("Hommes")
         st.dataframe(

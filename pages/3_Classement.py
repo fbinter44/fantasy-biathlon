@@ -5,6 +5,7 @@ import altair as alt
 from scorer.players_points import load_players_data, compute_all_players_points
 from scorer.results_data import BiathlonStandings
 from utils.ui import sidebar_menu, user_header
+from utils.visualisation_utils import player_podium_card
 
 sidebar_menu()
 user_header()
@@ -62,13 +63,32 @@ df = pd.DataFrame([
 # ---------------------------------------------------------
 st.subheader("🥇 Top 3")
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns([1, 1, 1])
 
-for col, (i, row) in zip([col1, col2, col3], df.head(3).iterrows()):
-    col.metric(
-        label=f"{i+1}. {row['Joueur']}",
-        value=f"{row['Total']} pts",
-        delta=f"+{row['Bonus place'] + row['Bonus globes']} bonus"
+top3 = df.head(3)
+
+with col1:
+    player_podium_card(
+        rank=1,
+        player=top3.iloc[0]["Joueur"],
+        total_points=top3.iloc[0]["Total"],
+        bonus_points=top3.iloc[0]["Bonus place"] + top3.iloc[0]["Bonus globes"]
+    )
+
+with col2:
+    player_podium_card(
+        rank=2,
+        player=top3.iloc[1]["Joueur"],
+        total_points=top3.iloc[1]["Total"],
+        bonus_points=top3.iloc[1]["Bonus place"] + top3.iloc[1]["Bonus globes"]
+    )
+
+with col3:
+    player_podium_card(
+        rank=3,
+        player=top3.iloc[2]["Joueur"],
+        total_points=top3.iloc[2]["Total"],
+        bonus_points=top3.iloc[2]["Bonus place"] + top3.iloc[2]["Bonus globes"]
     )
 
 st.markdown("---")
