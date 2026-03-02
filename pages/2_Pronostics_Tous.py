@@ -6,6 +6,9 @@ from google.oauth2.service_account import Credentials
 from utils.ui import sidebar_menu, user_header
 from utils.config import athlete_label, split_top5
 
+
+st.session_state["current_page"] = "2_Pronostics_Tous"
+
 st.set_page_config(page_title="Tous les pronostics", layout="wide")
 
 sidebar_menu()
@@ -103,6 +106,7 @@ df = df.rename(columns={
     "F_4": "4e ",
     "F_5": "5e ",
 })
+
 
 # -----------------------------
 # AFFICHAGE SELON LE MODE

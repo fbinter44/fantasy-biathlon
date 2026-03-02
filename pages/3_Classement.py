@@ -7,6 +7,9 @@ from scorer.results_data import BiathlonStandings
 from utils.ui import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
 
+
+st.session_state["current_page"] = "3_Classement"
+
 sidebar_menu()
 user_header()
 

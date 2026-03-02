@@ -1,6 +1,9 @@
 import streamlit as st
 from utils.ui import sidebar_menu, user_header
 
+
+st.session_state["current_page"] = "5_Reglement"
+
 st.set_page_config(page_title="Règlement", layout="wide")
 
 sidebar_menu()

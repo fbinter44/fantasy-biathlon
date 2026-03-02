@@ -3,6 +3,7 @@ from datetime import datetime
 import pandas as pd
 import os
 import pickle
+import json
 
 RELAY_IDS = ["RL", "SR"]
 
@@ -147,6 +148,11 @@ class Season:
         self.season_code = season_code
         self.nb_venues = NB_VENUES_BY_SEASON[season_code]
         self.venues = []
+        self.timeline = {}
+
+    def load_athletes_info(self, path="biathletes/athletes_info.json"):
+        with open(path, "r", encoding="utf-8") as f:
+            self.athletes_info = json.load(f)
 
     def load_venues(self):
         for i in range(1, self.nb_venues + 1):
@@ -168,64 +174,85 @@ class Season:
         return f"<Saison {self.season_code} ({len(self.venues)} weekends)>"
     
     def build_ibu_standings_after_each_venue(self):
-        timeline = []
-
         # Classements cumulés
-        points_general = {}
-        points_sprint = {}
-        points_pursuit = {}
-        points_individual = {}
-        points_mass = {}
+        points_general_men = {}
+        points_sprint_men = {}
+        points_pursuit_men = {}
+        points_individual_men = {}
+        points_mass_men = {}
+        points_general_women = {}
+        points_sprint_women = {}
+        points_pursuit_women = {}
+        points_individual_women = {}
+        points_mass_women = {}
 
-        for venue in self.venues:
+        self.load_athletes_info()
+
+        for i, venue in enumerate(self.venues):
             for ep in venue.epreuves:
                 df = ep.results
 
                 # Général
                 for _, r in df.iterrows():
                     if r["points"]:
-                        points_general[r["ibu_id"]] = int(points_general.get(r["ibu_id"], 0)) + int(r["points"])
+                        if self.athletes_info[r["ibu_id"]]['GenderId'] == "M":
+                            points_general_men[r["ibu_id"]] = int(points_general_men.get(r["ibu_id"], 0)) + int(r["points"])
+                        else:
+                            points_general_women[r["ibu_id"]] = int(points_general_women.get(r["ibu_id"], 0)) + int(r["points"])
 
                 # Discipline
                 if ep.discipline == "SP":
                     for _, r in df.iterrows():
                         if r["points"]:
-                            points_sprint[r["ibu_id"]] = int(points_sprint.get(r["ibu_id"], 0)) + int(r["points"])
+                            if self.athletes_info[r["ibu_id"]]['GenderId'] == "M":
+                                points_sprint_men[r["ibu_id"]] = int(points_sprint_men.get(r["ibu_id"], 0)) + int(r["points"])
+                            else:
+                                points_sprint_women[r["ibu_id"]] = int(points_sprint_women.get(r["ibu_id"], 0)) + int(r["points"])
 
                 if ep.discipline == "PU":
                     for _, r in df.iterrows():
                         if r["points"]:
-                            points_pursuit[r["ibu_id"]] = int(points_pursuit.get(r["ibu_id"], 0)) + int(r["points"])
-
-                if ep.discipline == "IN":
+                            if self.athletes_info[r["ibu_id"]]['GenderId'] == "M":
+                                points_pursuit_men[r["ibu_id"]] = int(points_pursuit_men.get(r["ibu_id"], 0)) + int(r["points"])
+                            else:
+                                points_pursuit_women[r["ibu_id"]] = int(points_pursuit_women.get(r["ibu_id"], 0)) + int(r["points"])
+                if ep.discipline == "IN" or ep.discipline == "SI":
                     for _, r in df.iterrows():
                         if r["points"]:
-                            points_individual[r["ibu_id"]] = int(points_individual.get(r["ibu_id"], 0)) + int(r["points"])
+                            if self.athletes_info[r["ibu_id"]]['GenderId'] == "M":
+                                points_individual_men[r["ibu_id"]] = int(points_individual_men.get(r["ibu_id"], 0)) + int(r["points"])
+                            else:
+                                points_individual_women[r["ibu_id"]] = int(points_individual_women.get(r["ibu_id"], 0)) + int(r["points"])
 
                 if ep.discipline == "MS":
                     for _, r in df.iterrows():
                         if r["points"]:
-                            points_mass[r["ibu_id"]] = int(points_mass.get(r["ibu_id"], 0)) + int(r["points"])
+                            if self.athletes_info[r["ibu_id"]]['GenderId'] == "M":
+                                points_mass_men[r["ibu_id"]] = int(points_mass_men.get(r["ibu_id"], 0)) + int(r["points"])
+                            else:
+                                points_mass_women[r["ibu_id"]] = int(points_mass_women.get(r["ibu_id"], 0)) + int(r["points"])
 
-            timeline.append({
+            self.timeline[i] = {
                 "venue_id": venue.event_id,
                 "start": venue.start_date,
                 "end": venue.end_date,
-                "general": points_general.copy(),
-                "sprint": points_sprint.copy(),
-                "pursuit": points_pursuit.copy(),
-                "individual": points_individual.copy(),
-                "mass": points_mass.copy()
-            })
-
-        return timeline
-
+                "general_men": points_general_men.copy(),
+                "general_women": points_general_women.copy(),
+                "sprint_men": points_sprint_men.copy(),
+                "sprint_women": points_sprint_women.copy(),
+                "pursuit_men": points_pursuit_men.copy(),
+                "pursuit_women": points_pursuit_women.copy(),
+                "individual_men": points_individual_men.copy(),
+                "individual_women": points_individual_women.copy(),
+                "mass_men": points_mass_men.copy(),
+                "mass_women": points_mass_women.copy()
+            }
 
 
 if __name__ == "__main__":
     season = Season()
     season.load_venues()
     season.load_all_results()
-    timeline = season.build_ibu_standings_after_each_venue()
+    season.build_ibu_standings_after_each_venue()
     import pdb
     pdb.set_trace()

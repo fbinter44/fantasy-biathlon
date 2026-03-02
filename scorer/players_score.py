@@ -56,18 +56,19 @@ def load_players_data_from_gsheet():
     # Liste des joueurs
     try:
         players_list = df["player"].tolist()
+        players_list = [p.title() for p in players_list]
     except KeyError:
         raise KeyError("NO_PRONOS")
 
     # Top 5 hommes
     top_men = {
-        row["player"]: row["top5_h"].split(",")
+        row["player"].title(): row["top5_h"].split(",")
         for _, row in df.iterrows()
     }
 
     # Top 5 femmes
     top_women = {
-        row["player"]: row["top5_f"].split(",")
+        row["player"].title(): row["top5_f"].split(",")
         for _, row in df.iterrows()
     }
 

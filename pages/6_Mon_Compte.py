@@ -4,6 +4,9 @@ from google.oauth2.service_account import Credentials
 from utils.ui import sidebar_menu, user_header
 import pandas as pd
 
+
+st.session_state["current_page"] = "6_Mon_Compte"
+
 st.set_page_config(page_title="Mon Compte", layout="wide")
 
 sidebar_menu()

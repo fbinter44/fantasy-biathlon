@@ -31,6 +31,8 @@ class PlayerPoints():
         self.bonus_right_place += total_bonus
 
     def compute_bonus_globes_points(self, player, standings_men, standings_women):
+        # import pdb
+        # pdb.set_trace()
         sprint_men, _ = compute_globe_winner_bonus(player.sprint_winners, standings_men.sprint)
         sprint_women, _ = compute_globe_winner_bonus(player.sprint_winners, standings_women.sprint)
         pursuit_men, _ = compute_globe_winner_bonus(player.pursuit_winners, standings_men.pursuit)
@@ -44,34 +46,6 @@ class PlayerPoints():
 
     def compute_total_points(self):
         self.total_points = self.total_men_points + self.total_women_points + self.bonus_globes
-
-
-def normalize_name(name: str) -> str:
-    # minuscules
-    name = name.lower()
-    # enlever accents
-    name = ''.join(
-        c for c in unicodedata.normalize('NFD', name)
-        if unicodedata.category(c) != 'Mn'
-    )
-    # enlever tirets
-    name = name.replace('-', ' ')
-    # split + tri pour gérer "Quentin Fillon Maillet" vs "Fillon Maillet Quentin"
-    tokens = name.split()
-    tokens.sort()
-    return " ".join(tokens)
-
-
-def fuzzy_match(norm_name, candidate_norm_names, threshold=80):
-    match, score, _ = process.extractOne(
-        norm_name,
-        candidate_norm_names,
-        scorer=fuzz.token_sort_ratio
-    )
-    if score >= threshold:
-        return match
-    return None
-
 
 
 def compute_points(pred_list, df_top10):
@@ -115,8 +89,12 @@ def compute_globe_winner_bonus(pred_winners: dict, df_top10):
     # Normalisation des noms du top 10
     df_top10 = df_top10.copy()
 
+    if df_top10.empty:
+        return 0, {}
+
     # On récupère le vainqueur réel (rank = 1)
     real_winner_row = df_top10[df_top10["rank"] == "1"].iloc[0]
+
     real_winner_id = real_winner_row["id"]
 
     # # Liste des noms normalisés pour fuzzy matching
@@ -135,7 +113,6 @@ def compute_globe_winner_bonus(pred_winners: dict, df_top10):
     return total_bonus, results
 
 
-
 def load_players_data():
     top5_h, top5_f, players, globes = load_players_data_from_gsheet()
     players_predictions = fill_player_predictions(top5_h, top5_f, players, globes)
@@ -148,7 +125,6 @@ def compute_all_players_points(predictions, standings_men, standings_women):
         player_with_points = compute_player_point(predictions[player], standings_men, standings_women)
         scoring_summary[player] = player_with_points
     return scoring_summary
-
 
 
 def compute_player_point(player, standings_men, standings_women):

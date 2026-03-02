@@ -4,14 +4,30 @@ def sidebar_menu():
     st.sidebar.title("Navigation")
 
     user = st.session_state.get("user")
+    current_page = st.session_state.get("current_page", "")
+
+    pronostics_pages = [
+        "1_Pronostics_Modifier",
+        "2_Pronostics_Tous"
+    ]
+
+    standings_pages = [
+        "3_Classement",
+        "3b_Evolution_Classement"
+    ]
+    
+    pronostics_expanded = current_page in pronostics_pages
+    standings_expanded = current_page in standings_pages
 
     st.sidebar.page_link("pages/5_Reglement.py", label="📘 Règlement")
     if user:
-        with st.sidebar.expander("📌 Pronostics", expanded=False):
+        with st.sidebar.expander("📌 Pronostics", expanded=pronostics_expanded):
             st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
             st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
 
-        st.sidebar.page_link("pages/3_Classement.py", label="📈 Classement")
+        with st.sidebar.expander("📈 Classement", expanded=standings_expanded):
+            st.page_link("pages/3_Classement.py", label="Détails du classement")
+            st.page_link("pages/3b_Evolution_Classement.py", label="Evolution du classement")
         st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
         st.sidebar.page_link("pages/6_Mon_Compte.py", label="👤 Mon Compte")
 

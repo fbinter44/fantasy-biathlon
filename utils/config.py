@@ -87,6 +87,17 @@ FLAG = {
     "YUG": "🏳️",  # Yougoslavie (pas de drapeau emoji)
 }
 
+VENUES_NAMES = {
+    "Swedish National Biathlon Arena": "Oestersund",
+    "Biathlon Stadium Hochfilzen": "Hochfilzen",
+    "Le Grand-Bornand Biathlon Arena": "Le Grand-Bornand",
+    "ARENA am Rennsteig": "Oberhof",
+    "Chiemgau Arena": "Ruhpolding",
+    "Vysocina Arena": "Nove Mesto",
+    "Biathlon Stadium Kontiolahti": "Kontiolahti",
+    "Tehvandi Sport Center": "Otepaa",
+    "Holmenkollen": "Oslo Holmenkollen",
+}
 
 def athlete_label(ibuid):
     if not ibuid or ibuid not in ATHLETES_BY_IBUID:

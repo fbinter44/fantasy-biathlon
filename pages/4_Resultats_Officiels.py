@@ -1,14 +1,14 @@
 import streamlit as st
 import altair as alt
 import pandas as pd
-
-
 from scorer.results_data import BiathlonStandings
 from utils.ui import sidebar_menu, user_header
 
+
+st.session_state["current_page"] = "4_Resultats_Officiels"
+
 sidebar_menu()
 user_header()
-
 
 st.set_page_config(layout="wide")
 

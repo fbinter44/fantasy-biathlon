@@ -10,6 +10,8 @@ from utils.config import PRONOS_DEADLINE
 # -------------------------
 # UI
 # -------------------------
+st.session_state["current_page"] = "1_Pronostics_Modifier"
+
 sidebar_menu()
 user_header()
 
@@ -60,8 +62,6 @@ def display_label(ibuid):
     info = ATHLETES_BY_IBUID[ibuid]
     nat = info["NAT"]
     flag = FLAG.get(nat, "🏳️")
-    # import pdb
-    # pdb.set_trace()
     return f"{flag} {info['FamilyName']} {info['GivenName']}"
 
 DISPLAY_H = [display_label(i) for i in BIATHLETES_H]
@@ -128,18 +128,21 @@ with col_h:
     st.subheader("🧔 Hommes — Top 5 général")
 
     top5_h = []
+    used_h = set()
     for i in range(1, 6):
         existing_display = display_label(existing_top5_h[i-1])
+        available = [d for d in DISPLAY_H if d not in used_h or d == existing_display]
 
         selected_display = st.selectbox(
             f"Place {i}",
-            DISPLAY_H,
-            index=get_index(DISPLAY_H, existing_display),
+            available,
+            index=get_index(available, existing_display),
             key=f"top5_h_{i}",
             disabled=deadline_passed
         )
 
         top5_h.append(DISPLAY_TO_IBUID[selected_display])
+        used_h.add(selected_display)
 
     st.subheader("Globes Hommes")
 
@@ -180,18 +183,22 @@ with col_f:
     st.subheader("👩 Femmes — Top 5 général")
 
     top5_f = []
+    used_f = set()
     for i in range(1, 6):
         existing_display = display_label(existing_top5_f[i-1])
+        available = [d for d in DISPLAY_F if d not in used_f or d == existing_display]
 
         selected_display = st.selectbox(
             f"Place {i}",
-            DISPLAY_F,
-            index=get_index(DISPLAY_F, existing_display),
+            available,
+            index=get_index(available, existing_display),
             key=f"top5_f_{i}",
             disabled=deadline_passed
         )
 
         top5_f.append(DISPLAY_TO_IBUID[selected_display])
+        used_f.add(selected_display)
+
 
     st.subheader("Globes Femmes")
 
@@ -246,10 +253,21 @@ all_filled = all([
 if not all_filled:
     st.warning("Merci de remplir **tous** les pronostics avant de sauvegarder.")
 
+# Vérification des doublons dans les TOP 5
+duplicates_h = len(top5_h) != len(set(top5_h))
+duplicates_f = len(top5_f) != len(set(top5_f))
+
+if duplicates_h or duplicates_f:
+    if duplicates_h:
+        st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Hommes.")
+    if duplicates_f:
+        st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Femmes.")
+
 # -------------------------
 # Sauvegarde
 # -------------------------
-if st.button("💾 Enregistrer mes pronostics", disabled=not all_filled or deadline_passed):
+can_save = all_filled and not deadline_passed and not duplicates_h and not duplicates_f
+if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     row_values = [
         player,

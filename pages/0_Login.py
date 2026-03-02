@@ -7,6 +7,9 @@ from utils.auth import (
 )
 from utils.ui import sidebar_menu, user_header
 
+
+st.session_state["current_page"] = "0_Login"
+
 sidebar_menu()
 user_header()
 
