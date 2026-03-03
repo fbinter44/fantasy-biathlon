@@ -79,20 +79,22 @@ with col1:
     )
 
 with col2:
-    player_podium_card(
-        rank=2,
-        player=top3.iloc[1]["Joueur"],
-        total_points=top3.iloc[1]["Total"],
-        bonus_points=top3.iloc[1]["Bonus place"] + top3.iloc[1]["Bonus globes"]
-    )
+    if len(top3) > 1:
+        player_podium_card(
+            rank=2,
+            player=top3.iloc[1]["Joueur"],
+            total_points=top3.iloc[1]["Total"],
+            bonus_points=top3.iloc[1]["Bonus place"] + top3.iloc[1]["Bonus globes"]
+        )
 
 with col3:
-    player_podium_card(
-        rank=3,
-        player=top3.iloc[2]["Joueur"],
-        total_points=top3.iloc[2]["Total"],
-        bonus_points=top3.iloc[2]["Bonus place"] + top3.iloc[2]["Bonus globes"]
-    )
+    if len(top3) > 2:
+        player_podium_card(
+            rank=3,
+            player=top3.iloc[2]["Joueur"],
+            total_points=top3.iloc[2]["Total"],
+            bonus_points=top3.iloc[2]["Bonus place"] + top3.iloc[2]["Bonus globes"]
+        )
 
 st.markdown("---")
 
