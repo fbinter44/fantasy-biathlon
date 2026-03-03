@@ -5,9 +5,13 @@ import streamlit as st
 import re
 import secrets
 import requests
+import bcrypt
 
 def hash_password(password: str) -> str:
-    return hashlib.sha256(password.encode()).hexdigest()
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
 
 def validate_username(username: str) -> tuple[bool, str]:
     if not 3 <= len(username) <= 20:
@@ -51,7 +55,7 @@ def authenticate(identifier, password):
 
     for user in users:
         if identifier in (user["username"], user["email"]):
-            if user["password_hash"] == password_hash:
+            if verify_password(password, user["password_hash"]):
                 return True, user["username"]
             return False, "Mot de passe incorrect."
 

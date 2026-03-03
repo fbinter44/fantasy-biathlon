@@ -25,7 +25,7 @@ except KeyError as e:
     if str(e) == "'NO_PRONOS'":
         st.info(
             "Aucun joueur n’a encore rempli ses pronostics.\n\n"
-            "👉 Commence par saisir les tiens dans la page **Saisie des pronostics**."
+            "👉 Commence par saisir les tiens dans la page **Voir/Modifier mes pronos**."
         )
         st.stop()
     else:

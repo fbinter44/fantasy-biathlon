@@ -7,24 +7,32 @@ from utils.auth import (
 )
 from utils.ui import sidebar_menu, user_header
 
-
+# ---------------------------------------------------------
+# Identification de la page (pour garder le menu Pronostics ouvert/fermé)
+# ---------------------------------------------------------
 st.session_state["current_page"] = "0_Login"
 
+# ---------------------------------------------------------
+# Barre latérale + header utilisateur
+# (affichés même sur la page Login pour cohérence globale)
+# ---------------------------------------------------------
 sidebar_menu()
 user_header()
 
-
+# ---------------------------------------------------------
+# Si l'utilisateur est déjà connecté → inutile d'afficher le formulaire
+# ---------------------------------------------------------
 if st.session_state.get("user"):
     st.success(f"Déjà connecté en tant que {st.session_state['user']}")
     st.stop()
 
-
+# ---------------------------------------------------------
+# Titre + choix du mode (connexion / création / reset)
+# ---------------------------------------------------------
 st.title("🔐 Connexion / Inscription")
 
-options = ["Se connecter", "Créer un compte"]
-if "user" not in st.session_state:
-    options.append("Mot de passe oublié")
-
+# Les trois modes possibles de la page
+options = ["Se connecter", "Créer un compte", "Mot de passe oublié"]
 mode = st.radio("Choisis une option", options)
 
 # ---------------------------------------------------------
@@ -34,7 +42,7 @@ if mode == "Se connecter":
     identifier = st.text_input("Nom d'utilisateur ou email")
     password = st.text_input("Mot de passe", type="password")
 
-    if st.button("Connexion"):
+    if st.button("Connexion", key="login_btn"):
         ok, result = authenticate(identifier, password)
 
         if ok:
@@ -52,7 +60,7 @@ elif mode == "Créer un compte":
     email = st.text_input("Adresse email")
     password = st.text_input("Mot de passe", type="password")
 
-    if st.button("Créer mon compte"):
+    if st.button("Créer mon compte", key="create_btn"):
         ok, msg = create_account(username, email, password)
         if ok:
             st.success(msg)
@@ -73,16 +81,10 @@ else:
     # --- 3A : DEMANDE DE CODE ---
     if reset_mode == "Demander un code":
         email = st.text_input("Ton adresse email")
-
-        if st.button("Envoyer le code"):
+        if st.button("Envoyer le code", key="send_code_btn"):
             ok, result = request_password_reset(email)
-
             if ok:
-                st.success(
-                    "Un code de réinitialisation a été généré. "
-                    "Comme l’envoi d’email n’est pas encore configuré, "
-                    "voici ton code temporaire :"
-                )
+                st.success("Un code de réinitialisation a été généré.")
                 st.code(result)
                 st.info("Tu peux maintenant entrer ce code dans l’onglet ci-dessous.")
             else:
@@ -93,10 +95,8 @@ else:
         email = st.text_input("Ton adresse email")
         code = st.text_input("Code reçu")
         new_password = st.text_input("Nouveau mot de passe", type="password")
-
-        if st.button("Réinitialiser"):
+        if st.button("Réinitialiser", key="reset_btn"):
             ok, msg = reset_password(email, code, new_password)
-
             if ok:
                 st.success("Ton mot de passe a été réinitialisé. Tu peux maintenant te connecter.")
             else:
