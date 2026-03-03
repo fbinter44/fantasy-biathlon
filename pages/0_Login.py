@@ -31,15 +31,26 @@ if st.session_state.get("user"):
 # ---------------------------------------------------------
 st.title("🔐 Connexion / Inscription")
 
+# Forcer le mode après création de compte
+if "login_mode" in st.session_state:
+    st.session_state["mode"] = st.session_state["login_mode"]
+
 # Les trois modes possibles de la page
 options = ["Se connecter", "Créer un compte", "Mot de passe oublié"]
-mode = st.radio("Choisis une option", options)
+mode = st.radio(
+    "Choisis une option",
+    options,
+    key="mode"
+)
 
 # ---------------------------------------------------------
 # 1) SE CONNECTER
 # ---------------------------------------------------------
 if mode == "Se connecter":
-    identifier = st.text_input("Nom d'utilisateur ou email")
+    identifier = st.text_input(
+        "Nom d'utilisateur ou email",
+        value=st.session_state.get("prefill_identifier", "")
+    )
     password = st.text_input("Mot de passe", type="password")
 
     if st.button("Connexion", key="login_btn"):
@@ -64,6 +75,11 @@ elif mode == "Créer un compte":
         ok, msg = create_account(username, email, password)
         if ok:
             st.success(msg)
+            # Pré-remplissage automatique
+            st.session_state["prefill_identifier"] = username or email
+            # Retour automatique sur "Se connecter"
+            st.session_state["login_mode"] = "Se connecter"
+            st.rerun()
         else:
             st.error(msg)
 
