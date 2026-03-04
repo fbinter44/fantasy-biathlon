@@ -150,7 +150,7 @@ class Season:
         self.venues = []
         self.timeline = {}
 
-    def load_athletes_info(self, path="biathletes/athletes_info.json"):
+    def load_athletes_info(self, path="biathletes_data/athletes_info.json"):
         with open(path, "r", encoding="utf-8") as f:
             self.athletes_info = json.load(f)
 

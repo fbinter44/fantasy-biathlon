@@ -2,49 +2,58 @@ import json
 
 if __name__ == "__main__":
 
-    # Chargement du fichier brut
-    with open("biathletes\\all_athletes.json", encoding="utf-8") as f:
+    with open("biathletes_data/all_athletes.json", encoding="utf-8") as f:
         raw = json.load(f)
 
     athletes_info = {}
     athletes_h = []
     athletes_f = []
+    ignored = []
 
     for a in raw:
-        ibuid = a["IBUId"]
-        family = a["FamilyName"].strip()
-        given = a["GivenName"].strip()
-        nat = a["NAT"]
-        gender = a["GenderId"]
+        ibuid = a.get("IBUId")
+        family = (a.get("FamilyName") or "").strip()
+        given = (a.get("GivenName") or "").strip()
+        nat = a.get("NAT")
+        gender = a.get("GenderId")
+        short = a.get("ShortName")
 
-        # On construit l'entrée propre
+        # Vérification minimale
+        if not ibuid or not family or not given:
+            ignored.append(a)
+            continue
+
         athletes_info[ibuid] = {
             "IBUId": ibuid,
             "FamilyName": family,
             "GivenName": given,
-            "ShortName": a["ShortName"],
+            "ShortName": short,
             "NAT": nat,
             "GenderId": gender
         }
 
-        # Séparation hommes / femmes
         if gender == "M":
             athletes_h.append(ibuid)
         elif gender == "W":
             athletes_f.append(ibuid)
+        else:
+            ignored.append(a)
 
-    # Tri alphabétique par nom + prénom
+    # Tri alphabétique
     athletes_h.sort(key=lambda i: (athletes_info[i]["FamilyName"], athletes_info[i]["GivenName"]))
     athletes_f.sort(key=lambda i: (athletes_info[i]["FamilyName"], athletes_info[i]["GivenName"]))
 
     # Sauvegarde
-    with open("athletes_info.json", "w", encoding="utf-8") as f:
+    with open("biathletes_data/athletes_info.json", "w", encoding="utf-8") as f:
         json.dump(athletes_info, f, indent=2, ensure_ascii=False)
 
-    with open("athletes_h.json", "w", encoding="utf-8") as f:
+    with open("biathletes_data/athletes_h.json", "w", encoding="utf-8") as f:
         json.dump(athletes_h, f, indent=2, ensure_ascii=False)
 
-    with open("athletes_f.json", "w", encoding="utf-8") as f:
+    with open("biathletes_data/athletes_f.json", "w", encoding="utf-8") as f:
         json.dump(athletes_f, f, indent=2, ensure_ascii=False)
 
     print("OK — fichiers régénérés.")
+    print(f"Hommes : {len(athletes_h)}")
+    print(f"Femmes : {len(athletes_f)}")
+    print(f"Ignorés : {len(ignored)}")

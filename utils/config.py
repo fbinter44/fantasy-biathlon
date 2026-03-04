@@ -3,7 +3,7 @@ import json
 
 PRONOS_DEADLINE = datetime(2026, 10, 24, 23, 59)
 
-with open("biathletes/athletes_info.json", encoding="utf-8") as f:
+with open("biathletes_data/athletes_info.json", encoding="utf-8") as f:
     ATHLETES_INFO = json.load(f)
 
 ATHLETES_BY_IBUID = {a["IBUId"]: a for a in ATHLETES_INFO.values()}
