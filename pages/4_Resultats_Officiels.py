@@ -1,7 +1,7 @@
 import streamlit as st
 import altair as alt
 import pandas as pd
-from scorer.results_data import BiathlonStandings
+from core.results_data import BiathlonStandings
 from utils.ui_components import sidebar_menu, user_header
 
 

@@ -1,6 +1,6 @@
-from scorer.results_scrapping import get_cup_results
+from core.results_scrapping import get_cup_results
 import pandas as pd
-from scorer.competitions_results import Season
+from core.competitions_results import Season
 
 
 class BiathlonStandings:

@@ -1,4 +1,4 @@
-from scorer.pronostics.player_bet import PlayerBet
+from core.pronostics.player_bet import PlayerBet
 
 def build_player_bets(top5_h, top5_f, globes):
     predictions = {}

@@ -1,6 +1,6 @@
-from scorer.pronostics.pronostics_loader import load_pronostics_from_gsheet, parse_pronostics
-from scorer.pronostics.pronostics_builder import build_player_bets
-from scorer.results_data import BiathlonStandings
+from core.pronostics.pronostics_loader import load_pronostics_from_gsheet, parse_pronostics
+from core.pronostics.pronostics_builder import build_player_bets
+from core.results_data import BiathlonStandings
 
 
 POINTS_TABLE = [90, 75, 65, 55, 50, 45, 41, 37, 34, 31]
