@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.ui import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header
 
 st.set_page_config(
     page_title="MPG Biathlon",

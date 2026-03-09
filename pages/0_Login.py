@@ -5,7 +5,7 @@ from utils.auth import (
     request_password_reset,
     reset_password
 )
-from utils.ui import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header
 
 # ---------------------------------------------------------
 # Identification de la page (pour garder le menu Pronostics ouvert/fermé)

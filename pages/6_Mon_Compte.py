@@ -1,7 +1,7 @@
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
-from utils.ui import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header
 import pandas as pd
 import bcrypt
 

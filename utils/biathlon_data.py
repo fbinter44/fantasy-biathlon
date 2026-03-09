@@ -1,0 +1,115 @@
+"""
+Données statiques et helpers liés au domaine du biathlon.
+
+Responsabilités :
+- Chargement des données athlètes (JSON statique)
+- Indexation par IBUId
+- Mapping des drapeaux par code nation
+- Mapping des noms de sites → noms simplifiés
+- Helpers pour formater les labels athlètes et les TOP5
+"""
+
+from datetime import datetime
+import json
+from pathlib import Path
+
+
+# ---------------------------------------------------------
+# 1) DEADLINE DES PRONOS
+# ---------------------------------------------------------
+
+PRONOS_DEADLINE = datetime(2026, 10, 24, 23, 59)
+
+
+# ---------------------------------------------------------
+# 2) CHARGEMENT DES DONNÉES ATHLÈTES
+# ---------------------------------------------------------
+
+ATHLETES_FILE = Path("biathletes_data/athletes_info.json")
+
+try:
+    with ATHLETES_FILE.open(encoding="utf-8") as f:
+        ATHLETES_INFO: dict[str, dict] = json.load(f)
+except FileNotFoundError:
+    ATHLETES_INFO = {}
+    print(f"⚠️ Fichier introuvable : {ATHLETES_FILE}")
+
+
+# Index par IBUId (accès rapide)
+ATHLETES_BY_IBUID = {
+    a["IBUId"]: a for a in ATHLETES_INFO.values()
+}
+
+
+# ---------------------------------------------------------
+# 3) MAPPING DES DRAPEAUX
+# ---------------------------------------------------------
+
+FLAGS = {
+    # Codes ISO classiques
+    "AND": "🇦🇩", "ARG": "🇦🇷", "ARM": "🇦🇲", "AUS": "🇦🇺", "AUT": "🇦🇹",
+    "BEL": "🇧🇪", "BIH": "🇧🇦", "BLR": "🇧🇾", "BRA": "🇧🇷", "BUL": "🇧🇬",
+    "CAN": "🇨🇦", "CHI": "🇨🇱", "CHN": "🇨🇳", "CRO": "🇭🇷", "CZE": "🇨🇿",
+    "DEN": "🇩🇰", "ESP": "🇪🇸", "EST": "🇪🇪", "FIN": "🇫🇮", "FRA": "🇫🇷",
+    "GBR": "🇬🇧", "GEO": "🇬🇪", "GER": "🇩🇪", "GRE": "🇬🇷", "HUN": "🇭🇺",
+    "IND": "🇮🇳", "IRL": "🇮🇪", "ITA": "🇮🇹", "JPN": "🇯🇵", "KAZ": "🇰🇿",
+    "KEN": "🇰🇪", "KGZ": "🇰🇬", "KOR": "🇰🇷", "LAT": "🇱🇻", "LIE": "🇱🇮",
+    "LTU": "🇱🇹", "LUX": "🇱🇺", "MAR": "🇲🇦", "MDA": "🇲🇩", "MEX": "🇲🇽",
+    "MGL": "🇲🇳", "MKD": "🇲🇰", "NED": "🇳🇱", "NOR": "🇳🇴", "NZL": "🇳🇿",
+    "POL": "🇵🇱", "POR": "🇵🇹", "PUR": "🇵🇷", "ROU": "🇷🇴", "RUS": "🇷🇺",
+    "SLO": "🇸🇮", "SRB": "🇷🇸", "SUI": "🇨🇭", "SVK": "🇸🇰", "SWE": "🇸🇪",
+    "THA": "🇹🇭", "TPE": "🇹🇼", "TUR": "🇹🇷", "UKR": "🇺🇦", "USA": "🇺🇸",
+    "UZB": "🇺🇿",
+
+    # Codes historiques / spéciaux
+    "BRT": "🏳️", "CIS": "🏳️", "FRG": "🇩🇪", "GDR": "🇩🇪",
+    "GRL": "🇬🇱", "LIB": "🇱🇧", "ROM": "🇷🇴", "TCH": "🇨🇿",
+    "TST": "🏳️", "URS": "🏳️", "YUG": "🏳️",
+}
+
+
+# ---------------------------------------------------------
+# 4) MAPPING DES SITES
+# ---------------------------------------------------------
+
+VENUES_NAMES = {
+    "Swedish National Biathlon Arena": "Oestersund",
+    "Biathlon Stadium Hochfilzen": "Hochfilzen",
+    "Le Grand-Bornand Biathlon Arena": "Le Grand-Bornand",
+    "ARENA am Rennsteig": "Oberhof",
+    "Chiemgau Arena": "Ruhpolding",
+    "Vysocina Arena": "Nove Mesto",
+    "Biathlon Stadium Kontiolahti": "Kontiolahti",
+    "Tehvandi Sport Center": "Otepaa",
+    "Holmenkollen": "Oslo Holmenkollen",
+}
+
+
+# ---------------------------------------------------------
+# 5) HELPERS
+# ---------------------------------------------------------
+
+def athlete_label(ibuid: str) -> str:
+    """Retourne un label lisible : '🇫🇷 Fillon Maillet Quentin'."""
+    if not ibuid or ibuid not in ATHLETES_BY_IBUID:
+        return ""
+    info = ATHLETES_BY_IBUID[ibuid]
+    flag = FLAGS.get(info["NAT"], "🏳️")
+    return f"{flag} {info['FamilyName']} {info['GivenName']}"
+
+
+def format_top5(csv_string: str) -> str:
+    """Transforme 'A,B,C,D,E' → '🇫🇷 A, 🇳🇴 B, ...'."""
+    if not csv_string:
+        return ""
+    ibuids = csv_string.split(",")
+    return ", ".join(athlete_label(i) for i in ibuids if i)
+
+
+def split_top5(csv_string: str) -> list[str]:
+    """Transforme 'A,B,C' → ['A','B','C','','']."""
+    if not csv_string:
+        return ["", "", "", "", ""]
+    items = csv_string.split(",")
+    items += [""] * (5 - len(items))
+    return items[:5]

@@ -1,15 +1,54 @@
+"""
+Composants visuels réutilisables pour l'application :
+- Cartes podium (top 3)
+"""
+
 import streamlit as st
 
 
-def player_podium_card(rank, player, total_points, bonus_points):
-    colors = {
-        1: "#FFD700",  # or
-        2: "#C0C0C0",  # argent
-        3: "#CD7F32"   # bronze
-    }
+# ---------------------------------------------------------
+# 1) Constantes visuelles
+# ---------------------------------------------------------
 
-    emoji = {1: "🥇", 2: "🥈", 3: "🥉"}[rank]
-    bg = colors[rank]
+PODIUM_COLORS = {
+    1: "#FFD700",  # Or
+    2: "#C0C0C0",  # Argent
+    3: "#CD7F32",  # Bronze
+}
+
+PODIUM_EMOJIS = {
+    1: "🥇",
+    2: "🥈",
+    3: "🥉",
+}
+
+
+# ---------------------------------------------------------
+# 2) Composants visuels
+# ---------------------------------------------------------
+
+def player_podium_card(rank: int, player: str, total_points: int, bonus_points: int):
+    """
+    Affiche une carte podium pour un joueur.
+
+    Paramètres :
+    - rank : position (1, 2 ou 3)
+    - player : nom du joueur
+    - total_points : total de points
+    - bonus_points : points bonus
+
+    Exemple visuel :
+        🥇 1er
+        Joueur
+        123 pts
+        +10 bonus
+    """
+    if rank not in (1, 2, 3):
+        st.error(f"Rank invalide : {rank}. Doit être 1, 2 ou 3.")
+        return
+
+    bg = PODIUM_COLORS[rank]
+    emoji = PODIUM_EMOJIS[rank]
 
     st.markdown(
         f"""

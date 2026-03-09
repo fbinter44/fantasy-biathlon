@@ -3,8 +3,8 @@ import gspread
 import pandas as pd
 from google.oauth2.service_account import Credentials
 
-from utils.ui import sidebar_menu, user_header
-from utils.config import athlete_label, split_top5
+from utils.ui_components import sidebar_menu, user_header
+from utils.biathlon_data import athlete_label, split_top5
 
 
 st.session_state["current_page"] = "2_Pronostics_Tous"

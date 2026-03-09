@@ -1,47 +1,86 @@
+"""
+Composants UI globaux de l'application :
+- Menu latéral (sidebar)
+- Barre utilisateur (header)
+- Gestion centralisée de la déconnexion
+"""
+
 import streamlit as st
 
+
+# ---------------------------------------------------------
+# 1) Groupes de pages (constants)
+# ---------------------------------------------------------
+
+PRONOSTICS_PAGES = [
+    "1_Pronostics_Modifier",
+    "2_Pronostics_Tous",
+]
+
+STANDINGS_PAGES = [
+    "3_Classement",
+    "3b_Evolution_Classement",
+]
+
+
+# ---------------------------------------------------------
+# 2) Déconnexion centralisée
+# ---------------------------------------------------------
+
+def logout():
+    """Efface la session et recharge l'application."""
+    st.session_state.clear()
+    st.rerun()
+
+
+# ---------------------------------------------------------
+# 3) Menu latéral (sidebar)
+# ---------------------------------------------------------
+
 def sidebar_menu():
+    """Affiche le menu latéral en fonction de l'état de connexion."""
     st.sidebar.title("Navigation")
 
     user = st.session_state.get("user")
     current_page = st.session_state.get("current_page", "")
 
-    pronostics_pages = [
-        "1_Pronostics_Modifier",
-        "2_Pronostics_Tous"
-    ]
+    pronostics_expanded = current_page in PRONOSTICS_PAGES
+    standings_expanded = current_page in STANDINGS_PAGES
 
-    standings_pages = [
-        "3_Classement",
-        "3b_Evolution_Classement"
-    ]
-    
-    pronostics_expanded = current_page in pronostics_pages
-    standings_expanded = current_page in standings_pages
-
+    # Page toujours visible
     st.sidebar.page_link("pages/5_Reglement.py", label="📘 Règlement")
+
     if user:
+        # --- Section Pronostics ---
         with st.sidebar.expander("📌 Pronostics", expanded=pronostics_expanded):
             st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
             st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
 
+        # --- Section Classement ---
         with st.sidebar.expander("📈 Classement", expanded=standings_expanded):
             st.page_link("pages/3_Classement.py", label="Détails du classement")
-            st.page_link("pages/3b_Evolution_Classement.py", label="Evolution du classement")
+            st.page_link("pages/3b_Evolution_Classement.py", label="Évolution du classement")
+
+        # Autres pages
         st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
         st.sidebar.page_link("pages/6_Mon_Compte.py", label="👤 Mon Compte")
 
         # Déconnexion
         if st.sidebar.button("Se déconnecter"):
-            st.session_state.clear()
-            st.rerun()
+            logout()
 
     else:
         # Pages visibles uniquement si déconnecté
         st.sidebar.page_link("pages/0_Login.py", label="🔐 Connexion / Inscription")
 
 
+# ---------------------------------------------------------
+# 4) Barre utilisateur (header)
+# ---------------------------------------------------------
+
 def user_header():
+    """Affiche une barre utilisateur en haut de la page."""
+    # CSS local
     st.markdown(
         """
         <style>
@@ -90,5 +129,4 @@ def user_header():
     with col2:
         if user:
             if st.button("Déconnexion"):
-                st.session_state.clear()
-                st.rerun()
+                logout()

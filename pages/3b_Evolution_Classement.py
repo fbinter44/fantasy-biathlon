@@ -6,8 +6,8 @@ import datetime
 from scorer.players_points import load_players_data, compute_all_players_points
 from scorer.competitions_results import Season
 from scorer.results_data import BiathlonTempStandings
-from utils.ui import sidebar_menu, user_header
-from utils.config import VENUES_NAMES
+from utils.ui_components import sidebar_menu, user_header
+from utils.biathlon_data import VENUES_NAMES
 
 
 st.session_state["current_page"] = "3b_Evolution_Classement"

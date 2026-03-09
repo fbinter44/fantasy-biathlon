@@ -3,9 +3,9 @@ import gspread
 import json
 from google.oauth2.service_account import Credentials
 from scorer.players_score import get_player_row
-from utils.ui import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header
 from datetime import datetime
-from utils.config import PRONOS_DEADLINE
+from utils.biathlon_data import PRONOS_DEADLINE
 
 # -------------------------
 # UI
