@@ -1,5 +1,5 @@
-from scorer.pronostics_loader import load_pronostics_from_gsheet, parse_pronostics
-from scorer.pronostics_builder import build_player_bets
+from scorer.pronostics.pronostics_loader import load_pronostics_from_gsheet, parse_pronostics
+from scorer.pronostics.pronostics_builder import build_player_bets
 from scorer.results_data import BiathlonStandings
 
 
