@@ -25,44 +25,24 @@ def parse_pronostics(df: pd.DataFrame):
     Retourne :
         - top5_hommes : dict joueur → [id1,id2,id3,id4,id5]
         - top5_femmes : dict joueur → [id1,id2,id3,id4,id5]
-        - players_list : liste des joueurs
         - globes_winners : dict structuré
     """
 
-    # Liste des joueurs
-    players_list = df["player"].tolist()
-
     # --- TOP 5 HOMMES & FEMMES (vectorisé) ---
-    top5_hommes = (
-        df.set_index("player")["top5_h"]
-        .str.split(",", expand=False)
-        .to_dict()
-    )
+    df_men = df[['player', 'top5_h']]
+    df_men['top5_h'] = df_men["top5_h"].str.split(",")
+    df_men_cleaned = df_men.join(df_men["top5_h"].apply(pd.Series).rename(columns=lambda i: f"p{i+1}"))
+    df_men_cleaned.drop("top5_h", axis=1, inplace=True)
+    df_men_cleaned.set_index("player", inplace=True)
 
-    top5_femmes = (
-        df.set_index("player")["top5_f"]
-        .str.split(",", expand=False)
-        .to_dict()
-    )
+    df_women = df[['player', 'top5_f']]
+    df_women['top5_f'] = df_women["top5_f"].str.split(",")
+    df_women_cleaned = df_women.join(df_women["top5_f"].apply(pd.Series).rename(columns=lambda i: f"p{i+1}"))
+    df_women_cleaned.drop("top5_f", axis=1, inplace=True)
+    df_women_cleaned.set_index("player", inplace=True)
 
     # --- GLOBES (vectorisé) ---
-    globes_winners = {
-        "Sprint": {
-            "H": df["globe_sprint_h"].tolist(),
-            "F": df["globe_sprint_f"].tolist(),
-        },
-        "Poursuite": {
-            "H": df["globe_pursuit_h"].tolist(),
-            "F": df["globe_pursuit_f"].tolist(),
-        },
-        "Individuel": {
-            "H": df["globe_individual_h"].tolist(),
-            "F": df["globe_individual_f"].tolist(),
-        },
-        "Mass-start": {
-            "H": df["globe_mass_start_h"].tolist(),
-            "F": df["globe_mass_start_f"].tolist(),
-        },
-    }
+    globes_winners = df.drop(["top5_h", "top5_f"], axis=1)
+    globes_winners.set_index("player", inplace=True)
 
-    return top5_hommes, top5_femmes, players_list, globes_winners
+    return df_men_cleaned, df_women_cleaned, globes_winners

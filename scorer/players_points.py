@@ -30,16 +30,10 @@ class PlayerPoints():
         self.bonus_right_place += total_bonus
 
     def compute_bonus_globes_points(self, player, standings_men, standings_women):
-        # import pdb
-        # pdb.set_trace()
-        sprint_men, _ = compute_globe_winner_bonus(player.sprint_winners, standings_men.sprint)
-        sprint_women, _ = compute_globe_winner_bonus(player.sprint_winners, standings_women.sprint)
-        pursuit_men, _ = compute_globe_winner_bonus(player.pursuit_winners, standings_men.pursuit)
-        pursuit_women, _ = compute_globe_winner_bonus(player.pursuit_winners, standings_women.pursuit)
-        indiv_men, _ = compute_globe_winner_bonus(player.individual_winners, standings_men.individual)
-        indiv_women, _ = compute_globe_winner_bonus(player.individual_winners, standings_women.individual)
-        mass_men, _ = compute_globe_winner_bonus(player.mass_start_winners, standings_men.mass_start)
-        mass_women, _ = compute_globe_winner_bonus(player.mass_start_winners, standings_women.mass_start)
+        sprint_men, sprint_women = compute_globe_winner_bonus(player.sprint_winners, standings_men.sprint, standings_women.sprint)
+        pursuit_men, pursuit_women = compute_globe_winner_bonus(player.pursuit_winners, standings_men.pursuit, standings_women.pursuit)
+        indiv_men, indiv_women = compute_globe_winner_bonus(player.individual_winners, standings_men.individual, standings_women.individual)
+        mass_men, mass_women = compute_globe_winner_bonus(player.mass_start_winners, standings_men.mass_start, standings_women.mass_start)
         total = sprint_men + sprint_women + pursuit_men + pursuit_women + indiv_men + indiv_women + mass_men + mass_women
         self.bonus_globes = total
 
@@ -80,42 +74,32 @@ def compute_points(pred_list, df_top10):
     return total, total_bonus, details
 
 
-def compute_globe_winner_bonus(pred_winners: dict, df_top10):
+def compute_globe_winner_bonus(pred_winners: dict, df_top10_men, df_top10_women):
     """
     pred_winners: dict {'Men': 'Eric Perrot', 'Women': 'Franziska Preuss'}
     df_top10: DataFrame avec colonnes ['name', 'rank']
     """
-    # Normalisation des noms du top 10
-    df_top10 = df_top10.copy()
+    if df_top10_men.empty:
+        bonus_men = 0
+    else:
+        real_men_winner_row = df_top10_men[df_top10_men["rank"] == "1"].iloc[0]
+        real_men_winner_id = real_men_winner_row["id"]
+        bonus_men = 50 if real_men_winner_id == pred_winners.winner_men else 0
 
-    if df_top10.empty:
-        return 0, {}
+    if df_top10_women.empty:
+        bonus_women = 0
+    else:
+        real_women_winner_row = df_top10_women[df_top10_women["rank"] == "1"].iloc[0]
+        real_women_winner_id = real_women_winner_row["id"]
+        bonus_women = 50 if real_women_winner_id == pred_winners.winner_women else 0
 
-    # On récupère le vainqueur réel (rank = 1)
-    real_winner_row = df_top10[df_top10["rank"] == "1"].iloc[0]
-
-    real_winner_id = real_winner_row["id"]
-
-    # # Liste des noms normalisés pour fuzzy matching
-    # candidate_norms = df_top10["norm"].tolist()
-
-    results = {}
-    total_bonus = 0
-
-    for category, predicted_id in pred_winners.items():
-        if predicted_id == real_winner_id:
-            results[category] = 50
-            total_bonus += 50
-        else:
-            results[category] = 0
-
-    return total_bonus, results
+    return bonus_men, bonus_women
 
 
 def load_players_data():
     df_pronos = load_pronostics_from_gsheet()
-    top5_h, top5_f, players, globes = parse_pronostics(df_pronos)
-    players_predictions = build_player_bets(top5_h, top5_f, players, globes)
+    top5_h, top5_f, globes = parse_pronostics(df_pronos)
+    players_predictions = build_player_bets(top5_h, top5_f, globes)
     return players_predictions
 
 

@@ -1,20 +1,18 @@
 from scorer.player_bet import PlayerBet
 
-def build_player_bets(top5_h, top5_f, players_list, globes):
+def build_player_bets(top5_h, top5_f, globes):
     predictions = {}
 
-    for i, player_name in enumerate(players_list):
+    for player_name in top5_h.index:
         bet = PlayerBet(player_name)
-
         bet.load_predictions(
-            top5_h[player_name],
-            top5_f[player_name],
-            {"Men": globes["Sprint"]["H"][i], "Women": globes["Sprint"]["F"][i]},
-            {"Men": globes["Poursuite"]["H"][i], "Women": globes["Poursuite"]["F"][i]},
-            {"Men": globes["Individuel"]["H"][i], "Women": globes["Individuel"]["F"][i]},
-            {"Men": globes["Mass-start"]["H"][i], "Women": globes["Mass-start"]["F"][i]},
+            top5_h.loc[player_name],
+            top5_f.loc[player_name],
+            globes.loc[player_name][["globe_sprint_h", "globe_sprint_f"]],
+            globes.loc[player_name][["globe_pursuit_h", "globe_pursuit_f"]],
+            globes.loc[player_name][["globe_individual_h", "globe_individual_f"]],
+            globes.loc[player_name][["globe_mass_start_h", "globe_mass_start_f"]]
         )
-
         predictions[player_name] = bet
 
     return predictions
