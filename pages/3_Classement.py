@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-from core.players_points import load_players_data, compute_all_players_points
+from core.scoring.scoring_service import load_players_data, compute_all_players_points
 from core.results_data import BiathlonStandings
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card

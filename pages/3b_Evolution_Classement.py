@@ -3,7 +3,7 @@ import pandas as pd
 import altair as alt
 import datetime
 
-from core.players_points import load_players_data, compute_all_players_points
+from core.scoring.scoring_service import load_players_data, compute_all_players_points
 from core.competitions_results import Season
 from core.results_data import BiathlonTempStandings
 from utils.ui_components import sidebar_menu, user_header
