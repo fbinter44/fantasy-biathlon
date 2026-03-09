@@ -40,6 +40,10 @@ ATHLETES_BY_IBUID = {
     a["IBUId"]: a for a in ATHLETES_INFO.values()
 }
 
+# Séparation hommes / femmes
+BIATHLETES_H = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "M"]
+BIATHLETES_F = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "W"]
+
 
 # ---------------------------------------------------------
 # 3) MAPPING DES DRAPEAUX

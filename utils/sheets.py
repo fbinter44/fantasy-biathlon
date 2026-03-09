@@ -75,3 +75,12 @@ def update_cell(name: str, row: int, col: int, value):
     """
     sheet = get_sheet(name)
     sheet.update_cell(row, col, value)
+
+
+def get_player_row(sheet, player_name):
+    players = sheet.col_values(1)  # colonne "player"
+    if player_name in players:
+        row_index = players.index(player_name) + 1
+        row_values = sheet.row_values(row_index)
+        return row_index, row_values
+    return None, None

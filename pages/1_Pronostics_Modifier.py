@@ -1,124 +1,67 @@
 import streamlit as st
-import gspread
-import json
-from google.oauth2.service_account import Credentials
-from scorer.players_score import get_player_row
-from utils.ui_components import sidebar_menu, user_header
 from datetime import datetime
-from utils.biathlon_data import PRONOS_DEADLINE
 
-# -------------------------
-# UI
-# -------------------------
+from utils.ui_components import sidebar_menu, user_header
+from utils.sheets import get_sheet, get_player_row
+from utils.biathlon_data import PRONOS_DEADLINE, BIATHLETES_H, BIATHLETES_F, athlete_label
+
+
+# ---------------------------------------------------------
+# 1) Configuration de la page
+# ---------------------------------------------------------
+
 st.session_state["current_page"] = "1_Pronostics_Modifier"
-
 sidebar_menu()
 user_header()
 
-# Vérification connexion
 user = st.session_state.get("user")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
 player = user
-
 deadline_passed = datetime.now() > PRONOS_DEADLINE
 
 if deadline_passed:
     st.error("⛔ La saison a débuté, tu ne peux plus saisir ou modifier tes pronos !")
 
-# -------------------------
-# Chargement des athlètes
-# -------------------------
-with open("biathletes_data/athletes_info.json", encoding="utf-8") as f:
-    ATHLETES_INFO = json.load(f)
 
-# Dictionnaire par IBUId
-ATHLETES_BY_IBUID = {a["IBUId"]: a for a in ATHLETES_INFO.values()}
+# ---------------------------------------------------------
+# 2) Listes d’affichage (labels + mapping inverse)
+# ---------------------------------------------------------
 
-# -------------------------
-# Drapeaux emoji (fiables partout)
-# -------------------------
-FLAG = {
-    "FRA": "🇫🇷", "NOR": "🇳🇴", "SWE": "🇸🇪", "GER": "🇩🇪", "ITA": "🇮🇹",
-    "SUI": "🇨🇭", "AUT": "🇦🇹", "FIN": "🇫🇮", "USA": "🇺🇸", "CAN": "🇨🇦",
-    "CZE": "🇨🇿", "SVK": "🇸🇰", "SLO": "🇸🇮", "POL": "🇵🇱", "UKR": "🇺🇦",
-    "BLR": "🇧🇾", "RUS": "🇷🇺", "KAZ": "🇰🇿", "JPN": "🇯🇵", "CHN": "🇨🇳",
-}
+DISPLAY_H = [""] + [athlete_label(i) for i in BIATHLETES_H]
+DISPLAY_F = [""] + [athlete_label(i) for i in BIATHLETES_F]
 
-# -------------------------
-# Construction des listes internes (IBUId)
-# -------------------------
-BIATHLETES_H = [""] + [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "M"]
-BIATHLETES_F = [""] + [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "W"]
+DISPLAY_TO_IBUID = {athlete_label(i): i for i in BIATHLETES_H + BIATHLETES_F}
+DISPLAY_TO_IBUID[""] = ""
 
-# -------------------------
-# Label affiché = drapeau + nom + prénom
-# -------------------------
-def display_label(ibuid):
-    if ibuid == "":
-        return ""
-    info = ATHLETES_BY_IBUID[ibuid]
-    nat = info["NAT"]
-    flag = FLAG.get(nat, "🏳️")
-    return f"{flag} {info['FamilyName']} {info['GivenName']}"
-
-DISPLAY_H = [display_label(i) for i in BIATHLETES_H]
-DISPLAY_F = [display_label(i) for i in BIATHLETES_F]
-
-DISPLAY_TO_IBUID = {display_label(i): i for i in BIATHLETES_H + BIATHLETES_F}
 
 def get_index(lst, value):
     return lst.index(value) if value in lst else 0
 
-# -------------------------
-# Connexion Google Sheets
-# -------------------------
-scope = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
 
-creds = Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=scope
-)
+# ---------------------------------------------------------
+# 3) Lecture des pronostics existants
+# ---------------------------------------------------------
 
-client = gspread.authorize(creds)
-sheet = client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Pronostics")
-
-# -------------------------
-# Récupération des valeurs existantes
-# -------------------------
+sheet = get_sheet("Pronostics")
 row_index, row_values = get_player_row(sheet, player)
 
 if row_values:
     existing_top5_h = row_values[1].split(",")
     existing_top5_f = row_values[2].split(",")
-    existing_globe_sprint_h = row_values[3]
-    existing_globe_sprint_f = row_values[4]
-    existing_globe_pursuit_h = row_values[5]
-    existing_globe_pursuit_f = row_values[6]
-    existing_globe_individual_h = row_values[7]
-    existing_globe_individual_f = row_values[8]
-    existing_globe_mass_start_h = row_values[9]
-    existing_globe_mass_start_f = row_values[10]
+    existing_globes = row_values[3:11]
 else:
     existing_top5_h = [""] * 5
     existing_top5_f = [""] * 5
-    existing_globe_sprint_h = ""
-    existing_globe_sprint_f = ""
-    existing_globe_pursuit_h = ""
-    existing_globe_pursuit_f = ""
-    existing_globe_individual_h = ""
-    existing_globe_individual_f = ""
-    existing_globe_mass_start_h = ""
-    existing_globe_mass_start_f = ""
+    existing_globes = [""] * 8
 
-# -------------------------
-# Formulaire
-# -------------------------
+
+# ---------------------------------------------------------
+# 4) Formulaire
+# ---------------------------------------------------------
+
 st.title("📝 Voir/Modifier mes pronostics")
 
 col_h, col_f = st.columns(2)
@@ -130,7 +73,7 @@ with col_h:
     top5_h = []
     used_h = set()
     for i in range(1, 6):
-        existing_display = display_label(existing_top5_h[i-1])
+        existing_display = athlete_label(existing_top5_h[i-1])
         available = [d for d in DISPLAY_H if d not in used_h or d == existing_display]
 
         selected_display = st.selectbox(
@@ -149,7 +92,7 @@ with col_h:
     globe_sprint_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Sprint",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, display_label(existing_globe_sprint_h)),
+        index=get_index(DISPLAY_H, athlete_label(existing_globes[0])),
         key="globe_sprint_h",
         disabled=deadline_passed
     )]
@@ -157,7 +100,7 @@ with col_h:
     globe_pursuit_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, display_label(existing_globe_pursuit_h)),
+        index=get_index(DISPLAY_H, athlete_label(existing_globes[2])),
         key="globe_pursuit_h",
         disabled=deadline_passed
     )]
@@ -165,7 +108,7 @@ with col_h:
     globe_individual_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, display_label(existing_globe_individual_h)),
+        index=get_index(DISPLAY_H, athlete_label(existing_globes[4])),
         key="globe_individual_h",
         disabled=deadline_passed
     )]
@@ -173,7 +116,7 @@ with col_h:
     globe_mass_h = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_H,
-        index=get_index(DISPLAY_H, display_label(existing_globe_mass_start_h)),
+        index=get_index(DISPLAY_H, athlete_label(existing_globes[6])),
         key="globe_mass_h",
         disabled=deadline_passed
     )]
@@ -185,7 +128,7 @@ with col_f:
     top5_f = []
     used_f = set()
     for i in range(1, 6):
-        existing_display = display_label(existing_top5_f[i-1])
+        existing_display = athlete_label(existing_top5_f[i-1])
         available = [d for d in DISPLAY_F if d not in used_f or d == existing_display]
 
         selected_display = st.selectbox(
@@ -205,7 +148,7 @@ with col_f:
     globe_sprint_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Sprint",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, display_label(existing_globe_sprint_f)),
+        index=get_index(DISPLAY_F, athlete_label(existing_globes[1])),
         key="globe_sprint_f",
         disabled=deadline_passed
     )]
@@ -213,7 +156,7 @@ with col_f:
     globe_pursuit_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Poursuite",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, display_label(existing_globe_pursuit_f)),
+        index=get_index(DISPLAY_F, athlete_label(existing_globes[3])),
         key="globe_pursuit_f",
         disabled=deadline_passed
     )]
@@ -221,7 +164,7 @@ with col_f:
     globe_individual_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Individuel",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, display_label(existing_globe_individual_f)),
+        index=get_index(DISPLAY_F, athlete_label(existing_globes[5])),
         key="globe_individual_f",
         disabled=deadline_passed
     )]
@@ -229,25 +172,22 @@ with col_f:
     globe_mass_f = DISPLAY_TO_IBUID[st.selectbox(
         "Globe Mass Start",
         DISPLAY_F,
-        index=get_index(DISPLAY_F, display_label(existing_globe_mass_start_f)),
+        index=get_index(DISPLAY_F, athlete_label(existing_globes[7])),
         key="globe_mass_f",
         disabled=deadline_passed
     )]
 
-# -------------------------
-# Validation
-# -------------------------
+
+# ---------------------------------------------------------
+# 5) Validation
+# ---------------------------------------------------------
+
 all_filled = all([
-    *top5_h,
-    *top5_f,
-    globe_sprint_h,
-    globe_sprint_f,
-    globe_pursuit_h,
-    globe_pursuit_f,
-    globe_individual_h,
-    globe_individual_f,
-    globe_mass_h,
-    globe_mass_f
+    *top5_h, *top5_f,
+    globe_sprint_h, globe_sprint_f,
+    globe_pursuit_h, globe_pursuit_f,
+    globe_individual_h, globe_individual_f,
+    globe_mass_h, globe_mass_f
 ])
 
 if not all_filled:
@@ -257,15 +197,16 @@ if not all_filled:
 duplicates_h = len(top5_h) != len(set(top5_h))
 duplicates_f = len(top5_f) != len(set(top5_f))
 
-if duplicates_h or duplicates_f:
-    if duplicates_h:
-        st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Hommes.")
-    if duplicates_f:
-        st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Femmes.")
+if duplicates_h:
+    st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Hommes.")
+if duplicates_f:
+    st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Femmes.")
 
-# -------------------------
-# Sauvegarde
-# -------------------------
+
+# ---------------------------------------------------------
+# 6) Sauvegarde
+# ---------------------------------------------------------
+
 can_save = all_filled and not deadline_passed and not duplicates_h and not duplicates_f
 if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
@@ -273,14 +214,10 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
         player,
         ",".join(top5_h),
         ",".join(top5_f),
-        globe_sprint_h,
-        globe_sprint_f,
-        globe_pursuit_h,
-        globe_pursuit_f,
-        globe_individual_h,
-        globe_individual_f,
-        globe_mass_h,
-        globe_mass_f
+        globe_sprint_h, globe_sprint_f,
+        globe_pursuit_h, globe_pursuit_f,
+        globe_individual_h, globe_individual_f,
+        globe_mass_h, globe_mass_f
     ]
 
     players_column = sheet.col_values(1)

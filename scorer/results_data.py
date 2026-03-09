@@ -5,8 +5,10 @@ from scorer.competitions_results import Season
 
 class BiathlonStandings:
 
-    def __init__(self, gender):
+    def __init__(self, gender: str, season_code: str = "2526"):
         self.gender = gender
+        self.season_code = season_code
+
         self.general = None
         self.sprint = None
         self.pursuit = None
