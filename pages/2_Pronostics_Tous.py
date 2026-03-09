@@ -1,14 +1,27 @@
+"""
+Page : Tous les pronostics des joueurs
+
+Affiche :
+- Top 5 Hommes
+- Top 5 Femmes
+- Vainqueurs des globes
+
+Lecture depuis Google Sheets → feuille "Pronostics".
+"""
+
 import streamlit as st
-import gspread
 import pandas as pd
-from google.oauth2.service_account import Credentials
 
 from utils.ui_components import sidebar_menu, user_header
-from utils.biathlon_data import athlete_label, split_top5
+from utils.biathlon_data import athlete_label, split_top5, COLUMN_RENAME, GLOBE_COLS
+from utils.sheets import read_all
 
+
+# ---------------------------------------------------------
+# 1) Configuration de la page
+# ---------------------------------------------------------
 
 st.session_state["current_page"] = "2_Pronostics_Tous"
-
 st.set_page_config(page_title="Tous les pronostics", layout="wide")
 
 sidebar_menu()
@@ -21,22 +34,12 @@ if not user:
 
 st.title("📊 Tous les pronostics des joueurs")
 
-# Connexion Google Sheets
-scope = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
 
-creds = Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=scope
-)
+# ---------------------------------------------------------
+# 2) Lecture des données Google Sheets
+# ---------------------------------------------------------
 
-client = gspread.authorize(creds)
-sheet = client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Pronostics")
-
-# Récupération des données
-records = sheet.get_all_records()
+records = read_all("Pronostics")
 
 if not records:
     st.info("Aucun pronostic n’a encore été enregistré.")
@@ -44,40 +47,37 @@ if not records:
 
 df = pd.DataFrame(records)
 
-# Renommage des colonnes
-df = df.rename(columns={
-    "player": "Joueur",
-    "top5_h": "Top 5 Hommes",
-    "top5_f": "Top 5 Femmes",
-    "globe_sprint_h": "Sprint H",
-    "globe_sprint_f": "Sprint F",
-    "globe_pursuit_h": "Poursuite H",
-    "globe_pursuit_f": "Poursuite F",
-    "globe_individual_h": "Individuel H",
-    "globe_individual_f": "Individuel F",
-    "globe_mass_start_h": "Mass Start H",
-    "globe_mass_start_f": "Mass Start F",
-})
 
-# Sélecteur d’affichage
+# ---------------------------------------------------------
+# 3) Renommage des colonnes
+# ---------------------------------------------------------
+
+df = df.rename(columns=COLUMN_RENAME)
+
+
+# ---------------------------------------------------------
+# 4) Sélecteurs d'affichage
+# ---------------------------------------------------------
+
 mode = st.radio(
     "Afficher :",
     ["Top 5 H", "Top 5 F", "Vainqueurs de globes"],
     horizontal=True
 )
 
-# Filtre joueurs
 joueurs = sorted(df["Joueur"].unique())
 selection = st.multiselect(
     "Filtrer les joueurs :",
     joueurs,
     default=joueurs
 )
+
 df = df[df["Joueur"].isin(selection)]
 
-# -----------------------------
-# TOP 5 — transformation en colonnes 1er → 5e
-# -----------------------------
+
+# ---------------------------------------------------------
+# 5) Transformation des TOP 5
+# ---------------------------------------------------------
 
 # Hommes
 df[["H_1", "H_2", "H_3", "H_4", "H_5"]] = df["Top 5 Hommes"].apply(
@@ -108,9 +108,9 @@ df = df.rename(columns={
 })
 
 
-# -----------------------------
-# AFFICHAGE SELON LE MODE
-# -----------------------------
+# ---------------------------------------------------------
+# 6) Affichage selon le mode
+# ---------------------------------------------------------
 
 if mode == "Top 5 H":
     st.subheader("Top 5 Hommes")
@@ -129,25 +129,13 @@ elif mode == "Top 5 F":
     )
 
 else:
-    # Globes
-    df["Sprint H"] = df["Sprint H"].apply(athlete_label)
-    df["Sprint F"] = df["Sprint F"].apply(athlete_label)
-    df["Poursuite H"] = df["Poursuite H"].apply(athlete_label)
-    df["Poursuite F"] = df["Poursuite F"].apply(athlete_label)
-    df["Individuel H"] = df["Individuel H"].apply(athlete_label)
-    df["Individuel F"] = df["Individuel F"].apply(athlete_label)
-    df["Mass Start H"] = df["Mass Start H"].apply(athlete_label)
-    df["Mass Start F"] = df["Mass Start F"].apply(athlete_label)
+    # Conversion IBUId → labels
+    for col in GLOBE_COLS:
+        df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
     st.data_editor(
-        df[[
-            "Joueur",
-            "Sprint H", "Sprint F",
-            "Poursuite H", "Poursuite F",
-            "Individuel H", "Individuel F",
-            "Mass Start H", "Mass Start F"
-        ]],
+        df[["Joueur"] + GLOBE_COLS],
         use_container_width=True,
         hide_index=True
     )

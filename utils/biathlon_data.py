@@ -89,6 +89,28 @@ VENUES_NAMES = {
 # 5) HELPERS
 # ---------------------------------------------------------
 
+COLUMN_RENAME = {
+    "player": "Joueur",
+    "top5_h": "Top 5 Hommes",
+    "top5_f": "Top 5 Femmes",
+    "globe_sprint_h": "Sprint H",
+    "globe_sprint_f": "Sprint F",
+    "globe_pursuit_h": "Poursuite H",
+    "globe_pursuit_f": "Poursuite F",
+    "globe_individual_h": "Individuel H",
+    "globe_individual_f": "Individuel F",
+    "globe_mass_start_h": "Mass Start H",
+    "globe_mass_start_f": "Mass Start F",
+}
+
+GLOBE_COLS = [
+        "Sprint H", "Sprint F",
+        "Poursuite H", "Poursuite F",
+        "Individuel H", "Individuel F",
+        "Mass Start H", "Mass Start F",
+    ]
+
+
 def athlete_label(ibuid: str) -> str:
     """Retourne un label lisible : '🇫🇷 Fillon Maillet Quentin'."""
     if not ibuid or ibuid not in ATHLETES_BY_IBUID:

@@ -7,20 +7,18 @@ Responsabilités :
 - Connexion utilisateur
 - Création de compte
 - Gestion du reset password (génération + vérification)
-- Communication avec Google Sheets (feuille Users)
 - Envoi d'email via Brevo
 
-Ce module ne contient AUCUNE logique Streamlit (UI).
+Toute la communication avec Google Sheets passe par utils.sheets.
 """
 
 import re
 import secrets
-import json
 import bcrypt
 import requests
-import gspread
-from google.oauth2.service_account import Credentials
 import streamlit as st
+
+from utils.sheets import get_sheet, append_row, update_cell
 
 
 # ---------------------------------------------------------
@@ -65,27 +63,7 @@ def validate_email(email: str) -> tuple[bool, str]:
 
 
 # ---------------------------------------------------------
-# 3) ACCÈS À GOOGLE SHEETS
-# ---------------------------------------------------------
-
-def get_users_sheet():
-    """Retourne la feuille Google Sheets 'Users'."""
-    scope = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ]
-
-    creds = Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"],
-        scopes=scope
-    )
-
-    client = gspread.authorize(creds)
-    return client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Users")
-
-
-# ---------------------------------------------------------
-# 4) AUTHENTIFICATION
+# 3) AUTHENTIFICATION
 # ---------------------------------------------------------
 
 def authenticate(identifier: str, password: str):
@@ -95,7 +73,7 @@ def authenticate(identifier: str, password: str):
     """
     identifier = identifier.strip().lower()
 
-    sheet = get_users_sheet()
+    sheet = get_sheet("Users")
     users = sheet.get_all_records()
 
     for user in users:
@@ -108,7 +86,7 @@ def authenticate(identifier: str, password: str):
 
 
 # ---------------------------------------------------------
-# 5) CRÉATION DE COMPTE
+# 4) CRÉATION DE COMPTE
 # ---------------------------------------------------------
 
 def create_account(username: str, email: str, password: str):
@@ -130,7 +108,7 @@ def create_account(username: str, email: str, password: str):
     if not ok:
         return False, msg
 
-    sheet = get_users_sheet()
+    sheet = get_sheet("Users")
     users = sheet.get_all_records()
 
     # Unicité username
@@ -145,13 +123,13 @@ def create_account(username: str, email: str, password: str):
     password_hash = hash_password(password)
 
     # Ajout dans Google Sheets
-    sheet.append_row([username, email, password_hash])
+    append_row("Users", [username, email, password_hash])
 
     return True, "Compte créé avec succès."
 
 
 # ---------------------------------------------------------
-# 6) RESET PASSWORD
+# 5) RESET PASSWORD
 # ---------------------------------------------------------
 
 def generate_reset_code() -> str:
@@ -165,7 +143,7 @@ def request_password_reset(email: str):
     Retourne (True, message) ou (False, erreur).
     """
     email = email.strip().lower()
-    sheet = get_users_sheet()
+    sheet = get_sheet("Users")
     users = sheet.get_all_records()
 
     for i, user in enumerate(users, start=2):  # ligne 2 = première ligne de données
@@ -173,7 +151,7 @@ def request_password_reset(email: str):
             code = generate_reset_code()
 
             # Colonne 4 = reset_code
-            sheet.update_cell(i, 4, code)
+            update_cell("Users", i, 4, code)
 
             sent = send_reset_email(email, code)
             if sent:
@@ -188,7 +166,7 @@ def reset_password(email: str, code: str, new_password: str):
     Réinitialise le mot de passe si le code est correct.
     """
     email = email.strip().lower()
-    sheet = get_users_sheet()
+    sheet = get_sheet("Users")
     users = sheet.get_all_records()
 
     for i, user in enumerate(users, start=2):
@@ -199,8 +177,8 @@ def reset_password(email: str, code: str, new_password: str):
 
             new_hash = hash_password(new_password)
 
-            sheet.update_cell(i, 3, new_hash)  # Colonne 3 = password_hash
-            sheet.update_cell(i, 4, "")        # Colonne 4 = reset_code (effacé)
+            update_cell("Users", i, 3, new_hash)  # Colonne 3 = password_hash
+            update_cell("Users", i, 4, "")        # Colonne 4 = reset_code (effacé)
 
             return True, "Mot de passe réinitialisé."
 
@@ -208,7 +186,7 @@ def reset_password(email: str, code: str, new_password: str):
 
 
 # ---------------------------------------------------------
-# 7) ENVOI D'EMAIL (BREVO)
+# 6) ENVOI D'EMAIL (BREVO)
 # ---------------------------------------------------------
 
 def send_reset_email(to_email: str, code: str) -> bool:

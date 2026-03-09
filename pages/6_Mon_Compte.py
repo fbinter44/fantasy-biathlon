@@ -1,76 +1,67 @@
+"""
+Page : Mon Compte
+
+Permet à l'utilisateur :
+- de voir son nom d'utilisateur
+- de changer son mot de passe
+"""
+
 import streamlit as st
-import gspread
-from google.oauth2.service_account import Credentials
-from utils.ui_components import sidebar_menu, user_header
-import pandas as pd
 import bcrypt
+import pandas as pd
+
+from utils.ui_components import sidebar_menu, user_header
+from utils.sheets import get_sheet, update_cell
+
 
 # ---------------------------------------------------------
-# Identification de la page (pour garder le menu cohérent)
+# 1) Configuration de la page
 # ---------------------------------------------------------
+
 st.session_state["current_page"] = "6_Mon_Compte"
-
-# ---------------------------------------------------------
-# Configuration générale de la page
-# ---------------------------------------------------------
 st.set_page_config(page_title="Mon Compte", layout="wide")
 
-# ---------------------------------------------------------
-# Barre latérale + header utilisateur
-# ---------------------------------------------------------
 sidebar_menu()
 user_header()
 
-# ---------------------------------------------------------
-# Vérification de l'authentification
-# ---------------------------------------------------------
 user = st.session_state.get("user")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
-# ---------------------------------------------------------
-# Titre principal
-# ---------------------------------------------------------
 st.title("👤 Mon Compte")
 
-# ---------------------------------------------------------
-# Connexion à Google Sheets (table Users)
-# ---------------------------------------------------------
-scope = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
-creds = Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=scope
-)
-client = gspread.authorize(creds)
-sheet = client.open_by_key(st.secrets["sheets"]["sheet_id"]).worksheet("Users")
 
 # ---------------------------------------------------------
-# Récupération des informations utilisateur
+# 2) Chargement des données utilisateur
 # ---------------------------------------------------------
+
+sheet = get_sheet("Users")
 records = sheet.get_all_records()
+
 df_users = pd.DataFrame(records)
 user_data = df_users[df_users["username"] == user]
 if user_data.empty:
     st.error("Utilisateur introuvable dans la database.")
     st.stop()
+row_index = user_data.index[0] + 2
 user_row = user_data.iloc[0]
 
+
 # ---------------------------------------------------------
-# SECTION : Informations du compte
+# 3) Affichage des infos
 # ---------------------------------------------------------
+
 st.subheader("📄 Informations du compte")
 st.write(f"**Pseudo :** {user_row['username']}")
 st.write(f"**Email :** {user_row['email']}")
-
 st.markdown("---")
 
+
 # ---------------------------------------------------------
-# SECTION : Changement de mot de passe
+# 4) Changement de mot de passe
 # ---------------------------------------------------------
+
 st.subheader("🔐 Changer mon mot de passe")
 
 # Formulaire dédié au changement de mot de passe
@@ -93,10 +84,8 @@ with st.form("change_password"):
         elif len(new_pwd) < 6:
             st.error("Le mot de passe doit contenir au moins 6 caractères.")
         else:
-            # Recherche de la ligne utilisateur via le username (identifiant stable) et mise à jour
-            cell = sheet.find(user_row["username"])
             new_hash = bcrypt.hashpw(new_pwd.encode(), bcrypt.gensalt()).decode()
-            sheet.update_cell(cell.row, df_users.columns.get_loc("password") + 1, new_hash)
+            update_cell("Users", row_index, 3, new_hash)
 
             st.success("Mot de passe mis à jour avec succès !")
 
