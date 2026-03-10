@@ -4,17 +4,17 @@ import altair as alt
 import datetime
 
 from core.scoring.scoring_service import load_players_data, compute_all_players_points
-from core.competitions_results import Season
-from core.results_data import BiathlonTempStandings
+from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import VENUES_NAMES
 
 
+# ---------------------------------------------------------
+# Configuration de la page
+# ---------------------------------------------------------
+
 st.session_state["current_page"] = "3b_Evolution_Classement"
 
-# ---------------------------------------------------------
-# UI & sécurité utilisateur
-# ---------------------------------------------------------
 sidebar_menu()
 user_header()
 
@@ -24,9 +24,16 @@ if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
+
 # ---------------------------------------------------------
-# Chargement des pronostics
+# Chargement des données IBU via IBUClient
 # ---------------------------------------------------------
+# On utilise ici IBUClient pour :
+#   - charger les venues
+#   - charger les résultats course par course
+#   - reconstruire les standings cumulés après chaque venue
+#   - fournir les standings finaux (BiathlonStandings)
+
 try:
     players_predictions = load_players_data()
 except KeyError as e:
@@ -39,37 +46,44 @@ except KeyError as e:
     else:
         raise
 
+
 # ---------------------------------------------------------
-# Chargement de la saison + timeline + index athlètes
+# Chargement des données IBU via IBUClient
 # ---------------------------------------------------------
-season = Season("2526")
-season.load_venues()
-season.load_all_results()
-season.build_ibu_standings_after_each_venue()
+# On utilise ici IBUClient pour :
+#   - charger les venues
+#   - charger les résultats course par course
+#   - reconstruire les standings cumulés après chaque venue
+#   - fournir les standings finaux (BiathlonStandings)
+
+ibu = IBUClient("2526")
+ibu.compute_evolutive_standings()
+cumulated_standings = ibu.cumulated_standings
+
 
 # ---------------------------------------------------------
 # Construction de la timeline des points fantasy
 # ---------------------------------------------------------
 timeline_rows = []
 
-for v in range(1, season.nb_venues + 1):
-    if datetime.datetime.now().date() <= season.venues[v-1].end_date:
+for nb_venue in cumulated_standings:
+    men_temp = cumulated_standings[nb_venue]["Men"]
+    women_temp = cumulated_standings[nb_venue]["Women"]
+
+    venue = ibu.competitions.venues[nb_venue - 1]
+
+    if datetime.datetime.now().date() < venue.end_date:
         continue
 
-    men_temp = BiathlonTempStandings(season, "Men", v)
-    men_temp.load()
-
-    women_temp = BiathlonTempStandings(season, "Women", v)
-    women_temp.load()
-
+    # Calcul des points fantasy
     scoring = compute_all_players_points(players_predictions, men_temp, women_temp)
 
-    v_name = VENUES_NAMES[season.venues[v-1].epreuves[0].location]
+    venue_name = VENUES_NAMES[ibu.competitions.venues[nb_venue - 1].epreuves[0].location]
 
     for p in scoring.values():
         timeline_rows.append({
-            "venue": v,
-            "venue_name": v_name,
+            "venue": nb_venue,
+            "venue_name": venue_name,
             "player": p.player,
             "points": p.total_points
         })
@@ -78,7 +92,6 @@ df_timeline = pd.DataFrame(timeline_rows)
 
 df_timeline["venue_order"] = df_timeline["venue"]
 
-# Définir l'ordre temporel
 ordered_names = (
     df_timeline.sort_values("venue_order")["venue_name"]
     .unique()
@@ -91,9 +104,11 @@ df_timeline["venue_name"] = pd.Categorical(
     ordered=True
 )
 
+
 # ---------------------------------------------------------
 # Titre
 # ---------------------------------------------------------
+
 st.title("📉 Évolution du classement")
 
 st.markdown(
@@ -101,14 +116,15 @@ st.markdown(
     "calculée à partir des classements IBU reconstruits (général + globes)."
 )
 
+
 # ---------------------------------------------------------
 # Graphique d’évolution
 # ---------------------------------------------------------
+
 st.subheader("📈 Évolution des points fantasy")
 
 y_min = df_timeline["points"].min()
 y_max = df_timeline["points"].max()
-
 
 base = alt.Chart(df_timeline).encode(
     x=alt.X(
@@ -135,7 +151,6 @@ hover = alt.selection_point(
     nearest=True,
     empty=False
 )
-
 
 # Lignes des autres joueurs
 others = base.transform_filter(
@@ -167,9 +182,11 @@ chart = (others + highlight + points).properties(height=450)
 
 st.altair_chart(chart, use_container_width=True)
 
+
 # ---------------------------------------------------------
 # Tableau détaillé
 # ---------------------------------------------------------
+
 st.subheader("📋 Détail des points par week-end")
 
 pivot = df_timeline.pivot(index="player", columns="venue_name", values="points").fillna(0)

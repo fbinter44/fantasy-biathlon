@@ -114,6 +114,30 @@ GLOBE_COLS = [
         "Mass Start H", "Mass Start F",
     ]
 
+RELAY_IDS = ["RL", "SR"]
+
+NB_VENUES_BY_SEASON = {
+    '2526': 9,
+    '2627': 10,
+    '2728': 9
+}
+
+DISCIPLINE_MAP = {
+    "SP": "sprint",
+    "PU": "pursuit",
+    "MS": "mass_start",
+    "IN": "individual",
+    "SI": "individual",   # certains formats individuels utilisent SI
+}
+
+DISCIPLINES_DISPLAY = [
+    ("general", "Classement Général"),
+    ("sprint", "Sprint"),
+    ("pursuit", "Poursuite"),
+    ("individual", "Individuel"),
+    ("mass_start", "Mass Start")
+]
+
 
 def athlete_label(ibuid: str) -> str:
     """Retourne un label lisible : '🇫🇷 Fillon Maillet Quentin'."""

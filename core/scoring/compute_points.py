@@ -15,7 +15,6 @@ def compute_regular_points(pred_list, df_top10):
 
         row = df_top10[df_top10["id"] == athlete].iloc[0]
         real_rank = int(row["rank"])
-
         pts = POINTS_TABLE[real_rank - 1]
 
         if real_rank == predicted_rank:

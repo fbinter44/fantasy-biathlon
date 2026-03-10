@@ -1,9 +1,14 @@
 import streamlit as st
 import altair as alt
-import pandas as pd
-from core.results_data import BiathlonStandings
-from utils.ui_components import sidebar_menu, user_header
 
+from core.ibu.client import IBUClient
+from utils.ui_components import sidebar_menu, user_header
+from utils.biathlon_data import DISCIPLINES_DISPLAY
+
+
+# ---------------------------------------------------------
+# Configuration de la page
+# ---------------------------------------------------------
 
 st.session_state["current_page"] = "4_Resultats_Officiels"
 
@@ -13,32 +18,41 @@ user_header()
 st.set_page_config(layout="wide")
 
 st.title("📊 Résultats Officiels – Top 10")
-
 st.write("Classements officiels des différentes disciplines (Hommes & Femmes).")
 
-# ---------------------------------------------------------
 
-men_results = BiathlonStandings("Men")
+# ---------------------------------------------------------
+# Chargement des standings officiels via IBUClient
+# ---------------------------------------------------------
+# On utilise ici IBUClient (core/ibu/client.py), qui centralise
+# tous les accès à l’API IBU. Cela permet :
+#   - d’avoir un point d’entrée unique
+#   - de garder une architecture propre et modulaire
+#   - de remplacer facilement la source de données plus tard
+#
+# IBUClient.standings(gender) renvoie un objet BiathlonStandings,
+# qui expose les DataFrames top 10 pour :
+#   - general
+#   - sprint
+#   - pursuit
+#   - individual
+#   - mass_start
+#
+# Ces DataFrames sont ensuite affichés dans les tableaux et graphiques.
+
+ibu = IBUClient("2526")
+men_results = ibu.current_men_standings
 men_results.load_all()
-women_results = BiathlonStandings("Women")
+
+women_results = ibu.current_women_standings
 women_results.load_all()
 
-# ---------------------------------------------------------
-
-# Liste des disciplines dans l'ordre souhaité
-DISCIPLINES = [
-    ("general", "Classement Général"),
-    ("sprint", "Sprint"),
-    ("pursuit", "Poursuite"),
-    ("individual", "Individuel"),
-    ("mass_start", "Mass Start")
-]
 
 # ---------------------------------------------------------
 # Affichage discipline par discipline
 # ---------------------------------------------------------
 
-for attr, display_name in DISCIPLINES:
+for attr, display_name in DISCIPLINES_DISPLAY:
     st.markdown(f"## 🏅 {display_name}")
 
     col1, col2 = st.columns(2)
@@ -127,4 +141,3 @@ for attr, display_name in DISCIPLINES:
     st.altair_chart((bars_w + labels_w).properties(height=350), use_container_width=True)
 
     st.markdown("---")
-

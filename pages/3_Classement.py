@@ -3,10 +3,14 @@ import pandas as pd
 import altair as alt
 
 from core.scoring.scoring_service import load_players_data, compute_all_players_points
-from core.results_data import BiathlonStandings
+from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
 
+
+# ---------------------------------------------------------
+# Configuration de la page
+# ---------------------------------------------------------
 
 st.session_state["current_page"] = "3_Classement"
 
@@ -19,6 +23,11 @@ if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
+
+# ---------------------------------------------------------
+# Chargement des pronostics joueurs
+# ---------------------------------------------------------
+
 try:
     players_predictions = load_players_data()
 except KeyError as e:
@@ -30,19 +39,49 @@ except KeyError as e:
         st.stop()
     else:
         raise
-standings_men = BiathlonStandings("Men")
-standings_men.load_all()
-standings_women = BiathlonStandings("Women")
-standings_women.load_all()
-scoring_summary = compute_all_players_points(players_predictions, standings_men, standings_women)
+
+
+# ---------------------------------------------------------
+# Chargement des standings officiels via IBUClient
+# ---------------------------------------------------------
+# On utilise ici IBUClient (core/ibu/client.py), qui centralise
+# tous les accès à l’API IBU. Cela permet :
+#   - d’avoir un point d’entrée unique
+#   - de garder une architecture propre et modulaire
+#   - de remplacer facilement la source de données plus tard
+#
+# IBUClient.standings(gender) renvoie un objet BiathlonStandings,
+# qui expose les DataFrames top 10 pour :
+#   - general
+#   - sprint
+#   - pursuit
+#   - individual
+#   - mass_start
+
+ibu = IBUClient("2526")
+
+men_results = ibu.current_men_standings
+men_results.load_all()
+
+women_results = ibu.current_women_standings
+women_results.load_all()
+
+
+# ---------------------------------------------------------
+# Calcul du scoring
+# ---------------------------------------------------------
+
+scoring_summary = compute_all_players_points(players_predictions, men_results, women_results)
 
 st.set_page_config(layout="wide")
 
 st.title("🏆 Classement général")
 
+
 # ---------------------------------------------------------
 # Construction du DataFrame
 # ---------------------------------------------------------
+
 ranking = sorted(
     scoring_summary.values(),
     key=lambda p: p.total_points,
@@ -61,9 +100,11 @@ df = pd.DataFrame([
     for p in ranking
 ])
 
+
 # ---------------------------------------------------------
 # Mise en avant du Top 3
 # ---------------------------------------------------------
+
 st.subheader("🥇 Top 3")
 
 col1, col2, col3 = st.columns([1, 1, 1])
@@ -98,18 +139,22 @@ with col3:
 
 st.markdown("---")
 
+
 # ---------------------------------------------------------
 # Tableau complet
 # ---------------------------------------------------------
+
 st.subheader("📋 Tableau complet")
 
 st.dataframe(df, use_container_width=True, hide_index=True)
 
 st.markdown("---")
 
+
 # ---------------------------------------------------------
 # Graphique comparatif
 # ---------------------------------------------------------
+
 st.subheader("📊 Répartition des points")
 
 chart = alt.Chart(df).mark_bar(size=25).encode(
@@ -137,10 +182,10 @@ labels = alt.Chart(df).mark_text(
 st.altair_chart((chart + labels).properties(height=400), use_container_width=True)
 
 
-
 # ---------------------------------------------------------
 # Graphique Hommes vs Femmes
 # ---------------------------------------------------------
+
 st.subheader("👥 Points Hommes vs Femmes")
 
 df_long = df.melt(id_vars="Joueur", value_vars=["Hommes", "Femmes"])
@@ -171,9 +216,11 @@ labels = alt.Chart(df_long).mark_text(
 
 st.altair_chart((bars + labels).properties(height=400), use_container_width=True)
 
+
 # -----------------------------
 # BONUS GOURMAND
 # -----------------------------
+
 st.subheader("🍫 Bonus Gourmand")
 
 # On passe en format long
@@ -212,4 +259,3 @@ labels_bonus = alt.Chart(df_bonus_total).mark_text(
 )
 
 st.altair_chart((bars_bonus + labels_bonus).properties(height=400), use_container_width=True)
-
