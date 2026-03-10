@@ -21,6 +21,13 @@ class IBUClient:
         self.cumulated_scores = None
         self.cumulated_standings = {}
     
+    def load_standings(self):
+        men = self.current_men_standings
+        women = self.current_women_standings
+        men.load_all()
+        women.load_all()
+        return men, women
+
     def load_results(self):
         self.competitions.load_venues_results()
 

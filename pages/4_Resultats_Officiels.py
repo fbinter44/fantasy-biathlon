@@ -2,8 +2,12 @@ import streamlit as st
 import altair as alt
 
 from core.ibu.client import IBUClient
+from core.scoring.scoring_service import load_players_data, get_user_predictions
 from utils.ui_components import sidebar_menu, user_header
-from utils.biathlon_data import DISCIPLINES_DISPLAY
+from utils.biathlon_data import DISCIPLINES_DISPLAY, DISCIPLINES_WINNERS, ids_to_names
+from utils.visualisation_utils import make_highlighter
+from utils.charts import make_points_chart
+from utils.table_display import display_results_table
 
 
 # ---------------------------------------------------------
@@ -17,7 +21,7 @@ user_header()
 
 st.set_page_config(layout="wide")
 
-st.title("📊 Résultats Officiels – Top 10")
+st.title("📊 Résultats Officiels")
 st.write("Classements officiels des différentes disciplines (Hommes & Femmes).")
 
 
@@ -41,11 +45,9 @@ st.write("Classements officiels des différentes disciplines (Hommes & Femmes)."
 # Ces DataFrames sont ensuite affichés dans les tableaux et graphiques.
 
 ibu = IBUClient("2526")
-men_results = ibu.current_men_standings
-men_results.load_all()
+men_results, women_results = ibu.load_standings()
 
-women_results = ibu.current_women_standings
-women_results.load_all()
+my_preds = get_user_predictions(st.session_state.get("user"))
 
 
 # ---------------------------------------------------------
@@ -57,87 +59,30 @@ for attr, display_name in DISCIPLINES_DISPLAY:
 
     col1, col2 = st.columns(2)
 
-    # Récupération dynamique des DataFrames
     df_men = getattr(men_results, attr)
     df_women = getattr(women_results, attr)
 
-    df_men.drop("id", axis=1, inplace=True)
-    df_women.drop("id", axis=1, inplace=True)
+    if attr == 'general':
+        my_top_men = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_men').tolist()
+        my_top_women = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_women').tolist()
+    else:
+        my_top_men = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_men]
+        my_top_women = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_women]
+
+    fav_men = ids_to_names(df_men, my_top_men)
+    fav_women = ids_to_names(df_women, my_top_women)
+
+    highlighter_men = make_highlighter(fav_men)
+    highlighter_women = make_highlighter(fav_women)
 
     with col1:
-        st.subheader("Hommes")
-        st.dataframe(
-            df_men.reset_index(drop=True),
-            use_container_width=True,
-            hide_index=True
-        )
+        display_results_table(df_men, highlighter_men, "Hommes")
+        st.subheader("Écarts – Hommes")
+        st.altair_chart(make_points_chart(df_men.head(10), "#1f77b4").properties(height=350), use_container_width=True)
 
     with col2:
-        st.subheader("Femmes")
-        st.dataframe(
-            df_women.reset_index(drop=True),
-            use_container_width=True,
-            hide_index=True
-        )
-
-    # Préparation des données Hommes
-    df_m = df_men.copy()
-    df_m["rank"] = df_m["rank"].astype(int)
-    rank_order_m = df_m["rank"].sort_values().unique().tolist()
-
-    bars_m = alt.Chart(df_m).mark_bar(size=20).encode(
-        y=alt.Y(
-            "rank:N",
-            sort=rank_order_m,
-            axis=alt.Axis(title="Rang", labelAngle=0)
-        ),
-        x=alt.X("points:Q", title="Points"),
-        color=alt.value("#1f77b4")  # bleu discret
-    )
-
-    labels_m = alt.Chart(df_m).mark_text(
-        align="left",
-        baseline="middle",
-        dx=5,
-        color="black",
-        fontSize=11
-    ).encode(
-        y=alt.Y("rank:N", sort=rank_order_m),
-        x="points:Q",
-        text="name:N"
-    )
-
-    st.subheader("Écarts – Hommes")
-    st.altair_chart((bars_m + labels_m).properties(height=350), use_container_width=True)
-
-    # Préparation des données Femmes
-    df_w = df_women.copy()
-    df_w["rank"] = df_w["rank"].astype(int)
-    rank_order_w = df_w["rank"].sort_values().unique().tolist()
-
-    bars_w = alt.Chart(df_w).mark_bar(size=20).encode(
-        y=alt.Y(
-            "rank:N",
-            sort=rank_order_w,
-            axis=alt.Axis(title="Rang", labelAngle=0)
-        ),
-        x=alt.X("points:Q", title="Points"),
-        color=alt.value("#e377c2")  # rose discret
-    )
-
-    labels_w = alt.Chart(df_w).mark_text(
-        align="left",
-        baseline="middle",
-        dx=5,
-        color="black",
-        fontSize=11
-    ).encode(
-        y=alt.Y("rank:N", sort=rank_order_w),
-        x="points:Q",
-        text="name:N"
-    )
-
-    st.subheader("Écarts – Femmes")
-    st.altair_chart((bars_w + labels_w).properties(height=350), use_container_width=True)
+        display_results_table(df_women, highlighter_women, "Femmes")
+        st.subheader("Écarts – Femmes")
+        st.altair_chart(make_points_chart(df_women.head(10), "#e377c2").properties(height=350), use_container_width=True)
 
     st.markdown("---")

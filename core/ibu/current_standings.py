@@ -23,7 +23,7 @@ class IBUCurrentStandings:
         """
         Charge les standings top 10 pour toutes les disciplines.
         """
-        self.general = self._api.get_results(self.gender, "General")
+        self.general = self._api.get_results(self.gender, "General", top=20)
         self.sprint = self._api.get_results(self.gender, "Sprint")
         self.pursuit = self._api.get_results(self.gender, "Pursuit")
         self.individual = self._api.get_results(self.gender, "Individual")

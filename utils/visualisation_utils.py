@@ -69,3 +69,27 @@ def player_podium_card(rank: int, player: str, total_points: int, bonus_points: 
         """,
         unsafe_allow_html=True
     )
+
+
+def make_highlighter(favs):
+    def highlight(row):
+        styles = [""] * len(row)
+
+        name = row["name"]
+        rank = row["rank"]
+
+        # Règle 1 : Favoris
+        if name in favs:
+            styles = ["background-color: #fff2a8"] * len(row)  # jaune clair
+
+        # Règle 2 : Top 10 général
+        if int(rank) <= 10:
+            styles = [s + "; font-weight: 600" for s in styles]  # gras léger
+
+        # Règle 3 : Places 11 à 20 → transparence
+        if 11 <= int(rank) <= 20:
+            styles = [s + "; color: #999999" for s in styles]
+
+        return styles
+
+    return highlight

@@ -16,38 +16,38 @@ def test_standings():
 
     print("\n--- HOMMES ---")
     print("Général :")
-    print(men.general.head(10))
+    print(men.general)
 
     print("\nSprint :")
-    print(men.sprint.head(10))
+    print(men.sprint)
 
     print("\nPoursuite :")
-    print(men.pursuit.head(10))
+    print(men.pursuit)
 
     print("\nIndividuel :")
-    print(men.individual.head(10))
+    print(men.individual)
 
     print("\nMass Start :")
-    print(men.mass_start.head(10))
+    print(men.mass_start)
 
     women = ibu.current_women_standings
     women.load_all()
 
     print("\n--- FEMMES ---")
     print("Général :")
-    print(women.general.head(10))
+    print(women.general)
 
     print("\nSprint :")
-    print(women.sprint.head(10))
+    print(women.sprint)
 
     print("\nPoursuite :")
-    print(women.pursuit.head(10))
+    print(women.pursuit)
 
     print("\nIndividuel :")
-    print(women.individual.head(10))
+    print(women.individual)
 
     print("\nMass Start :")
-    print(women.mass_start.head(10))
+    print(women.mass_start)
 
 
 def test_races():

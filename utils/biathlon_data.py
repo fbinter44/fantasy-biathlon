@@ -138,6 +138,14 @@ DISCIPLINES_DISPLAY = [
     ("mass_start", "Mass Start")
 ]
 
+DISCIPLINES_WINNERS = {
+    "general": "top",
+    "sprint": "sprint_winners",
+    "pursuit": "pursuit_winners",
+    "individual": "individual_winners",
+    "mass_start": "mass_start_winners",
+}
+
 
 def athlete_label(ibuid: str) -> str:
     """Retourne un label lisible : '🇫🇷 Fillon Maillet Quentin'."""
@@ -163,3 +171,7 @@ def split_top5(csv_string: str) -> list[str]:
     items = csv_string.split(",")
     items += [""] * (5 - len(items))
     return items[:5]
+
+
+def ids_to_names(df, ids):
+    return set(df[df["id"].isin(ids)]["name"].tolist())

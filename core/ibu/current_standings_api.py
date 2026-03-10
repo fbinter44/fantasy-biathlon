@@ -49,7 +49,7 @@ class IBUCurrentStandingsAPI:
 
         return False
 
-    def get_results(self, gender, discipline, force_refresh=False):
+    def get_results(self, gender, discipline, top=10, force_refresh=False):
         cache_path = self.cache_path(gender, discipline)
 
         cached_df = None
@@ -75,7 +75,7 @@ class IBUCurrentStandingsAPI:
         # Sinon → API
         url = self._build_url(gender, discipline)
         data = requests.get(url).json()
-        rows = data["Rows"][:10]
+        rows = data["Rows"][:top]
 
         df = pd.DataFrame({
             "id": [r["IBUId"] for r in rows],
