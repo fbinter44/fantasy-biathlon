@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from .current_standings import IBUCurrentStandings
 from .competitions_api import IBUCompetitionsAPI
 from .season_results import IBUSeasonResultsBuilder
@@ -11,8 +13,8 @@ class IBUClient:
 
     def __init__(self, season_code="2526"):
         self.season_code = season_code
-        self.current_men_standings = IBUCurrentStandings("Men", season_code)
-        self.current_women_standings = IBUCurrentStandings("Women", season_code)
+        self.current_men_standings = IBUCurrentStandings("Men", season_code, client=self)
+        self.current_women_standings = IBUCurrentStandings("Women", season_code, client=self)
         self.competitions = IBUCompetitionsAPI(season_code)
         self.season_results = IBUSeasonResultsBuilder(season_code)
 
@@ -39,3 +41,27 @@ class IBUClient:
             women_evolutive_standings.load_all()
             self.cumulated_standings[i]["Men"] = men_evolutive_standings
             self.cumulated_standings[i]["Women"] = women_evolutive_standings
+
+    def get_last_race_end(self):
+        """
+        Retourne la date/heure de la dernière course terminée.
+        """
+        if not self.competitions.venues:
+            self.load_results()
+
+        # Récupérer toutes les épreuves
+        all_races = []
+        for v in self.competitions.venues:
+            for ep in v.epreuves:
+                all_races.append(ep)
+
+        # Filtrer uniquement les courses passées
+        now = datetime.now(timezone.utc)
+        past_races = [ep for ep in all_races if ep.start_time <= now]
+
+        if not past_races:
+            return None  # aucune course encore terminée
+
+        # Retourner la dernière course terminée
+        return max(ep.start_time for ep in past_races)
+

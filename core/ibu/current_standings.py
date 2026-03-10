@@ -7,7 +7,7 @@ class IBUCurrentStandings:
     Utilise IBUCupResultsAPI pour charger les top 10.
     """
 
-    def __init__(self, gender, season_code="2526"):
+    def __init__(self, gender, season_code="2526", client=None):
         self.gender = gender
         self.season_code = season_code
 
@@ -17,7 +17,7 @@ class IBUCurrentStandings:
         self.individual = None
         self.mass_start = None
 
-        self._api = IBUCurrentStandingsAPI(season_code)
+        self._api = IBUCurrentStandingsAPI(season_code, client=client)
 
     def load_all(self):
         """

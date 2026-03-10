@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import pickle
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR
 from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON
@@ -19,9 +19,11 @@ class Epreuve:
         self.discipline = discipline
         self.category = category
         self.location = location
-        self.date = datetime.fromisoformat(start_time.replace("Z", "+00:00")).date()
+        self.start_time = datetime.fromisoformat(start_time.replace("Z", "+00:00"))
+        self.date = self.start_time.date()
         self.venue = venue
         self.results = None
+        self.cache_timestamp = None
 
     @property
     def cache_path(self):
@@ -29,8 +31,31 @@ class Epreuve:
         return os.path.join(CACHE_RESULTS_DIR, f"{self.race_id}.pkl")
     
     def should_refresh(self):
-        today = datetime.now().date()
-        return self.date >= today and self.venue.start_date <= today
+        now = datetime.now(timezone.utc)
+        if os.path.exists(self.cache_path):
+            with open(self.cache_path, "rb") as f:
+                data = pickle.load(f)
+                self.cache_timestamp = data.get("timestamp")
+
+        # 1) Course dans le futur -> pas de refresh
+        if self.start_time > now:
+            return False
+        
+        # 2) Si la course est aujourd’hui mais vient juste de commencer → attendre
+        # On refresh seulement 5h après le début
+        if now < self.start_time + timedelta(hours=5):
+            return False
+        
+        # 3) Si pas de cache → refresh
+        if self.cache_timestamp is None:
+            return True
+
+        # 4) Si le cache est plus vieux que "start_time + 5h" → refresh
+        if self.cache_timestamp < self.start_time + timedelta(hours=5):
+            return True
+
+        # 5) Sinon → cache déjà à jour
+        return False
 
     def load_results(self, force_refresh=False):
         # 1) Retrieve from cache if possible
@@ -38,6 +63,7 @@ class Epreuve:
             with open(self.cache_path, "rb") as f:
                 data = pickle.load(f)
                 self.results = data["results"]
+                self.cache_timestamp = data.get("timestamp")
                 return
         # 2) Otherwise request to the API and save to cache
         url = f"https://bw.biathlonresults.com/modules/sportapi/api/Results?RaceId={self.race_id}&Language=en"
@@ -55,7 +81,11 @@ class Epreuve:
         self.results = df
 
         with open(self.cache_path, "wb") as f:
-            pickle.dump({"results": df}, f)
+            pickle.dump(
+                {
+                    "results": df,
+                    "timestamp": datetime.now(timezone.utc)                
+                }, f)
 
 
     def top40(self):
