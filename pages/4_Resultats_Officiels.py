@@ -21,8 +21,7 @@ user_header()
 
 st.set_page_config(layout="wide")
 
-# st.title("📊 Résultats Officiels")
-page_title_with_feedback("📊 Résultats Officiels")
+st.title("📊 Résultats Officiels")
 st.write("Classements officiels des différentes disciplines (Hommes & Femmes).")
 
 

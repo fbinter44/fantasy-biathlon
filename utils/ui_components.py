@@ -108,7 +108,6 @@ def user_header():
     )
 
     user = st.session_state.get("user")
-    current_page = st.session_state.get("current_page")
 
     col1, col2 = st.columns([0.8, 0.2])
 
@@ -126,7 +125,7 @@ def user_header():
             )
         else:
             st.markdown("<em>Non connecté</em>", unsafe_allow_html=True)
-    
+
     with col2:
         if user:
             if st.button("Déconnexion"):
@@ -134,6 +133,7 @@ def user_header():
 
 
 def page_title_with_feedback(title: str):
+    # NOT USED FOR NOW, WILL BE USEFUL IF I MANAGE TO STAY CONNECTED WHEN SWITCHING PAGES
     current_page = st.session_state.get("current_page")
 
     # Pas de bouton sur la page Mon Compte
@@ -145,7 +145,7 @@ def page_title_with_feedback(title: str):
         f"""
         <div style="display:flex; align-items:center; gap:10px;">
             <h1 style="margin:0;">{title}</h1>
-            <a href="/pages/6_Mon_Compte" title="Clique ici pour partager du feedback"
+            <a href="Mon_Compte" title="Clique ici pour partager du feedback"
                style="text-decoration:none; font-size:28px; cursor:pointer;">
                 💡
             </a>
