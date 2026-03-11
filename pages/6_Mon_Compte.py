@@ -12,6 +12,7 @@ import pandas as pd
 
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import get_sheet, update_cell
+from utils.feedback import send_feedback_email
 
 
 # ---------------------------------------------------------
@@ -91,8 +92,28 @@ with st.form("change_password"):
 
 st.markdown("---")
 
+
 # ---------------------------------------------------------
-# SECTION : Préférences (placeholder)
+# 5) Collecte de feedback
 # ---------------------------------------------------------
-st.subheader("⚙️ Préférences (à venir)")
-st.info("Cette section permettra bientôt de personnaliser ton expérience (thème, affichage, notifications…).")
+
+st.subheader("💬 Feedback & Suggestions")
+st.write("Ton avis compte ! N’hésite pas à partager tes idées ou signaler un bug.")
+
+with st.form("feedback_form"):
+    feedback_type = st.selectbox(
+        "Type de feedback",
+        ["Suggestion", "Bug", "Amélioration", "Autre"]
+    )
+
+    subject = st.text_input("Sujet")
+    message = st.text_area("Message")
+
+    submitted = st.form_submit_button("Envoyer")
+
+    if submitted:
+        user = st.session_state.get("user", "Utilisateur inconnu")
+        send_feedback_email(user, feedback_type, subject, message)
+        st.success("Merci pour ton feedback !")
+
+st.markdown("---")
