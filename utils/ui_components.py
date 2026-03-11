@@ -6,6 +6,9 @@ Composants UI globaux de l'application :
 """
 
 import streamlit as st
+from datetime import datetime
+
+from utils.biathlon_data import PRONOS_DEADLINE
 
 
 # ---------------------------------------------------------
@@ -153,3 +156,56 @@ def page_title_with_feedback(title: str):
         """,
         unsafe_allow_html=True
     )
+
+
+def render_deadline_banner():
+    now = datetime.now()
+    remaining = PRONOS_DEADLINE - now
+
+    if remaining.total_seconds() <= 0:
+        st.markdown(
+            """
+            <div style="
+                padding: 14px 18px;
+                background-color: #ffe5e5;
+                border-left: 5px solid #d32f2f;
+                border-radius: 6px;
+                margin-bottom: 25px;
+                font-size: 17px;
+            ">
+                🔒 <strong>La saisie des pronostics est maintenant fermée.</strong>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        return True
+
+    # --- Temps restant ---
+    days = remaining.days
+    hours = remaining.seconds // 3600
+    minutes = (remaining.seconds % 3600) // 60
+
+    # --- Mode alerte si < 24h ---
+    alert_mode = remaining.total_seconds() < 24 * 3600
+
+    bg = "#fff4e5" if not alert_mode else "#fff0f0"
+    border = "#ffa726" if not alert_mode else "#e53935"
+
+    st.markdown(
+        f"""
+        <div style="
+            padding: 14px 18px;
+            background-color: {bg};
+            border-left: 5px solid {border};
+            border-radius: 6px;
+            margin-bottom: 25px;
+            font-size: 17px;
+        ">
+            ⏳ <strong>Clôture des pronos dans :</strong>
+            {days} jours {hours}h {minutes}m
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    return False

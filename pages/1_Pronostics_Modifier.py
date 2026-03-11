@@ -1,7 +1,7 @@
 import streamlit as st
-from datetime import datetime
+from streamlit_autorefresh import st_autorefresh
 
-from utils.ui_components import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header, render_deadline_banner
 from utils.sheets import get_sheet, get_player_row
 from utils.biathlon_data import PRONOS_DEADLINE, BIATHLETES_H, BIATHLETES_F, athlete_label
 
@@ -20,14 +20,17 @@ if not user:
     st.stop()
 
 player = user
-deadline_passed = datetime.now() > PRONOS_DEADLINE
-
-if deadline_passed:
-    st.error("⛔ La saison a débuté, tu ne peux plus saisir ou modifier tes pronos !")
 
 
 # ---------------------------------------------------------
-# 2) Listes d’affichage (labels + mapping inverse)
+# 2) TIMER DYNAMIQUE (isolé dans un placeholder)
+# ---------------------------------------------------------
+
+deadline_passed = render_deadline_banner()
+
+
+# ---------------------------------------------------------
+# 3) Listes d’affichage (labels + mapping inverse)
 # ---------------------------------------------------------
 
 DISPLAY_H = [""] + [athlete_label(i) for i in BIATHLETES_H]
@@ -42,7 +45,7 @@ def get_index(lst, value):
 
 
 # ---------------------------------------------------------
-# 3) Lecture des pronostics existants
+# 4) Lecture des pronostics existants
 # ---------------------------------------------------------
 
 sheet = get_sheet("Pronostics")
@@ -59,7 +62,7 @@ else:
 
 
 # ---------------------------------------------------------
-# 4) Formulaire
+# 5) Formulaire
 # ---------------------------------------------------------
 
 st.title("📝 Voir/Modifier mes pronostics")
@@ -179,7 +182,7 @@ with col_f:
 
 
 # ---------------------------------------------------------
-# 5) Validation
+# 6) Validation
 # ---------------------------------------------------------
 
 all_filled = all([
@@ -204,7 +207,7 @@ if duplicates_f:
 
 
 # ---------------------------------------------------------
-# 6) Sauvegarde
+# 7) Sauvegarde
 # ---------------------------------------------------------
 
 can_save = all_filled and not deadline_passed and not duplicates_h and not duplicates_f
@@ -229,3 +232,10 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
     else:
         sheet.append_row(row_values)
         st.success("Tes pronostics ont été enregistrés ✅")
+
+    
+# ---------------------------------------------------------
+# 8) Rafraîchissement automatique (TOUJOURS TOUT EN BAS)
+# ---------------------------------------------------------
+
+st_autorefresh(interval=1000*60, key="timer_only")
