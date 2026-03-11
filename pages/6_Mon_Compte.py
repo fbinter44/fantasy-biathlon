@@ -50,9 +50,32 @@ user_row = user_data.iloc[0]
 
 
 # ---------------------------------------------------------
-# 3) Affichage des infos
+# 3) Sommaire
 # ---------------------------------------------------------
 
+st.markdown("""
+<style>
+.anchor-offset {
+  position: relative;
+  top: -80px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+### 📌 Navigation rapide
+
+- [📄 Informations du compte](#infos)
+- [🔒 Changer mon mot de passe](#securite)
+- [💬 Feedback & Suggestions](#feedback)
+""", unsafe_allow_html=True)
+
+
+# ---------------------------------------------------------
+# 4) Affichage des infos
+# ---------------------------------------------------------
+
+st.markdown('<div id="infos" class="anchor-offset"></div>', unsafe_allow_html=True)
 st.subheader("📄 Informations du compte")
 st.write(f"**Pseudo :** {user_row['username']}")
 st.write(f"**Email :** {user_row['email']}")
@@ -60,9 +83,11 @@ st.markdown("---")
 
 
 # ---------------------------------------------------------
-# 4) Changement de mot de passe
+# 5) Changement de mot de passe
 # ---------------------------------------------------------
 
+st.markdown('<div id="securite" class="anchor-offset"></div>', unsafe_allow_html=True)
+# st.markdown('<a id="securite"></a>', unsafe_allow_html=True)
 st.subheader("🔐 Changer mon mot de passe")
 
 # Formulaire dédié au changement de mot de passe
@@ -94,9 +119,10 @@ st.markdown("---")
 
 
 # ---------------------------------------------------------
-# 5) Collecte de feedback
+# 6) Collecte de feedback
 # ---------------------------------------------------------
 
+st.markdown('<div id="feedback" class="anchor-offset"></div>', unsafe_allow_html=True)
 st.subheader("💬 Feedback & Suggestions")
 st.write("Ton avis compte ! N’hésite pas à partager tes idées ou signaler un bug.")
 

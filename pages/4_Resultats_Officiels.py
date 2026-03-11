@@ -3,7 +3,7 @@ import altair as alt
 
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import load_players_data, get_user_predictions
-from utils.ui_components import sidebar_menu, user_header
+from utils.ui_components import sidebar_menu, user_header, page_title_with_feedback
 from utils.biathlon_data import DISCIPLINES_DISPLAY, DISCIPLINES_WINNERS, ids_to_names
 from utils.visualisation_utils import make_highlighter
 from utils.charts import make_points_chart
@@ -21,7 +21,8 @@ user_header()
 
 st.set_page_config(layout="wide")
 
-st.title("📊 Résultats Officiels")
+# st.title("📊 Résultats Officiels")
+page_title_with_feedback("📊 Résultats Officiels")
 st.write("Classements officiels des différentes disciplines (Hommes & Femmes).")
 
 
