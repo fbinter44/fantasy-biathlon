@@ -13,6 +13,14 @@ def style_results_table(df, highlighter):
 
 
 def display_results_table(df, highlighter, title):
-    styled = style_results_table(df, highlighter)
     st.subheader(title)
-    st.dataframe(styled, use_container_width=True)
+
+    # On applique le style
+    styled = (
+        df.drop(columns=["id"], errors="ignore")
+          .style
+          .apply(highlighter, axis=1)
+    )
+
+    # On masque l’index ici (le seul endroit où ça marche vraiment)
+    st.dataframe(styled, hide_index=True, use_container_width=True)
