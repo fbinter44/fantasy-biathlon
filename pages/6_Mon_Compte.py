@@ -66,6 +66,7 @@ st.markdown("""
 ### 📌 Navigation rapide
 
 - [📄 Informations du compte](#infos)
+- [✏️ Changer mon pseudo](#username)
 - [🔒 Changer mon mot de passe](#securite)
 - [💬 Feedback & Suggestions](#feedback)
 """, unsafe_allow_html=True)
@@ -83,11 +84,55 @@ st.markdown("---")
 
 
 # ---------------------------------------------------------
-# 5) Changement de mot de passe
+# 5) Changement de username
+# ---------------------------------------------------------
+
+st.markdown('<div id="username" class="anchor-offset"></div>', unsafe_allow_html=True)
+st.subheader("✏️ Changer mon pseudo")
+all_users = df_users["username"]
+
+new_username = st.text_input(
+    "Nouveau nom d'utilisateur",
+    value=user,
+    max_chars=30,
+    help="Ton nom d'utilisateur doit être unique."
+)
+
+pronos_sheet = get_sheet("Pronostics")
+pronos_records = pronos_sheet.get_all_records()
+df_pronos_users = pd.DataFrame(pronos_records)
+prono_users = df_pronos_users["player"]
+
+if st.button("💾 Enregistrer les modifications"):
+
+    # --- Validation ---
+    if new_username.strip() == "":
+        st.error("Le nom d’utilisateur ne peut pas être vide.")
+        st.stop()
+
+    if new_username != user and new_username in all_users:
+        st.error("Ce nom d’utilisateur est déjà utilisé.")
+        st.stop()
+
+    # --- Mise à jour dans Google Sheets ---
+    row_index = all_users.tolist().index(user) + 2
+    pronos_row_index = prono_users.tolist().index(user) + 2
+    sheet.update(f"A{row_index}", [[new_username]])
+    pronos_sheet.update(f"A{pronos_row_index}", [[new_username]])
+
+    # --- Mise à jour de la session ---
+    st.session_state["user"] = new_username
+    st.success("Ton nom d’utilisateur a été mis à jour avec succès 🎉")
+    st.rerun()
+
+st.markdown("---")
+
+
+# ---------------------------------------------------------
+# 6) Changement de mot de passe
 # ---------------------------------------------------------
 
 st.markdown('<div id="securite" class="anchor-offset"></div>', unsafe_allow_html=True)
-# st.markdown('<a id="securite"></a>', unsafe_allow_html=True)
 st.subheader("🔐 Changer mon mot de passe")
 
 # Formulaire dédié au changement de mot de passe
@@ -119,7 +164,7 @@ st.markdown("---")
 
 
 # ---------------------------------------------------------
-# 6) Collecte de feedback
+# 7) Collecte de feedback
 # ---------------------------------------------------------
 
 st.markdown('<div id="feedback" class="anchor-offset"></div>', unsafe_allow_html=True)

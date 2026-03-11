@@ -131,7 +131,7 @@ def user_header():
 
     with col2:
         if user:
-            if st.button("Déconnexion"):
+            if st.button("Déconnexion", key="logout_button_header"):
                 logout()
 
 
