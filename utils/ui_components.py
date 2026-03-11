@@ -50,7 +50,8 @@ def sidebar_menu():
     pronostics_expanded = current_page in PRONOSTICS_PAGES
     standings_expanded = current_page in STANDINGS_PAGES
 
-    # Page toujours visible
+    # Pages toujours visible
+    st.sidebar.page_link("App.py", label="🏠 Accueil")
     st.sidebar.page_link("pages/5_Reglement.py", label="📘 Règlement")
 
     if user:
