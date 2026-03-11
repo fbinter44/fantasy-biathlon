@@ -106,7 +106,7 @@ df_timeline["venue_name"] = pd.Categorical(
 
 
 # ---------------------------------------------------------
-# Titre
+# Titre et message pour l'utilisateur
 # ---------------------------------------------------------
 
 st.title("📉 Évolution du classement")
@@ -114,6 +114,23 @@ st.title("📉 Évolution du classement")
 st.markdown(
     "Évolution des points fantasy **après chaque week-end**, "
     "calculée à partir des classements IBU reconstruits (général + globes)."
+)
+
+st.markdown(
+    """
+    <div style="
+        padding: 12px 16px;
+        background-color: #fff4e5;
+        border-left: 4px solid #ffa726;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-size: 15px;
+    ">
+        ⚠️ <strong>Attention :</strong> cette page n’est actualisée qu’à la fin de chaque week-end de compétitions.
+        Les résultats intermédiaires ne sont pas pris en compte avant la fin du week-end.
+    </div>
+    """,
+    unsafe_allow_html=True
 )
 
 
