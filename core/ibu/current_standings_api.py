@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import pickle
 from datetime import datetime, timezone, timedelta
+import json
 
 from utils.api_helpers import DISCIPLINE_CODES
 from utils.cache_helpers import CACHE_STANDINGS_DIR
@@ -90,5 +91,11 @@ class IBUCurrentStandingsAPI:
                 "standings": df,
                 "timestamp": datetime.now(timezone.utc)
             }, f)
+
+        # Mise à jour du fichier de json qui stocke les dates de mise à jour des classements
+        if self.should_refresh_standings(last_race_end, cache_timestamp):
+            state = json.load(open("users_info/results_state.json"))
+            state["results_version"] += 1
+            json.dump(state, open("users_info/results_state.json", "w"))
 
         return df

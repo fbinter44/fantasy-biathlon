@@ -6,6 +6,7 @@ from core.scoring.scoring_service import load_players_data, compute_all_players_
 from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
+from utils.user_warnings import check_new_results, show_toast
 
 
 # ---------------------------------------------------------
@@ -65,6 +66,14 @@ men_results.load_all()
 
 women_results = ibu.current_women_standings
 women_results.load_all()
+
+
+# ---------------------------------------------------------
+# Pop-up si de nouveaux résultats sont disponibles
+# ---------------------------------------------------------
+
+if user and check_new_results(user):
+    show_toast("🎉 Nouveaux résultats disponibles ! Va voir si ça t’arrange 😉")
 
 
 # ---------------------------------------------------------
