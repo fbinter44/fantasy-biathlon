@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import os
 from datetime import datetime, timezone, timedelta
+import json
 
 from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR
 from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON
@@ -86,6 +87,12 @@ class Epreuve:
                     "results": df,
                     "timestamp": datetime.now(timezone.utc)                
                 }, f)
+            
+        # Mise à jour du fichier de json qui stocke les dates de mise à jour des classements
+        if self.should_refresh():
+            state = json.load(open("users_info/results_state.json"))
+            state["results_version"] += 1
+            json.dump(state, open("users_info/results_state.json", "w"))
 
 
     def top40(self):

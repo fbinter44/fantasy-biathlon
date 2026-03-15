@@ -2,6 +2,21 @@ import json
 import streamlit as st
 
 
+def check_new_standings(user):
+    state = json.load(open("users_info/standings_state.json"))
+
+    global_version = state["results_version"]
+    user_version = state["users_seen"].get(user, 0)
+
+    if global_version > user_version:
+        # L’utilisateur n’a pas encore vu les nouveaux résultats
+        state["users_seen"][user] = global_version
+        json.dump(state, open("users_info/standings_state.json", "w"))
+        return True
+
+    return False
+
+
 def check_new_results(user):
     state = json.load(open("users_info/results_state.json"))
 

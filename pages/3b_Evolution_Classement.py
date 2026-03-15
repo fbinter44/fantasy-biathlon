@@ -7,6 +7,7 @@ from core.scoring.scoring_service import load_players_data, compute_all_players_
 from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import VENUES_NAMES
+from utils.user_warnings import check_new_results, show_toast
 
 
 # ---------------------------------------------------------
@@ -59,6 +60,14 @@ except KeyError as e:
 ibu = IBUClient("2526")
 ibu.compute_evolutive_standings()
 cumulated_standings = ibu.cumulated_standings
+
+
+# ---------------------------------------------------------
+# Pop-up si de nouveaux résultats sont disponibles
+# ---------------------------------------------------------
+
+if user and check_new_results(user):
+    show_toast("🎉 Les résultats du dernier week-end sont disponibles !")
 
 
 # ---------------------------------------------------------

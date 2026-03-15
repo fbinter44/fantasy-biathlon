@@ -94,8 +94,8 @@ class IBUCurrentStandingsAPI:
 
         # Mise à jour du fichier de json qui stocke les dates de mise à jour des classements
         if self.should_refresh_standings(last_race_end, cache_timestamp):
-            state = json.load(open("users_info/results_state.json"))
+            state = json.load(open("users_info/standings_state.json"))
             state["results_version"] += 1
-            json.dump(state, open("users_info/results_state.json", "w"))
+            json.dump(state, open("users_info/standings_state.json", "w"))
 
         return df
