@@ -1,9 +1,17 @@
 import json
 import streamlit as st
+import os
 
 
 def check_new_standings(user):
-    state = json.load(open("users_info/standings_state.json"))
+    
+    state_file = "users_info/standings_state.json"
+    os.makedirs("users_info", exist_ok=True)
+    if not os.path.exists(state_file):
+        with open(state_file, "w") as f:
+            json.dump({}, f)  # fichier JSON vide
+
+    state = json.load(open(state_file))
 
     global_version = state["results_version"]
     user_version = state["users_seen"].get(user, 0)
@@ -11,14 +19,20 @@ def check_new_standings(user):
     if global_version > user_version:
         # L’utilisateur n’a pas encore vu les nouveaux résultats
         state["users_seen"][user] = global_version
-        json.dump(state, open("users_info/standings_state.json", "w"))
+        json.dump(state, open(state_file, "w"))
         return True
 
     return False
 
 
 def check_new_results(user):
-    state = json.load(open("users_info/results_state.json"))
+    state_file = "users_info/results_state.json"
+    os.makedirs("users_info", exist_ok=True)
+    if not os.path.exists(state_file):
+        with open(state_file, "w") as f:
+            json.dump({}, f)  # fichier JSON vide
+
+    state = json.load(open(state_file))
 
     global_version = state["results_version"]
     user_version = state["users_seen"].get(user, 0)
@@ -26,7 +40,7 @@ def check_new_results(user):
     if global_version > user_version:
         # L’utilisateur n’a pas encore vu les nouveaux résultats
         state["users_seen"][user] = global_version
-        json.dump(state, open("users_info/results_state.json", "w"))
+        json.dump(state, open(state_file, "w"))
         return True
 
     return False
