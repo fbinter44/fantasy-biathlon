@@ -98,7 +98,7 @@ class IBUCurrentStandingsAPI:
             os.makedirs("users_info", exist_ok=True)
             if not os.path.exists(state_file):
                 with open(state_file, "w") as f:
-                    json.dump({}, f)  # fichier JSON vide
+                    json.dump({"results_version": 1, "users_seen": {}}, f)  # fichier JSON vide
             state = json.load(open(state_file))
             state["results_version"] += 1
             json.dump(state, open(state_file, "w"))
