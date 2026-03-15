@@ -25,5 +25,5 @@ cache_*/
 *.pkl
 
 # --- Users Infos ---
-data/standings_state.json
-data/results_state.json
+users_info/standings_state.json
+users_info/results_state.json
