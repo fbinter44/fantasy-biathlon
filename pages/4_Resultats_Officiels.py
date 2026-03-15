@@ -13,16 +13,72 @@ from utils.table_display import display_results_table
 # ---------------------------------------------------------
 # Configuration de la page
 # ---------------------------------------------------------
+st.set_page_config(layout="wide")
 
 st.session_state["current_page"] = "4_Resultats_Officiels"
 
 sidebar_menu()
 user_header()
 
-st.set_page_config(layout="wide")
-
 st.title("📊 Résultats Officiels")
-st.write("Classements officiels des différentes disciplines (Hommes & Femmes).")
+
+
+# ---------------------------------------------------------
+# Bandeau de navigation des disciplines
+# ---------------------------------------------------------
+
+options = {attr: display for attr, display in DISCIPLINES_DISPLAY}
+keys = list(options.keys())
+
+current = st.session_state.get("results_filter", "general")
+index = keys.index(current)
+
+selected = st.radio(
+    "Choisis une discipline",
+    keys,
+    index=index,
+    format_func=lambda x: options[x],
+    horizontal=True,
+    key="results_filter"
+)
+
+st.markdown("""
+<style>
+/* Cache le label */
+div[data-testid="stRadio"] > label {
+    display: none;
+}
+
+/* Conteneur horizontal */
+div[data-testid="stRadio"] > div {
+    flex-direction: row !important;
+    gap: 10px;
+}
+
+/* Boutons pill */
+div[data-testid="stRadio"] div[role="radiogroup"] > label {
+    border-radius: 20px;
+    padding: 6px 18px;
+    border: 1px solid #1e88e5;
+    background-color: #e8f4ff;
+    color: #1e88e5;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+/* Bouton actif */
+div[data-testid="stRadio"] div[role="radiogroup"] > label[data-checked="true"] {
+    background-color: #1e88e5;
+    color: white;
+}
+
+/* Hover */
+div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
+    background-color: #d0e6ff;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------
@@ -54,7 +110,12 @@ my_preds = get_user_predictions(st.session_state.get("user"))
 # Affichage discipline par discipline
 # ---------------------------------------------------------
 
+selected = st.session_state["results_filter"]
+
 for attr, display_name in DISCIPLINES_DISPLAY:
+    if attr != selected:
+        continue  # on n'affiche que la discipline sélectionnée
+
     st.markdown(f"## 🏅 {display_name}")
 
     col1, col2 = st.columns(2)
