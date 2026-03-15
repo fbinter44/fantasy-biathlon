@@ -20,6 +20,7 @@ class IBUClient:
 
         self.cumulated_scores = None
         self.cumulated_standings = {}
+        self.season_progress = {}
     
     def load_standings(self):
         men = self.current_men_standings
@@ -30,6 +31,10 @@ class IBUClient:
 
     def load_results(self):
         self.competitions.load_venues_results()
+
+    def get_season_progress(self):
+        self.competitions.compute_progress_by_discipline()
+        self.season_progress = self.competitions.progress_by_discipline
 
     def compute_cumulated_scores(self):
         if not self.competitions.venues:

@@ -107,6 +107,12 @@ my_preds = get_user_predictions(st.session_state.get("user"))
 
 
 # ---------------------------------------------------------
+# Récupérer l'état d'avancement de la saison
+# ---------------------------------------------------------
+
+ibu.get_season_progress()
+
+# ---------------------------------------------------------
 # Affichage discipline par discipline
 # ---------------------------------------------------------
 
@@ -116,8 +122,7 @@ for attr, display_name in DISCIPLINES_DISPLAY:
     if attr != selected:
         continue  # on n'affiche que la discipline sélectionnée
 
-    st.markdown(f"## 🏅 {display_name}")
-
+    st.markdown(f"## 🏅 {display_name}")   
     col1, col2 = st.columns(2)
 
     df_men = getattr(men_results, attr)
@@ -136,13 +141,18 @@ for attr, display_name in DISCIPLINES_DISPLAY:
     highlighter_men = make_highlighter(fav_men)
     highlighter_women = make_highlighter(fav_women)
 
+    past_races_men = ibu.season_progress["Men"][attr]["finished_races"]
+    past_races_women = ibu.season_progress["Women"][attr]["finished_races"]
+    total_races_men = ibu.season_progress["Men"][attr]["total_races"]
+    total_races_women = ibu.season_progress["Women"][attr]["total_races"]
+
     with col1:
-        display_results_table(df_men, highlighter_men, "Hommes")
+        display_results_table(df_men, highlighter_men, "Hommes", past_races_men, total_races_men)
         st.subheader("Écarts – Hommes")
         st.altair_chart(make_points_chart(df_men.head(10), "#1f77b4").properties(height=350), use_container_width=True)
 
     with col2:
-        display_results_table(df_women, highlighter_women, "Femmes")
+        display_results_table(df_women, highlighter_women, "Femmes", past_races_women, total_races_women)
         st.subheader("Écarts – Femmes")
         st.altair_chart(make_points_chart(df_women.head(10), "#e377c2").properties(height=350), use_container_width=True)
 

@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 import json
 
 from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR
-from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON
+from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON, DISCIPLINE_MAP, GENDERS_CODES, DISCIPLINES_WINNERS
 
 
 # ---------------------------------------------------------
@@ -189,6 +189,17 @@ class IBUCompetitionsAPI:
         self.nb_venues = NB_VENUES_BY_SEASON[season_code]
 
         self.venues = []
+        self.results_loaded = False
+        self.progress_by_discipline = {
+            "Men": {
+                disc: {"total_races": 0, "finished_races": 0}
+                for disc in DISCIPLINES_WINNERS.keys()
+                }, 
+            "Women": {
+                disc: {"total_races": 0, "finished_races": 0}
+                for disc in DISCIPLINES_WINNERS.keys()
+                }, 
+            }
 
     def load_venues(self, force=False):
         for i in range(1, self.nb_venues + 1):
@@ -198,6 +209,22 @@ class IBUCompetitionsAPI:
             self.venues.append(venue)
 
     def load_venues_results(self):
-        self.load_venues()
+        if not self.venues:
+            self.load_venues()
         for v in self.venues:
             v.load_all_results()
+        self.results_loaded = True
+
+    def compute_progress_by_discipline(self):
+        if not self.results_loaded:
+            self.load_venues_results()
+        for venue in self.venues:
+            for ep in venue.epreuves:
+                gender = ep.category
+                disc = ep.discipline
+                GENDERS_CODES[gender]
+                self.progress_by_discipline[GENDERS_CODES[gender]][DISCIPLINE_MAP[disc]]["total_races"] += 1
+                self.progress_by_discipline[GENDERS_CODES[gender]]["general"]["total_races"] += 1
+                if not ep.top40().empty:
+                    self.progress_by_discipline[GENDERS_CODES[gender]][DISCIPLINE_MAP[disc]]["finished_races"] += 1
+                    self.progress_by_discipline[GENDERS_CODES[gender]]["general"]["finished_races"] += 1

@@ -116,6 +116,8 @@ GLOBE_COLS = [
 
 RELAY_IDS = ["RL", "SR"]
 
+GENDERS_CODES = {"SW": "Women", "SM": "Men"}
+
 NB_VENUES_BY_SEASON = {
     '2526': 9,
     '2627': 10,

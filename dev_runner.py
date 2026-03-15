@@ -56,13 +56,11 @@ def test_races():
 
     ibu = IBUClient("2526")
     ibu.competitions.load_venues_results()
-    for v in ibu.competitions.venues:
-        v.load_all_results()
+    ibu.competitions.compute_progress_by_discipline()
 
     for v in ibu.competitions.venues:
         print(f"\n=== {v.event_id} ===")
         for ep in v.epreuves:
-            ep.load_results(force_refresh=False)
             print(f"\nCourse : {ep.short_desc} ({ep.race_id})")
             print(ep.top40())
 
