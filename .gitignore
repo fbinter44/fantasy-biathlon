@@ -23,3 +23,7 @@ Thumbs.db
 # --- Cache ---
 cache_*/
 *.pkl
+
+# --- Users Infos ---
+data/standings_state.json
+data/results_state.json
