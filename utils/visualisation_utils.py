@@ -71,7 +71,7 @@ def player_podium_card(rank: int, player: str, total_points: int, bonus_points: 
     )
 
 
-def make_highlighter(favs):
+def make_highlighter(favs, highlight_leader=False):
     def highlight(row):
         styles = [""] * len(row)
 
@@ -89,6 +89,14 @@ def make_highlighter(favs):
         # Règle 3 : Places 11 à 20 → transparence
         if 11 <= int(rank) <= 20:
             styles = [s + "; color: #999999" for s in styles]
+
+        # Règle 4 : Leader finalisé → mise en évidence
+        if highlight_leader and int(rank) == 1:
+            row["name"] = "🥇 " + row["name"] + " 🎉🎉🎉"
+            styles = [
+                s + "; font-weight:700; border-left:4px solid #4caf50"
+                for s in styles
+            ]
 
         return styles
 
