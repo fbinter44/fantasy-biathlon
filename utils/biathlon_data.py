@@ -18,7 +18,7 @@ from pathlib import Path
 # 1) DEADLINE DES PRONOS
 # ---------------------------------------------------------
 
-PRONOS_DEADLINE = datetime(2025, 10, 12, 23, 59)
+PRONOS_DEADLINE = datetime(2026, 10, 12, 23, 59)
 
 
 # ---------------------------------------------------------
@@ -39,10 +39,6 @@ except FileNotFoundError:
 ATHLETES_BY_IBUID = {
     a["IBUId"]: a for a in ATHLETES_INFO.values()
 }
-
-# Séparation hommes / femmes
-BIATHLETES_H = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "M"]
-BIATHLETES_F = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "W"]
 
 
 # ---------------------------------------------------------
@@ -158,6 +154,17 @@ def athlete_label(ibuid: str) -> str:
     return f"{flag} {info['FamilyName']} {info['GivenName']}"
 
 
+# Séparation hommes / femmes
+BIATHLETES_H = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "M"]
+BIATHLETES_F = [ibu for ibu, a in ATHLETES_BY_IBUID.items() if a["GenderId"] == "W"]
+
+DISPLAY_H = [""] + [athlete_label(i) for i in BIATHLETES_H]
+DISPLAY_F = [""] + [athlete_label(i) for i in BIATHLETES_F]
+
+DISPLAY_TO_IBUID = {athlete_label(i): i for i in BIATHLETES_H + BIATHLETES_F}
+DISPLAY_TO_IBUID[""] = ""
+
+
 def format_top5(csv_string: str) -> str:
     """Transforme 'A,B,C,D,E' → '🇫🇷 A, 🇳🇴 B, ...'."""
     if not csv_string:
@@ -177,3 +184,7 @@ def split_top5(csv_string: str) -> list[str]:
 
 def ids_to_names(df, ids):
     return set(df[df["id"].isin(ids)]["name"].tolist())
+
+
+def get_index(lst, value):
+    return lst.index(value) if value in lst else 0

@@ -3,6 +3,7 @@
 import sys
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import load_players_data, compute_all_players_points
+from utils.sheets import read_all, extract_unique_ids, build_biathlete_summary
 
 
 def test_standings():
@@ -86,11 +87,19 @@ def test_scoring():
         print(f"{p.player}: {p.total_points} points")
 
 
+def test_pronos():
+    records = read_all("Pronostics")
+    unique_ids = extract_unique_ids(records)
+    players_predictions = load_players_data()
+    build_biathlete_summary(players_predictions, "florian", "BTFRA22810199801")
+
+
 def test_all():
     """Test global."""
     test_standings()
     test_races()
     test_scoring()
+    test_pronos()
 
 
 # ---------------------------------------------------------
@@ -99,7 +108,7 @@ def test_all():
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        print("Usage : python dev_runner.py [standings|races|scoring|all]")
+        print("Usage : python dev_runner.py [standings|races|scoring|pronos|all]")
         sys.exit(0)
 
     cmd = sys.argv[1]
@@ -110,6 +119,8 @@ if __name__ == "__main__":
         test_races()
     elif cmd == "scoring":
         test_scoring()
+    elif cmd == "pronos":
+        test_pronos()
     elif cmd == "all":
         test_all()
     else:

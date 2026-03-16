@@ -3,7 +3,7 @@ from streamlit_autorefresh import st_autorefresh
 
 from utils.ui_components import sidebar_menu, user_header, render_deadline_banner
 from utils.sheets import get_sheet, get_player_row
-from utils.biathlon_data import PRONOS_DEADLINE, BIATHLETES_H, BIATHLETES_F, athlete_label
+from utils.biathlon_data import athlete_label, get_index, DISPLAY_H, DISPLAY_F, DISPLAY_TO_IBUID
 
 
 # ---------------------------------------------------------
@@ -30,22 +30,7 @@ deadline_passed = render_deadline_banner()
 
 
 # ---------------------------------------------------------
-# 3) Listes d’affichage (labels + mapping inverse)
-# ---------------------------------------------------------
-
-DISPLAY_H = [""] + [athlete_label(i) for i in BIATHLETES_H]
-DISPLAY_F = [""] + [athlete_label(i) for i in BIATHLETES_F]
-
-DISPLAY_TO_IBUID = {athlete_label(i): i for i in BIATHLETES_H + BIATHLETES_F}
-DISPLAY_TO_IBUID[""] = ""
-
-
-def get_index(lst, value):
-    return lst.index(value) if value in lst else 0
-
-
-# ---------------------------------------------------------
-# 4) Lecture des pronostics existants
+# 3) Lecture des pronostics existants
 # ---------------------------------------------------------
 
 sheet = get_sheet("Pronostics")
@@ -62,7 +47,7 @@ else:
 
 
 # ---------------------------------------------------------
-# 5) Formulaire
+# 4) Formulaire
 # ---------------------------------------------------------
 
 st.title("📝 Voir/Modifier mes pronostics")
@@ -182,7 +167,7 @@ with col_f:
 
 
 # ---------------------------------------------------------
-# 6) Validation
+# 5) Validation
 # ---------------------------------------------------------
 
 all_filled = all([
@@ -207,7 +192,7 @@ if duplicates_f:
 
 
 # ---------------------------------------------------------
-# 7) Sauvegarde
+# 6) Sauvegarde
 # ---------------------------------------------------------
 
 can_save = all_filled and not deadline_passed and not duplicates_h and not duplicates_f
@@ -235,7 +220,7 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     
 # ---------------------------------------------------------
-# 8) Rafraîchissement automatique (TOUJOURS TOUT EN BAS)
+# 7) Rafraîchissement automatique (TOUJOURS TOUT EN BAS)
 # ---------------------------------------------------------
 
 st_autorefresh(interval=1000*60, key="timer_only")

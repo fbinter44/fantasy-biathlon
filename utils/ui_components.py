@@ -59,6 +59,7 @@ def sidebar_menu():
         with st.sidebar.expander("📌 Pronostics", expanded=pronostics_expanded):
             st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
             st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
+            st.page_link("pages/2b_Pronostics_Biathlete.py", label="Focus Biathlète")
 
         # --- Section Classement ---
         with st.sidebar.expander("📈 Classement", expanded=standings_expanded):
