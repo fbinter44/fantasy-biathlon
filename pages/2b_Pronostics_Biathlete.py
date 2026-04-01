@@ -10,12 +10,12 @@ Lecture depuis Google Sheets → feuille "Pronostics".
 """
 
 import streamlit as st
-import pandas as pd
 
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, extract_unique_ids
 from utils.biathlon_data import athlete_label
 from utils.sheets import build_biathlete_summary
+from utils.visualisation_utils import globe_card, top5_card
 from core.scoring.scoring_service import load_players_data
 
 
@@ -70,18 +70,22 @@ selected_id = st.selectbox(
 
 
 # ---------------------------------------------------------
-# 3) Chargements des pronos
+# 3) Affichage des statistiques
 # ---------------------------------------------------------
 
 biathlete_summary = build_biathlete_summary(players_predictions, user, selected_id)
-sprint_recap = biathlete_summary.sprint_info.format_globe_sentence()
-pursuit_recap = biathlete_summary.pursuit_info.format_globe_sentence()
-indiv_recap = biathlete_summary.ind_info.format_globe_sentence()
-mass_recap = biathlete_summary.ms_info.format_globe_sentence()
-st.write(sprint_recap)
-st.write(pursuit_recap)
-st.write(indiv_recap)
-st.write(mass_recap)
-import pdb
-pdb.set_trace()
 
+if biathlete_summary.gender == "Men":
+    top5_card("Top 5 Hommes", biathlete_summary.top_info)
+else:
+    top5_card("Top 5 Femmes", biathlete_summary.top_info)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    globe_card("Sprint", round(biathlete_summary.sprint_info.ratio_selection * 100), biathlete_summary.sprint_info.user_choice)
+    globe_card("Individuel", round(biathlete_summary.ind_info.ratio_selection * 100), biathlete_summary.ind_info.user_choice)
+
+with col2:
+    globe_card("Poursuite", round(biathlete_summary.pursuit_info.ratio_selection * 100), biathlete_summary.pursuit_info.user_choice)
+    globe_card("Mass Start", round(biathlete_summary.ms_info.ratio_selection * 100), biathlete_summary.ms_info.user_choice)
