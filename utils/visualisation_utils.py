@@ -197,9 +197,9 @@ def top5_card(title, stats):
     top_stats = stats.top_stats
     my_place = stats.my_place
     if my_place == 1:
-        my_place_str = "1er"
+        my_place_str = "1ère place"
     elif my_place > 1:
-        my_place_str = str(my_place) + "ème"
+        my_place_str = str(my_place) + "ème place"
     total_players = top_stats["nb_total_players"]
     total_selected = top_stats["total"]
 
@@ -214,7 +214,7 @@ def top5_card(title, stats):
     badge_border = "#c7cdfc"
     badge_text_color = "#3b3f99"
     badge_text = "Pas dans mon top 5" if my_place == 0 else f"Mon prono : {my_place_str}"
-
+    table_html = top5_table(top_stats)
     st.markdown(
         f"""
         <div style="
@@ -260,14 +260,47 @@ def top5_card(title, stats):
         </div>
 
         <div style="font-size:15px; opacity:0.85;">
-            <b>Détail par position :</b><br>
-            1ère place : {top_stats['1er']} ({round(top_stats['1er']/total_players*100)}%)<br>
-            2ème place : {top_stats['2ème']} ({round(top_stats['2ème']/total_players*100)}%)<br>
-            3ème place : {top_stats['3ème']} ({round(top_stats['3ème']/total_players*100)}%)<br>
-            4ème place : {top_stats['4ème']} ({round(top_stats['4ème']/total_players*100)}%)<br>
-            5ème place : {top_stats['5ème']} ({round(top_stats['5ème']/total_players*100)}%)<br>
+            {table_html}
         </div>
         </div>
         """,
         unsafe_allow_html=True
+    )
+
+
+def top5_table(top_stats):
+    total = top_stats["nb_total_players"]
+
+    def row(label, key):
+        value = top_stats[key]
+        pct = round((value / total) * 100) if total else 0
+        return (
+            "<tr>"
+            f"<td style='padding:6px 12px; font-weight:600; text-align:left;'>{label}</td>"
+            f"<td style='padding:6px 12px; text-align:center;'>{value}</td>"
+            f"<td style='padding:6px 12px; text-align:right;'>{pct}%</td>"
+            "</tr>"
+        )
+
+    rows = (
+        row("1ère place", "1er")
+        + row("2ème place", "2ème")
+        + row("3ème place", "3ème")
+        + row("4ème place", "4ème")
+        + row("5ème place", "5ème")
+    )
+
+    return (
+        "<table style='width:100%; border-collapse:collapse; margin-top:10px;'>"
+        "<thead>"
+        "<tr style='border-bottom:1px solid #ddd;'>"
+        "<th style='padding:6px 12px; text-align:left;'>Position</th>"
+        "<th style='padding:6px 12px; text-align:center;'>Nombre de sélections</th>"
+        "<th style='padding:6px 12px; text-align:right;'>Pourcentage de sélection</th>"
+        "</tr>"
+        "</thead>"
+        "<tbody>"
+        + rows +
+        "</tbody>"
+        "</table>"
     )
