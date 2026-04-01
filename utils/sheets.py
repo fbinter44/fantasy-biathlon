@@ -119,7 +119,6 @@ def extract_unique_ids(data):
 def build_biathlete_summary(pronos, my_user, biathlete_id):
     biathlete_summary = BiathleteSummary(biathlete_id)
     nb_total_players = len(pronos)
-    gender = "Men" if biathlete_id in BIATHLETES_H else "Women"
     globe_suffix = "winner_men" if biathlete_id in BIATHLETES_H else "winner_women"
     for disc in DISCIPLINES_WINNERS:
         if disc == "general":
@@ -141,8 +140,7 @@ def build_biathlete_summary(pronos, my_user, biathlete_id):
             biathlete_summary.set_indiv_info(user_choice, nb_players, nb_players / nb_total_players)
         elif disc == "mass_start":
             biathlete_summary.set_ms_info(user_choice, nb_players, nb_players / nb_total_players)
-    import pdb
-    pdb.set_trace()
+    return biathlete_summary
 
 
 class BiathleteSummary():
@@ -172,3 +170,14 @@ class GlobeInfo():
         self.user_choice = user_choice
         self.nb_selected_players = nb_players
         self.ratio_selection = ratio
+
+
+    def format_globe_sentence(self) -> str:
+        percentage = round(self.ratio_selection * 100)
+        suffix = "moi inclus" if self.user_choice else "moi exclu"
+
+        return (
+            f"🏆 **{self.disc}** — choisi(e) par **{percentage}%** des joueurs "
+            f"(*{suffix}*)."
+        )
+

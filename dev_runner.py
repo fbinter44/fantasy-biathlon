@@ -3,7 +3,7 @@
 import sys
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import load_players_data, compute_all_players_points
-from utils.sheets import read_all, extract_unique_ids, build_biathlete_summary
+from utils.sheets import build_biathlete_summary
 
 
 def test_standings():
@@ -88,8 +88,6 @@ def test_scoring():
 
 
 def test_pronos():
-    records = read_all("Pronostics")
-    unique_ids = extract_unique_ids(records)
     players_predictions = load_players_data()
     build_biathlete_summary(players_predictions, "florian", "BTFRA22810199801")
 

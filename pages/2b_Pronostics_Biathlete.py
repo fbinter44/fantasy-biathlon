@@ -15,6 +15,7 @@ import pandas as pd
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, extract_unique_ids
 from utils.biathlon_data import athlete_label
+from utils.sheets import build_biathlete_summary
 from core.scoring.scoring_service import load_players_data
 
 
@@ -59,10 +60,28 @@ if not records:
     st.stop()
 
 unique_ids = extract_unique_ids(records)
-unique_names = [athlete_label(id) for id in unique_ids]
+id_to_name = {id: athlete_label(id) for id in unique_ids}
 
-selected_name = st.selectbox(
-        "Sélectionne un(e) biathlète",
-        options=unique_names,
-        format_func=lambda x: x  # affiche le nom, garde l'ID
-    )
+selected_id = st.selectbox(
+    "Sélectionne un(e) biathlète",
+    options=list(id_to_name.keys()),
+    format_func=lambda id: id_to_name[id]
+)
+
+
+# ---------------------------------------------------------
+# 3) Chargements des pronos
+# ---------------------------------------------------------
+
+biathlete_summary = build_biathlete_summary(players_predictions, user, selected_id)
+sprint_recap = biathlete_summary.sprint_info.format_globe_sentence()
+pursuit_recap = biathlete_summary.pursuit_info.format_globe_sentence()
+indiv_recap = biathlete_summary.ind_info.format_globe_sentence()
+mass_recap = biathlete_summary.ms_info.format_globe_sentence()
+st.write(sprint_recap)
+st.write(pursuit_recap)
+st.write(indiv_recap)
+st.write(mass_recap)
+import pdb
+pdb.set_trace()
+
