@@ -34,7 +34,7 @@ if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
-st.title("📊 Focus sur un(e) biathlète")
+st.title("🔎 Focus sur un(e) biathlète")
 
 
 # ---------------------------------------------------------
