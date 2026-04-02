@@ -121,3 +121,88 @@ def display_results_table(df, highlighter, title, past_races, total_races, disc)
 
     # On masque l’index ici (le seul endroit où ça marche vraiment)
     st.dataframe(styled, hide_index=True, use_container_width=True)
+
+
+def df_to_html_old(df):
+    html = df.to_html(
+        index=False,
+        escape=False,   # important pour afficher HTML dans les cellules
+        classes="styled-table"
+    )
+    return html
+
+
+def df_to_html(df, connected_user):
+    # Ajout d'un attribut data-user sur chaque ligne
+    rows = []
+    for _, row in df.iterrows():
+        user = row["Joueur"]
+        attr = f'data-user="{user}"'
+        html_row = "<tr " + attr + ">" + "".join(
+            f"<td>{row[col]}</td>" for col in df.columns
+        ) + "</tr>"
+        rows.append(html_row)
+
+    header = "".join(f"<th>{col}</th>" for col in df.columns)
+
+    html = f"""
+    <table class="styled-table">
+        <thead><tr>{header}</tr></thead>
+        <tbody>
+            {''.join(rows)}
+        </tbody>
+    </table>
+    """
+    return html
+
+def table_all_pronos_style(user):
+    return f"""
+    <style>
+
+    /* Style général du tableau */
+    .styled-table {{
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15px;
+        border-radius: 8px;
+        overflow: hidden;
+    }}
+
+    /* Header */
+    .styled-table thead tr {{
+        background-color: #f3f4f6;
+        border-bottom: 2px solid #d0d0d5;
+    }}
+
+    .styled-table th {{
+        padding: 10px 12px;
+        text-align: center;   /* centrage */
+        font-weight: 700;
+        color: #333;
+    }}
+
+    /* Cellules */
+    .styled-table td {{
+        padding: 8px 12px;
+        text-align: center;   /* centrage */
+        border-bottom: 1px solid #e5e7eb;
+    }}
+
+    /* Zebra striping */
+    .styled-table tbody tr:nth-child(even) {{
+        background-color: #fafafa;
+    }}
+
+    /* Hover */
+    .styled-table tbody tr:hover {{
+        background-color: #eef2ff;
+    }}
+
+    /* Highlight du joueur connecté */
+    .styled-table tbody tr[data-user="{user}"] {{
+        background-color: #fff7d6 !important;
+        font-weight: 600;
+    }}
+
+    </style>
+    """

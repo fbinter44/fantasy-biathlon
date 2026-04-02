@@ -12,7 +12,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 from utils.cache_helpers import CACHE_PRONOS_DIR, load_from_cache, save_to_cache
-from utils.biathlon_data import DISCIPLINES_WINNERS, BIATHLETES_F, BIATHLETES_H
+from utils.biathlon_data import DISCIPLINES_WINNERS, BIATHLETES_H
 
 
 # ---------------------------------------------------------

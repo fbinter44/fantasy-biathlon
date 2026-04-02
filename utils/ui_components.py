@@ -18,6 +18,7 @@ from utils.biathlon_data import PRONOS_DEADLINE
 PRONOSTICS_PAGES = [
     "1_Pronostics_Modifier",
     "2_Pronostics_Tous",
+    "2b_Pronostics_Biathlete"
 ]
 
 STANDINGS_PAGES = [

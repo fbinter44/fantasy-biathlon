@@ -103,11 +103,12 @@ COLUMN_RENAME = {
     "globe_mass_start_f": "Mass Start F",
 }
 
-GLOBE_COLS = [
-        "Sprint H", "Sprint F",
-        "Poursuite H", "Poursuite F",
-        "Individuel H", "Individuel F",
-        "Mass Start H", "Mass Start F",
+GLOBE_COLS_H = [
+        "Sprint H", "Poursuite H", "Individuel H", "Mass Start H"
+    ]
+
+GLOBE_COLS_F = [
+        "Sprint F", "Poursuite F", "Individuel F", "Mass Start F"
     ]
 
 RELAY_IDS = ["RL", "SR"]

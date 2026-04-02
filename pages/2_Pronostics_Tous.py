@@ -13,12 +13,13 @@ import streamlit as st
 import pandas as pd
 
 from utils.ui_components import sidebar_menu, user_header
-from utils.biathlon_data import athlete_label, split_top5, COLUMN_RENAME, GLOBE_COLS
+from utils.biathlon_data import athlete_label, split_top5, COLUMN_RENAME, GLOBE_COLS_H, GLOBE_COLS_F
 from utils.sheets import read_all
+from utils.table_display import df_to_html, table_all_pronos_style
 
 
 # ---------------------------------------------------------
-# 1) Configuration de la page
+# 1) Configuration de la page et style des tableaux
 # ---------------------------------------------------------
 
 st.session_state["current_page"] = "2_Pronostics_Tous"
@@ -32,7 +33,9 @@ if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
-st.title("📊 Tous les pronostics des joueurs")
+st.title("🧮 Tous les pronostics des joueurs")
+
+st.markdown(table_all_pronos_style(user), unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------
@@ -61,7 +64,7 @@ df = df.rename(columns=COLUMN_RENAME)
 
 mode = st.radio(
     "Afficher :",
-    ["Top 5 H", "Top 5 F", "Vainqueurs de globes"],
+    ["Top 5 H", "Top 5 F", "Vainqueurs de globes H", "Vainqueurs de globes F"],
     horizontal=True
 )
 
@@ -114,28 +117,28 @@ df = df.rename(columns={
 
 if mode == "Top 5 H":
     st.subheader("Top 5 Hommes")
-    st.data_editor(
-        df[["Joueur", "1er", "2e", "3e", "4e", "5e"]],
-        use_container_width=True,
-        hide_index=True
-    )
+    df_subset = df[["Joueur", "1er", "2e", "3e", "4e", "5e"]]
+    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
 
 elif mode == "Top 5 F":
     st.subheader("Top 5 Femmes")
-    st.data_editor(
-        df[["Joueur", "1ère", "2e ", "3e ", "4e ", "5e "]],
-        use_container_width=True,
-        hide_index=True
-    )
+    df_subset = df[["Joueur", "1ère", "2e", "3e", "4e", "5e"]]
+    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
 
-else:
+elif mode == "Vainqueurs de globes H":
     # Conversion IBUId → labels
-    for col in GLOBE_COLS:
+    for col in GLOBE_COLS_H:
         df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    st.data_editor(
-        df[["Joueur"] + GLOBE_COLS],
-        use_container_width=True,
-        hide_index=True
-    )
+    df_subset = df[["Joueur"] + GLOBE_COLS_H]
+    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
+
+elif mode == "Vainqueurs de globes F":
+    # Conversion IBUId → labels
+    for col in GLOBE_COLS_F:
+        df[col] = df[col].apply(athlete_label)
+
+    st.subheader("Vainqueurs de globes")
+    df_subset = df[["Joueur"] + GLOBE_COLS_F]
+    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
