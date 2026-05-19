@@ -17,6 +17,7 @@ import secrets
 import bcrypt
 import requests
 import streamlit as st
+import uuid
 
 from utils.sheets import get_sheet, append_row, update_cell
 
@@ -79,10 +80,10 @@ def authenticate(identifier: str, password: str):
     for user in users:
         if identifier in (user["username"], user["email"]):
             if verify_password(password, user["password_hash"]):
-                return True, user["username"]
-            return False, "Mot de passe incorrect."
+                return True, user["user_id"], user["username"]
+            return False, "Mot de passe incorrect.", "Incorrect password"
 
-    return False, "Utilisateur introuvable."
+    return False, "Utilisateur introuvable.", "Unknown user"
 
 
 # ---------------------------------------------------------
@@ -123,9 +124,18 @@ def create_account(username: str, email: str, password: str):
     password_hash = hash_password(password)
 
     # Ajout dans Google Sheets
-    append_row("Users", [username, email, password_hash])
+    existing_ids = {row["user_id"] for row in users}
+    user_id = generate_unique_user_id(existing_ids)
+    append_row("Users", [username, user_id, email, password_hash])
 
     return True, "Compte créé avec succès."
+
+
+def generate_unique_user_id(existing_ids):
+    while True:
+        user_id = str(uuid.uuid4())[:8]
+        if user_id not in existing_ids:
+            return user_id
 
 
 # ---------------------------------------------------------
@@ -151,7 +161,7 @@ def request_password_reset(email: str):
             code = generate_reset_code()
 
             # Colonne 4 = reset_code
-            update_cell("Users", i, 4, code)
+            update_cell("Users", i, 5, code)
 
             sent = send_reset_email(email, code)
             if sent:
@@ -177,8 +187,8 @@ def reset_password(email: str, code: str, new_password: str):
 
             new_hash = hash_password(new_password)
 
-            update_cell("Users", i, 3, new_hash)  # Colonne 3 = password_hash
-            update_cell("Users", i, 4, "")        # Colonne 4 = reset_code (effacé)
+            update_cell("Users", i, 4, new_hash)  # Colonne 3 = password_hash
+            update_cell("Users", i, 5, "")        # Colonne 4 = reset_code (effacé)
 
             return True, "Mot de passe réinitialisé."
 

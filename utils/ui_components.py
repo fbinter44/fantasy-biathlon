@@ -70,6 +70,7 @@ def sidebar_menu():
         # Autres pages
         st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
         st.sidebar.page_link("pages/6_Mon_Compte.py", label="👤 Mon Compte")
+        st.sidebar.page_link("pages/7_Mes_Ligues.py", label= "Mes Skis Clubs")
 
         # Déconnexion
         if st.sidebar.button("Se déconnecter"):
@@ -113,7 +114,7 @@ def user_header():
         unsafe_allow_html=True
     )
 
-    user = st.session_state.get("user")
+    user = st.session_state.get("username")
 
     col1, col2 = st.columns([0.8, 0.2])
 

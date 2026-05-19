@@ -25,7 +25,7 @@ st.set_page_config(page_title="Mon Compte", layout="wide")
 sidebar_menu()
 user_header()
 
-user = st.session_state.get("user")
+user = st.session_state.get("username")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
@@ -101,7 +101,8 @@ new_username = st.text_input(
 pronos_sheet = get_sheet("Pronostics")
 pronos_records = pronos_sheet.get_all_records()
 df_pronos_users = pd.DataFrame(pronos_records)
-prono_users = df_pronos_users["player"]
+if not df_pronos_users.empty:
+    prono_users = df_pronos_users["player"]
 
 if st.button("💾 Enregistrer les modifications"):
 
@@ -156,7 +157,7 @@ with st.form("change_password"):
             st.error("Le mot de passe doit contenir au moins 6 caractères.")
         else:
             new_hash = bcrypt.hashpw(new_pwd.encode(), bcrypt.gensalt()).decode()
-            update_cell("Users", row_index, 3, new_hash)
+            update_cell("Users", row_index, 4, new_hash)
 
             st.success("Mot de passe mis à jour avec succès !")
 

@@ -103,7 +103,17 @@ div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
 ibu = IBUClient("2526")
 men_results, women_results = ibu.load_standings()
 
-my_preds = get_user_predictions(st.session_state.get("user"))
+try:
+    my_preds = get_user_predictions(st.session_state.get("username"))
+except KeyError as e:
+    if str(e) == "'NO_PRONOS'":
+        st.info(
+            "Aucun joueur n’a encore rempli ses pronostics.\n\n"
+            "👉 Commence par saisir les tiens dans la page **Voir/Modifier mes pronos**."
+        )
+        st.stop()
+    else:
+        raise
 
 
 # ---------------------------------------------------------

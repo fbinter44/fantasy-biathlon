@@ -15,7 +15,7 @@ def load_pronostics_from_gsheet() -> pd.DataFrame:
     """Retourne la feuille Pronostics sous forme de DataFrame."""
     records = read_all("Pronostics")
     if not records:
-        raise ValueError("Aucun pronostic trouvé.")
+        raise KeyError("NO_PRONOS")
     return pd.DataFrame(records)
 
 

@@ -22,7 +22,7 @@ user_header()
 # ---------------------------------------------------------
 # Si l'utilisateur est déjà connecté → inutile d'afficher le formulaire
 # ---------------------------------------------------------
-if st.session_state.get("user"):
+if st.session_state.get("username"):
     st.success(f"Déjà connecté en tant que {st.session_state['user']}")
     st.stop()
 
@@ -54,14 +54,15 @@ if mode == "Se connecter":
     password = st.text_input("Mot de passe", type="password")
 
     if st.button("Connexion", key="login_btn"):
-        ok, result = authenticate(identifier, password)
+        ok, user_id, username = authenticate(identifier, password)
 
         if ok:
-            st.session_state["user"] = result  # result = username normalisé
+            st.session_state["user"] = user_id  # result = username normalisé
+            st.session_state["username"] = username
             st.success("Connexion réussie")
             st.switch_page("pages/3_Classement.py")
         else:
-            st.error(result)
+            st.error(user_id)
 
 # ---------------------------------------------------------
 # 2) CRÉER UN COMPTE
@@ -102,7 +103,7 @@ else:
             if ok:
                 st.success("Un code de réinitialisation a été généré.")
                 st.code(result)
-                st.info("Tu peux maintenant entrer ce code dans l’onglet ci-dessous.")
+                st.info("Tu peux maintenant entrer ce code dans l’onglet ci-dessus.")
             else:
                 st.error(result)
 

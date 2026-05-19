@@ -10,8 +10,9 @@ Responsabilités :
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
+import uuid
 
-from utils.cache_helpers import CACHE_PRONOS_DIR, load_from_cache, save_to_cache
+from utils.cache_helpers import CACHE_PRONOS_DIR, CACHE_LEAGUES_DIR, load_from_cache, save_to_cache
 from utils.biathlon_data import DISCIPLINES_WINNERS, BIATHLETES_H
 
 
@@ -61,17 +62,23 @@ def read_all(name: str):
     Equivalent à sheet.get_all_records().
     """
     # 1) Essayer le cache local
-    cached = load_from_cache(CACHE_PRONOS_DIR, "pronos.json")
-    if cached is not None:
-        return cached
+    # if name == "Pronostics":
+        # cached = load_from_cache(CACHE_PRONOS_DIR, "pronos.json")
+    # elif name == "Leagues":
+        # cached = load_from_cache(CACHE_LEAGUES_DIR, "leagues.json")
+
+    # if cached is not None:
+        # return cached
     
     # 2) Sinon lire Google Sheets
     sheet = get_sheet(name)
     data = sheet.get_all_records()
 
     # 3) Sauvegarder dans le cache
-    save_to_cache(CACHE_PRONOS_DIR, "pronos.json", data)
-
+    if name == "Pronostics":
+        save_to_cache(CACHE_PRONOS_DIR, "pronos.json", data)
+    elif name == "Leagues":
+        save_to_cache(CACHE_LEAGUES_DIR, "leagues.json", data)
     return data
 
 
@@ -115,6 +122,49 @@ def extract_unique_ids(data):
 
     return unique_ids
 
+
+# ---------------------------------------------------------
+# 4) Fonctions liées aux ligues
+# ---------------------------------------------------------
+
+def parse_members(m):
+    if not m:
+        return []
+    if isinstance(m, list):
+        return m
+    return [x.strip() for x in str(m).split(",") if x.strip()]
+
+
+def get_all_leagues():
+    records = read_all("Leagues")
+    return records if records else []
+
+
+def generate_unique_league_id(existing_ids):
+    while True:
+        league_id = str(uuid.uuid4())[:8]
+        if league_id not in existing_ids:
+            return league_id
+
+
+def create_league(name, owner):
+    leagues = read_all("Leagues")
+    existing_ids = {row["league_id"] for row in leagues}
+    league_id = generate_unique_league_id(existing_ids)
+    row = {
+        league_id,
+        name,
+        owner,
+        owner,
+    }
+    append_row("Leagues", row)
+    return league_id
+
+
+
+# ---------------------------------------------------------
+# 5) Autres
+# ---------------------------------------------------------
 
 def build_biathlete_summary(pronos, my_user, biathlete_id):
     biathlete_summary = BiathleteSummary(biathlete_id)

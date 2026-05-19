@@ -14,7 +14,7 @@ st.session_state["current_page"] = "1_Pronostics_Modifier"
 sidebar_menu()
 user_header()
 
-user = st.session_state.get("user")
+user = st.session_state.get("username")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
