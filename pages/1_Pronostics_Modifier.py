@@ -14,12 +14,13 @@ st.session_state["current_page"] = "1_Pronostics_Modifier"
 sidebar_menu()
 user_header()
 
-user = st.session_state.get("username")
+user = st.session_state.get("user")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
 player = user
+player_name = st.session_state.get("username")
 
 
 # ---------------------------------------------------------
@@ -200,6 +201,7 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     row_values = [
         player,
+        player_name,
         ",".join(top5_h),
         ",".join(top5_f),
         globe_sprint_h, globe_sprint_f,
@@ -212,7 +214,7 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     if player in players_column:
         row_index = players_column.index(player) + 1
-        sheet.update(f"A{row_index}:K{row_index}", [row_values])
+        sheet.update(f"A{row_index}:L{row_index}", [row_values])
         st.success("Tes pronostics ont été mis à jour ✅")
     else:
         sheet.append_row(row_values)

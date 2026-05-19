@@ -30,6 +30,7 @@ sidebar_menu()
 user_header()
 
 user = st.session_state.get("user")
+username = st.session_state.get("username")
 if not user:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
@@ -73,7 +74,7 @@ selected_id = st.selectbox(
 # 3) Affichage des statistiques
 # ---------------------------------------------------------
 
-biathlete_summary = build_biathlete_summary(players_predictions, user, selected_id)
+biathlete_summary = build_biathlete_summary(players_predictions, username, selected_id)
 
 if biathlete_summary.gender == "Men":
     top5_card("Top 5 Hommes", biathlete_summary.top_info)

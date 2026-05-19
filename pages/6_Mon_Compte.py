@@ -102,7 +102,7 @@ pronos_sheet = get_sheet("Pronostics")
 pronos_records = pronos_sheet.get_all_records()
 df_pronos_users = pd.DataFrame(pronos_records)
 if not df_pronos_users.empty:
-    prono_users = df_pronos_users["player"]
+    prono_users = df_pronos_users["username"]
 
 if st.button("💾 Enregistrer les modifications"):
 
@@ -119,10 +119,10 @@ if st.button("💾 Enregistrer les modifications"):
     row_index = all_users.tolist().index(user) + 2
     pronos_row_index = prono_users.tolist().index(user) + 2
     sheet.update(f"A{row_index}", [[new_username]])
-    pronos_sheet.update(f"A{pronos_row_index}", [[new_username]])
+    pronos_sheet.update(f"B{pronos_row_index}", [[new_username]])
 
     # --- Mise à jour de la session ---
-    st.session_state["user"] = new_username
+    st.session_state["username"] = new_username
     st.success("Ton nom d’utilisateur a été mis à jour avec succès 🎉")
     st.rerun()
 

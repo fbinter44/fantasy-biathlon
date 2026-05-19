@@ -68,14 +68,14 @@ mode = st.radio(
     horizontal=True
 )
 
-joueurs = sorted(df["Joueur"].unique())
+joueurs = sorted(df["username"].unique())
 selection = st.multiselect(
     "Filtrer les joueurs :",
     joueurs,
     default=joueurs
 )
 
-df = df[df["Joueur"].isin(selection)]
+df = df[df["username"].isin(selection)]
 
 
 # ---------------------------------------------------------
@@ -117,12 +117,12 @@ df = df.rename(columns={
 
 if mode == "Top 5 H":
     st.subheader("Top 5 Hommes")
-    df_subset = df[["Joueur", "1er", "2e", "3e", "4e", "5e"]]
+    df_subset = df[["username", "1er", "2e", "3e", "4e", "5e"]]
     st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
 
 elif mode == "Top 5 F":
     st.subheader("Top 5 Femmes")
-    df_subset = df[["Joueur", "1ère", "2e", "3e", "4e", "5e"]]
+    df_subset = df[["username", "1ère", "2e", "3e", "4e", "5e"]]
     st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes H":
@@ -131,7 +131,7 @@ elif mode == "Vainqueurs de globes H":
         df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["Joueur"] + GLOBE_COLS_H]
+    df_subset = df[["username"] + GLOBE_COLS_H]
     st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes F":
@@ -140,5 +140,5 @@ elif mode == "Vainqueurs de globes F":
         df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["Joueur"] + GLOBE_COLS_F]
+    df_subset = df[["username"] + GLOBE_COLS_F]
     st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)

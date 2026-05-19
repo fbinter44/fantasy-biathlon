@@ -98,10 +98,10 @@ def update_cell(name: str, row: int, col: int, value):
     sheet.update_cell(row, col, value)
 
 
-def get_player_row(sheet, player_name):
-    players = sheet.col_values(1)  # colonne "player"
-    if player_name in players:
-        row_index = players.index(player_name) + 1
+def get_player_row(sheet, player_id):
+    players = sheet.col_values(2)  # colonne "player"
+    if player_id in players:
+        row_index = players.index(player_id) + 1
         row_values = sheet.row_values(row_index)
         return row_index, row_values
     return None, None
@@ -112,8 +112,8 @@ def extract_unique_ids(data):
 
     for entry in data:
         for key, value in entry.items():
-            if key == "player":
-                continue  # on ignore le nom du joueur
+            if key == "user_id" or key == "username":
+                continue  # on ignore le user_id et le username
 
             # Certains champs contiennent plusieurs IDs séparés par des virgules
             ids = value.split(",")
