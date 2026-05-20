@@ -136,7 +136,7 @@ def df_to_html(df, connected_user):
     # Ajout d'un attribut data-user sur chaque ligne
     rows = []
     for _, row in df.iterrows():
-        user = row["username"]
+        user = row["Joueur"]
         attr = f'data-user="{user}"'
         html_row = "<tr " + attr + ">" + "".join(
             f"<td>{row[col]}</td>" for col in df.columns

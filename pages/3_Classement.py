@@ -7,6 +7,7 @@ from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
 from utils.user_warnings import check_new_standings, show_toast
+from utils.auth import get_mapping_id_to_name
 
 
 # ---------------------------------------------------------
@@ -16,11 +17,15 @@ from utils.user_warnings import check_new_standings, show_toast
 st.session_state["current_page"] = "3_Classement"
 
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+if user_id:
+    id_to_name = get_mapping_id_to_name()
+    username = id_to_name[user_id]
+else:
+    username = None
+user_header(username)
 
-user = st.session_state.get("user")
-
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
@@ -72,7 +77,7 @@ women_results.load_all()
 # Pop-up si de nouveaux résultats sont disponibles
 # ---------------------------------------------------------
 
-if user and check_new_standings(user):
+if user_id and check_new_standings(user_id):
     show_toast("🎉 De nouveaux résultats sont sortis ! Va voir si ça t’arrange 😉")
 
 
@@ -99,7 +104,7 @@ ranking = sorted(
 
 df = pd.DataFrame([
     {
-        "Joueur": p.player,
+        "user_id": p.player,
         "Total": p.total_points,
         "Hommes": p.total_men_points,
         "Femmes": p.total_women_points,
@@ -108,6 +113,8 @@ df = pd.DataFrame([
     }
     for p in ranking
 ])
+
+df["Joueur"] = df["user_id"].map(id_to_name)
 
 
 # ---------------------------------------------------------
@@ -154,6 +161,11 @@ st.markdown("---")
 # ---------------------------------------------------------
 
 st.subheader("📋 Tableau complet")
+
+cols = df.columns.tolist()
+cols.insert(1, cols.pop(cols.index("Joueur")))
+df = df[cols]
+df = df.drop(columns=["user_id"])
 
 st.dataframe(df, use_container_width=True, hide_index=True)
 

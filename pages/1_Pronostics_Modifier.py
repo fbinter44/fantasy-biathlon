@@ -3,6 +3,7 @@ from streamlit_autorefresh import st_autorefresh
 
 from utils.ui_components import sidebar_menu, user_header, render_deadline_banner
 from utils.sheets import get_sheet, get_player_row
+from utils.auth import convert_id_to_name
 from utils.biathlon_data import athlete_label, get_index, DISPLAY_H, DISPLAY_F, DISPLAY_TO_IBUID
 
 
@@ -12,15 +13,13 @@ from utils.biathlon_data import athlete_label, get_index, DISPLAY_H, DISPLAY_F, 
 
 st.session_state["current_page"] = "1_Pronostics_Modifier"
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+username = convert_id_to_name(user_id)
+user_header(username)
 
-user = st.session_state.get("user")
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
-
-player = user
-player_name = st.session_state.get("username")
 
 
 # ---------------------------------------------------------
@@ -35,7 +34,7 @@ deadline_passed = render_deadline_banner()
 # ---------------------------------------------------------
 
 sheet = get_sheet("Pronostics")
-row_index, row_values = get_player_row(sheet, player)
+row_index, row_values = get_player_row(sheet, user_id)
 
 if row_values:
     existing_top5_h = row_values[1].split(",")
@@ -200,8 +199,7 @@ can_save = all_filled and not deadline_passed and not duplicates_h and not dupli
 if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     row_values = [
-        player,
-        player_name,
+        user_id,
         ",".join(top5_h),
         ",".join(top5_f),
         globe_sprint_h, globe_sprint_f,
@@ -212,9 +210,9 @@ if st.button("💾 Enregistrer mes pronostics", disabled=not can_save):
 
     players_column = sheet.col_values(1)
 
-    if player in players_column:
-        row_index = players_column.index(player) + 1
-        sheet.update(f"A{row_index}:L{row_index}", [row_values])
+    if user_id in players_column:
+        row_index = players_column.index(user_id) + 1
+        sheet.update(f"A{row_index}:K{row_index}", [row_values])
         st.success("Tes pronostics ont été mis à jour ✅")
     else:
         sheet.append_row(row_values)

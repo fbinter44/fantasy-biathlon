@@ -29,20 +29,20 @@ def parse_pronostics(df: pd.DataFrame):
     """
 
     # --- TOP 5 HOMMES & FEMMES (vectorisé) ---
-    df_men = df[['username', 'top5_h']]
+    df_men = df[['user_id', 'top5_h']]
     df_men['top5_h'] = df_men["top5_h"].str.split(",")
     df_men_cleaned = df_men.join(df_men["top5_h"].apply(pd.Series).rename(columns=lambda i: f"p{i+1}"))
     df_men_cleaned.drop("top5_h", axis=1, inplace=True)
-    df_men_cleaned.set_index("username", inplace=True)
+    df_men_cleaned.set_index("user_id", inplace=True)
 
-    df_women = df[['username', 'top5_f']]
+    df_women = df[['user_id', 'top5_f']]
     df_women['top5_f'] = df_women["top5_f"].str.split(",")
     df_women_cleaned = df_women.join(df_women["top5_f"].apply(pd.Series).rename(columns=lambda i: f"p{i+1}"))
     df_women_cleaned.drop("top5_f", axis=1, inplace=True)
-    df_women_cleaned.set_index("username", inplace=True)
+    df_women_cleaned.set_index("user_id", inplace=True)
 
     # --- GLOBES (vectorisé) ---
     globes_winners = df.drop(["top5_h", "top5_f"], axis=1)
-    globes_winners.set_index("username", inplace=True)
+    globes_winners.set_index("user_id", inplace=True)
 
     return df_men_cleaned, df_women_cleaned, globes_winners

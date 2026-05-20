@@ -15,6 +15,7 @@ from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, extract_unique_ids
 from utils.biathlon_data import athlete_label
 from utils.sheets import build_biathlete_summary
+from utils.auth import get_mapping_id_to_name
 from utils.visualisation_utils import globe_card, top5_card
 from core.scoring.scoring_service import load_players_data
 
@@ -27,11 +28,15 @@ st.session_state["current_page"] = "2b_Pronostics_Biathlete"
 st.set_page_config(page_title="Focus Biathlète", layout="wide")
 
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+if user_id:
+    id_to_name = get_mapping_id_to_name()
+    username = id_to_name[user_id]
+else:
+    username = None
+user_header(username)
 
-user = st.session_state.get("user")
-username = st.session_state.get("username")
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
@@ -74,7 +79,7 @@ selected_id = st.selectbox(
 # 3) Affichage des statistiques
 # ---------------------------------------------------------
 
-biathlete_summary = build_biathlete_summary(players_predictions, username, selected_id)
+biathlete_summary = build_biathlete_summary(players_predictions, user_id, selected_id)
 
 if biathlete_summary.gender == "Men":
     top5_card("Top 5 Hommes", biathlete_summary.top_info)

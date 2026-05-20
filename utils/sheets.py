@@ -99,7 +99,7 @@ def update_cell(name: str, row: int, col: int, value):
 
 
 def get_player_row(sheet, player_id):
-    players = sheet.col_values(2)  # colonne "player"
+    players = sheet.col_values(1)  # colonne "player"
     if player_id in players:
         row_index = players.index(player_id) + 1
         row_values = sheet.row_values(row_index)

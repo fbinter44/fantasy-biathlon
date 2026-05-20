@@ -8,6 +8,7 @@ from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import VENUES_NAMES
 from utils.user_warnings import check_new_results, show_toast
+from utils.auth import get_mapping_id_to_name
 
 
 # ---------------------------------------------------------
@@ -17,11 +18,15 @@ from utils.user_warnings import check_new_results, show_toast
 st.session_state["current_page"] = "3b_Evolution_Classement"
 
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+if user_id:
+    id_to_name = get_mapping_id_to_name()
+    username = id_to_name[user_id]
+else:
+    username = None
+user_header(username)
 
-user = st.session_state.get("user")
-
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
@@ -66,7 +71,7 @@ cumulated_standings = ibu.cumulated_standings
 # Pop-up si de nouveaux résultats sont disponibles
 # ---------------------------------------------------------
 
-if user and check_new_results(user):
+if user_id and check_new_results(user_id):
     show_toast("🎉 Les résultats du dernier week-end sont disponibles !")
 
 
@@ -93,7 +98,7 @@ for nb_venue in cumulated_standings:
         timeline_rows.append({
             "venue": nb_venue,
             "venue_name": venue_name,
-            "player": p.player,
+            "player": id_to_name [p.player],
             "points": p.total_points
         })
 
@@ -180,7 +185,7 @@ hover = alt.selection_point(
 
 # Lignes des autres joueurs
 others = base.transform_filter(
-    alt.datum.player != user
+    alt.datum.player != user_id
 ).mark_line().encode(
     opacity=alt.condition(hover, alt.value(1), alt.value(0.3)),
     strokeWidth=alt.condition(hover, alt.value(3), alt.value(1.5))
@@ -188,7 +193,7 @@ others = base.transform_filter(
 
 # Ligne du joueur connecté
 highlight = base.transform_filter(
-    alt.datum.player == user
+    alt.datum.player == user_id
 ).mark_line(color="red").encode(
     opacity=alt.condition(hover, alt.value(1), alt.value(0.6)),
     strokeWidth=alt.condition(hover, alt.value(5), alt.value(3))

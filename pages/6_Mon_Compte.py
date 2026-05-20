@@ -13,6 +13,7 @@ import pandas as pd
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import get_sheet, update_cell
 from utils.feedback import send_feedback_email
+from utils.auth import convert_id_to_name
 
 
 # ---------------------------------------------------------
@@ -23,10 +24,11 @@ st.session_state["current_page"] = "6_Mon_Compte"
 st.set_page_config(page_title="Mon Compte", layout="wide")
 
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+username = convert_id_to_name(user_id)
+user_header(username)
 
-user = st.session_state.get("username")
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
@@ -41,7 +43,7 @@ sheet = get_sheet("Users")
 records = sheet.get_all_records()
 
 df_users = pd.DataFrame(records)
-user_data = df_users[df_users["username"] == user]
+user_data = df_users[df_users["user_id"] == user_id]
 if user_data.empty:
     st.error("Utilisateur introuvable dans la database.")
     st.stop()
@@ -93,16 +95,10 @@ all_users = df_users["username"]
 
 new_username = st.text_input(
     "Nouveau nom d'utilisateur",
-    value=user,
+    value=username,
     max_chars=30,
     help="Ton nom d'utilisateur doit être unique."
 )
-
-pronos_sheet = get_sheet("Pronostics")
-pronos_records = pronos_sheet.get_all_records()
-df_pronos_users = pd.DataFrame(pronos_records)
-if not df_pronos_users.empty:
-    prono_users = df_pronos_users["username"]
 
 if st.button("💾 Enregistrer les modifications"):
 
@@ -111,15 +107,13 @@ if st.button("💾 Enregistrer les modifications"):
         st.error("Le nom d’utilisateur ne peut pas être vide.")
         st.stop()
 
-    if new_username != user and new_username in all_users:
+    if new_username != username and new_username in all_users:
         st.error("Ce nom d’utilisateur est déjà utilisé.")
         st.stop()
 
     # --- Mise à jour dans Google Sheets ---
-    row_index = all_users.tolist().index(user) + 2
-    pronos_row_index = prono_users.tolist().index(user) + 2
+    row_index = all_users.tolist().index(username) + 2
     sheet.update(f"A{row_index}", [[new_username]])
-    pronos_sheet.update(f"B{pronos_row_index}", [[new_username]])
 
     # --- Mise à jour de la session ---
     st.session_state["username"] = new_username

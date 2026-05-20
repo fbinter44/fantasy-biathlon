@@ -85,7 +85,7 @@ def sidebar_menu():
 # 4) Barre utilisateur (header)
 # ---------------------------------------------------------
 
-def user_header():
+def user_header(username=None):
     """Affiche une barre utilisateur en haut de la page."""
     # CSS local
     st.markdown(
@@ -114,17 +114,15 @@ def user_header():
         unsafe_allow_html=True
     )
 
-    user = st.session_state.get("username")
-
     col1, col2 = st.columns([0.8, 0.2])
 
     with col1:
-        if user:
-            initial = user[0].upper()
+        if username:
+            initial = username[0].upper()
             st.markdown(
                 f"""
                 <div class="user-bar">
-                    <div>Connecté en tant que <strong>{user}</strong></div>
+                    <div>Connecté en tant que <strong>{username}</strong></div>
                     <div class="user-circle">{initial}</div>
                 </div>
                 """,
@@ -134,7 +132,7 @@ def user_header():
             st.markdown("<em>Non connecté</em>", unsafe_allow_html=True)
 
     with col2:
-        if user:
+        if username:
             if st.button("Déconnexion", key="logout_button_header"):
                 logout()
 

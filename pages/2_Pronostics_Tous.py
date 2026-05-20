@@ -15,6 +15,7 @@ import pandas as pd
 from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import athlete_label, split_top5, COLUMN_RENAME, GLOBE_COLS_H, GLOBE_COLS_F
 from utils.sheets import read_all
+from utils.auth import get_mapping_id_to_name
 from utils.table_display import df_to_html, table_all_pronos_style
 
 
@@ -26,16 +27,21 @@ st.session_state["current_page"] = "2_Pronostics_Tous"
 st.set_page_config(page_title="Tous les pronostics", layout="wide")
 
 sidebar_menu()
-user_header()
+user_id = st.session_state.get("user")
+if user_id:
+    id_to_name = get_mapping_id_to_name()
+    username = id_to_name[user_id]
+else:
+    username = None
+user_header(username)
 
-user = st.session_state.get("username")
-if not user:
+if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
     st.stop()
 
 st.title("🧮 Tous les pronostics des joueurs")
 
-st.markdown(table_all_pronos_style(user), unsafe_allow_html=True)
+st.markdown(table_all_pronos_style(username), unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------
@@ -49,6 +55,7 @@ if not records:
     st.stop()
 
 df = pd.DataFrame(records)
+df["username"] = df["user_id"].map(id_to_name)
 
 
 # ---------------------------------------------------------
@@ -98,6 +105,7 @@ for col in ["H_1","H_2","H_3","H_4","H_5","F_1","F_2","F_3","F_4","F_5"]:
 
 # Renommage lisible
 df = df.rename(columns={
+    "username": "Joueur",
     "H_1": "1er",
     "H_2": "2e",
     "H_3": "3e",
@@ -117,13 +125,14 @@ df = df.rename(columns={
 
 if mode == "Top 5 H":
     st.subheader("Top 5 Hommes")
-    df_subset = df[["username", "1er", "2e", "3e", "4e", "5e"]]
-    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
+    df_subset = df[["Joueur", "1er", "2e", "3e", "4e", "5e"]]
+    # df_subset = df_subset.rename(columns={"username": "Joueur"})
+    st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Top 5 F":
     st.subheader("Top 5 Femmes")
-    df_subset = df[["username", "1ère", "2e", "3e", "4e", "5e"]]
-    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
+    df_subset = df[["Joueur", "1ère", "2e", "3e", "4e", "5e"]]
+    st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes H":
     # Conversion IBUId → labels
@@ -131,8 +140,8 @@ elif mode == "Vainqueurs de globes H":
         df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["username"] + GLOBE_COLS_H]
-    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
+    df_subset = df[["Joueur"] + GLOBE_COLS_H]
+    st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes F":
     # Conversion IBUId → labels
@@ -140,5 +149,5 @@ elif mode == "Vainqueurs de globes F":
         df[col] = df[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["username"] + GLOBE_COLS_F]
-    st.markdown(df_to_html(df_subset, user), unsafe_allow_html=True)
+    df_subset = df[["Joueur"] + GLOBE_COLS_F]
+    st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)

@@ -2,12 +2,13 @@ import streamlit as st
 import altair as alt
 
 from core.ibu.client import IBUClient
-from core.scoring.scoring_service import load_players_data, get_user_predictions
-from utils.ui_components import sidebar_menu, user_header, page_title_with_feedback
+from core.scoring.scoring_service import get_user_predictions
+from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import DISCIPLINES_DISPLAY, DISCIPLINES_WINNERS, ids_to_names
 from utils.visualisation_utils import make_highlighter
 from utils.charts import make_points_chart
 from utils.table_display import display_results_table, is_finalized
+from utils.auth import convert_id_to_name
 
 
 # ---------------------------------------------------------
@@ -16,9 +17,15 @@ from utils.table_display import display_results_table, is_finalized
 st.set_page_config(layout="wide")
 
 st.session_state["current_page"] = "4_Resultats_Officiels"
+user_id = st.session_state.get("user")
+username = convert_id_to_name(user_id)
 
 sidebar_menu()
-user_header()
+user_header(username)
+
+if not user_id:
+    st.error("Tu dois être connecté pour accéder à cette page.")
+    st.stop()
 
 st.title("📊 Résultats Officiels")
 
@@ -104,7 +111,7 @@ ibu = IBUClient("2526")
 men_results, women_results = ibu.load_standings()
 
 try:
-    my_preds = get_user_predictions(st.session_state.get("username"))
+    my_preds = get_user_predictions(user_id)
 except KeyError as e:
     if str(e) == "'NO_PRONOS'":
         st.info(

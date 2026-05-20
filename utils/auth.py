@@ -19,7 +19,7 @@ import requests
 import streamlit as st
 import uuid
 
-from utils.sheets import get_sheet, append_row, update_cell
+from utils.sheets import get_sheet, append_row, update_cell, read_all
 
 
 # ---------------------------------------------------------
@@ -80,10 +80,23 @@ def authenticate(identifier: str, password: str):
     for user in users:
         if identifier in (user["username"], user["email"]):
             if verify_password(password, user["password_hash"]):
-                return True, user["user_id"], user["username"]
-            return False, "Mot de passe incorrect.", "Incorrect password"
+                return True, user["user_id"]
+            return False, "Mot de passe incorrect."
 
-    return False, "Utilisateur introuvable.", "Unknown user"
+    return False, "Utilisateur introuvable."
+
+
+def convert_id_to_name(user_id):
+    if not user_id:
+        return None
+    users = read_all("Users")
+    id_to_name = {u["user_id"]: u["username"] for u in users}
+    return id_to_name[user_id]
+
+
+def get_mapping_id_to_name():
+    users = read_all("Users")
+    return {u["user_id"]: u["username"] for u in users}
 
 
 # ---------------------------------------------------------

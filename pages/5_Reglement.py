@@ -1,11 +1,14 @@
 import streamlit as st
 from utils.ui_components import sidebar_menu, user_header
+from utils.auth import convert_id_to_name
 
 # ---------------------------------------------------------
 # Identification de la page (permet de garder le menu
 # "Pronostics" replié ou ouvert selon la navigation)
 # ---------------------------------------------------------
 st.session_state["current_page"] = "5_Reglement"
+user_id = st.session_state.get("user")
+username = convert_id_to_name(user_id)
 
 # ---------------------------------------------------------
 # Configuration de la page (titre navigateur, largeur)
@@ -17,7 +20,7 @@ st.set_page_config(page_title="Règlement", layout="wide")
 # (affichés pour cohérence globale de l'application)
 # ---------------------------------------------------------
 sidebar_menu()
-user_header()
+user_header(username)
 
 # ---------------------------------------------------------
 # Contenu principal : règlement du jeu

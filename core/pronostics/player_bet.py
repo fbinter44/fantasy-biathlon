@@ -20,8 +20,8 @@ class PlayerBet:
     - Vainqueurs des globes (H/F)
     """
 
-    def __init__(self, name):
-        self.player = name
+    def __init__(self, user_id):
+        self.player = user_id
         self.top_men = None
         self.top_women = None
         self.sprint_winners = None
