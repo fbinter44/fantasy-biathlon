@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.ui_components import sidebar_menu, user_header
-from utils.auth import convert_id_to_name
+from utils.auth import convert_id_to_name, convert_league_id_to_name
 
 # ---------------------------------------------------------
 # Identification de la page (permet de garder le menu
@@ -9,6 +9,8 @@ from utils.auth import convert_id_to_name
 st.session_state["current_page"] = "5_Reglement"
 user_id = st.session_state.get("user")
 username = convert_id_to_name(user_id)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
 
 # ---------------------------------------------------------
 # Configuration de la page (titre navigateur, largeur)
@@ -20,7 +22,7 @@ st.set_page_config(page_title="Règlement", layout="wide")
 # (affichés pour cohérence globale de l'application)
 # ---------------------------------------------------------
 sidebar_menu()
-user_header(username)
+user_header(username, club_name)
 
 # ---------------------------------------------------------
 # Contenu principal : règlement du jeu

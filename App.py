@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.ui_components import sidebar_menu, user_header
-from utils.auth import convert_id_to_name
+from utils.auth import convert_id_to_name, convert_league_id_to_name
 
 st.set_page_config(
     page_title="MPG Biathlon",
@@ -21,7 +21,9 @@ st.markdown(hide_sidebar_style, unsafe_allow_html=True)
 sidebar_menu()
 user_id = st.session_state.get("user")
 username = convert_id_to_name(user_id)
-user_header(username)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
+user_header(username, club_name)
 
 # ---------------------------------------------------------
 # HERO SECTION

@@ -4,7 +4,7 @@ import uuid
 
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, append_row, parse_members, update_cell, get_sheet
-from utils.auth import get_mapping_id_to_name, generate_unique_invite_code
+from utils.auth import get_mapping_id_to_name, generate_unique_invite_code, convert_league_id_to_name
 
 
 st.set_page_config(page_title="Mes Ligues", layout="wide")
@@ -17,7 +17,9 @@ if user_id:
     username = id_to_name[user_id]
 else:
     username = None
-user_header(username)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
+user_header(username, club_name)
 
 if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
@@ -45,25 +47,6 @@ if not st.session_state.get("current_league"):
             font-size: 16px;
         ">
             <b>ℹ️ Sélectionne un ski club pour accéder aux pronos, résultats et classements !</b>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-else:
-    current_id = st.session_state.get("current_league")
-    row = df[df["league_id"] == current_id].iloc[0]
-    league_name = row["league_name"]
-    st.markdown(
-        f"""
-        <div style="
-            background: #e8f9e8;
-            border-left: 6px solid #34a853;
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        ">
-            <b>🟢 Ski club sélectionné :</b> {league_name}
         </div>
         """,
         unsafe_allow_html=True

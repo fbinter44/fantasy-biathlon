@@ -8,7 +8,7 @@ from utils.biathlon_data import DISCIPLINES_DISPLAY, DISCIPLINES_WINNERS, ids_to
 from utils.visualisation_utils import make_highlighter
 from utils.charts import make_points_chart
 from utils.table_display import display_results_table, is_finalized
-from utils.auth import convert_id_to_name
+from utils.auth import convert_id_to_name, convert_league_id_to_name
 
 
 # ---------------------------------------------------------
@@ -19,9 +19,11 @@ st.set_page_config(layout="wide")
 st.session_state["current_page"] = "4_Resultats_Officiels"
 user_id = st.session_state.get("user")
 username = convert_id_to_name(user_id)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
 
 sidebar_menu()
-user_header(username)
+user_header(username, club_name)
 
 if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")

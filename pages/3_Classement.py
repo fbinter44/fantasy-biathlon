@@ -7,7 +7,7 @@ from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
 from utils.user_warnings import check_new_standings, show_toast
-from utils.auth import get_mapping_id_to_name
+from utils.auth import get_mapping_id_to_name, convert_league_id_to_name
 
 
 # ---------------------------------------------------------
@@ -23,7 +23,9 @@ if user_id:
     username = id_to_name[user_id]
 else:
     username = None
-user_header(username)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
+user_header(username, club_name)
 
 if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")

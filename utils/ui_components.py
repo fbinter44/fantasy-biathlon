@@ -88,7 +88,87 @@ def sidebar_menu():
 # 4) Barre utilisateur (header)
 # ---------------------------------------------------------
 
-def user_header(username=None):
+def user_header(username=None, club_name=None):
+    """Affiche une barre utilisateur en haut de la page."""
+    st.markdown(
+        """
+        <style>
+        .user-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #4A90E2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .club-badge {
+            margin-top: 2px;
+            font-size: 14px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .club-selected {
+            background: #e8f9e8;
+            color: #2c7a2c;
+            border-left: 4px solid #34a853;
+        }
+        .club-none {
+            background: #fff4e5;
+            color: #b26a00;
+            border-left: 4px solid #ffb74d;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    col1, col2 = st.columns([0.8, 0.2])
+
+    with col1:
+        if username:
+            # Badge selon état
+            if club_name:
+                club_html = f'<div class="club-badge club-selected">🏔️ Ski club : <strong>{club_name}</strong></div>'
+            else:
+                club_html = '<div class="club-badge club-none">❌ Pas de club sélectionné</div>'
+
+            st.markdown(
+                f"""
+                <div class="user-bar">
+                    <div class="user-info">
+                        <div>Connecté en tant que <strong>{username}</strong></div>
+                        {club_html}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown("<em>Non connecté</em>", unsafe_allow_html=True)
+
+    with col2:
+        if username:
+            if st.button("Déconnexion", key="logout_button_header"):
+                logout()
+
+
+
+def user_header_old(username=None):
     """Affiche une barre utilisateur en haut de la page."""
     # CSS local
     st.markdown(

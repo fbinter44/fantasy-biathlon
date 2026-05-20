@@ -95,10 +95,22 @@ def convert_id_to_name(user_id):
     id_to_name = {u["user_id"]: u["username"] for u in users}
     return id_to_name[user_id]
 
+def convert_league_id_to_name(league_id):
+    if not league_id:
+        return None
+    leagues = read_all("Leagues")
+    id_to_name = {l["league_id"]: l["league_name"] for l in leagues}
+    return id_to_name[league_id]
+
 
 def get_mapping_id_to_name():
     users = read_all("Users")
     return {u["user_id"]: u["username"] for u in users}
+
+
+def get_mapping_league_id_to_name():
+    leagues = read_all("Leagues")
+    return {l["league_id"]: l["league_name"] for l in leagues}
 
 
 # ---------------------------------------------------------

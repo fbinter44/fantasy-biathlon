@@ -15,7 +15,7 @@ from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, extract_unique_ids
 from utils.biathlon_data import athlete_label
 from utils.sheets import build_biathlete_summary
-from utils.auth import get_mapping_id_to_name
+from utils.auth import get_mapping_id_to_name, convert_league_id_to_name
 from utils.visualisation_utils import globe_card, top5_card
 from core.scoring.scoring_service import load_players_data
 
@@ -34,7 +34,9 @@ if user_id:
     username = id_to_name[user_id]
 else:
     username = None
-user_header(username)
+club_id = st.session_state.get("current_league")
+club_name = convert_league_id_to_name(club_id)
+user_header(username, club_name)
 
 if not user_id:
     st.error("Tu dois être connecté pour accéder à cette page.")
