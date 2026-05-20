@@ -18,6 +18,8 @@ import bcrypt
 import requests
 import streamlit as st
 import uuid
+import random
+import string
 
 from utils.sheets import get_sheet, append_row, update_cell, read_all
 
@@ -238,3 +240,19 @@ def send_reset_email(to_email: str, code: str) -> bool:
 
     response = requests.post(url, json=data, headers=headers)
     return response.status_code == 201
+
+
+# ---------------------------------------------------------
+# 7) GESTION DES LIGUES
+# ---------------------------------------------------------
+
+def generate_unique_invite_code(length=6):
+    chars = string.ascii_uppercase + string.digits
+
+    leagues = read_all("Leagues")
+    existing_codes = {lg.get("invite_code") for lg in leagues if lg.get("invite_code")}
+
+    while True:
+        code = ''.join(random.choice(chars) for _ in range(length))
+        if code not in existing_codes:
+            return code
