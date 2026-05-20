@@ -20,8 +20,9 @@ import streamlit as st
 import uuid
 import random
 import string
+import pandas as pd
 
-from utils.sheets import get_sheet, append_row, update_cell, read_all
+from utils.sheets import get_sheet, append_row, update_cell, read_all, parse_members
 
 
 # ---------------------------------------------------------
@@ -111,6 +112,20 @@ def get_mapping_id_to_name():
 def get_mapping_league_id_to_name():
     leagues = read_all("Leagues")
     return {l["league_id"]: l["league_name"] for l in leagues}
+
+
+def get_league_members(league_id: str):
+    """Retourne la liste des members_id pour un league_id donné."""
+    sheet = get_sheet("Leagues")
+    df = pd.DataFrame(sheet.get_all_records())
+
+    match = df[df["league_id"] == league_id]
+
+    if match.empty:
+        return []
+
+    members_str = match.iloc[0]["members"]
+    return parse_members(members_str)
 
 
 # ---------------------------------------------------------

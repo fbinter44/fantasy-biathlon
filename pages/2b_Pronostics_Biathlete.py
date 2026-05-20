@@ -10,12 +10,13 @@ Lecture depuis Google Sheets → feuille "Pronostics".
 """
 
 import streamlit as st
+import pandas as pd
 
 from utils.ui_components import sidebar_menu, user_header
 from utils.sheets import read_all, extract_unique_ids
 from utils.biathlon_data import athlete_label
 from utils.sheets import build_biathlete_summary
-from utils.auth import get_mapping_id_to_name, convert_league_id_to_name
+from utils.auth import get_mapping_id_to_name, convert_league_id_to_name, get_league_members
 from utils.visualisation_utils import globe_card, top5_card
 from core.scoring.scoring_service import load_players_data
 
@@ -49,8 +50,18 @@ st.title("🔎 Focus sur un(e) biathlète")
 # 2) Lecture des données Google Sheets
 # ---------------------------------------------------------
 
+records = read_all("Pronostics")
+df = pd.DataFrame(records)
+df["username"] = df["user_id"].map(id_to_name)
+
+league_members = get_league_members(club_id)
+
+if not records:
+    st.info("Aucun pronostic n’a encore été enregistré.")
+    st.stop()
+
 try:
-    players_predictions = load_players_data()
+    players_predictions = load_players_data(league_members)
 except KeyError as e:
     if str(e) == "'NO_PRONOS'":
         st.info(
@@ -61,13 +72,7 @@ except KeyError as e:
     else:
         raise
 
-records = read_all("Pronostics")
-
-if not records:
-    st.info("Aucun pronostic n’a encore été enregistré.")
-    st.stop()
-
-unique_ids = extract_unique_ids(records)
+unique_ids = extract_unique_ids(records, league_members)
 id_to_name = {id: athlete_label(id) for id in unique_ids}
 
 selected_id = st.selectbox(

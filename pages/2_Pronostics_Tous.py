@@ -15,7 +15,7 @@ import pandas as pd
 from utils.ui_components import sidebar_menu, user_header
 from utils.biathlon_data import athlete_label, split_top5, COLUMN_RENAME, GLOBE_COLS_H, GLOBE_COLS_F
 from utils.sheets import read_all
-from utils.auth import get_mapping_id_to_name, convert_league_id_to_name
+from utils.auth import get_mapping_id_to_name, convert_league_id_to_name, get_league_members
 from utils.table_display import df_to_html, table_all_pronos_style
 
 
@@ -59,12 +59,15 @@ if not records:
 df = pd.DataFrame(records)
 df["username"] = df["user_id"].map(id_to_name)
 
+league_members = get_league_members(club_id)
+df_league = df[df["user_id"].isin(league_members)]
+
 
 # ---------------------------------------------------------
 # 3) Renommage des colonnes
 # ---------------------------------------------------------
 
-df = df.rename(columns=COLUMN_RENAME)
+df_league = df_league.rename(columns=COLUMN_RENAME)
 
 
 # ---------------------------------------------------------
@@ -77,14 +80,14 @@ mode = st.radio(
     horizontal=True
 )
 
-joueurs = sorted(df["username"].unique())
+joueurs = sorted(df_league["username"].unique())
 selection = st.multiselect(
     "Filtrer les joueurs :",
     joueurs,
     default=joueurs
 )
 
-df = df[df["username"].isin(selection)]
+df_league = df_league[df_league["username"].isin(selection)]
 
 
 # ---------------------------------------------------------
@@ -92,21 +95,21 @@ df = df[df["username"].isin(selection)]
 # ---------------------------------------------------------
 
 # Hommes
-df[["H_1", "H_2", "H_3", "H_4", "H_5"]] = df["Top 5 Hommes"].apply(
+df_league[["H_1", "H_2", "H_3", "H_4", "H_5"]] = df_league["Top 5 Hommes"].apply(
     lambda s: pd.Series(split_top5(s))
 )
 
 # Femmes
-df[["F_1", "F_2", "F_3", "F_4", "F_5"]] = df["Top 5 Femmes"].apply(
+df_league[["F_1", "F_2", "F_3", "F_4", "F_5"]] = df_league["Top 5 Femmes"].apply(
     lambda s: pd.Series(split_top5(s))
 )
 
 # Conversion IBUId → noms + drapeaux
 for col in ["H_1","H_2","H_3","H_4","H_5","F_1","F_2","F_3","F_4","F_5"]:
-    df[col] = df[col].apply(athlete_label)
+    df_league[col] = df_league[col].apply(athlete_label)
 
 # Renommage lisible
-df = df.rename(columns={
+df_league = df_league.rename(columns={
     "username": "Joueur",
     "H_1": "1er",
     "H_2": "2e",
@@ -127,29 +130,28 @@ df = df.rename(columns={
 
 if mode == "Top 5 H":
     st.subheader("Top 5 Hommes")
-    df_subset = df[["Joueur", "1er", "2e", "3e", "4e", "5e"]]
-    # df_subset = df_subset.rename(columns={"username": "Joueur"})
+    df_subset = df_league[["Joueur", "1er", "2e", "3e", "4e", "5e"]]
     st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Top 5 F":
     st.subheader("Top 5 Femmes")
-    df_subset = df[["Joueur", "1ère", "2e", "3e", "4e", "5e"]]
+    df_subset = df_league[["Joueur", "1ère", "2e", "3e", "4e", "5e"]]
     st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes H":
     # Conversion IBUId → labels
     for col in GLOBE_COLS_H:
-        df[col] = df[col].apply(athlete_label)
+        df_league[col] = df_league[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["Joueur"] + GLOBE_COLS_H]
+    df_subset = df_league[["Joueur"] + GLOBE_COLS_H]
     st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)
 
 elif mode == "Vainqueurs de globes F":
     # Conversion IBUId → labels
     for col in GLOBE_COLS_F:
-        df[col] = df[col].apply(athlete_label)
+        df_league[col] = df_league[col].apply(athlete_label)
 
     st.subheader("Vainqueurs de globes")
-    df_subset = df[["Joueur"] + GLOBE_COLS_F]
+    df_subset = df_league[["Joueur"] + GLOBE_COLS_F]
     st.markdown(df_to_html(df_subset, user_id), unsafe_allow_html=True)

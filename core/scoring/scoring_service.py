@@ -2,9 +2,10 @@ from core.pronostics.pronostics_loader import load_pronostics_from_gsheet, parse
 from core.pronostics.pronostics_builder import build_player_bets
 from .player_points import PlayerPoints
 
-def load_players_data():
+def load_players_data(league_members):
     df = load_pronostics_from_gsheet()
-    top5_h, top5_f, globes = parse_pronostics(df)
+    df_league = df[df["user_id"].isin(league_members)]
+    top5_h, top5_f, globes = parse_pronostics(df_league)
     return build_player_bets(top5_h, top5_f, globes)
 
 def compute_player_point(bet, standings_men, standings_women):

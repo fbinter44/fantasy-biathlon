@@ -107,12 +107,17 @@ def get_player_row(sheet, player_id):
     return None, None
 
 
-def extract_unique_ids(data):
+def extract_unique_ids(data, league_members):
     unique_ids = set()
 
     for entry in data:
         for key, value in entry.items():
-            if key == "user_id" or key == "username":
+            if key == "user_id":
+                if value not in league_members:
+                    break
+                else:
+                    continue
+            if key == "username":
                 continue  # on ignore le user_id et le username
 
             # Certains champs contiennent plusieurs IDs séparés par des virgules

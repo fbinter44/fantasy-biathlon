@@ -7,7 +7,7 @@ from core.ibu.client import IBUClient
 from utils.ui_components import sidebar_menu, user_header
 from utils.visualisation_utils import player_podium_card
 from utils.user_warnings import check_new_standings, show_toast
-from utils.auth import get_mapping_id_to_name, convert_league_id_to_name
+from utils.auth import get_mapping_id_to_name, convert_league_id_to_name, get_league_members
 
 
 # ---------------------------------------------------------
@@ -35,9 +35,9 @@ if not user_id:
 # ---------------------------------------------------------
 # Chargement des pronostics joueurs
 # ---------------------------------------------------------
-
+league_members = get_league_members(club_id)
 try:
-    players_predictions = load_players_data()
+    players_predictions = load_players_data(league_members)
 except KeyError as e:
     if str(e) == "'NO_PRONOS'":
         st.info(
