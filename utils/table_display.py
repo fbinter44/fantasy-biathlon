@@ -24,7 +24,7 @@ def is_finalized(df, past_races, total_races):
 
 
 
-def display_results_table(df, highlighter, title, past_races, total_races, disc):
+def display_results_table(df, title, past_races, total_races, disc, highlighter=None):
     st.subheader(title)
 
     finalized, awarded = is_finalized(df, past_races, total_races)
@@ -113,11 +113,14 @@ def display_results_table(df, highlighter, title, past_races, total_races, disc)
         """)
 
     # On applique le style
-    styled = (
-        df.drop(columns=["id"], errors="ignore")
-          .style
-          .apply(highlighter, axis=1)
-    )
+    if highlighter:
+        styled = (
+            df.drop(columns=["id"], errors="ignore")
+            .style
+            .apply(highlighter, axis=1)
+        )
+    else:
+        styled = df.drop(columns=["id"], errors="ignore")
 
     # On masque l’index ici (le seul endroit où ça marche vraiment)
     st.dataframe(styled, hide_index=True, use_container_width=True)

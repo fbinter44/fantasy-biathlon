@@ -185,9 +185,9 @@ if not all_filled:
 duplicates_h = len(top5_h) != len(set(top5_h))
 duplicates_f = len(top5_f) != len(set(top5_f))
 
-if duplicates_h:
+if duplicates_h and "" not in top5_h:
     st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Hommes.")
-if duplicates_f:
+if duplicates_f and "" not in top5_f:
     st.error("Tu as sélectionné deux fois le même biathlète dans le TOP 5 Femmes.")
 
 

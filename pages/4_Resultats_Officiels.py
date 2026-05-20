@@ -145,12 +145,13 @@ for attr, display_name in DISCIPLINES_DISPLAY:
     df_men = getattr(men_results, attr)
     df_women = getattr(women_results, attr)
 
-    if attr == 'general':
-        my_top_men = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_men').tolist()
-        my_top_women = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_women').tolist()
-    else:
-        my_top_men = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_men]
-        my_top_women = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_women]
+    if my_preds:
+        if attr == 'general':
+            my_top_men = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_men').tolist()
+            my_top_women = getattr(my_preds, f'{DISCIPLINES_WINNERS[attr]}_women').tolist()
+        else:
+            my_top_men = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_men]
+            my_top_women = [getattr(my_preds, DISCIPLINES_WINNERS[attr]).winner_women]
 
     past_races_men = ibu.season_progress["Men"][attr]["finished_races"]
     past_races_women = ibu.season_progress["Women"][attr]["finished_races"]
@@ -160,19 +161,23 @@ for attr, display_name in DISCIPLINES_DISPLAY:
     finalized_men, awarded_men = is_finalized(df_men, past_races_men, total_races_men)
     finalized_women, awarded_women = is_finalized(df_women, past_races_women, total_races_women)
     
-    fav_men = ids_to_names(df_men, my_top_men)
-    fav_women = ids_to_names(df_women, my_top_women)
+    if my_preds:
+        fav_men = ids_to_names(df_men, my_top_men)
+        fav_women = ids_to_names(df_women, my_top_women)
 
-    highlighter_men = make_highlighter(fav_men, highlight_leader=finalized_men or awarded_men)
-    highlighter_women = make_highlighter(fav_women, highlight_leader=finalized_women or awarded_women)
+        highlighter_men = make_highlighter(fav_men, highlight_leader=finalized_men or awarded_men)
+        highlighter_women = make_highlighter(fav_women, highlight_leader=finalized_women or awarded_women)
+    else:
+        highlighter_men = None
+        highlighter_women = None
 
     with col1:
-        display_results_table(df_men, highlighter_men, "Hommes", past_races_men, total_races_men, attr)
+        display_results_table(df_men, "Hommes", past_races_men, total_races_men, attr, highlighter=highlighter_men)
         st.subheader("Écarts – Hommes")
         st.altair_chart(make_points_chart(df_men.head(10), "#1f77b4").properties(height=350), use_container_width=True)
 
     with col2:
-        display_results_table(df_women, highlighter_women, "Femmes", past_races_women, total_races_women, attr)
+        display_results_table(df_women, "Femmes", past_races_women, total_races_women, attr, highlighter=highlighter_women)
         st.subheader("Écarts – Femmes")
         st.altair_chart(make_points_chart(df_women.head(10), "#e377c2").properties(height=350), use_container_width=True)
 
