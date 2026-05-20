@@ -46,6 +46,7 @@ def sidebar_menu():
     st.sidebar.title("Navigation")
 
     user = st.session_state.get("user")
+    league = st.session_state.get("current_league")
     current_page = st.session_state.get("current_page", "")
 
     pronostics_expanded = current_page in PRONOSTICS_PAGES
@@ -56,21 +57,23 @@ def sidebar_menu():
     st.sidebar.page_link("pages/5_Reglement.py", label="📘 Règlement")
 
     if user:
-        # --- Section Pronostics ---
-        with st.sidebar.expander("📌 Pronostics", expanded=pronostics_expanded):
-            st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
-            st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
-            st.page_link("pages/2b_Pronostics_Biathlete.py", label="Focus Biathlète")
+        # --- Mes Ligues ---
+        st.sidebar.page_link("pages/7_Mes_Ligues.py", label= "🏔️ Mes Ski Clubs")
+        if league:
+            # --- Section Pronostics ---
+            with st.sidebar.expander("📌 Pronostics", expanded=pronostics_expanded):
+                st.page_link("pages/1_Pronostics_Modifier.py", label="Voir/Modifier mes pronos")
+                st.page_link("pages/2_Pronostics_Tous.py", label="Tous les pronos")
+                st.page_link("pages/2b_Pronostics_Biathlete.py", label="Focus Biathlète")
 
-        # --- Section Classement ---
-        with st.sidebar.expander("📈 Classement", expanded=standings_expanded):
-            st.page_link("pages/3_Classement.py", label="Détails du classement")
-            st.page_link("pages/3b_Evolution_Classement.py", label="Évolution du classement")
+            # --- Section Classement ---
+            with st.sidebar.expander("📈 Classement", expanded=standings_expanded):
+                st.page_link("pages/3_Classement.py", label="Détails du classement")
+                st.page_link("pages/3b_Evolution_Classement.py", label="Évolution du classement")
 
-        # Autres pages
-        st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
+            # Autres pages
+            st.sidebar.page_link("pages/4_Resultats_Officiels.py", label="📜 Résultats officiels")
         st.sidebar.page_link("pages/6_Mon_Compte.py", label="👤 Mon Compte")
-        st.sidebar.page_link("pages/7_Mes_Ligues.py", label= "Mes Skis Clubs")
 
         # Déconnexion
         if st.sidebar.button("Se déconnecter"):

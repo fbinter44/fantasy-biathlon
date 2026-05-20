@@ -59,7 +59,7 @@ if mode == "Se connecter":
         if ok:
             st.session_state["user"] = user_id  # result = username normalisé
             st.success("Connexion réussie")
-            st.switch_page("pages/3_Classement.py")
+            st.switch_page("pages/7_Mes_Ligues.py")
         else:
             st.error(user_id)
 

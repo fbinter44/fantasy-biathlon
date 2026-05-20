@@ -3,7 +3,7 @@ import pandas as pd
 import uuid
 
 from utils.ui_components import sidebar_menu, user_header
-from utils.sheets import read_all, append_row, parse_members, update_cell
+from utils.sheets import read_all, append_row, parse_members, update_cell, get_sheet
 from utils.auth import get_mapping_id_to_name, generate_unique_invite_code
 
 
@@ -24,7 +24,7 @@ if not user_id:
     st.stop()
 
 
-st.title("🏆 Mes Ligues")
+st.title("🏔️ Mes Ski Clubs")
 
 records = read_all("Leagues")
 
@@ -33,21 +33,59 @@ if records:
 else:
     df = pd.DataFrame(columns=["league_id", "league_name", "owner", "members", "invite_code"])
 
+if not st.session_state.get("current_league"):
+    st.markdown(
+        """
+        <div style="
+            background: #eef6ff;
+            border-left: 6px solid #4a90e2;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        ">
+            <b>ℹ️ Sélectionne un ski club pour accéder aux pronos, résultats et classements !</b>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+else:
+    current_id = st.session_state.get("current_league")
+    row = df[df["league_id"] == current_id].iloc[0]
+    league_name = row["league_name"]
+    st.markdown(
+        f"""
+        <div style="
+            background: #e8f9e8;
+            border-left: 6px solid #34a853;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        ">
+            <b>🟢 Ski club sélectionné :</b> {league_name}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 df["members_list"] = df["members"].apply(parse_members)
 
-st.subheader("👥 Ligues dont je fais partie")
+st.subheader("🛠️ Gérer mes ski clubs")
 
 my_leagues = df[df["members_list"].apply(lambda lst: user_id in lst)]
 
 if my_leagues.empty:
-    st.info("Tu ne fais partie d’aucune ligue pour l’instant. Crées ta ligue ou rejoins-en une !")
+    st.info("Tu ne fais partie d’aucun ski club pour l’instant. Crées ton ski club ou rejoins-en un !")
 else:
     for _, row in my_leagues.iterrows():
         member_names = [id_to_name.get(uid, "Unknown") for uid in row["members_list"]]
         is_owner = (row["owner"] == user_id)
         owner_badge = " 👑" if is_owner else ""
         invite_code = row.get("invite_code", None)
+        league_id = row["league_id"]
+        league_name = row["league_name"]
+        members = parse_members(row["members"])
 
         with st.container(border=True):
             st.markdown(f"### {row['league_name']}{owner_badge}")
@@ -71,16 +109,57 @@ else:
                     unsafe_allow_html=True
                 )
 
-            if st.button("➡️ Entrer dans cette ligue", key=f"enter_{row['league_id']}"):
-                st.session_state["current_league"] = row["league_id"]
-                st.success(f"Ligue sélectionnée : {row['league_name']}")
+            col1, col2 = st.columns([1, 1])
+
+            with col1:
+                selected_id = st.session_state.get("current_league")
+                if st.button(
+                    "➡️ Sélectionner ce ski club", 
+                    key=f"enter_{row['league_id']}",
+                    disabled=(selected_id==league_id)
+                ):
+                    st.session_state["current_league"] = row["league_id"]
+                    st.success(f"Ligue sélectionnée : {row['league_name']}")
+                    st.rerun()
+
+            # --- ACTIONS DE GESTION ---
+            with col2:
+                # Si owner → supprimer la ligue
+                if is_owner:
+                    if st.button("🗑️ Supprimer ce ski club", key=f"delete_{league_id}"):
+                        sheet = get_sheet("Leagues")
+                        idx = df.index[df["league_id"] == league_id].tolist()[0]
+                        sheet.delete_rows(idx + 2)  # +2 = header + index 0-based
+                        st.success(f"La ligue **{league_name}** a été supprimée.")
+                        st.rerun()
+
+                # Si membre mais pas owner -> quitter la ligue
+                else:
+                    if st.button("🚪 Quitter ce ski club", key=f"leave_{league_id}"):
+                        if user_id in members:
+                            members.remove(user_id)
+                            new_members_str = ", ".join(members)
+                            
+                            # Mise à jour de la colonne "members"
+                            idx = df.index[df["league_id"] == league_id].tolist()[0]
+                            update_cell(
+                                name="Leagues",
+                                row=idx + 2,
+                                col=4,
+                                value=new_members_str
+                            )
+
+                            st.success(f"Tu as quitté le ski club **{league_name}**.")
+                            st.rerun()
+                        else:
+                            st.error("Erreur : tu n'es pas membre de ce ski club.")
 
 
 st.markdown("---")
-st.subheader("➕ Créer une nouvelle ligue")
+st.subheader("➕ Créer un Ski Club")
 
 with st.form("create_league"):
-    name = st.text_input("Nom de la ligue")
+    name = st.text_input("Nom du ski club")
     submit = st.form_submit_button("Créer")
 
     if submit:
@@ -97,15 +176,15 @@ with st.form("create_league"):
                 invite_code
             ]
             append_row("Leagues", new_row)
-            st.success(f"Ligue **{name}** créée ! Code d’invitation : {invite_code}")
+            st.success(f"Ski Club **{name}** créée ! Code d’invitation : {invite_code}")
             st.rerun()
 
 
 st.markdown("---")
-st.subheader("🔑 Rejoindre une ligue")
+st.subheader("🔑 Rejoindre un Ski Club")
 
 with st.form("join_league"):
-    code = st.text_input("Code de la ligue")
+    code = st.text_input("Code du ski club")
     submit_join = st.form_submit_button("Rejoindre")
 
     if submit_join:
@@ -113,14 +192,14 @@ with st.form("join_league"):
         match = df[df["invite_code"] == code]
 
         if match.empty:
-            st.error("Aucune ligue trouvée.")
+            st.error("Aucun ski club trouvée.")
         else:
             row = match.iloc[0]
             idx = df.index[df["invite_code"] == code].tolist()[0]
             members = parse_members(row["members"])
 
             if user_id in members:
-                st.info("Tu fais déjà partie de cette ligue.")
+                st.info("Tu fais déjà partie de ce ski club.")
             else:
                 members.append(user_id)
                 new_members_str = ", ".join(members)
