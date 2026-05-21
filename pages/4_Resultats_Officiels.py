@@ -8,7 +8,7 @@ from utils.biathlon_data import DISCIPLINES_DISPLAY, DISCIPLINES_WINNERS, ids_to
 from utils.visualisation_utils import make_highlighter
 from utils.charts import make_points_chart
 from utils.table_display import display_results_table, is_finalized
-from utils.auth import convert_id_to_name, convert_league_id_to_name
+from utils.auth import convert_id_to_name, convert_league_id_to_name, get_league_members
 
 
 # ---------------------------------------------------------
@@ -112,8 +112,9 @@ div[data-testid="stRadio"] div[role="radiogroup"] > label:hover {
 ibu = IBUClient("2526")
 men_results, women_results = ibu.load_standings()
 
+league_members = get_league_members(club_id)
 try:
-    my_preds = get_user_predictions(user_id)
+    my_preds = get_user_predictions(user_id, league_members)
 except KeyError as e:
     if str(e) == "'NO_PRONOS'":
         st.info(
