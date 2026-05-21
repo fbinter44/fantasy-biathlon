@@ -1,5 +1,7 @@
 import json
 from copy import deepcopy
+import pandas as pd
+
 from utils.biathlon_data import DISCIPLINE_MAP
 
 
@@ -51,7 +53,7 @@ class IBUSeasonResultsBuilder:
 
     def _add_points(self, standings, gender, ibu_id, points, discipline):
         """Ajoute des points dans la structure cumulative."""
-        if points is None:
+        if pd.isna(points):
             return
 
         # Général
