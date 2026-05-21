@@ -22,6 +22,6 @@ def compute_all_players_points(predictions, standings_men, standings_women):
         for player in predictions
     }
 
-def get_user_predictions(user):
-    players = load_players_data()
+def get_user_predictions(user, league_members):
+    players = load_players_data(league_members)
     return players.get(user, {})
