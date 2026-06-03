@@ -19,6 +19,12 @@ def load_pronostics_from_gsheet() -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
+def load_pronostics_from_records(records: list[dict]) -> pd.DataFrame:
+    if not records:
+        raise KeyError("NO_PRONOS")
+    return pd.DataFrame(records)
+
+
 def parse_pronostics(df: pd.DataFrame):
     """
     Transforme la DataFrame brute en structures prêtes pour PlayerBet.
