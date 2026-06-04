@@ -10,7 +10,8 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from api.config import Settings, get_settings
 from api.dependencies import get_current_user
-from api.models.standings import PlayerPoints
+from api.models.standings import PlayerPoints, VenueEvolution
+from utils.biathlon_data import VENUES_NAMES
 from api.services.sheets import read_all
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
@@ -84,12 +85,8 @@ def league_classement(league_id: str, settings: Settings = Depends(get_settings)
     return _rank_players(points_map, username_map)
 
 
-@router.get("/evolution")
+@router.get("/evolution", response_model=list[VenueEvolution])
 def classement_evolution(settings: Settings = Depends(get_settings)):
-    """
-    Retourne l'évolution du classement venue par venue.
-    Format : { venue_index: [PlayerPoints...] }
-    """
     users = read_all("Users", settings)
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
@@ -103,11 +100,22 @@ def classement_evolution(settings: Settings = Depends(get_settings)):
     client = _ibu_client(settings)
     client.compute_evolutive_standings()
 
-    evolution = {}
+    evolution = []
     for venue_i, standings_by_gender in client.cumulated_standings.items():
+        venue = client.competitions.venues[venue_i - 1]
+        location = venue.epreuves[0].location if venue.epreuves else ""
+        name = VENUES_NAMES.get(location, location)
+
         men_st = standings_by_gender["Men"]
         women_st = standings_by_gender["Women"]
         points_map = compute_all_players_points(predictions, men_st, women_st)
-        evolution[venue_i] = _rank_players(points_map, username_map)
 
-    return evolution
+        evolution.append(VenueEvolution(
+            index=venue_i,
+            name=name,
+            start_date=str(venue.start_date),
+            end_date=str(venue.end_date),
+            players=_rank_players(points_map, username_map),
+        ))
+
+    return sorted(evolution, key=lambda v: v.index)

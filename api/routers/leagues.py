@@ -18,7 +18,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from api.config import Settings, get_settings
 from api.dependencies import get_current_user
 from api.models.leagues import LeagueCreate, LeagueJoin, LeagueResponse, LeagueListItem, LeagueMember
-from api.services.sheets import read_all, append_row, get_sheet, update_cell
+from api.services.sheets import read_all, append_row, get_sheet, update_cell, delete_row
 from utils.sheets import parse_members
 
 router = APIRouter(prefix="/leagues", tags=["leagues"])
@@ -148,14 +148,13 @@ def delete_league(
     current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
-    sheet = get_sheet("Leagues", settings)
-    leagues = sheet.get_all_records()
+    all_leagues = read_all("Leagues", settings)
 
-    for i, lg in enumerate(leagues, start=2):
+    for i, lg in enumerate(all_leagues, start=2):
         if lg["league_id"] == league_id:
             if lg["owner"] != current_user:
                 raise HTTPException(status_code=403, detail="Seul le propriétaire peut supprimer la ligue.")
-            sheet.delete_rows(i)
+            delete_row("Leagues", i, settings)
             return
 
     raise HTTPException(status_code=404, detail="Ligue introuvable.")

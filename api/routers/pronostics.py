@@ -80,7 +80,13 @@ def update_my_pronostics(
     user_ids = [r["user_id"] for r in all_rows]
 
     if current_user not in user_ids:
-        raise HTTPException(status_code=404, detail="Aucun pronostic existant. Créez-en d'abord.")
+        # Créer la ligne si elle n'existe pas encore
+        empty_row = [current_user, "", "", "", "", "", "", "", "", "", ""]
+        sheet.append_row(empty_row)
+        from api.services.sheets import _invalidate
+        _invalidate("Pronostics")
+        all_rows = sheet.get_all_records()
+        user_ids = [r["user_id"] for r in all_rows]
 
     row_index = user_ids.index(current_user) + 2  # +2 : header + 0-based
 

@@ -48,7 +48,7 @@ def get_standings(gender: str, settings: Settings = Depends(get_settings)):
             continue
         athletes = [
             _athlete_standing(i + 1, row)
-            for i, row in enumerate(df.head(10).to_dict("records"))
+            for i, row in enumerate(df.head(20).to_dict("records"))
         ]
         disciplines.append(DisciplineStandings(
             discipline=attr,

@@ -33,3 +33,18 @@ class ResetPasswordBody(BaseModel):
     email: EmailStr
     code: str
     new_password: str
+
+
+class UpdateUsernameBody(BaseModel):
+    new_username: str
+
+
+class UpdatePasswordBody(BaseModel):
+    old_password: str
+    new_password: str
+
+
+class FeedbackBody(BaseModel):
+    feedback_type: str
+    subject: str
+    message: str

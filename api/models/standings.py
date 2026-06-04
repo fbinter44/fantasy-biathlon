@@ -29,6 +29,14 @@ class SeasonProgress(BaseModel):
     races_total: int
 
 
+class VenueEvolution(BaseModel):
+    index: int
+    name: str
+    start_date: str
+    end_date: str
+    players: list["PlayerPoints"]
+
+
 class PlayerPoints(BaseModel):
     user_id: str
     username: str

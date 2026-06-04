@@ -24,10 +24,10 @@ class IBUCurrentStandings:
         Charge les standings top 10 pour toutes les disciplines.
         """
         self.general = self._api.get_results(self.gender, "General", top=20)
-        self.sprint = self._api.get_results(self.gender, "Sprint")
-        self.pursuit = self._api.get_results(self.gender, "Pursuit")
-        self.individual = self._api.get_results(self.gender, "Individual")
-        self.mass_start = self._api.get_results(self.gender, "Mass Start")
+        self.sprint = self._api.get_results(self.gender, "Sprint", top=20)
+        self.pursuit = self._api.get_results(self.gender, "Pursuit", top=20)
+        self.individual = self._api.get_results(self.gender, "Individual", top=20)
+        self.mass_start = self._api.get_results(self.gender, "Mass Start", top=20)
 
     def __repr__(self):
         return f"<BiathlonStandings {self.gender} {self.season_code}>"
