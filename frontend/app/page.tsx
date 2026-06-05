@@ -11,10 +11,10 @@ export default function Home() {
   useEffect(() => {
     if (user) {
       router.push("/ligues");
-    } else {
+    } else if (user === null) {
       router.push("/login");
     }
   }, [user, router]);
 
-  return null;
+  return <div>Chargement...</div>;
 }
