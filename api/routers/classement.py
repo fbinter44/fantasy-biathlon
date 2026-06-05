@@ -12,7 +12,7 @@ from api.config import Settings, get_settings
 from api.dependencies import get_current_user
 from api.models.standings import PlayerPoints, VenueEvolution
 from utils.biathlon_data import VENUES_NAMES
-from api.services.sheets import read_all
+from api.services.db import get_all_users, get_all_pronostics, get_all_leagues
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
@@ -44,11 +44,11 @@ def _rank_players(points_map: dict, username_map: dict) -> list[PlayerPoints]:
 
 @router.get("", response_model=list[PlayerPoints])
 def global_classement(settings: Settings = Depends(get_settings)):
-    users = read_all("Users", settings)
+    users = get_all_users(settings)
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
 
-    records = read_all("Pronostics", settings)
+    records = get_all_pronostics(settings)
     df = load_pronostics_from_records(records)
     df_league = df[df["user_id"].isin(all_member_ids)]
     top5_h, top5_f, globes = parse_pronostics(df_league)
@@ -63,16 +63,16 @@ def global_classement(settings: Settings = Depends(get_settings)):
 
 @router.get("/league/{league_id}", response_model=list[PlayerPoints])
 def league_classement(league_id: str, settings: Settings = Depends(get_settings)):
-    leagues = read_all("Leagues", settings)
-    league = next((lg for lg in leagues if lg["league_id"] == league_id), None)
+    from api.services.db import get_league_by_id
+    league = get_league_by_id(league_id, settings)
     if not league:
         raise HTTPException(status_code=404, detail="Ligue introuvable.")
 
     member_ids = parse_members(league["members"])
-    users = read_all("Users", settings)
+    users = get_all_users(settings)
     username_map = {u["user_id"]: u["username"] for u in users}
 
-    records = read_all("Pronostics", settings)
+    records = get_all_pronostics(settings)
     df = load_pronostics_from_records(records)
     df_league = df[df["user_id"].isin(member_ids)]
     top5_h, top5_f, globes = parse_pronostics(df_league)
@@ -87,11 +87,11 @@ def league_classement(league_id: str, settings: Settings = Depends(get_settings)
 
 @router.get("/evolution", response_model=list[VenueEvolution])
 def classement_evolution(settings: Settings = Depends(get_settings)):
-    users = read_all("Users", settings)
+    users = get_all_users(settings)
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
 
-    records = read_all("Pronostics", settings)
+    records = get_all_pronostics(settings)
     df = load_pronostics_from_records(records)
     df_league = df[df["user_id"].isin(all_member_ids)]
     top5_h, top5_f, globes = parse_pronostics(df_league)

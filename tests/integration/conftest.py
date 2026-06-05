@@ -1,16 +1,14 @@
 """
-Configuration partagée pour les tests d'intégration.
+Configuration des tests d'intégration.
 
-Problème classique de mock Python :
-  Chaque router fait `from api.services.sheets import read_all`.
-  Patcher `api.services.sheets.read_all` ne suffit pas — chaque router
-  garde sa propre référence locale. Il faut patcher dans chaque module.
+On mocke api.services.db directement — chaque router importe ses fonctions
+depuis ce module, donc un seul point de patch suffit.
 """
 
 import pytest
 import bcrypt
 from contextlib import ExitStack
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from api.main import app
@@ -45,8 +43,7 @@ TEST_PRONOSTICS = [
 TEST_LEAGUES: list[dict] = []
 
 FAKE_SETTINGS = Settings(
-    sheet_id="fake",
-    gcp_service_account_json='{"type":"service_account"}',
+    database_url="postgresql://fake/test",
     jwt_secret="test-secret-for-testing-only",
     brevo_api_key="fake",
     brevo_sender="test@example.com",
@@ -54,51 +51,107 @@ FAKE_SETTINGS = Settings(
 )
 
 
-# ─── Mock feuilles ────────────────────────────────────────────────────────────
+# ─── Fonctions de mock db ─────────────────────────────────────────────────────
 
-def fake_read_all(name: str, *args, **kwargs) -> list[dict]:
-    if name == "Users":      return list(TEST_USERS)
-    if name == "Pronostics": return list(TEST_PRONOSTICS)
-    if name == "Leagues":    return list(TEST_LEAGUES)
-    return []
+def _get_user_by_identifier(identifier: str, *a, **kw):
+    identifier = identifier.lower()
+    return next(
+        (u for u in TEST_USERS if u["username"] == identifier or u["email"] == identifier),
+        None,
+    )
+
+def _get_user_by_id(user_id: str, *a, **kw):
+    return next((u for u in TEST_USERS if u["user_id"] == user_id), None)
+
+def _get_all_users(*a, **kw):
+    return list(TEST_USERS)
+
+def _username_exists(username: str, *a, **kw):
+    return any(u["username"] == username.lower() for u in TEST_USERS)
+
+def _email_exists(email: str, *a, **kw):
+    return any(u["email"] == email.lower() for u in TEST_USERS)
+
+def _create_user(user_id, username, email, password_hash, *a, **kw):
+    TEST_USERS.append({"user_id": user_id, "username": username,
+                        "email": email, "password_hash": password_hash, "reset_code": ""})
+
+def _update_user_field(user_id, field, value, *a, **kw):
+    for u in TEST_USERS:
+        if u["user_id"] == user_id:
+            u[field] = value
+
+def _get_all_pronostics(*a, **kw):
+    return list(TEST_PRONOSTICS)
+
+def _get_pronostics_by_user(user_id: str, *a, **kw):
+    return next((p for p in TEST_PRONOSTICS if p["user_id"] == user_id), None)
+
+def _upsert_pronostics(user_id, *a, **kw):
+    pass
+
+def _get_all_leagues(*a, **kw):
+    return list(TEST_LEAGUES)
+
+def _get_league_by_id(league_id: str, *a, **kw):
+    return next((lg for lg in TEST_LEAGUES if lg["league_id"] == league_id), None)
+
+def _get_league_by_invite_code(code: str, *a, **kw):
+    return next((lg for lg in TEST_LEAGUES if lg.get("invite_code") == code), None)
+
+def _create_league(league_id, name, owner, members, invite_code, *a, **kw):
+    TEST_LEAGUES.append({"league_id": league_id, "league_name": name,
+                          "owner": owner, "members": members, "invite_code": invite_code})
+
+def _update_league_members(league_id, members_str, *a, **kw):
+    for lg in TEST_LEAGUES:
+        if lg["league_id"] == league_id:
+            lg["members"] = members_str
+
+def _delete_league_by_id(league_id, *a, **kw):
+    TEST_LEAGUES[:] = [lg for lg in TEST_LEAGUES if lg["league_id"] != league_id]
 
 
-def fake_get_sheet(name: str, *args, **kwargs) -> MagicMock:
-    """Retourne un faux objet gspread Worksheet."""
-    sheet = MagicMock()
-    sheet.get_all_records.return_value = fake_read_all(name)
-    sheet.col_values.return_value = [r.get("user_id", "") for r in fake_read_all(name)]
-    return sheet
+# ─── Fixture principale ───────────────────────────────────────────────────────
 
+_DB_MOCKS = {
+    "get_all_users":             _get_all_users,
+    "get_user_by_id":            _get_user_by_id,
+    "get_user_by_identifier":    _get_user_by_identifier,
+    "username_exists":           _username_exists,
+    "email_exists":              _email_exists,
+    "create_user":               _create_user,
+    "update_user_field":         _update_user_field,
+    "get_all_pronostics":        _get_all_pronostics,
+    "get_pronostics_by_user":    _get_pronostics_by_user,
+    "upsert_pronostics":         _upsert_pronostics,
+    "get_all_leagues":           _get_all_leagues,
+    "get_league_by_id":          _get_league_by_id,
+    "get_league_by_invite_code": _get_league_by_invite_code,
+    "create_league":             _create_league,
+    "update_league_members":     _update_league_members,
+    "delete_league_by_id":       _delete_league_by_id,
+}
 
-# ─── Fixtures ────────────────────────────────────────────────────────────────
+_ROUTERS = [
+    "api.routers.auth",
+    "api.routers.pronostics",
+    "api.routers.leagues",
+    "api.routers.classement",
+]
+
 
 @pytest.fixture
 def client():
     with ExitStack() as stack:
-        # auth      : read_all, get_sheet, append_row, update_cell
-        stack.enter_context(patch("api.routers.auth.read_all",    side_effect=fake_read_all))
-        stack.enter_context(patch("api.routers.auth.get_sheet",   side_effect=fake_get_sheet))
-        stack.enter_context(patch("api.routers.auth.append_row",  return_value=None))
-        stack.enter_context(patch("api.routers.auth.update_cell", return_value=None))
+        for router in _ROUTERS:
+            for fn_name, fn in _DB_MOCKS.items():
+                try:
+                    stack.enter_context(patch(f"{router}.{fn_name}", side_effect=fn))
+                except AttributeError:
+                    pass  # ce router n'importe pas cette fonction
+
         stack.enter_context(patch("api.routers.auth.send_reset_email", return_value=True))
-
-        # pronostics : read_all, get_sheet, update_cell
-        stack.enter_context(patch("api.routers.pronostics.read_all",    side_effect=fake_read_all))
-        stack.enter_context(patch("api.routers.pronostics.get_sheet",   side_effect=fake_get_sheet))
-        stack.enter_context(patch("api.routers.pronostics.update_cell", return_value=None))
-
-        # leagues   : read_all, get_sheet, append_row, update_cell, delete_row
-        stack.enter_context(patch("api.routers.leagues.read_all",    side_effect=fake_read_all))
-        stack.enter_context(patch("api.routers.leagues.get_sheet",   side_effect=fake_get_sheet))
-        stack.enter_context(patch("api.routers.leagues.append_row",  return_value=None))
-        stack.enter_context(patch("api.routers.leagues.update_cell", return_value=None))
-        stack.enter_context(patch("api.routers.leagues.delete_row",  return_value=None))
-
-        # classement : read_all seulement
-        stack.enter_context(patch("api.routers.classement.read_all", side_effect=fake_read_all))
-
-        # settings globaux
         stack.enter_context(patch("api.config.get_settings", return_value=FAKE_SETTINGS))
 
         with TestClient(app) as c:

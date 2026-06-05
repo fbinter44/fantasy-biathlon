@@ -1,7 +1,8 @@
-# Dépendances FastAPI (en plus de requirements.txt existant)
+# Dépendances FastAPI
 fastapi
 uvicorn[standard]
 pydantic-settings
 pydantic[email]
-python-jose[cryptography]   # JWT
-python-multipart             # pour OAuth2PasswordBearer (form login)
+python-jose[cryptography]
+python-multipart
+psycopg2-binary              # PostgreSQL

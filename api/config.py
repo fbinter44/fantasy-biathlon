@@ -12,9 +12,12 @@ from functools import lru_cache
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    # Google Sheets
+    # PostgreSQL
+    database_url: str = ""
+
+    # Google Sheets (conservé pour la migration)
     sheet_id: str = ""
-    gcp_service_account_json: str = ""   # contenu JSON du fichier de credentials, en une seule ligne
+    gcp_service_account_json: str = ""
 
     # JWT
     jwt_secret: str = "change-me-in-production"
