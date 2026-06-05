@@ -7,7 +7,7 @@ package-lock.json
 .streamlit/secrets.toml
 
 # --- Google Service Account ---
-*.json
+proven-space-*.json
 
 # --- Python cache ---
 __pycache__/
