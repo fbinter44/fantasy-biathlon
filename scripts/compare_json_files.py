@@ -25,7 +25,7 @@ if __name__ == "__main__":
     diff = DeepDiff(j1, j2, ignore_order=True)
 
     if not diff:
-        print("✔️ Les deux fichiers JSON sont IDENTIQUES.")
+        print("✔️ Les deux fichiers JSON sont identiques.")
     else:
         print("❌ Les fichiers sont différents :")
         print(diff)
