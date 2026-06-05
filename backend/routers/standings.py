@@ -7,8 +7,8 @@ GET /standings/{gender}/progress   → avancement de la saison par discipline
 
 from fastapi import APIRouter, HTTPException, Depends
 
-from api.config import Settings, get_settings
-from api.models.standings import StandingsResponse, DisciplineStandings, AthleteStanding, SeasonProgress
+from backend.config import Settings, get_settings
+from backend.models.standings import StandingsResponse, DisciplineStandings, AthleteStanding, SeasonProgress
 from utils.biathlon_data import DISCIPLINES_DISPLAY, FLAGS, ATHLETES_BY_IBUID
 from core.ibu.client import IBUClient
 

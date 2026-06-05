@@ -11,8 +11,8 @@ from contextlib import ExitStack
 from unittest.mock import patch
 from fastapi.testclient import TestClient
 
-from api.main import app
-from api.config import Settings
+from backend.main import app
+from backend.config import Settings
 
 
 # ─── Données de test ─────────────────────────────────────────────────────────
@@ -134,10 +134,10 @@ _DB_MOCKS = {
 }
 
 _ROUTERS = [
-    "api.routers.auth",
-    "api.routers.pronostics",
-    "api.routers.leagues",
-    "api.routers.classement",
+    "backend.routers.auth",
+    "backend.routers.pronostics",
+    "backend.routers.leagues",
+    "backend.routers.classement",
 ]
 
 
@@ -151,8 +151,8 @@ def client():
                 except AttributeError:
                     pass  # ce router n'importe pas cette fonction
 
-        stack.enter_context(patch("api.routers.auth.send_reset_email", return_value=True))
-        stack.enter_context(patch("api.config.get_settings", return_value=FAKE_SETTINGS))
+        stack.enter_context(patch("backend.routers.auth.send_reset_email", return_value=True))
+        stack.enter_context(patch("backend.config.get_settings", return_value=FAKE_SETTINGS))
 
         with TestClient(app) as c:
             yield c

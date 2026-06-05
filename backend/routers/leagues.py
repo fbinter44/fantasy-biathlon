@@ -15,10 +15,10 @@ import string
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from api.config import Settings, get_settings
-from api.dependencies import get_current_user
-from api.models.leagues import LeagueCreate, LeagueJoin, LeagueResponse, LeagueListItem, LeagueMember
-from api.services.db import (
+from backend.config import Settings, get_settings
+from backend.dependencies import get_current_user
+from backend.models.leagues import LeagueCreate, LeagueJoin, LeagueResponse, LeagueListItem, LeagueMember
+from backend.services.db import (
     get_all_users, get_all_leagues,
     get_league_by_id, get_league_by_invite_code,
     create_league, update_league_members, delete_league_by_id,

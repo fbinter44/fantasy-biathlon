@@ -8,11 +8,11 @@ GET /classement/evolution           → évolution du classement race par race
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from api.config import Settings, get_settings
-from api.dependencies import get_current_user
-from api.models.standings import PlayerPoints, VenueEvolution
+from backend.config import Settings, get_settings
+from backend.dependencies import get_current_user
+from backend.models.standings import PlayerPoints, VenueEvolution
 from utils.biathlon_data import VENUES_NAMES
-from api.services.db import get_all_users, get_all_pronostics, get_all_leagues
+from backend.services.db import get_all_users, get_all_pronostics, get_all_leagues
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
@@ -63,7 +63,7 @@ def global_classement(settings: Settings = Depends(get_settings)):
 
 @router.get("/league/{league_id}", response_model=list[PlayerPoints])
 def league_classement(league_id: str, settings: Settings = Depends(get_settings)):
-    from api.services.db import get_league_by_id
+    from backend.services.db import get_league_by_id
     league = get_league_by_id(league_id, settings)
     if not league:
         raise HTTPException(status_code=404, detail="Ligue introuvable.")

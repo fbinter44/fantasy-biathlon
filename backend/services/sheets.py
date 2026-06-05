@@ -10,7 +10,7 @@ import time
 import gspread
 from google.oauth2.service_account import Credentials
 
-from api.config import Settings
+from backend.config import Settings
 
 
 _SCOPES = [

@@ -17,19 +17,19 @@ import bcrypt
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from api.config import Settings, get_settings
-from api.dependencies import create_access_token, get_current_user
-from api.models.auth import (
+from backend.config import Settings, get_settings
+from backend.dependencies import create_access_token, get_current_user
+from backend.models.auth import (
     LoginRequest, TokenResponse, RegisterRequest,
     ResetRequestBody, ResetPasswordBody, UserPublic,
     UpdateUsernameBody, UpdatePasswordBody, FeedbackBody,
 )
-from api.services.db import (
+from backend.services.db import (
     get_all_users, get_user_by_identifier, get_user_by_id,
     username_exists, email_exists,
     create_user, update_user_field,
 )
-from api.services.email import send_reset_email
+from backend.services.email import send_reset_email
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 

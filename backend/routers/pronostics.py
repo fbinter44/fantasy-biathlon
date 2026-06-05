@@ -10,10 +10,10 @@ GET  /pronostics/{user_id}    → pronostics d'un joueur
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 
-from api.config import Settings, get_settings
-from api.dependencies import get_current_user
-from api.models.pronostics import PronosticsResponse, PronosticsUpdateRequest, Top5, GlobeWinners
-from api.services.db import get_all_users, get_all_pronostics, get_pronostics_by_user, upsert_pronostics
+from backend.config import Settings, get_settings
+from backend.dependencies import get_current_user
+from backend.models.pronostics import PronosticsResponse, PronosticsUpdateRequest, Top5, GlobeWinners
+from backend.services.db import get_all_users, get_all_pronostics, get_pronostics_by_user, upsert_pronostics
 from utils.biathlon_data import PRONOS_DEADLINE, split_top5
 
 router = APIRouter(prefix="/pronostics", tags=["pronostics"])

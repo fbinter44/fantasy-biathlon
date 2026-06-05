@@ -10,7 +10,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 
-from api.config import Settings, get_settings
+from backend.config import Settings, get_settings
 
 _bearer = HTTPBearer()
 

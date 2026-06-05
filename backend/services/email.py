@@ -3,7 +3,7 @@ Envoi d'emails via Brevo sans st.secrets.
 """
 
 import requests
-from api.config import Settings
+from backend.config import Settings
 
 
 def send_reset_email(to_email: str, code: str, settings: Settings) -> bool:

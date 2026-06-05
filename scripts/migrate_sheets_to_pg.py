@@ -13,9 +13,9 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from api.config import get_settings
-from api.services import sheets as src
-from api.services import db as dst
+from backend.config import get_settings
+from backend.services import sheets as src
+from backend.services import db as dst
 
 
 def migrate():

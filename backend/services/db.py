@@ -10,7 +10,7 @@ from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import RealDictCursor
 from contextlib import contextmanager
 
-from api.config import Settings
+from backend.config import Settings
 
 _pool: ThreadedConnectionPool | None = None
 
