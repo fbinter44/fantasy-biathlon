@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { classement, leagues, PlayerPoints } from "@/lib/api";
+import { classement, leagues } from "@/lib/api";
+import { buildChartData, type ChartRow } from "@/lib/utils";
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, Legend,
   ResponsiveContainer, CartesianGrid,
@@ -13,40 +14,6 @@ const COLORS = [
   "#3b82f6", "#ec4899", "#10b981", "#f59e0b",
   "#8b5cf6", "#ef4444", "#06b6d4", "#84cc16",
 ];
-
-type ChartRow = Record<string, string | number>;
-
-function buildChartData(
-  evolution: Record<string, PlayerPoints[]>,
-  memberIds: Set<string> | null
-): { chartData: ChartRow[]; players: string[]; playerUserIds: string[] } {
-  const venues = Object.keys(evolution).sort((a, b) => parseInt(a) - parseInt(b));
-  const playerMap = new Map<string, string>(); // user_id → username
-
-  venues.forEach((v) => {
-    evolution[v].forEach((p) => {
-      if (!memberIds || memberIds.has(p.user_id)) {
-        playerMap.set(p.user_id, p.username);
-      }
-    });
-  });
-
-  const chartData = venues.map((v, i) => {
-    const row: ChartRow = { venue: `Week-end ${i + 1}` };
-    evolution[v].forEach((p) => {
-      if (!memberIds || memberIds.has(p.user_id)) {
-        row[p.username] = p.total_points;
-      }
-    });
-    return row;
-  });
-
-  return {
-    chartData,
-    players: Array.from(playerMap.values()),
-    playerUserIds: Array.from(playerMap.keys()),
-  };
-}
 
 export default function EvolutionPage() {
   const { user, currentLeague } = useAuth();
@@ -69,7 +36,7 @@ export default function EvolutionPage() {
 
         const ids = league ? new Set(league.members.map((m) => m.user_id)) : null;
         setMyUsername(
-          Object.values(evo)[0]?.find((p) => p.user_id === user!.user_id)?.username ?? user!.username
+          evo[0]?.players.find((p) => p.user_id === user!.user_id)?.username ?? user!.username
         );
 
         const { chartData: cd, players: pl } = buildChartData(evo, ids);
