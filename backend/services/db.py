@@ -18,7 +18,10 @@ _pool: ThreadedConnectionPool | None = None
 def _get_pool(settings: Settings) -> ThreadedConnectionPool:
     global _pool
     if _pool is None:
-        _pool = ThreadedConnectionPool(1, 10, settings.database_url)
+        dsn = settings.database_url
+        if "sslmode" not in dsn:
+            dsn += "?sslmode=require"
+        _pool = ThreadedConnectionPool(1, 10, dsn)
     return _pool
 
 
