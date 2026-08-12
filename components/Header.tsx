@@ -15,7 +15,11 @@ const NAV_LEAGUE = [
   { href: "/pronostics",           label: "🏔️ Pronos du Ski Club" },
   { href: "/pronostics/biathlete", label: "🔎 Focus Biathlète" },
   { href: "/classement",           label: "🏆 Classement du Ski Club" },
-  { href: "/resultats",            label: "📊 Résultats IBU" },
+];
+
+const NAV_IBU = [
+  { href: "/calendrier", label: "📅 Calendrier & Résultats" },
+  { href: "/resultats",  label: "🏅 Classements généraux" },
 ];
 
 function DropdownMenu({
@@ -49,13 +53,14 @@ function DropdownMenu({
 export default function Header() {
   const { user, currentLeague, hasPronos, signOut } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const [openMenu, setOpenMenu] = useState<"personal" | "league" | null>(null);
+  const [openMenu, setOpenMenu] = useState<"personal" | "league" | "ibu" | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<"personal" | "league" | null>(null);
+  const [mobileSection, setMobileSection] = useState<"personal" | "league" | "ibu" | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function enterMenu(menu: "personal" | "league") {
+  function enterMenu(menu: "personal" | "league" | "ibu") {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenMenu(menu);
   }
@@ -103,6 +108,27 @@ export default function Header() {
               </button>
               {openMenu === "personal" && (
                 <DropdownMenu items={NAV_PERSONAL} onClose={() => setOpenMenu(null)} />
+              )}
+            </div>
+
+            {/* Dropdown "Le Coin de l'IBU" */}
+            <div
+              className="relative"
+              onMouseEnter={() => enterMenu("ibu")}
+              onMouseLeave={leaveMenu}
+            >
+              <button className={`flex items-center gap-1 px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                openMenu === "ibu"
+                  ? "bg-gray-100 text-gray-900"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              }`}>
+                Le Coin de l&apos;IBU
+                <svg className="w-3.5 h-3.5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {openMenu === "ibu" && (
+                <DropdownMenu items={NAV_IBU} onClose={() => setOpenMenu(null)} />
               )}
             </div>
 
@@ -195,6 +221,33 @@ export default function Header() {
                 {mobileSection === "personal" && (
                   <div className="mt-1 flex flex-col gap-0.5 pl-2">
                     {NAV_PERSONAL.map(({ href, label }) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        onClick={() => setDrawerOpen(false)}
+                        className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Section Le Coin de l'IBU */}
+              <div className="px-3 mt-1">
+                <button
+                  onClick={() => setMobileSection(mobileSection === "ibu" ? null : "ibu")}
+                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                >
+                  Le Coin de l&apos;IBU
+                  <svg className={`w-4 h-4 transition-transform ${mobileSection === "ibu" ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {mobileSection === "ibu" && (
+                  <div className="mt-1 flex flex-col gap-0.5 pl-2">
+                    {NAV_IBU.map(({ href, label }) => (
                       <Link
                         key={href}
                         href={href}

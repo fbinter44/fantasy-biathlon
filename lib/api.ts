@@ -258,6 +258,43 @@ export const classement = {
     request<VenueEvolution[]>("/classement/evolution"),
 };
 
+// --- Calendrier & Résultats ---
+
+export interface RaceInfo {
+  race_id: string;
+  short_desc: string;
+  discipline: string;
+  discipline_display: string;
+  gender: string;       // "Men" | "Women"
+  start_time: string;   // ISO 8601
+  is_past: boolean;
+}
+
+export interface VenueInfo {
+  event_id: string;
+  location: string;
+  start_date: string;
+  end_date: string;
+  races: RaceInfo[];
+}
+
+export interface RaceResult {
+  rank: number;
+  name: string;
+  ibu_id: string;
+  nation: string;
+  flag: string;
+  points: number;
+}
+
+export const calendar = {
+  venues: (token: string) =>
+    request<VenueInfo[]>("/calendar", { headers: authHeaders(token) }),
+
+  results: (race_id: string, token: string) =>
+    request<RaceResult[]>(`/calendar/${race_id}/results`, { headers: authHeaders(token) }),
+};
+
 // --- Standings IBU ---
 
 export interface SeasonProgress {
