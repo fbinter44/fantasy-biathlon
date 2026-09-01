@@ -18,7 +18,7 @@ from pathlib import Path
 # 1) DEADLINE DES PRONOS
 # ---------------------------------------------------------
 
-PRONOS_DEADLINE = datetime(2026, 10, 12, 23, 59)
+PRONOS_DEADLINE = datetime(2025, 11, 27, 23, 59)  # Veille de la 1ère course 2025/26 (Östersund)
 
 
 # ---------------------------------------------------------

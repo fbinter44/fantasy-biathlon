@@ -344,7 +344,6 @@ export default function ClassementSkiClubPage() {
                       <XAxis dataKey="venue" tick={{ fontSize: 12 }} />
                       <YAxis tick={{ fontSize: 12 }} />
                       <Tooltip
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         content={(props: any) => (
                           <EvoTooltip
                             active={props.active}

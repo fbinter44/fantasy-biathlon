@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { athletes, pronostics, AthleteResponse, Top5, GlobeWinners } from "@/lib/api";
 import AthleteSelect from "@/components/AthleteSelect";
 
-const DEADLINE = new Date("2026-10-12T23:59:00");
+const DEADLINE = new Date("2025-11-27T23:59:00"); // Veille de la 1ère course 2025/26
 const TOTAL_FIELDS = 18; // 5 + 5 + 4 + 4
 
 const RANK_STYLES = [
