@@ -15,6 +15,7 @@ const NAV_LEAGUE = [
   { href: "/pronostics",           label: "🏔️ Pronos du Ski Club" },
   { href: "/pronostics/biathlete", label: "🔎 Focus Biathlète" },
   { href: "/classement",           label: "🏆 Classement du Ski Club" },
+  { href: "/classement/detail",    label: "🔍 Détail des scores" },
 ];
 
 const NAV_IBU = [

@@ -236,6 +236,63 @@ export const leagues = {
     }),
 };
 
+// --- Score breakdown ---
+
+export interface AthleteScoreDetail {
+  predicted_rank: number;
+  ibu_id: string;
+  name: string;
+  nation: string;
+  actual_rank: number | null;
+  points: number;
+  exact_rank_bonus: boolean;
+}
+
+export interface GlobeScoreDetail {
+  discipline: string;
+  discipline_display: string;
+  gender: string;
+  predicted_ibu_id: string;
+  predicted_name: string;
+  actual_leader_ibu_id: string | null;
+  actual_leader_name: string | null;
+  points: number;
+  correct: boolean;
+}
+
+export interface RaceScoreDetail {
+  race_id: string;
+  location: string;
+  discipline_display: string;
+  gender: string;
+  date: string;
+  predicted_ibu_id: string;
+  predicted_name: string;
+  winner_ibu_id: string | null;
+  winner_name: string | null;
+  points: number;
+  correct: boolean;
+}
+
+export interface ScoreBreakdown {
+  user_id: string;
+  username: string;
+  total_points: number;
+  men_points: number;
+  women_points: number;
+  globe_points: number;
+  race_points: number;
+  men_athletes: AthleteScoreDetail[];
+  women_athletes: AthleteScoreDetail[];
+  globes: GlobeScoreDetail[];
+  races: RaceScoreDetail[];
+}
+
+export const score = {
+  get: (user_id: string, token: string) =>
+    request<ScoreBreakdown>(`/score/${user_id}`, { headers: authHeaders(token) }),
+};
+
 // --- Classement ---
 
 export interface VenueEvolution {
