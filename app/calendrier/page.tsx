@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { calendar, pronostics, VenueInfo, RaceInfo, RaceResult } from "@/lib/api";
+import Link from "next/link";
+import { calendar, racePronostics, VenueInfo, RaceInfo, RaceResult } from "@/lib/api";
 import Flag from "@/components/Flag";
 
 // ── Helpers ──────────────────────────────────────────────
@@ -52,16 +53,24 @@ function isOngoing(start: string, end: string): boolean {
 
 function ResultsTable({
   results,
-  myAthletes,
+  predictedIbuId,
 }: {
   results: RaceResult[];
-  myAthletes: Set<string>;
+  predictedIbuId: string;
 }) {
   if (results.length === 0)
     return <p className="text-sm text-gray-400 py-3 text-center">Aucun résultat disponible.</p>;
 
+  const winner = results.find((r) => String(r.rank) === "1")?.ibu_id;
+  const correct = predictedIbuId && predictedIbuId === winner;
+
   return (
     <div className="overflow-x-auto mt-1">
+      {predictedIbuId && (
+        <p className={`text-xs mb-2 ${correct ? "text-green-600 font-medium" : "text-gray-400"}`}>
+          {correct ? "✅ Bon pronostic ! +10 pts" : "❌ Ton pronostic n'était pas le vainqueur"}
+        </p>
+      )}
       <table className="w-full text-sm">
         <thead>
           <tr className="text-xs text-gray-400 border-b border-gray-100">
@@ -72,12 +81,12 @@ function ResultsTable({
         </thead>
         <tbody>
           {results.map((r) => {
-            const highlighted = myAthletes.has(r.ibu_id);
+            const isPredicted = predictedIbuId && r.ibu_id === predictedIbuId;
             return (
               <tr
                 key={r.rank}
                 className={`border-b border-gray-50 transition-colors ${
-                  highlighted
+                  isPredicted
                     ? "bg-yellow-50 hover:bg-yellow-100"
                     : "hover:bg-gray-50"
                 }`}
@@ -88,12 +97,10 @@ function ResultsTable({
                 <td className="py-1.5">
                   <span className="inline-flex items-center gap-2">
                     <Flag nation={r.nation} />
-                    <span className={highlighted ? "font-semibold text-yellow-800" : "text-gray-800"}>
+                    <span className={isPredicted ? "font-semibold text-yellow-800" : "text-gray-800"}>
                       {r.name}
                     </span>
-                    {highlighted && (
-                      <span className="text-xs text-yellow-600">★</span>
-                    )}
+                    {isPredicted && <span className="text-xs text-yellow-600">★ ton pronostic</span>}
                   </span>
                 </td>
                 <td className="text-right pl-3 py-1.5 font-medium text-gray-700">
@@ -113,11 +120,11 @@ function ResultsTable({
 function RaceRow({
   race,
   token,
-  myAthletes,
+  predictedIbuId,
 }: {
   race: RaceInfo;
   token: string;
-  myAthletes: Set<string>;
+  predictedIbuId: string;
 }) {
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<RaceResult[] | null>(null);
@@ -190,7 +197,7 @@ function RaceRow({
           {error ? (
             <p className="text-xs text-red-500">{error}</p>
           ) : (
-            <ResultsTable results={results ?? []} myAthletes={myAthletes} />
+            <ResultsTable results={results ?? []} predictedIbuId={predictedIbuId} />
           )}
         </div>
       )}
@@ -203,11 +210,11 @@ function RaceRow({
 function VenueCard({
   venue,
   token,
-  myAthletes,
+  racePronos,
 }: {
   venue: VenueInfo;
   token: string;
-  myAthletes: Set<string>;
+  racePronos: Record<string, string>;
 }) {
   const ongoing = isOngoing(venue.start_date, venue.end_date);
   const allPast = venue.races.every((r) => r.is_past);
@@ -242,7 +249,7 @@ function VenueCard({
       {/* Liste des courses */}
       <div className="px-4 py-1">
         {venue.races.map((race) => (
-          <RaceRow key={race.race_id} race={race} token={token} myAthletes={myAthletes} />
+          <RaceRow key={race.race_id} race={race} token={token} predictedIbuId={racePronos[race.race_id] ?? ""} />
         ))}
       </div>
     </div>
@@ -256,7 +263,7 @@ export default function CalendrierPage() {
   const router = useRouter();
 
   const [venues, setVenues] = useState<VenueInfo[]>([]);
-  const [myAthletes, setMyAthletes] = useState<Set<string>>(new Set());
+  const [racePronos, setRacePronos] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -270,19 +277,10 @@ export default function CalendrierPage() {
 
     Promise.all([
       calendar.venues(token),
-      pronostics.me(token).catch(() => null),
-    ]).then(([venueData, pronos]) => {
+      racePronostics.get(token).catch(() => ({ pronos: {} })),
+    ]).then(([venueData, pronosData]) => {
       setVenues(venueData);
-
-      // Collecte de tous les IBU IDs pronostiqués par l'utilisateur
-      if (pronos) {
-        const ids = new Set<string>([
-          ...Object.values(pronos.top5_h).filter(Boolean),
-          ...Object.values(pronos.top5_f).filter(Boolean),
-          ...Object.values(pronos.globes).filter(Boolean),
-        ]);
-        setMyAthletes(ids);
-      }
+      setRacePronos(pronosData.pronos);
     })
     .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur de chargement"))
     .finally(() => setLoading(false));
@@ -292,12 +290,18 @@ export default function CalendrierPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">📅 Calendrier & Résultats</h1>
+      <div className="flex items-center justify-between mb-1">
+        <h1 className="text-2xl font-bold text-gray-900">📅 Calendrier & Résultats</h1>
+        <Link
+          href="/pronostics/modifier/course"
+          className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
+        >
+          🎯 Mes pronos →
+        </Link>
+      </div>
       <p className="text-sm text-gray-500 mb-6">
         Saison 2025/26 · Coupe du Monde IBU · Épreuves individuelles uniquement
-        {myAthletes.size > 0 && (
-          <span className="ml-2 text-yellow-600">· ★ = tes athlètes pronostiqués</span>
-        )}
+        <span className="ml-2 text-yellow-600">· ★ = ton pronostic vainqueur</span>
       </p>
 
       {loading && (
@@ -321,7 +325,7 @@ export default function CalendrierPage() {
               key={venue.event_id}
               venue={venue}
               token={user.token}
-              myAthletes={myAthletes}
+              racePronos={racePronos}
             />
           ))}
           {venues.length === 0 && (

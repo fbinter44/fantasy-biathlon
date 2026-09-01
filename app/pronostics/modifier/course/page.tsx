@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import {
   calendar, racePronostics, athletes,
@@ -189,7 +190,7 @@ function VenueBlock({
               race={race}
               athleteList={allAthletes}
               currentIbuId={pronos[race.race_id] ?? ""}
-              locked={false /* TEST — remettre race.is_past en prod */}
+              locked={race.is_past}
               token={token}
               onSaved={onSaved}
             />
@@ -244,9 +245,17 @@ export default function CourseParCoursePage() {
         </button>
       </div>
       <h1 className="text-2xl font-bold text-gray-900 mb-1">🎯 Pronos Course par Course</h1>
-      <p className="text-sm text-gray-500 mb-1">
-        Pronostique le vainqueur de chaque épreuve · <span className="text-blue-600 font-medium">10 pts</span> par bon pronostic
-      </p>
+      <div className="flex items-center justify-between mb-1">
+        <p className="text-sm text-gray-500">
+          Pronostique le vainqueur de chaque épreuve · <span className="text-blue-600 font-medium">10 pts</span> par bon pronostic
+        </p>
+        <Link
+          href="/calendrier"
+          className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors shrink-0 ml-4"
+        >
+          📅 Voir les résultats →
+        </Link>
+      </div>
       {!loading && (
         <p className="text-xs text-gray-400 mb-6">
           {filled} / {totalRaces} courses renseignées

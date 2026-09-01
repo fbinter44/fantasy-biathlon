@@ -53,12 +53,11 @@ def set_race_pronostic(
     ep = _find_race(race_id, settings)
 
     # Refus si la course est déjà passée (protection côté serveur)
-    # DÉSACTIVÉ TEMPORAIREMENT POUR TESTS — remettre en prod
-    # if ep.start_time <= datetime.now(timezone.utc):
-    #     raise HTTPException(
-    #         status_code=400,
-    #         detail="Cette course est déjà passée, le pronostic ne peut plus être modifié.",
-    #     )
+    if ep.start_time <= datetime.now(timezone.utc):
+        raise HTTPException(
+            status_code=400,
+            detail="Cette course est déjà passée, le pronostic ne peut plus être modifié.",
+        )
 
     upsert_race_pronostic(user_id, race_id, body.ibu_id, settings)
     pronos = get_race_pronostics_by_user(user_id, settings)
@@ -72,8 +71,6 @@ def delete_my_race_pronostic(
     user_id: str = Depends(get_current_user),
 ):
     ep = _find_race(race_id, settings)
-    # DÉSACTIVÉ TEMPORAIREMENT POUR TESTS
-    # if ep.start_time <= datetime.now(timezone.utc):
-    #     raise HTTPException(status_code=400, detail="Course déjà passée.")
-    _ = ep
+    if ep.start_time <= datetime.now(timezone.utc):
+        raise HTTPException(status_code=400, detail="Course déjà passée.")
     delete_race_pronostic(user_id, race_id, settings)
