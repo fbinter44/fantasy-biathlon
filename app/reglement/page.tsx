@@ -27,14 +27,19 @@ export default function ReglementPage() {
         <div>
           <h2 className="text-lg font-semibold text-gray-800 mb-3">🎯 Objectif</h2>
           <p>
-            Avant le début de la saison, chaque joueur prédit les performances des biathlètes sur l&apos;ensemble de la saison.
+            Chaque joueur prédit les performances des biathlètes tout au long de la saison.
             Plus tes pronostics se rapprochent des résultats réels, plus tu marques de points.
           </p>
-          <p className="mt-2">Tu dois choisir :</p>
-          <ul className="list-disc list-inside mt-2 space-y-1">
-            <li>un <strong>Top 5 Hommes</strong> — classement général de la saison</li>
-            <li>un <strong>Top 5 Femmes</strong> — classement général de la saison</li>
-            <li>un <strong>vainqueur de globe</strong> pour chacune des 4 disciplines (× 2 genres = <strong>8 globes au total</strong>)</li>
+          <p className="mt-2">Il y a <strong>deux types de pronostics</strong> :</p>
+          <ul className="list-disc list-inside mt-2 space-y-1.5">
+            <li>
+              <strong>Pronos Saison</strong> — à remplir avant la première course :{" "}
+              Top 5 Hommes, Top 5 Femmes, et vainqueur de globe pour chacune des 4 disciplines (× 2 genres = <strong>8 globes</strong>)
+            </li>
+            <li>
+              <strong>Pronos Course par course</strong> — à remplir avant chaque course :{" "}
+              prédis le vainqueur de chaque épreuve individuellement
+            </li>
           </ul>
         </div>
 
@@ -42,11 +47,24 @@ export default function ReglementPage() {
 
         {/* Deadline */}
         <div>
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">⏱️ Deadline</h2>
-          <p>
-            Tous les pronostics doivent être soumis <strong>avant la première course de la saison</strong>.
-            Une fois la deadline passée, aucune modification n&apos;est possible — tes choix t&apos;accompagnent jusqu&apos;en mars.
-          </p>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">⏱️ Deadlines</h2>
+
+          <div className="space-y-3">
+            <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm">
+              <p className="font-semibold text-blue-800 mb-1">🏔️ Pronos Saison</p>
+              <p className="text-blue-700">
+                Doivent être soumis <strong>avant la première course de la saison</strong>.
+                Une fois la deadline passée, aucune modification n&apos;est possible — tes choix t&apos;accompagnent jusqu&apos;en mars.
+              </p>
+            </div>
+            <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl text-sm">
+              <p className="font-semibold text-amber-800 mb-1">🎯 Pronos Course par course</p>
+              <p className="text-amber-700">
+                Peuvent être modifiés jusqu&apos;au <strong>départ de la course concernée</strong>.
+                Une fois la course lancée, ton pronostic est verrouillé.
+              </p>
+            </div>
+          </div>
         </div>
 
         <hr className="border-gray-200" />
@@ -57,10 +75,10 @@ export default function ReglementPage() {
 
           {/* Top 5 */}
           <div className="mb-6">
-            <h3 className="font-semibold text-gray-700 mb-2">1. Top 5 Général (Hommes & Femmes)</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">1. Top 5 Général (Hommes &amp; Femmes)</h3>
             <p className="text-sm mb-3">
               Pour chacun des 5 biathlètes que tu as sélectionnés, si cet athlète <strong>figure dans le top 10 du classement général final</strong>,
-              tu reçois des points selon sa <em>vraie </em> place en fin de saison — peu importe la place où tu l&apos;avais prédit.
+              tu reçois des points selon sa <em>vraie</em> place en fin de saison — peu importe la place où tu l&apos;avais prédit.
             </p>
 
             <div className="overflow-x-auto rounded-xl border border-gray-200 mb-3">
@@ -90,7 +108,7 @@ export default function ReglementPage() {
             <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm">
               <p className="font-semibold text-blue-800 mb-1">⭐ Bonus rang exact : +50 points</p>
               <p className="text-blue-700">
-                Si la place réelle de l&apos;athlète en fin de saison correspond <em>exactement </em> au rang où tu l&apos;avais prédit,
+                Si la place réelle de l&apos;athlète en fin de saison correspond <em>exactement</em> au rang où tu l&apos;avais prédit,
                 tu reçois un bonus de <strong>+50 points</strong>.
               </p>
             </div>
@@ -140,9 +158,36 @@ export default function ReglementPage() {
             </div>
           </div>
 
+          {/* Course par course */}
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-700 mb-2">3. Course par course 🆕</h3>
+            <p className="text-sm mb-3">
+              Avant chaque épreuve, tu peux parier sur le <strong>vainqueur de la course</strong>.
+              Chaque bonne prédiction rapporte <strong>10 points</strong>, indépendamment du reste.
+            </p>
+            <div className="flex gap-4 text-sm mb-3">
+              <div className="flex-1 p-3 bg-amber-50 border border-amber-200 rounded-xl text-center">
+                <div className="font-bold text-amber-700 text-lg">+10 pts</div>
+                <div className="text-amber-600">Vainqueur exact</div>
+              </div>
+              <div className="flex-1 p-3 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                <div className="font-bold text-gray-400 text-lg">0 pt</div>
+                <div className="text-gray-400">Mauvaise prédiction</div>
+              </div>
+            </div>
+            <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl text-sm">
+              <ul className="space-y-1 text-gray-600">
+                <li>✅ Tu peux pronostiquer le même athlète pour plusieurs courses</li>
+                <li>✅ Tu peux modifier ton choix jusqu&apos;au départ de la course</li>
+                <li>🔒 Une fois la course commencée, ton pronostic est verrouillé définitivement</li>
+                <li>📊 Tes pronos course par course sont visibles dans <strong>📅 Calendrier &amp; Résultats</strong></li>
+              </ul>
+            </div>
+          </div>
+
           {/* Score max */}
           <div>
-            <h3 className="font-semibold text-gray-700 mb-2">3. Score maximum théorique</h3>
+            <h3 className="font-semibold text-gray-700 mb-2">4. Score maximum théorique</h3>
             <div className="overflow-x-auto rounded-xl border border-gray-200 text-sm">
               <table className="w-full">
                 <thead className="bg-gray-50">
@@ -153,36 +198,53 @@ export default function ReglementPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   <tr>
-                    <td className="px-4 py-2">Top 5 Hommes (5×90 + 5×50 bonus)</td>
-                    <td className="px-4 py-2 text-right font-medium text-blue-600">700 pts</td>
+                    <td className="px-4 py-2">Top 5 Hommes (90+75+65+55+50 + 5×50 bonus)</td>
+                    <td className="px-4 py-2 text-right font-medium text-blue-600">585 pts</td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2">Top 5 Femmes (5×90 + 5×50 bonus)</td>
-                    <td className="px-4 py-2 text-right font-medium text-blue-600">700 pts</td>
+                    <td className="px-4 py-2">Top 5 Femmes (90+75+65+55+50 + 5×50 bonus)</td>
+                    <td className="px-4 py-2 text-right font-medium text-blue-600">585 pts</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-2">Globes (8 × 50 pts)</td>
                     <td className="px-4 py-2 text-right font-medium text-blue-600">400 pts</td>
                   </tr>
+                  <tr>
+                    <td className="px-4 py-2">Courses (42 courses × 10 pts)</td>
+                    <td className="px-4 py-2 text-right font-medium text-blue-600">420 pts</td>
+                  </tr>
                   <tr className="bg-blue-50 font-semibold">
                     <td className="px-4 py-2 text-blue-800">Total maximum</td>
-                    <td className="px-4 py-2 text-right text-blue-800">1 800 pts</td>
+                    <td className="px-4 py-2 text-right text-blue-800">1 990 pts</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p className="text-xs text-gray-400 mt-1">
-              * Théorique : suppose que tes 5 athlètes finissent 1er–5ème ET dans l&apos;ordre exact que tu as prédit.
+              * Théorique : suppose que tes 5 athlètes finissent 1er–5ème dans l&apos;ordre exact que tu as prédit, et que tu prédis correctement les 42 vainqueurs de course.
             </p>
           </div>
         </div>
 
         <hr className="border-gray-200" />
 
+        {/* Ski Clubs */}
+        <div>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">🏔️ Ski Clubs</h2>
+          <p className="text-sm">
+            Crée ou rejoins un <strong>Ski Club</strong> pour te mesurer à tes amis. Chaque ski club a son propre classement,
+            sa propre page d&apos;évolution et son tableau de détail des scores.
+            Tu peux appartenir à plusieurs ski clubs simultanément.
+          </p>
+        </div>
+
+        <hr className="border-gray-200" />
+
         <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
           <p className="text-sm text-yellow-800">
-            📌 <strong>Rappel :</strong> les pronostics sont définitifs dès la première course.
-            Prends le temps de bien réfléchir à tes choix avant la deadline !
+            📌 <strong>Rappel :</strong> les pronos saison sont définitifs dès la première course.
+            Les pronos course par course peuvent être modifiés jusqu&apos;au départ de chaque épreuve.
+            Prends le temps de bien réfléchir à tes choix avant chaque deadline !
           </p>
         </div>
 

@@ -28,13 +28,16 @@ export type ChartRow = Record<string, string | number>;
 export function buildChartData(
   evolution: VenueEvolution[],
   memberIds: Set<string> | null
-): { chartData: ChartRow[]; players: string[] } {
-  const playerMap = new Map<string, string>();
+): { chartData: ChartRow[]; players: string[]; usernameToUserId: Map<string, string> } {
+  const playerMap = new Map<string, string>(); // user_id → username
   evolution.forEach((v) => {
     v.players.forEach((p) => {
       if (!memberIds || memberIds.has(p.user_id)) playerMap.set(p.user_id, p.username);
     });
   });
+  const usernameToUserId = new Map<string, string>(
+    Array.from(playerMap.entries()).map(([uid, uname]) => [uname, uid])
+  );
   const chartData = evolution.map((v) => {
     const row: ChartRow = { venue: v.name };
     v.players.forEach((p) => {
@@ -42,7 +45,7 @@ export function buildChartData(
     });
     return row;
   });
-  return { chartData, players: Array.from(playerMap.values()) };
+  return { chartData, players: Array.from(playerMap.values()), usernameToUserId };
 }
 
 // ─── Focus biathlète ─────────────────────────────────────────────────────────

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import {
   score, leagues, ScoreBreakdown, AthleteScoreDetail,
@@ -195,11 +195,12 @@ function RaceTable({ races }: { races: RaceScoreDetail[] }) {
   );
 }
 
-// ── Page principale ───────────────────────────────────────
+// ── Page principale (inner) ───────────────────────────────
 
-export default function DetailScorePage() {
+function DetailScoreContent() {
   const { user, currentLeague } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [members, setMembers] = useState<{ user_id: string; username: string }[]>([]);
   const [selectedId, setSelectedId] = useState<string>("");
@@ -213,9 +214,12 @@ export default function DetailScorePage() {
     if (!currentLeague) return;
     leagues.get(currentLeague.league_id, user.token).then((l) => {
       setMembers(l.members);
-      setSelectedId(user.user_id); // soi-même par défaut
+      // Pré-sélection via URL param ?userId=... (depuis la page évolution)
+      const urlUserId = searchParams?.get("userId");
+      const isValidMember = urlUserId && l.members.some((m) => m.user_id === urlUserId);
+      setSelectedId(isValidMember ? urlUserId! : user.user_id);
     });
-  }, [user, currentLeague, router]);
+  }, [user, currentLeague, router, searchParams]);
 
   // Chargement du score quand le joueur sélectionné change
   useEffect(() => {
@@ -233,7 +237,15 @@ export default function DetailScorePage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">🔍 Détail des scores</h1>
+      <div className="flex items-center gap-3 mb-1">
+        <h1 className="text-2xl font-bold text-gray-900">🔍 Détail des scores</h1>
+        <button
+          onClick={() => router.back()}
+          className="ml-auto text-sm text-gray-400 hover:text-gray-700 transition-colors"
+        >
+          ← Retour
+        </button>
+      </div>
       <p className="text-sm text-gray-500 mb-6">Décomposition point par point</p>
 
       {/* Sélecteur de joueur */}
@@ -283,5 +295,15 @@ export default function DetailScorePage() {
         </>
       )}
     </div>
+  );
+}
+
+// ── Wrapper Suspense (requis pour useSearchParams en App Router) ───────────────
+
+export default function DetailScorePage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-[60vh] text-gray-400">Chargement…</div>}>
+      <DetailScoreContent />
+    </Suspense>
   );
 }

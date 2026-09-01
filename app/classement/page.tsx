@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { classement, leagues, PlayerPoints } from "@/lib/api";
 import type { VenueEvolution } from "@/lib/api";
+import { buildChartData } from "@/lib/utils";
+import type { ChartRow } from "@/lib/utils";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend,
   ResponsiveContainer, LabelList,
@@ -14,36 +16,77 @@ import {
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type View = "classement" | "evolution";
-type ChartRow = Record<string, string | number>;
 
 // ─── Constantes ──────────────────────────────────────────────────────────────
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 const COLORS = ["#3b82f6","#ec4899","#10b981","#f59e0b","#8b5cf6","#ef4444","#06b6d4","#84cc16"];
 
-// ─── Helpers évolution ───────────────────────────────────────────────────────
+// ─── Tooltip personnalisé (évolution) ────────────────────────────────────────
 
-function buildChartData(
-  evolution: VenueEvolution[],
-  memberIds: Set<string> | null
-): { chartData: ChartRow[]; players: string[] } {
-  const playerMap = new Map<string, string>();
-  evolution.forEach((v) => {
-    v.players.forEach((p) => {
-      if (!memberIds || memberIds.has(p.user_id)) playerMap.set(p.user_id, p.username);
-    });
-  });
-  const chartData = evolution.map((v) => {
-    const row: ChartRow = {
-      venue: v.name,
-      tooltip: `${v.name}\n${v.start_date} → ${v.end_date}`,
-    };
-    v.players.forEach((p) => {
-      if (!memberIds || memberIds.has(p.user_id)) row[p.username] = p.total_points;
-    });
-    return row;
-  });
-  return { chartData, players: Array.from(playerMap.values()) };
+interface EvoPayloadEntry { name?: string; value?: number; color?: string; }
+interface EvoTooltipProps {
+  active?: boolean;
+  payload?: EvoPayloadEntry[];
+  label?: string;
+  fullEvolution: VenueEvolution[];
+}
+
+function EvoTooltip({ active, payload, label, fullEvolution }: EvoTooltipProps) {
+  if (!active || !payload?.length || !label) return null;
+
+  const venueIdx = fullEvolution.findIndex((v) => v.name === label);
+  if (venueIdx < 0) return null;
+  const venue = fullEvolution[venueIdx];
+  const prevVenue = venueIdx > 0 ? fullEvolution[venueIdx - 1] : null;
+
+  const sorted = [...payload].sort((a, b) => (b.value ?? 0) - (a.value ?? 0));
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-4 min-w-[220px] text-sm">
+      <p className="font-semibold text-gray-800 mb-3">{label}</p>
+      {sorted.map((entry) => {
+        const username = entry.name ?? "";
+        const player = venue.players.find((p) => p.username === username);
+        const prevPlayer = prevVenue?.players.find((p) => p.username === username);
+        if (!player) return null;
+
+        const delta = prevPlayer != null ? player.total_points - prevPlayer.total_points : null;
+        const parts: string[] = [];
+        if (prevPlayer != null) {
+          const dH = player.men_points - prevPlayer.men_points;
+          const dF = player.women_points - prevPlayer.women_points;
+          const dG = player.globe_points - prevPlayer.globe_points;
+          const dR = player.race_points - prevPlayer.race_points;
+          if (dH !== 0) parts.push(`H ${dH > 0 ? "+" : ""}${dH}`);
+          if (dF !== 0) parts.push(`F ${dF > 0 ? "+" : ""}${dF}`);
+          if (dG !== 0) parts.push(`Globes ${dG > 0 ? "+" : ""}${dG}`);
+          if (dR !== 0) parts.push(`Courses ${dR > 0 ? "+" : ""}${dR}`);
+        }
+
+        return (
+          <div key={username} className="mb-2.5">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
+              <span className="font-medium text-gray-800 truncate">{username}</span>
+              <span className="ml-auto font-bold text-blue-700 shrink-0">{player.total_points} pts</span>
+            </div>
+            {delta != null && (
+              <p className="ml-4 mt-0.5 text-xs text-gray-500">
+                {delta > 0 ? `+${delta}` : delta < 0 ? `${delta}` : "stable"} ce week-end
+                {parts.length > 0 && (
+                  <span className="text-gray-400 ml-1">({parts.join(" · ")})</span>
+                )}
+              </p>
+            )}
+          </div>
+        );
+      })}
+      <p className="text-xs text-gray-400 border-t border-gray-100 pt-2 mt-1">
+        Cliquez sur la légende pour voir le détail 🔍
+      </p>
+    </div>
+  );
 }
 
 // ─── Composants ──────────────────────────────────────────────────────────────
@@ -77,6 +120,8 @@ export default function ClassementSkiClubPage() {
   const [chartData, setChartData] = useState<ChartRow[]>([]);
   const [players, setPlayers] = useState<string[]>([]);
   const [myUsername, setMyUsername] = useState("");
+  const [fullEvolution, setFullEvolution] = useState<VenueEvolution[]>([]);
+  const [usernameToUserId, setUsernameToUserId] = useState<Map<string, string>>(new Map());
   const [evoLoading, setEvoLoading] = useState(false);
   const [evoLoaded, setEvoLoaded] = useState(false);
 
@@ -110,9 +155,11 @@ export default function ClassementSkiClubPage() {
         setMyUsername(
           evo[0]?.players.find((p) => p.user_id === user!.user_id)?.username ?? user!.username
         );
-        const { chartData: cd, players: pl } = buildChartData(evo, ids);
+        const { chartData: cd, players: pl, usernameToUserId: u2id } = buildChartData(evo, ids);
         setChartData(cd);
         setPlayers(pl);
+        setFullEvolution(evo);
+        setUsernameToUserId(u2id);
         setEvoLoaded(true);
       } finally {
         setEvoLoading(false);
@@ -289,13 +336,32 @@ export default function ClassementSkiClubPage() {
 
               <section className="mb-10">
                 <h2 className="text-lg font-semibold text-gray-700 mb-3">📈 Évolution des points</h2>
+                <p className="text-xs text-gray-400 mb-2">Survolez un point pour voir le détail du week-end · Cliquez sur un nom dans la légende pour voir son score détaillé</p>
                 <div className="bg-white border border-gray-200 rounded-xl p-4">
                   <ResponsiveContainer width="100%" height={420}>
                     <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                       <XAxis dataKey="venue" tick={{ fontSize: 12 }} />
                       <YAxis tick={{ fontSize: 12 }} />
-                      <Tooltip /><Legend />
+                      <Tooltip
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        content={(props: any) => (
+                          <EvoTooltip
+                            active={props.active}
+                            payload={props.payload}
+                            label={props.label}
+                            fullEvolution={fullEvolution}
+                          />
+                        )}
+                      />
+                      <Legend
+                        wrapperStyle={{ cursor: "pointer" }}
+                        onClick={(data) => {
+                          const username = data.dataKey as string;
+                          const userId = usernameToUserId.get(username);
+                          if (userId) router.push(`/classement/detail?userId=${userId}`);
+                        }}
+                      />
                       {players.map((username, i) => {
                         const isMe = username === myUsername;
                         return (
@@ -306,6 +372,14 @@ export default function ClassementSkiClubPage() {
                             stroke={isMe ? "#ef4444" : COLORS[i % COLORS.length]}
                             strokeWidth={isMe ? 3 : 1.5}
                             dot={false}
+                            activeDot={{
+                              r: 5,
+                              cursor: "pointer",
+                              onClick: () => {
+                                const userId = usernameToUserId.get(username);
+                                if (userId) router.push(`/classement/detail?userId=${userId}`);
+                              },
+                            }}
                             opacity={isMe ? 1 : 0.6}
                           />
                         );

@@ -38,7 +38,7 @@ describe("parseApiError", () => {
 
 const makePlayer = (user_id: string, username: string, pts: number) => ({
   user_id, username,
-  total_points: pts, men_points: 0, women_points: 0, globe_points: 0, rank: 1,
+  total_points: pts, men_points: 0, women_points: 0, globe_points: 0, race_points: 0, rank: 1,
 });
 
 const makeVenue = (index: number, name: string, players: ReturnType<typeof makePlayer>[]): VenueEvolution => ({
