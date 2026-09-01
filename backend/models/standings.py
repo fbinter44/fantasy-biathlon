@@ -44,4 +44,5 @@ class PlayerPoints(BaseModel):
     men_points: int
     women_points: int
     globe_points: int
+    race_points: int = 0
     rank: Optional[int] = None

@@ -191,3 +191,50 @@ def delete_league_by_id(league_id: str, settings: Settings) -> None:
     with _conn(settings) as conn:
         with conn.cursor() as cur:
             cur.execute("DELETE FROM leagues WHERE league_id = %s", (league_id,))
+
+
+# ─── Race pronostics ──────────────────────────────────────────────────────────
+
+def get_all_race_pronostics(settings: Settings) -> dict:
+    """Retourne {user_id: {race_id: ibu_id}} pour tous les utilisateurs."""
+    with _conn(settings) as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT user_id, race_id, ibu_id FROM race_pronostics")
+            result: dict = {}
+            for row in cur.fetchall():
+                result.setdefault(row["user_id"], {})[row["race_id"]] = row["ibu_id"]
+            return result
+
+
+def get_race_pronostics_by_user(user_id: str, settings: Settings) -> dict:
+    """Retourne {race_id: ibu_id} pour tous les pronos course de l'utilisateur."""
+    with _conn(settings) as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                "SELECT race_id, ibu_id FROM race_pronostics WHERE user_id = %s",
+                (user_id,),
+            )
+            return {row["race_id"]: row["ibu_id"] for row in cur.fetchall()}
+
+
+def upsert_race_pronostic(user_id: str, race_id: str, ibu_id: str, settings: Settings) -> None:
+    """Crée ou met à jour le pronostic vainqueur d'une course."""
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO race_pronostics (user_id, race_id, ibu_id)
+                VALUES (%s, %s, %s)
+                ON CONFLICT (user_id, race_id) DO UPDATE SET ibu_id = EXCLUDED.ibu_id
+                """,
+                (user_id, race_id, ibu_id),
+            )
+
+
+def delete_race_pronostic(user_id: str, race_id: str, settings: Settings) -> None:
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "DELETE FROM race_pronostics WHERE user_id = %s AND race_id = %s",
+                (user_id, race_id),
+            )

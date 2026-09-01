@@ -46,6 +46,7 @@ export interface PlayerPoints {
   men_points: number;
   women_points: number;
   globe_points: number;
+  race_points: number;
   rank: number;
 }
 
@@ -293,6 +294,30 @@ export const calendar = {
 
   results: (race_id: string, token: string) =>
     request<RaceResult[]>(`/calendar/${race_id}/results`, { headers: authHeaders(token) }),
+};
+
+// --- Race pronostics ---
+
+export interface RacePronosticsResponse {
+  pronos: Record<string, string>; // {race_id: ibu_id}
+}
+
+export const racePronostics = {
+  get: (token: string) =>
+    request<RacePronosticsResponse>("/race-pronostics", { headers: authHeaders(token) }),
+
+  set: (race_id: string, ibu_id: string, token: string) =>
+    request<RacePronosticsResponse>(`/race-pronostics/${race_id}`, {
+      method: "PUT",
+      headers: authHeaders(token),
+      body: JSON.stringify({ ibu_id }),
+    }),
+
+  remove: (race_id: string, token: string) =>
+    request<void>(`/race-pronostics/${race_id}`, {
+      method: "DELETE",
+      headers: authHeaders(token),
+    }),
 };
 
 // --- Standings IBU ---

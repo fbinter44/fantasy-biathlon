@@ -27,6 +27,35 @@ def compute_regular_points(pred_list, df_top10):
     return total, total_bonus, details
 
 
+RACE_WINNER_POINTS = 10
+
+
+def compute_race_winner_points(user_race_pronos: dict, venues: list) -> int:
+    """
+    Calcule les points course par course pour un utilisateur.
+
+    user_race_pronos : {race_id: ibu_id} — pronos de l'utilisateur
+    venues           : liste de CompetitionVenue avec résultats chargés
+
+    Retourne le total de points (10 par vainqueur correctement prédit).
+    """
+    total = 0
+    for venue in venues:
+        for ep in venue.epreuves:
+            predicted_ibu = user_race_pronos.get(ep.race_id)
+            if not predicted_ibu:
+                continue
+            if ep.results is None or ep.results.empty:
+                continue
+            winner_row = ep.results[ep.results["rank"].astype(str) == "1"]
+            if winner_row.empty:
+                continue
+            actual_winner = str(winner_row.iloc[0]["ibu_id"])
+            if predicted_ibu == actual_winner:
+                total += RACE_WINNER_POINTS
+    return total
+
+
 def compute_globe_winner_bonus(pred_winners, df_men, df_women):
     """
     pred_winners = {"Men": "IBU123", "Women": "IBU456"}

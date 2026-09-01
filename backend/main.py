@@ -10,7 +10,7 @@ Swagger UI : http://localhost:8000/docs
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar
+from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar, race_pronostics
 
 app = FastAPI(
     title="MPG Biathlon API",
@@ -40,6 +40,7 @@ app.include_router(pronostics.router)
 app.include_router(classement.router)
 app.include_router(leagues.router)
 app.include_router(calendar.router)
+app.include_router(race_pronostics.router)
 
 
 @app.get("/", tags=["health"])

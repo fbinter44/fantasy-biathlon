@@ -55,7 +55,7 @@ function PodiumCard({ player }: { player: PlayerPoints }) {
       <div className="font-bold text-gray-900">{player.username}</div>
       <div className="text-2xl font-bold text-blue-600 mt-1">{player.total_points} pts</div>
       <div className="text-xs text-gray-400 mt-1">
-        H: {player.men_points} | F: {player.women_points} | Globes: {player.globe_points}
+        H: {player.men_points} | F: {player.women_points} | Globes: {player.globe_points} | Courses: {player.race_points}
       </div>
     </div>
   );
@@ -182,7 +182,7 @@ export default function ClassementSkiClubPage() {
               <table className="w-full text-sm">
                 <thead className="bg-gray-50">
                   <tr>
-                    {["#", "Joueur", "Total", "Hommes", "Femmes", "Globes"].map((h) => (
+                    {["#", "Joueur", "Total", "Hommes", "Femmes", "Globes", "Courses"].map((h) => (
                       <th key={h} className="text-left px-4 py-3 font-medium text-gray-600">{h}</th>
                     ))}
                   </tr>
@@ -198,6 +198,7 @@ export default function ClassementSkiClubPage() {
                         <td className="px-4 py-3">{p.men_points}</td>
                         <td className="px-4 py-3">{p.women_points}</td>
                         <td className="px-4 py-3">{p.globe_points}</td>
+                        <td className="px-4 py-3">{p.race_points}</td>
                       </tr>
                     );
                   })}
@@ -247,6 +248,22 @@ export default function ClassementSkiClubPage() {
                   <Tooltip />
                   <Bar dataKey="globe_points" name="Globes" fill="#10b981" radius={[4,4,0,0]}>
                     <LabelList dataKey="globe_points" position="top" style={{ fontSize: 12 }} />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </section>
+
+          <section className="mb-6">
+            <h2 className="text-lg font-semibold text-gray-700 mb-3">🎯 Points Courses</h2>
+            <div className="bg-white border border-gray-200 rounded-xl p-4">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
+                  <XAxis dataKey="username" tick={{ fontSize: 13 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip />
+                  <Bar dataKey="race_points" name="Courses" fill="#f59e0b" radius={[4,4,0,0]}>
+                    <LabelList dataKey="race_points" position="top" style={{ fontSize: 12 }} />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>

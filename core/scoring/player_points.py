@@ -1,4 +1,4 @@
-from .compute_points import compute_regular_points, compute_globe_winner_bonus
+from .compute_points import compute_regular_points, compute_globe_winner_bonus, compute_race_winner_points
 
 class PlayerPoints:
     def __init__(self, name):
@@ -8,6 +8,7 @@ class PlayerPoints:
         self.total_women_points = 0
         self.bonus_right_place = 0
         self.bonus_globes = 0
+        self.race_points = 0
         self.details_men = {}
         self.details_women = {}
 
@@ -36,9 +37,13 @@ class PlayerPoints:
 
         self.bonus_globes = total
 
+    def add_race_winner_points(self, user_race_pronos: dict, venues: list) -> None:
+        self.race_points = compute_race_winner_points(user_race_pronos, venues)
+
     def compute_total_points(self):
         self.total_points = (
             self.total_men_points +
             self.total_women_points +
-            self.bonus_globes
+            self.bonus_globes +
+            self.race_points
         )

@@ -12,7 +12,7 @@ from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
 from backend.models.standings import PlayerPoints, VenueEvolution
 from utils.biathlon_data import VENUES_NAMES
-from backend.services.db import get_all_users, get_all_pronostics, get_all_leagues
+from backend.services.db import get_all_users, get_all_pronostics, get_all_leagues, get_all_race_pronostics
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
@@ -37,9 +37,26 @@ def _rank_players(points_map: dict, username_map: dict) -> list[PlayerPoints]:
             men_points=pp.total_men_points,
             women_points=pp.total_women_points,
             globe_points=pp.bonus_globes,
+            race_points=pp.race_points,
             rank=i,
         ))
     return result
+
+
+def _load_race_winner_data(settings: Settings):
+    """Charge les pronos course + résultats IBU. Retourne (all_race_pronos, venues)."""
+    all_race_pronos = get_all_race_pronostics(settings)
+    client = _ibu_client(settings)
+    client.competitions.load_venues_results()
+    return all_race_pronos, client.competitions.venues
+
+
+def _add_race_points(points_map: dict, all_race_pronos: dict, venues: list) -> None:
+    """Injecte les points course dans chaque PlayerPoints du map."""
+    for user_id, pp in points_map.items():
+        user_pronos = all_race_pronos.get(user_id, {})
+        pp.add_race_winner_points(user_pronos, venues)
+        pp.compute_total_points()  # recalcul avec race_points inclus
 
 
 @router.get("", response_model=list[PlayerPoints])
@@ -57,6 +74,9 @@ def global_classement(settings: Settings = Depends(get_settings)):
     client = _ibu_client(settings)
     men_st, women_st = client.load_standings()
     points_map = compute_all_players_points(predictions, men_st, women_st)
+
+    all_race_pronos, venues = _load_race_winner_data(settings)
+    _add_race_points(points_map, all_race_pronos, venues)
 
     return _rank_players(points_map, username_map)
 
@@ -81,6 +101,9 @@ def league_classement(league_id: str, settings: Settings = Depends(get_settings)
     client = _ibu_client(settings)
     men_st, women_st = client.load_standings()
     points_map = compute_all_players_points(predictions, men_st, women_st)
+
+    all_race_pronos, venues = _load_race_winner_data(settings)
+    _add_race_points(points_map, all_race_pronos, venues)
 
     return _rank_players(points_map, username_map)
 

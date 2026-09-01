@@ -30,3 +30,10 @@ CREATE TABLE IF NOT EXISTS leagues (
     members     TEXT DEFAULT '',
     invite_code TEXT UNIQUE NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS race_pronostics (
+    user_id TEXT NOT NULL,
+    race_id TEXT NOT NULL,
+    ibu_id  TEXT NOT NULL,
+    PRIMARY KEY (user_id, race_id)
+);
