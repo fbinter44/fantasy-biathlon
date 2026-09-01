@@ -123,6 +123,9 @@ def classement_evolution(settings: Settings = Depends(get_settings)):
     client = _ibu_client(settings)
     client.compute_evolutive_standings()
 
+    # Pronos course chargés une seule fois
+    all_race_pronos = get_all_race_pronostics(settings)
+
     evolution = []
     for venue_i, standings_by_gender in client.cumulated_standings.items():
         venue = client.competitions.venues[venue_i - 1]
@@ -132,6 +135,10 @@ def classement_evolution(settings: Settings = Depends(get_settings)):
         men_st = standings_by_gender["Men"]
         women_st = standings_by_gender["Women"]
         points_map = compute_all_players_points(predictions, men_st, women_st)
+
+        # Points course uniquement pour les venues 1..i (progressif)
+        venues_so_far = client.competitions.venues[:venue_i]
+        _add_race_points(points_map, all_race_pronos, venues_so_far)
 
         evolution.append(VenueEvolution(
             index=venue_i,
