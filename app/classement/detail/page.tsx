@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useSeason } from "@/context/SeasonContext";
 import {
   score, leagues, ScoreBreakdown, AthleteScoreDetail,
   GlobeScoreDetail, RaceScoreDetail,
@@ -199,6 +200,7 @@ function RaceTable({ races }: { races: RaceScoreDetail[] }) {
 
 function DetailScoreContent() {
   const { user, currentLeague } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -227,11 +229,11 @@ function DetailScoreContent() {
     setLoading(true);
     setError("");
     setBreakdown(null);
-    score.get(selectedId, user.token)
+    score.get(selectedId, user.token, selected.code)
       .then(setBreakdown)
       .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur"))
       .finally(() => setLoading(false));
-  }, [user, selectedId]);
+  }, [user, selectedId, selected.code]);
 
   if (!user) return null;
 

@@ -8,7 +8,7 @@ GET  /pronostics/{user_id}    → pronostics d'un joueur
 """
 
 from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
@@ -42,8 +42,12 @@ def _row_to_response(row: dict, username_map: dict) -> PronosticsResponse:
 
 
 @router.get("", response_model=list[PronosticsResponse])
-def list_all_pronostics(settings: Settings = Depends(get_settings)):
-    pronos = get_all_pronostics(settings)
+def list_all_pronostics(
+    season: str = Query(None),
+    settings: Settings = Depends(get_settings),
+):
+    s = season or settings.ibu_season_code
+    pronos = get_all_pronostics(settings, s)
     users = get_all_users(settings)
     umap = {u["user_id"]: u["username"] for u in users}
     return [_row_to_response(r, umap) for r in pronos]
@@ -51,10 +55,12 @@ def list_all_pronostics(settings: Settings = Depends(get_settings)):
 
 @router.get("/me", response_model=PronosticsResponse)
 def my_pronostics(
+    season: str = Query(None),
     current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
-    row = get_pronostics_by_user(current_user, settings)
+    s = season or settings.ibu_season_code
+    row = get_pronostics_by_user(current_user, settings, s)
     if not row:
         raise HTTPException(status_code=404, detail="Aucun pronostic trouvé pour cet utilisateur.")
     users = get_all_users(settings)
@@ -65,12 +71,14 @@ def my_pronostics(
 @router.put("/me", response_model=PronosticsResponse)
 def update_my_pronostics(
     body: PronosticsUpdateRequest,
+    season: str = Query(None),
     current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
     if datetime.now() > PRONOS_DEADLINE:
         raise HTTPException(status_code=403, detail="La deadline des pronostics est passée.")
 
+    s = season or settings.ibu_season_code
     updates = {}
 
     if body.top5_h:
@@ -94,13 +102,18 @@ def update_my_pronostics(
         updates["globe_mass_start_h"] = g.mass_start_h or ""
         updates["globe_mass_start_f"] = g.mass_start_f or ""
 
-    upsert_pronostics(current_user, settings, **updates)
-    return my_pronostics(current_user=current_user, settings=settings)
+    upsert_pronostics(current_user, settings, s, **updates)
+    return my_pronostics(season=s, current_user=current_user, settings=settings)
 
 
 @router.get("/{user_id}", response_model=PronosticsResponse)
-def get_user_pronostics(user_id: str, settings: Settings = Depends(get_settings)):
-    row = get_pronostics_by_user(user_id, settings)
+def get_user_pronostics(
+    user_id: str,
+    season: str = Query(None),
+    settings: Settings = Depends(get_settings),
+):
+    s = season or settings.ibu_season_code
+    row = get_pronostics_by_user(user_id, settings, s)
     if not row:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
     users = get_all_users(settings)

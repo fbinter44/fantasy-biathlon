@@ -6,7 +6,7 @@ GET /score/{user_id}  → ScoreBreakdown (auth requise)
 
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
@@ -180,16 +180,19 @@ def _build_race_details(
 @router.get("/{user_id}", response_model=ScoreBreakdown)
 def get_score_breakdown(
     user_id: str,
+    season: str = Query(None),
     settings: Settings = Depends(get_settings),
     _caller: str = Depends(get_current_user),
 ):
+    s = season or settings.ibu_season_code
+
     # Vérification que l'utilisateur existe
     user = get_user_by_id(user_id, settings)
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
 
     # Pronostics saison
-    prono_record = get_pronostics_by_user(user_id, settings)
+    prono_record = get_pronostics_by_user(user_id, settings, s)
     if not prono_record:
         # Pas de pronos saison → scores à zéro, on renvoie quand même la structure
         return ScoreBreakdown(
@@ -215,7 +218,7 @@ def get_score_breakdown(
         )
 
     # Standings IBU
-    client = IBUClient(season_code=settings.ibu_season_code)
+    client = IBUClient(season_code=s)
     men_st, women_st = client.load_standings()
 
     # Détail saison
@@ -226,7 +229,7 @@ def get_score_breakdown(
     globe_details, globe_pts = _build_globe_details(bet, men_st, women_st)
 
     # Pronos course + résultats
-    race_pronos = get_race_pronostics_by_user(user_id, settings)
+    race_pronos = get_race_pronostics_by_user(user_id, settings, s)
     client.competitions.load_venues_results()
     race_details, race_pts = _build_race_details(race_pronos, client.competitions.venues)
 

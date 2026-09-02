@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { pronostics, leagues, athletes, PronosticsResponse, AthleteResponse } from "@/lib/api";
+import { useSeason } from "@/context/SeasonContext";
+import SeasonGuard from "@/components/SeasonGuard";
 import Flag from "@/components/Flag";
 
 type Mode = "top5h" | "top5f" | "globesh" | "globesf";
@@ -43,6 +45,7 @@ function AthleteCell({ ibuId, map }: { ibuId: string; map: Record<string, Athlet
 
 export default function PronosSkiClubPage() {
   const { user, currentLeague } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
 
   const [data, setData] = useState<PronosticsResponse[]>([]);
@@ -55,7 +58,7 @@ export default function PronosSkiClubPage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(selected.code), athletes.list()]);
         const map: Record<string, AthleteResponse> = {};
         (ath as AthleteResponse[]).forEach((a) => { map[a.ibu_id] = a; });
         setAthMap(map);
@@ -84,6 +87,7 @@ export default function PronosSkiClubPage() {
   );
 
   return (
+    <SeasonGuard>
     <main className="max-w-7xl mx-auto px-4 py-8">
       {/* Titre */}
       <div className="mb-6">
@@ -181,5 +185,6 @@ export default function PronosSkiClubPage() {
         </div>
       )}
     </main>
+    </SeasonGuard>
   );
 }

@@ -8,6 +8,7 @@ import {
   calendar, racePronostics, athletes,
   VenueInfo, AthleteResponse,
 } from "@/lib/api";
+import { useSeason } from "@/context/SeasonContext";
 import AthleteSelect from "@/components/AthleteSelect";
 
 // ── Helpers ──────────────────────────────────────────────
@@ -47,6 +48,7 @@ function RaceRow({
   currentIbuId,
   locked,
   token,
+  season,
   onSaved,
 }: {
   race: { race_id: string; discipline: string; discipline_display: string; gender: string; start_time: string; is_past: boolean };
@@ -54,6 +56,7 @@ function RaceRow({
   currentIbuId: string;
   locked: boolean;
   token: string;
+  season: string;
   onSaved: (race_id: string, ibu_id: string) => void;
 }) {
   const [selected, setSelected] = useState(currentIbuId);
@@ -72,7 +75,7 @@ function RaceRow({
     setSaved(false);
     setSaving(true);
     try {
-      await racePronostics.set(race.race_id, selected, token);
+      await racePronostics.set(race.race_id, selected, token, season);
       onSaved(race.race_id, selected);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -145,12 +148,16 @@ function VenueBlock({
   pronos,
   allAthletes,
   token,
+  season,
+  isReadOnly,
   onSaved,
 }: {
   venue: VenueInfo;
   pronos: Record<string, string>;
   allAthletes: AthleteResponse[];
   token: string;
+  season: string;
+  isReadOnly: boolean;
   onSaved: (race_id: string, ibu_id: string) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -190,8 +197,9 @@ function VenueBlock({
               race={race}
               athleteList={allAthletes}
               currentIbuId={pronos[race.race_id] ?? ""}
-              locked={race.is_past}
+              locked={race.is_past || isReadOnly}
               token={token}
+              season={season}
               onSaved={onSaved}
             />
           ))}
@@ -205,6 +213,7 @@ function VenueBlock({
 
 export default function CourseParCoursePage() {
   const { user } = useAuth();
+  const { selected, isReadOnly } = useSeason();
   const router = useRouter();
 
   const [venues, setVenues] = useState<VenueInfo[]>([]);
@@ -218,8 +227,8 @@ export default function CourseParCoursePage() {
     const token = user.token;
 
     Promise.all([
-      calendar.venues(token),
-      racePronostics.get(token),
+      calendar.venues(token, selected.code),
+      racePronostics.get(token, selected.code),
       athletes.list(),
     ])
       .then(([venueData, pronosData, athleteData]) => {
@@ -229,7 +238,7 @@ export default function CourseParCoursePage() {
       })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur de chargement"))
       .finally(() => setLoading(false));
-  }, [user, router]);
+  }, [user, router, selected.code]);
 
   if (!user) return null;
 
@@ -284,6 +293,8 @@ export default function CourseParCoursePage() {
               pronos={pronos}
               allAthletes={allAthletes}
               token={user.token}
+              season={selected.code}
+              isReadOnly={isReadOnly}
               onSaved={(race_id, ibu_id) => setPronos((p) => ({ ...p, [race_id]: ibu_id }))}
             />
           ))}

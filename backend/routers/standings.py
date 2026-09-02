@@ -5,7 +5,7 @@ GET /standings/{gender}            → classements actuels (Men | Women)
 GET /standings/{gender}/progress   → avancement de la saison par discipline
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 
 from backend.config import Settings, get_settings
 from backend.models.standings import StandingsResponse, DisciplineStandings, AthleteStanding, SeasonProgress
@@ -15,8 +15,8 @@ from core.ibu.client import IBUClient
 router = APIRouter(prefix="/standings", tags=["standings"])
 
 
-def _build_client(settings: Settings) -> IBUClient:
-    return IBUClient(season_code=settings.ibu_season_code)
+def _build_client(settings: Settings, season: str | None = None) -> IBUClient:
+    return IBUClient(season_code=season or settings.ibu_season_code)
 
 
 def _athlete_standing(rank: int, row) -> AthleteStanding:
@@ -33,11 +33,15 @@ def _athlete_standing(rank: int, row) -> AthleteStanding:
 
 
 @router.get("/{gender}", response_model=StandingsResponse)
-def get_standings(gender: str, settings: Settings = Depends(get_settings)):
+def get_standings(
+    gender: str,
+    season: str = Query(None),
+    settings: Settings = Depends(get_settings),
+):
     if gender not in ("Men", "Women"):
         raise HTTPException(status_code=400, detail="gender doit être 'Men' ou 'Women'.")
 
-    client = _build_client(settings)
+    client = _build_client(settings, season)
     men_st, women_st = client.load_standings()
     standings_obj = men_st if gender == "Men" else women_st
 
@@ -64,11 +68,15 @@ def get_standings(gender: str, settings: Settings = Depends(get_settings)):
 
 
 @router.get("/{gender}/progress", response_model=list[SeasonProgress])
-def get_season_progress(gender: str, settings: Settings = Depends(get_settings)):
+def get_season_progress(
+    gender: str,
+    season: str = Query(None),
+    settings: Settings = Depends(get_settings),
+):
     if gender not in ("Men", "Women"):
         raise HTTPException(status_code=400, detail="gender doit être 'Men' ou 'Women'.")
 
-    client = _build_client(settings)
+    client = _build_client(settings, season)
     client.load_results()
     client.get_season_progress()
 

@@ -166,14 +166,14 @@ export interface PronosticsResponse {
 }
 
 export const pronostics = {
-  me: (token: string) =>
-    request<PronosticsResponse>("/pronostics/me", { headers: authHeaders(token) }),
+  me: (token: string, season?: string) =>
+    request<PronosticsResponse>(`/pronostics/me${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 
-  all: () =>
-    request<PronosticsResponse[]>("/pronostics"),
+  all: (season?: string) =>
+    request<PronosticsResponse[]>(`/pronostics${season ? `?season=${season}` : ""}`),
 
-  update: (body: { top5_h?: Top5; top5_f?: Top5; globes?: GlobeWinners }, token: string) =>
-    request<PronosticsResponse>("/pronostics/me", {
+  update: (body: { top5_h?: Top5; top5_f?: Top5; globes?: GlobeWinners }, token: string, season?: string) =>
+    request<PronosticsResponse>(`/pronostics/me${season ? `?season=${season}` : ""}`, {
       method: "PUT",
       headers: authHeaders(token),
       body: JSON.stringify(body),
@@ -289,8 +289,8 @@ export interface ScoreBreakdown {
 }
 
 export const score = {
-  get: (user_id: string, token: string) =>
-    request<ScoreBreakdown>(`/score/${user_id}`, { headers: authHeaders(token) }),
+  get: (user_id: string, token: string, season?: string) =>
+    request<ScoreBreakdown>(`/score/${user_id}${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 };
 
 // --- Classement ---
@@ -304,16 +304,16 @@ export interface VenueEvolution {
 }
 
 export const classement = {
-  global: () =>
-    request<PlayerPoints[]>("/classement"),
+  global: (season?: string) =>
+    request<PlayerPoints[]>(`/classement${season ? `?season=${season}` : ""}`),
 
-  league: (league_id: string, token: string) =>
-    request<PlayerPoints[]>(`/classement/league/${league_id}`, {
+  league: (league_id: string, token: string, season?: string) =>
+    request<PlayerPoints[]>(`/classement/league/${league_id}${season ? `?season=${season}` : ""}`, {
       headers: authHeaders(token),
     }),
 
-  evolution: () =>
-    request<VenueEvolution[]>("/classement/evolution"),
+  evolution: (season?: string) =>
+    request<VenueEvolution[]>(`/classement/evolution${season ? `?season=${season}` : ""}`),
 };
 
 // --- Calendrier & Résultats ---
@@ -346,11 +346,11 @@ export interface RaceResult {
 }
 
 export const calendar = {
-  venues: (token: string) =>
-    request<VenueInfo[]>("/calendar", { headers: authHeaders(token) }),
+  venues: (token: string, season?: string) =>
+    request<VenueInfo[]>(`/calendar${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 
-  results: (race_id: string, token: string) =>
-    request<RaceResult[]>(`/calendar/${race_id}/results`, { headers: authHeaders(token) }),
+  results: (race_id: string, token: string, season?: string) =>
+    request<RaceResult[]>(`/calendar/${race_id}/results${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 };
 
 // --- Race pronostics ---
@@ -360,18 +360,18 @@ export interface RacePronosticsResponse {
 }
 
 export const racePronostics = {
-  get: (token: string) =>
-    request<RacePronosticsResponse>("/race-pronostics", { headers: authHeaders(token) }),
+  get: (token: string, season?: string) =>
+    request<RacePronosticsResponse>(`/race-pronostics${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 
-  set: (race_id: string, ibu_id: string, token: string) =>
-    request<RacePronosticsResponse>(`/race-pronostics/${race_id}`, {
+  set: (race_id: string, ibu_id: string, token: string, season?: string) =>
+    request<RacePronosticsResponse>(`/race-pronostics/${race_id}${season ? `?season=${season}` : ""}`, {
       method: "PUT",
       headers: authHeaders(token),
       body: JSON.stringify({ ibu_id }),
     }),
 
-  remove: (race_id: string, token: string) =>
-    request<void>(`/race-pronostics/${race_id}`, {
+  remove: (race_id: string, token: string, season?: string) =>
+    request<void>(`/race-pronostics/${race_id}${season ? `?season=${season}` : ""}`, {
       method: "DELETE",
       headers: authHeaders(token),
     }),
@@ -386,9 +386,9 @@ export interface SeasonProgress {
 }
 
 export const standings = {
-  get: (gender: "Men" | "Women") =>
-    request<StandingsResponse>(`/standings/${gender}`),
+  get: (gender: "Men" | "Women", season?: string) =>
+    request<StandingsResponse>(`/standings/${gender}${season ? `?season=${season}` : ""}`),
 
-  progress: (gender: "Men" | "Women") =>
-    request<SeasonProgress[]>(`/standings/${gender}/progress`),
+  progress: (gender: "Men" | "Women", season?: string) =>
+    request<SeasonProgress[]>(`/standings/${gender}/progress${season ? `?season=${season}` : ""}`),
 };

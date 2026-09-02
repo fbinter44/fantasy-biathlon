@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { pronostics, athletes, leagues, PronosticsResponse, AthleteResponse } from "@/lib/api";
+import { useSeason } from "@/context/SeasonContext";
 import AthleteSelect from "@/components/AthleteSelect";
 import Flag from "@/components/Flag";
 
@@ -75,10 +76,11 @@ const GLOBE_DISCIPLINES = [
 
 export default function BiathletePage() {
   const { user, currentLeague } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
 
   const [pickedAthletes, setPickedAthletes] = useState<AthleteResponse[]>([]);
-  const [selected, setSelected] = useState("");
+  const [selectedId, setSelectedId] = useState("");
   const [data, setData] = useState<PronosticsResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -87,7 +89,7 @@ export default function BiathletePage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(selected.code), athletes.list()]);
         const athList = ath as AthleteResponse[];
 
         let filtered = all;
@@ -114,10 +116,10 @@ export default function BiathletePage() {
       }
     }
     load();
-  }, [user, currentLeague, router]);
+  }, [user, currentLeague, router, selected.code]);
 
-  const stats = selected && user ? computeStats(data, selected, user.user_id) : null;
-  const selectedAthlete = pickedAthletes.find((a) => a.ibu_id === selected);
+  const stats = selectedId && user ? computeStats(data, selectedId, user.user_id) : null;
+  const selectedAthlete = pickedAthletes.find((a) => a.ibu_id === selectedId);
 
   if (loading) return (
     <div className="flex justify-center items-center min-h-[60vh] text-gray-400">Chargement...</div>
@@ -131,16 +133,16 @@ export default function BiathletePage() {
       <div className="max-w-sm mb-6">
         <AthleteSelect
           athletes={pickedAthletes}
-          value={selected}
-          onChange={setSelected}
+          value={selectedId}
+          onChange={setSelectedId}
           placeholder="Rechercher un(e) biathlète..."
         />
-        {pickedAthletes.length > 0 && !selected && (
+        {pickedAthletes.length > 0 && !selectedId && (
           <p className="text-xs text-gray-400 mt-1">{pickedAthletes.length} athlètes sélectionnés dans la ligue</p>
         )}
       </div>
 
-      {!selected && (
+      {!selectedId && (
         <div className="text-center py-16 text-gray-300">
           <p className="text-5xl mb-3">🎿</p>
           <p className="text-sm text-gray-400">Sélectionne un(e) biathlète pour voir les statistiques.</p>

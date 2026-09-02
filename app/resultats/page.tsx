@@ -7,6 +7,8 @@ import {
   standings, pronostics,
   StandingsResponse, AthleteStanding, PronosticsResponse, SeasonProgress, GlobeWinners,
 } from "@/lib/api";
+import { useSeason } from "@/context/SeasonContext";
+import SeasonGuard from "@/components/SeasonGuard";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
 } from "recharts";
@@ -146,6 +148,7 @@ function StandingsTable({
 
 export default function ResultatsPage() {
   const { user } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
 
   const [menSt, setMenSt] = useState<StandingsResponse | null>(null);
@@ -161,11 +164,11 @@ export default function ResultatsPage() {
 
     async function load() {
       const [men, women, progM, progW, pron] = await Promise.allSettled([
-        standings.get("Men"),
-        standings.get("Women"),
-        standings.progress("Men"),
-        standings.progress("Women"),
-        pronostics.me(user!.token),
+        standings.get("Men", selected.code),
+        standings.get("Women", selected.code),
+        standings.progress("Men", selected.code),
+        standings.progress("Women", selected.code),
+        pronostics.me(user!.token, selected.code),
       ]);
 
       if (men.status === "fulfilled") setMenSt(men.value);
@@ -176,7 +179,7 @@ export default function ResultatsPage() {
       setLoading(false);
     }
     load();
-  }, [user, router]);
+  }, [user, router, selected.code]);
 
   const menAthletes = getDisciplineAthletes(menSt, discipline);
   const womenAthletes = getDisciplineAthletes(womenSt, discipline);
@@ -192,6 +195,7 @@ export default function ResultatsPage() {
   );
 
   return (
+    <SeasonGuard>
     <main className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">📊 Résultats Officiels IBU</h1>
 
@@ -233,5 +237,6 @@ export default function ResultatsPage() {
         />
       </div>
     </main>
+    </SeasonGuard>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useSeason } from "@/context/SeasonContext";
 
 const NAV_PERSONAL = [
   { href: "/ligues",              label: "🏔️ Mes Ski Clubs" },
@@ -23,36 +24,56 @@ const NAV_IBU = [
   { href: "/resultats",  label: "🏅 Classements généraux" },
 ];
 
+// Pages accessibles en hors-saison (doit correspondre à BYPASS_PATHS dans AppGuard)
+const OFFSEASON_ACCESSIBLE = new Set(["/ligues", "/compte", "/calendrier"]);
+
 function DropdownMenu({
   items,
   onClose,
+  isFutureSeason = false,
 }: {
   items: { href: string; label: string }[];
   onClose: () => void;
+  isFutureSeason?: boolean;
 }) {
   const pathname = usePathname();
   return (
     <div className="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-50">
-      {items.map(({ href, label }) => (
-        <Link
-          key={href}
-          href={href}
-          onClick={onClose}
-          className={`block px-4 py-2 text-sm transition-colors ${
-            pathname === href
-              ? "bg-blue-50 text-blue-700 font-medium"
-              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          }`}
-        >
-          {label}
-        </Link>
-      ))}
+      {items.map(({ href, label }) => {
+        const blocked = isFutureSeason && !OFFSEASON_ACCESSIBLE.has(href);
+        if (blocked) {
+          return (
+            <span
+              key={href}
+              title="Disponible à partir du 1er novembre"
+              className="block px-4 py-2 text-sm text-gray-300 cursor-not-allowed select-none"
+            >
+              {label}
+            </span>
+          );
+        }
+        return (
+          <Link
+            key={href}
+            href={href}
+            onClick={onClose}
+            className={`block px-4 py-2 text-sm transition-colors ${
+              pathname === href
+                ? "bg-blue-50 text-blue-700 font-medium"
+                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            }`}
+          >
+            {label}
+          </Link>
+        );
+      })}
     </div>
   );
 }
 
 export default function Header() {
   const { user, currentLeague, hasPronos, signOut } = useAuth();
+  const { selected, setSelected, availableSeasons, isReadOnly, isFutureSeason } = useSeason();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -78,15 +99,43 @@ export default function Header() {
 
   if (!user) return null;
 
+  // Bandeau visible quand on consulte une saison archivée (≠ saison par défaut)
+  const isViewingPastSeason = selected.code !== availableSeasons[0]?.code;
+
   return (
     <>
+      {isViewingPastSeason && (
+        <div className="bg-amber-50 border-b border-amber-200 px-4 py-1.5 text-center text-xs text-amber-700 sticky top-0 z-40">
+          📖 Consultation de la saison {selected.label} — lecture seule
+        </div>
+      )}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
 
-          {/* Logo */}
-          <Link href="/ligues" className="text-base font-bold text-blue-600 shrink-0">
-            🎯 Clean Shot
-          </Link>
+          {/* Logo + sélecteur de saison */}
+          <div className="flex items-center gap-3 shrink-0">
+            <Link href="/ligues" className="text-base font-bold text-blue-600">
+              🎯 Clean Shot
+            </Link>
+            {availableSeasons.length > 1 && (
+              <select
+                value={selected.code}
+                onChange={(e) => {
+                  const s = availableSeasons.find((x) => x.code === e.target.value);
+                  if (s) setSelected(s);
+                }}
+                className={`text-xs px-2 py-1 rounded-lg border transition-colors focus:outline-none ${
+                  isReadOnly
+                    ? "border-amber-300 bg-amber-50 text-amber-700"
+                    : "border-gray-200 bg-gray-50 text-gray-600"
+                }`}
+              >
+                {availableSeasons.map((s) => (
+                  <option key={s.code} value={s.code}>{s.label}</option>
+                ))}
+              </select>
+            )}
+          </div>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-2">
@@ -108,7 +157,7 @@ export default function Header() {
                 </svg>
               </button>
               {openMenu === "personal" && (
-                <DropdownMenu items={NAV_PERSONAL} onClose={() => setOpenMenu(null)} />
+                <DropdownMenu items={NAV_PERSONAL} onClose={() => setOpenMenu(null)} isFutureSeason={isFutureSeason} />
               )}
             </div>
 
@@ -129,7 +178,7 @@ export default function Header() {
                 </svg>
               </button>
               {openMenu === "ibu" && (
-                <DropdownMenu items={NAV_IBU} onClose={() => setOpenMenu(null)} />
+                <DropdownMenu items={NAV_IBU} onClose={() => setOpenMenu(null)} isFutureSeason={isFutureSeason} />
               )}
             </div>
 
@@ -152,7 +201,7 @@ export default function Header() {
                 </button>
                 {openMenu === "league" && (
                   hasPronos
-                    ? <DropdownMenu items={NAV_LEAGUE} onClose={() => setOpenMenu(null)} />
+                    ? <DropdownMenu items={NAV_LEAGUE} onClose={() => setOpenMenu(null)} isFutureSeason={isFutureSeason} />
                     : (
                       <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-50">
                         <p className="text-sm text-gray-500 text-center">
@@ -221,16 +270,18 @@ export default function Header() {
                 </button>
                 {mobileSection === "personal" && (
                   <div className="mt-1 flex flex-col gap-0.5 pl-2">
-                    {NAV_PERSONAL.map(({ href, label }) => (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={() => setDrawerOpen(false)}
-                        className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
-                      >
-                        {label}
-                      </Link>
-                    ))}
+                    {NAV_PERSONAL.map(({ href, label }) => {
+                      const blocked = isFutureSeason && !OFFSEASON_ACCESSIBLE.has(href);
+                      return blocked ? (
+                        <span key={href} className="block px-3 py-2 text-sm text-gray-300 cursor-not-allowed select-none rounded-lg">
+                          {label}
+                        </span>
+                      ) : (
+                        <Link key={href} href={href} onClick={() => setDrawerOpen(false)} className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg">
+                          {label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -248,16 +299,18 @@ export default function Header() {
                 </button>
                 {mobileSection === "ibu" && (
                   <div className="mt-1 flex flex-col gap-0.5 pl-2">
-                    {NAV_IBU.map(({ href, label }) => (
-                      <Link
-                        key={href}
-                        href={href}
-                        onClick={() => setDrawerOpen(false)}
-                        className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
-                      >
-                        {label}
-                      </Link>
-                    ))}
+                    {NAV_IBU.map(({ href, label }) => {
+                      const blocked = isFutureSeason && !OFFSEASON_ACCESSIBLE.has(href);
+                      return blocked ? (
+                        <span key={href} className="block px-3 py-2 text-sm text-gray-300 cursor-not-allowed select-none rounded-lg">
+                          {label}
+                        </span>
+                      ) : (
+                        <Link key={href} href={href} onClick={() => setDrawerOpen(false)} className="px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg">
+                          {label}
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>

@@ -7,6 +7,8 @@ import { classement, leagues, PlayerPoints } from "@/lib/api";
 import type { VenueEvolution } from "@/lib/api";
 import { buildChartData } from "@/lib/utils";
 import type { ChartRow } from "@/lib/utils";
+import { useSeason } from "@/context/SeasonContext";
+import SeasonGuard from "@/components/SeasonGuard";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend,
   ResponsiveContainer, LabelList,
@@ -108,6 +110,7 @@ function PodiumCard({ player }: { player: PlayerPoints }) {
 
 export default function ClassementSkiClubPage() {
   const { user, currentLeague } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
 
   const [view, setView] = useState<View>("classement");
@@ -131,15 +134,20 @@ export default function ClassementSkiClubPage() {
     async function load() {
       try {
         const result = currentLeague
-          ? await classement.league(currentLeague.league_id, user!.token)
-          : await classement.global();
+          ? await classement.league(currentLeague.league_id, user!.token, selected.code)
+          : await classement.global(selected.code);
         setRankData(result);
       } finally {
         setRankLoading(false);
       }
     }
     load();
-  }, [user, currentLeague, router]);
+  }, [user, currentLeague, router, selected.code]);
+
+  // Réinitialiser l'évolution quand la saison change
+  useEffect(() => {
+    setEvoLoaded(false);
+  }, [selected.code]);
 
   // Chargement de l'évolution (uniquement quand l'onglet est ouvert)
   useEffect(() => {
@@ -148,7 +156,7 @@ export default function ClassementSkiClubPage() {
     async function load() {
       try {
         const [evo, league] = await Promise.all([
-          classement.evolution(),
+          classement.evolution(selected.code),
           currentLeague ? leagues.get(currentLeague.league_id, user!.token) : Promise.resolve(null),
         ]);
         const ids = league ? new Set(league.members.map((m) => m.user_id)) : null;
@@ -166,7 +174,7 @@ export default function ClassementSkiClubPage() {
       }
     }
     load();
-  }, [view, evoLoaded, user, currentLeague]);
+  }, [view, evoLoaded, user, currentLeague, selected.code]);
 
   const venues = chartData.map((r) => r.venue as string);
   const pivot = players.map((username) => {
@@ -183,6 +191,7 @@ export default function ClassementSkiClubPage() {
   );
 
   return (
+    <SeasonGuard>
     <main className="max-w-7xl mx-auto px-4 py-8">
       {/* Titre + toggle */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
@@ -421,5 +430,6 @@ export default function ClassementSkiClubPage() {
         </>
       )}
     </main>
+    </SeasonGuard>
   );
 }

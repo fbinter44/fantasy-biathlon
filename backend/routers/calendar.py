@@ -7,7 +7,7 @@ GET /calendar/{race_id}/results  → résultats top 40 / top 30 mass start (auth
 
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
@@ -30,17 +30,18 @@ TOP_LIMIT = {"MS": 30}
 DEFAULT_TOP = 40
 
 
-def _build_client(settings: Settings) -> IBUClient:
-    return IBUClient(season_code=settings.ibu_season_code)
+def _build_client(settings: Settings, season: str | None = None) -> IBUClient:
+    return IBUClient(season_code=season or settings.ibu_season_code)
 
 
 @router.get("", response_model=list[VenueInfo])
 def get_calendar(
+    season: str = Query(None),
     settings: Settings = Depends(get_settings),
     _user_id: str = Depends(get_current_user),
 ):
     """Retourne toutes les venues de la saison avec leurs épreuves individuelles."""
-    client = _build_client(settings)
+    client = _build_client(settings, season)
     client.competitions.load_venues()
 
     now = datetime.now(timezone.utc)
@@ -87,11 +88,12 @@ def get_calendar(
 @router.get("/{race_id}/results", response_model=list[RaceResult])
 def get_race_results(
     race_id: str,
+    season: str = Query(None),
     settings: Settings = Depends(get_settings),
     _user_id: str = Depends(get_current_user),
 ):
     """Retourne les résultats d'une course passée (top 40, top 30 pour la mass start)."""
-    client = _build_client(settings)
+    client = _build_client(settings, season)
     client.competitions.load_venues()
 
     # Recherche de l'épreuve

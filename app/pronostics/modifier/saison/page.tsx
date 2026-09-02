@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { athletes, pronostics, AthleteResponse, Top5, GlobeWinners } from "@/lib/api";
+import { useSeason } from "@/context/SeasonContext";
 import AthleteSelect from "@/components/AthleteSelect";
 
 const DEADLINE = new Date("2025-11-27T23:59:00"); // Veille de la 1ère course 2025/26
@@ -133,6 +134,7 @@ function GenderCard({
 
 export default function ModifierPage() {
   const { user, setHasPronos } = useAuth();
+  const { selected, isReadOnly } = useSeason();
   const router = useRouter();
 
   const [athletesH, setAthletesH] = useState<AthleteResponse[]>([]);
@@ -153,7 +155,7 @@ export default function ModifierPage() {
         const [ah, af, me] = await Promise.all([
           athletes.list("M"),
           athletes.list("W"),
-          pronostics.me(user!.token).catch(() => null),
+          pronostics.me(user!.token, selected.code).catch(() => null),
         ]);
         setAthletesH(ah);
         setAthletesF(af);
@@ -163,7 +165,7 @@ export default function ModifierPage() {
       }
     }
     load();
-  }, [user, router]);
+  }, [user, router, selected.code]);
 
   function setTop5hField(pos: keyof Top5, val: string) { setTop5h((p) => ({ ...p, [pos]: val })); }
   function setTop5fField(pos: keyof Top5, val: string) { setTop5f((p) => ({ ...p, [pos]: val })); }
@@ -180,14 +182,14 @@ export default function ModifierPage() {
   const hasDuplicatesH = new Set(top5hValues).size !== top5hValues.length;
   const hasDuplicatesF = new Set(top5fValues).size !== top5fValues.length;
   const allFilled = filledCount === TOTAL_FIELDS;
-  const canSave = allFilled && !deadlinePassed && !hasDuplicatesH && !hasDuplicatesF;
+  const canSave = allFilled && !deadlinePassed && !isReadOnly && !hasDuplicatesH && !hasDuplicatesF;
 
   async function handleSave() {
     if (!user || !canSave) return;
     setSaving(true);
     setMsg("");
     try {
-      await pronostics.update({ top5_h: top5h, top5_f: top5f, globes }, user.token);
+      await pronostics.update({ top5_h: top5h, top5_f: top5f, globes }, user.token, selected.code);
       setHasPronos(true);
       setMsg("success");
     } catch (err: unknown) {
@@ -239,6 +241,13 @@ export default function ModifierPage() {
         </div>
       )}
 
+      {/* Bannière lecture seule (saison archivée) */}
+      {isReadOnly && !deadlinePassed && (
+        <div className="mb-5 p-4 bg-amber-50 border border-amber-300 rounded-xl text-amber-800 text-sm flex items-center gap-2">
+          📖 Consultation en lecture seule — les modifications ne sont pas disponibles pour cette saison.
+        </div>
+      )}
+
       {/* Deux cartes */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <GenderCard
@@ -246,19 +255,19 @@ export default function ModifierPage() {
           athleteList={athletesH}
           top5={top5h} onTop5Change={setTop5hField}
           globes={globes} onGlobeChange={setGlobeField}
-          disabled={deadlinePassed} hasDuplicates={hasDuplicatesH}
+          disabled={deadlinePassed || isReadOnly} hasDuplicates={hasDuplicatesH}
         />
         <GenderCard
           gender="f" label="Femmes" emoji="👩"
           athleteList={athletesF}
           top5={top5f} onTop5Change={setTop5fField}
           globes={globes} onGlobeChange={setGlobeField}
-          disabled={deadlinePassed} hasDuplicates={hasDuplicatesF}
+          disabled={deadlinePassed || isReadOnly} hasDuplicates={hasDuplicatesF}
         />
       </div>
 
       {/* Bouton sauvegarde */}
-      {!deadlinePassed && (
+      {!deadlinePassed && !isReadOnly && (
         <div className="mt-8 flex items-center gap-4">
           <button
             onClick={handleSave}

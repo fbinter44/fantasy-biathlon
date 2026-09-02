@@ -102,22 +102,25 @@ def update_user_field(user_id: str, field: str, value: str, settings: Settings) 
 
 # ─── Pronostics ───────────────────────────────────────────────────────────────
 
-def get_all_pronostics(settings: Settings) -> list[dict]:
+def get_all_pronostics(settings: Settings, season: str) -> list[dict]:
     with _conn(settings) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute("SELECT * FROM pronostics")
+            cur.execute("SELECT * FROM pronostics WHERE season = %s", (season,))
             return [dict(r) for r in cur.fetchall()]
 
 
-def get_pronostics_by_user(user_id: str, settings: Settings) -> dict | None:
+def get_pronostics_by_user(user_id: str, settings: Settings, season: str) -> dict | None:
     with _conn(settings) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute("SELECT * FROM pronostics WHERE user_id = %s", (user_id,))
+            cur.execute(
+                "SELECT * FROM pronostics WHERE user_id = %s AND season = %s",
+                (user_id, season),
+            )
             row = cur.fetchone()
             return dict(row) if row else None
 
 
-def upsert_pronostics(user_id: str, settings: Settings, **kwargs) -> None:
+def upsert_pronostics(user_id: str, settings: Settings, season: str, **kwargs) -> None:
     """Crée la ligne si absente, sinon met à jour uniquement les champs fournis."""
     _ALLOWED = {
         "top5_h", "top5_f",
@@ -136,13 +139,13 @@ def upsert_pronostics(user_id: str, settings: Settings, **kwargs) -> None:
     updates = ", ".join([f"{c} = EXCLUDED.{c}" for c in cols])
 
     sql = f"""
-        INSERT INTO pronostics (user_id, {", ".join(cols)})
-        VALUES (%s, {placeholders})
-        ON CONFLICT (user_id) DO UPDATE SET {updates}
+        INSERT INTO pronostics (user_id, season, {", ".join(cols)})
+        VALUES (%s, %s, {placeholders})
+        ON CONFLICT (user_id, season) DO UPDATE SET {updates}
     """
     with _conn(settings) as conn:
         with conn.cursor() as cur:
-            cur.execute(sql, [user_id] + vals)
+            cur.execute(sql, [user_id, season] + vals)
 
 
 # ─── Leagues ──────────────────────────────────────────────────────────────────
@@ -195,46 +198,51 @@ def delete_league_by_id(league_id: str, settings: Settings) -> None:
 
 # ─── Race pronostics ──────────────────────────────────────────────────────────
 
-def get_all_race_pronostics(settings: Settings) -> dict:
+def get_all_race_pronostics(settings: Settings, season: str) -> dict:
     """Retourne {user_id: {race_id: ibu_id}} pour tous les utilisateurs."""
     with _conn(settings) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute("SELECT user_id, race_id, ibu_id FROM race_pronostics")
+            cur.execute(
+                "SELECT user_id, race_id, ibu_id FROM race_pronostics WHERE season = %s",
+                (season,),
+            )
             result: dict = {}
             for row in cur.fetchall():
                 result.setdefault(row["user_id"], {})[row["race_id"]] = row["ibu_id"]
             return result
 
 
-def get_race_pronostics_by_user(user_id: str, settings: Settings) -> dict:
+def get_race_pronostics_by_user(user_id: str, settings: Settings, season: str) -> dict:
     """Retourne {race_id: ibu_id} pour tous les pronos course de l'utilisateur."""
     with _conn(settings) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(
-                "SELECT race_id, ibu_id FROM race_pronostics WHERE user_id = %s",
-                (user_id,),
+                "SELECT race_id, ibu_id FROM race_pronostics WHERE user_id = %s AND season = %s",
+                (user_id, season),
             )
             return {row["race_id"]: row["ibu_id"] for row in cur.fetchall()}
 
 
-def upsert_race_pronostic(user_id: str, race_id: str, ibu_id: str, settings: Settings) -> None:
+def upsert_race_pronostic(
+    user_id: str, race_id: str, ibu_id: str, settings: Settings, season: str
+) -> None:
     """Crée ou met à jour le pronostic vainqueur d'une course."""
     with _conn(settings) as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                INSERT INTO race_pronostics (user_id, race_id, ibu_id)
-                VALUES (%s, %s, %s)
-                ON CONFLICT (user_id, race_id) DO UPDATE SET ibu_id = EXCLUDED.ibu_id
+                INSERT INTO race_pronostics (user_id, race_id, ibu_id, season)
+                VALUES (%s, %s, %s, %s)
+                ON CONFLICT (user_id, race_id, season) DO UPDATE SET ibu_id = EXCLUDED.ibu_id
                 """,
-                (user_id, race_id, ibu_id),
+                (user_id, race_id, ibu_id, season),
             )
 
 
-def delete_race_pronostic(user_id: str, race_id: str, settings: Settings) -> None:
+def delete_race_pronostic(user_id: str, race_id: str, settings: Settings, season: str) -> None:
     with _conn(settings) as conn:
         with conn.cursor() as cur:
             cur.execute(
-                "DELETE FROM race_pronostics WHERE user_id = %s AND race_id = %s",
-                (user_id, race_id),
+                "DELETE FROM race_pronostics WHERE user_id = %s AND race_id = %s AND season = %s",
+                (user_id, race_id, season),
             )

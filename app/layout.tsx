@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { SeasonProvider } from "@/context/SeasonContext";
 import Header from "@/components/Header";
+import AppGuard from "@/components/AppGuard";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,8 +25,12 @@ export default function RootLayout({
     <html lang="fr" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-gray-50">
         <AuthProvider>
-          <Header />
-          {children}
+          <SeasonProvider>
+            <Header />
+            <AppGuard>
+              {children}
+            </AppGuard>
+          </SeasonProvider>
         </AuthProvider>
       </body>
     </html>

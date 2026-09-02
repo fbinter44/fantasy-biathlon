@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useSeason } from "@/context/SeasonContext";
 import Link from "next/link";
 import { calendar, racePronostics, VenueInfo, RaceInfo, RaceResult } from "@/lib/api";
 import Flag from "@/components/Flag";
@@ -120,10 +121,12 @@ function ResultsTable({
 function RaceRow({
   race,
   token,
+  season,
   predictedIbuId,
 }: {
   race: RaceInfo;
   token: string;
+  season: string;
   predictedIbuId: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -136,7 +139,7 @@ function RaceRow({
       setLoading(true);
       setError("");
       try {
-        const data = await calendar.results(race.race_id, token);
+        const data = await calendar.results(race.race_id, token, season);
         setResults(data);
       } catch (e: unknown) {
         setError(e instanceof Error ? e.message : "Erreur de chargement");
@@ -210,10 +213,12 @@ function RaceRow({
 function VenueCard({
   venue,
   token,
+  season,
   racePronos,
 }: {
   venue: VenueInfo;
   token: string;
+  season: string;
   racePronos: Record<string, string>;
 }) {
   const ongoing = isOngoing(venue.start_date, venue.end_date);
@@ -249,7 +254,7 @@ function VenueCard({
       {/* Liste des courses */}
       <div className="px-4 py-1">
         {venue.races.map((race) => (
-          <RaceRow key={race.race_id} race={race} token={token} predictedIbuId={racePronos[race.race_id] ?? ""} />
+          <RaceRow key={race.race_id} race={race} token={token} season={season} predictedIbuId={racePronos[race.race_id] ?? ""} />
         ))}
       </div>
     </div>
@@ -260,6 +265,7 @@ function VenueCard({
 
 export default function CalendrierPage() {
   const { user } = useAuth();
+  const { selected } = useSeason();
   const router = useRouter();
 
   const [venues, setVenues] = useState<VenueInfo[]>([]);
@@ -276,15 +282,15 @@ export default function CalendrierPage() {
     const token = user.token;
 
     Promise.all([
-      calendar.venues(token),
-      racePronostics.get(token).catch(() => ({ pronos: {} })),
+      calendar.venues(token, selected.code),
+      racePronostics.get(token, selected.code).catch(() => ({ pronos: {} })),
     ]).then(([venueData, pronosData]) => {
       setVenues(venueData);
       setRacePronos(pronosData.pronos);
     })
     .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur de chargement"))
     .finally(() => setLoading(false));
-  }, [user, router]);
+  }, [user, router, selected.code]);
 
   if (!user) return null;
 
@@ -325,6 +331,7 @@ export default function CalendrierPage() {
               key={venue.event_id}
               venue={venue}
               token={user.token}
+              season={selected.code}
               racePronos={racePronos}
             />
           ))}
