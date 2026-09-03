@@ -22,7 +22,7 @@ export default function AppGuard({ children }: { children: ReactNode }) {
 
   const isBypassed = BYPASS_PATHS.some((p) => pathname?.startsWith(p));
 
-  if (isFutureSeason && !isBypassed) {
+  if (isFutureSeason && !isBypassed && user) {
     return (
       <main className="max-w-2xl mx-auto px-4 py-20 flex flex-col items-center text-center">
         <div className="text-7xl mb-6 animate-spin" style={{ animationDuration: "4s" }}>
@@ -41,14 +41,6 @@ export default function AppGuard({ children }: { children: ReactNode }) {
 
         {/* Liens utiles */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {!user && (
-            <Link
-              href="/login"
-              className="px-5 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
-            >
-              Se connecter
-            </Link>
-          )}
           <Link
             href="/ligues"
             className="px-5 py-2 rounded-xl border border-gray-300 text-gray-600 text-sm font-medium hover:bg-gray-100 transition-colors"

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useSeason } from "@/context/SeasonContext";
+import Logo from "@/components/Logo";
 
 const NAV_PERSONAL = [
   { href: "/ligues",              label: "🏔️ Mes Ski Clubs" },
@@ -104,7 +105,12 @@ export default function Header() {
 
   return (
     <>
-      {isViewingPastSeason && (
+      {isFutureSeason && (
+        <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-700 sticky top-0 z-40">
+          ⏳ La saison {selected.label} n&apos;a pas encore commencé — l&apos;espace pronos ouvrira le 1er novembre
+        </div>
+      )}
+      {!isFutureSeason && isViewingPastSeason && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-1.5 text-center text-xs text-amber-700 sticky top-0 z-40">
           📖 Consultation de la saison {selected.label} — lecture seule
         </div>
@@ -114,8 +120,8 @@ export default function Header() {
 
           {/* Logo + sélecteur de saison */}
           <div className="flex items-center gap-3 shrink-0">
-            <Link href="/ligues" className="text-base font-bold text-blue-600">
-              🎯 Clean Shot
+            <Link href="/ligues" aria-label="Clean Shot — accueil">
+              <Logo height={36} />
             </Link>
             {availableSeasons.length > 1 && (
               <select
@@ -247,7 +253,7 @@ export default function Header() {
 
             {/* Header */}
             <div className="flex items-center justify-between px-4 h-14 border-b border-gray-100">
-              <span className="font-bold text-blue-600">🎯 Clean Shot</span>
+              <Logo height={32} />
               <button onClick={() => setDrawerOpen(false)} className="p-2 text-gray-400 hover:text-gray-600">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

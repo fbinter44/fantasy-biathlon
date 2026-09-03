@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { auth, pronostics } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import Logo from "@/components/Logo";
 
 type Tab = "login" | "register";
 
@@ -77,9 +78,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">🎯 Clean Shot 🏔️</h1>
-          <p className="text-gray-500 mt-1">Fantasy Biathlon</p>
+        <div className="flex flex-col items-center mb-8">
+          <Logo height={52} />
+          <p className="text-gray-500 mt-2 text-sm">Fantasy Biathlon</p>
         </div>
 
         {/* Card */}
