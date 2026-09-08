@@ -223,10 +223,12 @@ export default function Header() {
           {/* Desktop : règles + user + logout */}
           <div className="hidden md:flex items-center gap-3 shrink-0">
             <Link href="/reglement" className="text-sm text-gray-500 hover:text-gray-800 transition-colors">
-              📘 Règles
+              📘 Comment jouer
             </Link>
             <span className="text-gray-200">|</span>
-            <span className="text-sm text-gray-500">{user.username}</span>
+            <span className="text-sm font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
+              {user.username}
+            </span>
             <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">
               Déconnexion
             </button>
@@ -374,7 +376,7 @@ export default function Header() {
               <div className="flex items-center gap-3">
                 <span className="text-sm text-gray-600">{user.username}</span>
                 <Link href="/reglement" onClick={() => setDrawerOpen(false)} className="text-sm text-gray-400 hover:text-gray-600">
-                  📘 Règles
+                  📘 Comment jouer
                 </Link>
               </div>
               <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">

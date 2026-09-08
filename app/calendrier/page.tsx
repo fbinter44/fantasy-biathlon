@@ -35,6 +35,12 @@ function formatDate(iso: string): string {
   });
 }
 
+function formatTime(iso: string): string {
+  const d = new Date(iso);
+  if (d.getHours() === 0 && d.getMinutes() === 0) return "";
+  return d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+}
+
 function formatDateRange(start: string, end: string): string {
   const s = new Date(start);
   const e = new Date(end);
@@ -156,10 +162,13 @@ function RaceRow({
   return (
     <div className="border-b border-gray-50 last:border-0">
       <div className="flex items-center gap-3 py-2.5 px-1">
-        {/* Date */}
-        <span className="text-xs text-gray-400 w-24 shrink-0">
-          {formatDate(race.start_time)}
-        </span>
+        {/* Date + heure */}
+        <div className="flex flex-col w-24 shrink-0">
+          <span className="text-xs text-gray-400">{formatDate(race.start_time)}</span>
+          {formatTime(race.start_time) && (
+            <span className="text-xs text-gray-300 font-mono">{formatTime(race.start_time)}</span>
+          )}
+        </div>
 
         {/* Badges discipline + genre */}
         <div className="flex items-center gap-1.5 shrink-0">

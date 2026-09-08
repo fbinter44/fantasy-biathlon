@@ -12,8 +12,11 @@ POST /auth/feedback       → message
 """
 
 import secrets
+import time
 import uuid
 import bcrypt
+
+RESET_CODE_TTL = 2 * 60  # 2 minutes en secondes
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
@@ -85,9 +88,17 @@ def reset_request(body: ResetRequestBody, settings: Settings = Depends(get_setti
     if not user:
         raise HTTPException(status_code=404, detail="Email introuvable.")
     code = secrets.token_hex(3)
-    update_user_field(user["user_id"], "reset_code", code, settings)
-    if not send_reset_email(email, code, settings):
-        raise HTTPException(status_code=500, detail="Erreur lors de l'envoi de l'email.")
+    expires_at = int(time.time()) + RESET_CODE_TTL
+    update_user_field(user["user_id"], "reset_code", f"{code}|{expires_at}", settings)
+    try:
+        ok = send_reset_email(email, code, settings)
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    if not ok:
+        raise HTTPException(
+            status_code=500,
+            detail="L'email n'a pas pu être envoyé. Vérifie les logs du backend (Brevo).",
+        )
     return {"detail": "Un email contenant ton code a été envoyé."}
 
 
@@ -98,8 +109,13 @@ def reset_password(body: ResetPasswordBody, settings: Settings = Depends(get_set
     user = next((u for u in users if u["email"] == email), None)
     if not user:
         raise HTTPException(status_code=404, detail="Email introuvable.")
-    if user.get("reset_code") != body.code:
+    stored = user.get("reset_code") or ""
+    # Format attendu : "a1b2c3|1725792000"
+    parts = stored.split("|")
+    if len(parts) != 2 or parts[0] != body.code:
         raise HTTPException(status_code=400, detail="Code incorrect.")
+    if int(time.time()) > int(parts[1]):
+        raise HTTPException(status_code=400, detail="Ce code a expiré. Recommence la procédure.")
     update_user_field(user["user_id"], "password_hash", _hash(body.new_password), settings)
     update_user_field(user["user_id"], "reset_code", "", settings)
     return {"detail": "Mot de passe réinitialisé."}

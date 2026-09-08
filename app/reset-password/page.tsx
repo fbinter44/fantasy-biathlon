@@ -1,11 +1,82 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/api";
+import Logo from "@/components/Logo";
 
 type Step = "email" | "code" | "done";
+
+const CODE_TTL = 120; // secondes — doit correspondre au backend (2 min)
+
+function Countdown({ onExpire }: { onExpire: () => void }) {
+  const [remaining, setRemaining] = useState(CODE_TTL);
+  const onExpireRef = useRef(onExpire);
+  onExpireRef.current = onExpire;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          onExpireRef.current();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+  const display = `${minutes}:${String(seconds).padStart(2, "0")}`;
+  const pct = (remaining / CODE_TTL) * 100;
+
+  // Couleur selon le temps restant
+  const color =
+    remaining > 60 ? "#22c55e"   // vert > 1 min
+    : remaining > 30 ? "#f59e0b" // amber 30-60 s
+    : "#ef4444";                  // rouge < 30 s
+
+  return (
+    <div className="flex flex-col items-center gap-2 my-2">
+      {/* Arc SVG */}
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        {/* Fond */}
+        <circle cx="36" cy="36" r="30" fill="none" stroke="#e5e7eb" strokeWidth="5" />
+        {/* Arc animé */}
+        <circle
+          cx="36" cy="36" r="30"
+          fill="none"
+          stroke={color}
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeDasharray={`${2 * Math.PI * 30}`}
+          strokeDashoffset={`${2 * Math.PI * 30 * (1 - pct / 100)}`}
+          transform="rotate(-90 36 36)"
+          style={{ transition: "stroke-dashoffset 0.9s linear, stroke 0.5s" }}
+        />
+        {/* Texte centré */}
+        <text
+          x="36" y="40"
+          textAnchor="middle"
+          fontSize="16"
+          fontWeight="700"
+          fontFamily="ui-monospace, monospace"
+          fill={color}
+          style={{ transition: "fill 0.5s" }}
+        >
+          {display}
+        </text>
+      </svg>
+      <p className="text-xs text-gray-400">
+        {remaining === 0 ? "Code expiré" : "Temps restant"}
+      </p>
+    </div>
+  );
+}
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -16,6 +87,7 @@ export default function ResetPasswordPage() {
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [expired, setExpired] = useState(false);
 
   async function handleEmailSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -23,6 +95,7 @@ export default function ResetPasswordPage() {
     setLoading(true);
     try {
       await auth.resetRequest(email);
+      setExpired(false);
       setStep("code");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erreur");
@@ -53,9 +126,9 @@ export default function ResetPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">🎯 Clean Shot</h1>
-          <p className="text-gray-500 mt-1">Réinitialisation du mot de passe</p>
+        <div className="flex flex-col items-center mb-8">
+          <Logo height={52} />
+          <p className="text-gray-500 mt-2 text-sm">Réinitialisation du mot de passe</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
@@ -123,8 +196,18 @@ export default function ResetPasswordPage() {
             {step === "code" && (
               <form onSubmit={handleCodeSubmit} className="space-y-4">
                 <p className="text-sm text-gray-500">
-                  Un code a été envoyé à <strong>{email}</strong>. Saisis-le ci-dessous avec ton nouveau mot de passe.
+                  Un code a été envoyé à <strong>{email}</strong>.
                 </p>
+
+                {/* Compte à rebours */}
+                <Countdown key={email} onExpire={() => setExpired(true)} />
+
+                {expired && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm text-center">
+                    ⏱ Code expiré — redemande un nouveau code.
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Code reçu par email</label>
                   <input
@@ -132,6 +215,7 @@ export default function ResetPasswordPage() {
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                     required
+                    disabled={expired}
                     placeholder="ex: a1b2c3"
                     className={inputClass}
                   />
@@ -143,6 +227,7 @@ export default function ResetPasswordPage() {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     required
+                    disabled={expired}
                     className={inputClass}
                   />
                 </div>
@@ -153,18 +238,19 @@ export default function ResetPasswordPage() {
                     value={confirm}
                     onChange={(e) => setConfirm(e.target.value)}
                     required
+                    disabled={expired}
                     className={inputClass}
                   />
                 </div>
-                <button type="submit" disabled={loading} className={btnClass}>
+                <button type="submit" disabled={loading || expired} className={btnClass}>
                   {loading ? "Réinitialisation..." : "Réinitialiser mon mot de passe"}
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setStep("email"); setError(""); }}
+                  onClick={() => { setStep("email"); setError(""); setExpired(false); }}
                   className="w-full py-2 text-sm text-gray-400 hover:text-gray-600"
                 >
-                  ← Changer d&apos;email
+                  ← Changer d&apos;email / redemander un code
                 </button>
               </form>
             )}

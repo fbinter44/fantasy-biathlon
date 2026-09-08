@@ -212,7 +212,7 @@ export default function LoginPage() {
 
         <p className="text-center mt-4 text-sm text-gray-400">
           <Link href="/reglement" className="hover:text-blue-600 underline underline-offset-2">
-            📘 Règles du jeu
+            📘 Comment jouer
           </Link>
         </p>
       </div>

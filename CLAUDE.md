@@ -16,18 +16,13 @@ npm run dev
 # → http://localhost:3000
 ```
 
-### Legacy Streamlit app (reference only — not the active version)
-```bash
-streamlit run App.py
-```
-
 The project uses Python 3.12 and Node.js 20.
 
 ## Architecture overview
 
-This is a French-language **Fantasy Biathlon** app for the 2025/26 season. Users predict biathlon season winners before the deadline, earn points based on accuracy, and compete in leagues.
+This is a French-language **Fantasy Biathlon** app. Users predict biathlon season winners before the deadline, earn points based on accuracy, and compete in leagues.
 
-The app was originally built as a **Streamlit + Google Sheets** prototype. It has been migrated to **FastAPI + Next.js + PostgreSQL (Supabase)**. The legacy Streamlit code lives in `pages/`, `utils/`, and `App.py` — kept for reference but no longer the active version.
+Stack: **FastAPI + Next.js + PostgreSQL (Supabase)**.
 
 ### Deployment
 
@@ -39,16 +34,17 @@ The app was originally built as a **Streamlit + Google Sheets** prototype. It ha
 
 ```
 backend/          FastAPI app (routers, services, models, config)
-core/             Business logic — framework-agnostic, shared by both stacks
+core/             Business logic — framework-agnostic
   ibu/            IBU API client
   scoring/        Points computation engine
   pronostics/     Prediction loading & building
 app/              Next.js App Router pages
-components/       React components
-lib/              API client (lib/api.ts), shared utils
-pages/            [LEGACY] Streamlit pages
-utils/            [LEGACY] Streamlit utilities
-scripts/          Data migration and one-off utilities
+components/       React components (Header, Logo, AppGuard, SeasonGuard…)
+context/          React contexts (AuthContext, SeasonContext)
+lib/              API client (lib/api.ts), season utils (lib/season.ts)
+utils/            Shared Python constants & helpers (biathlon_data, cache_helpers, api_helpers, sheets)
+biathletes_data/  Static athlete master list (athletes_info.json)
+scripts/          One-off data utilities
 tests/
   unit/           pytest unit tests (scoring, biathlon data)
   integration/    pytest integration tests (require live DB)
