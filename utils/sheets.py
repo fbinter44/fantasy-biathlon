@@ -1,110 +1,14 @@
 """
-Module utilitaire pour accéder aux différentes feuilles Google Sheets.
+Fonctions utilitaires partagées (anciennement Google Sheets).
 
-Responsabilités :
-- Initialisation du client Google Sheets
-- Accès simplifié aux worksheets
-- Fonctions utilitaires de lecture/écriture
+Les fonctions d'accès à Google Sheets (gspread/Streamlit) ont été supprimées :
+le backend FastAPI lit les données depuis PostgreSQL via backend/services/db.py.
+Ce module ne conserve que des utilitaires purs sans dépendances externes.
 """
 
-import streamlit as st
-import gspread
-from google.oauth2.service_account import Credentials
 import uuid
 
-from utils.cache_helpers import CACHE_PRONOS_DIR, CACHE_LEAGUES_DIR, load_from_cache, save_to_cache
 from utils.biathlon_data import DISCIPLINES_WINNERS, BIATHLETES_H
-
-
-# ---------------------------------------------------------
-# 1) Initialisation du client Google Sheets
-# ---------------------------------------------------------
-
-def _get_gspread_client():
-    """
-    Initialise et retourne un client gspread authentifié.
-    Utilise les credentials stockés dans st.secrets.
-    """
-    scope = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive",
-    ]
-
-    creds = Credentials.from_service_account_info(
-        st.secrets["gcp_service_account"],
-        scopes=scope
-    )
-
-    return gspread.authorize(creds)
-
-
-# ---------------------------------------------------------
-# 2) Accès à une worksheet
-# ---------------------------------------------------------
-
-def get_sheet(name: str):
-    """
-    Retourne une worksheet par son nom.
-    Exemple : get_sheet("Pronostics")
-    """
-    client = _get_gspread_client()
-    sheet_id = st.secrets["sheets"]["sheet_id"]
-    return client.open_by_key(sheet_id).worksheet(name)
-
-
-# ---------------------------------------------------------
-# 3) Fonctions utilitaires
-# ---------------------------------------------------------
-
-def read_all(name: str):
-    """
-    Lit toutes les lignes d'une feuille et retourne une liste de dicts.
-    Equivalent à sheet.get_all_records().
-    """
-    # 1) Essayer le cache local
-    # if name == "Pronostics":
-        # cached = load_from_cache(CACHE_PRONOS_DIR, "pronos.json")
-    # elif name == "Leagues":
-        # cached = load_from_cache(CACHE_LEAGUES_DIR, "leagues.json")
-
-    # if cached is not None:
-        # return cached
-    
-    # 2) Sinon lire Google Sheets
-    sheet = get_sheet(name)
-    data = sheet.get_all_records()
-
-    # 3) Sauvegarder dans le cache
-    if name == "Pronostics":
-        save_to_cache(CACHE_PRONOS_DIR, "pronos.json", data)
-    elif name == "Leagues":
-        save_to_cache(CACHE_LEAGUES_DIR, "leagues.json", data)
-    return data
-
-
-def append_row(name: str, row: list):
-    """
-    Ajoute une ligne à la fin de la feuille.
-    """
-    sheet = get_sheet(name)
-    sheet.append_row(row)
-
-
-def update_cell(name: str, row: int, col: int, value):
-    """
-    Met à jour une cellule (ligne, colonne).
-    """
-    sheet = get_sheet(name)
-    sheet.update_cell(row, col, value)
-
-
-def get_player_row(sheet, player_id):
-    players = sheet.col_values(1)  # colonne "player"
-    if player_id in players:
-        row_index = players.index(player_id) + 1
-        row_values = sheet.row_values(row_index)
-        return row_index, row_values
-    return None, None
 
 
 def extract_unique_ids(data, league_members):

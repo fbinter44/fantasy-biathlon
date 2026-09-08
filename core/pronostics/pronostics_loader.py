@@ -1,22 +1,12 @@
 """
-Chargement des pronostics joueurs depuis Google Sheets.
+Chargement des pronostics joueurs.
 
 Responsabilités :
-- Lire la feuille "Pronostics"
-- Normaliser les données
+- Normaliser les données (records PostgreSQL → DataFrame)
 - Retourner des structures prêtes pour le scoring
 """
 
 import pandas as pd
-from utils.sheets import read_all
-
-
-def load_pronostics_from_gsheet() -> pd.DataFrame:
-    """Retourne la feuille Pronostics sous forme de DataFrame."""
-    records = read_all("Pronostics")
-    if not records:
-        raise KeyError("NO_PRONOS")
-    return pd.DataFrame(records)
 
 
 def load_pronostics_from_records(records: list[dict]) -> pd.DataFrame:
