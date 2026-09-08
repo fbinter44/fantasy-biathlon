@@ -1,3 +1,0 @@
-pytest
-pytest-mock
-httpx          # requis par FastAPI TestClient

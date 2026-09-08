@@ -27,7 +27,7 @@ Stack: **FastAPI + Next.js + PostgreSQL (Supabase)**.
 ### Deployment
 
 - **Frontend**: Vercel (`vercel.json` at root forces Next.js detection)
-- **Backend**: Railway (`railway.json` at root, `requirements_api.txt` only)
+- **Backend**: Railway (`railway.json` at root, `requirements.txt`)
 - **Database**: Supabase PostgreSQL — use the **Session pooler** connection string in `DATABASE_URL` (Railway is IPv4-only)
 
 ### Directory structure
