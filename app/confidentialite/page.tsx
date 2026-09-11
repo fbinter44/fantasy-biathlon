@@ -36,8 +36,8 @@ export default function ConfidentialitePage() {
         <div>
           <h2 className="text-base font-semibold text-gray-800 mb-3">1. Responsable du traitement</h2>
           <p>
-            Le responsable du traitement des données est l'éditeur de l'application Clean Shot,
-            accessible à l'adresse{" "}
+            Le responsable du traitement des données est l&apos;éditeur de l&apos;application Clean Shot,
+            accessible à l&apos;adresse{" "}
             <a href="https://clean-shot.app" className="text-blue-600 hover:underline">clean-shot.app</a>.
           </p>
           <p className="mt-2">
@@ -53,7 +53,7 @@ export default function ConfidentialitePage() {
           <h2 className="text-base font-semibold text-gray-800 mb-3">2. Données personnelles collectées</h2>
           <p className="mb-3">
             Nous collectons uniquement les données suivantes, toutes fournies volontairement lors
-            de votre inscription ou utilisation de l'application :
+            de votre inscription ou utilisation de l&apos;application :
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
@@ -82,7 +82,7 @@ export default function ConfidentialitePage() {
             </table>
           </div>
           <p className="mt-3 text-gray-500">
-            Aucune donnée sensible (santé, opinions, données financières) n'est collectée.
+            Aucune donnée sensible (santé, opinions, données financières) n&apos;est collectée.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export default function ConfidentialitePage() {
           <h2 className="text-base font-semibold text-gray-800 mb-3">4. Stockage et sécurité</h2>
           <p>
             Vos données sont stockées dans une base de données PostgreSQL hébergée par{" "}
-            <strong>Supabase</strong> (serveurs en Europe). Le backend de l'application est hébergé
+            <strong>Supabase</strong> (serveurs en Europe). Le backend de l&apos;application est hébergé
             sur <strong>Railway</strong> et le frontend sur <strong>Vercel</strong>, des plateformes
             conformes au RGPD.
           </p>
@@ -132,7 +132,7 @@ export default function ConfidentialitePage() {
         <div>
           <h2 className="text-base font-semibold text-gray-800 mb-3">5. Durée de conservation</h2>
           <p>
-            Vos données sont conservées tant que votre compte est actif. En cas d'inactivité prolongée
+            Vos données sont conservées tant que votre compte est actif. En cas d&apos;inactivité prolongée
             (plus de 2 ans sans connexion), nous nous réservons le droit de supprimer votre compte
             après vous en avoir informé par email.
           </p>
@@ -145,9 +145,9 @@ export default function ConfidentialitePage() {
         <div>
           <h2 className="text-base font-semibold text-gray-800 mb-3">6. Cookies et stockage local</h2>
           <p>
-            Clean Shot n'utilise <strong>pas de cookies</strong>. L'authentification repose sur un
+            Clean Shot n&apos;utilise <strong>pas de cookies</strong>. L&apos;authentification repose sur un
             token JWT stocké dans le <em>localStorage</em> de votre navigateur, uniquement sur votre
-            appareil. Ce token n'est pas transmis à des tiers et est effacé à la déconnexion.
+            appareil. Ce token n&apos;est pas transmis à des tiers et est effacé à la déconnexion.
           </p>
         </div>
 
