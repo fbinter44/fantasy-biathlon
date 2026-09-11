@@ -7,7 +7,7 @@ import { useSeason } from "@/context/SeasonContext";
 import { useAuth } from "@/context/AuthContext";
 
 // Pages toujours accessibles même pendant le hors-saison
-const BYPASS_PATHS = ["/login", "/reset-password", "/reglement", "/compte", "/ligues", "/calendrier"];
+const BYPASS_PATHS = ["/login", "/reset-password", "/reglement", "/confidentialite", "/compte", "/ligues", "/calendrier"];
 
 /**
  * Guard global positionné dans le layout.

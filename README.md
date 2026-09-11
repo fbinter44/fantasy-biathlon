@@ -2,7 +2,7 @@
 
 A full-stack fantasy sports app for the IBU Biathlon World Cup season 2025/26. Users predict season standings before a deadline, earn points based on accuracy, and compete in private leagues.
 
-**Live app:** [fantasy-biathlon.vercel.app](https://fantasy-biathlon.vercel.app)
+**Live app:** [clean-shot.app](https://clean-shot.app)
 
 ---
 

@@ -29,8 +29,13 @@ def send_reset_email(to_email: str, code: str, settings: Settings) -> bool:
             "Bonjour,\n\n"
             f"Voici ton code de réinitialisation : {code}\n\n"
             "Entre ce code dans l'application pour choisir un nouveau mot de passe.\n\n"
-            "Le code est à usage unique.\n\n"
-            "À bientôt sur Clean Shot !"
+            "Le code est valable 2 minutes et à usage unique.\n\n"
+            "Si tu n'es pas à l'origine de cette demande, ignore simplement cet email.\n\n"
+            "À bientôt sur Clean Shot !\n"
+            "— L'équipe Clean Shot\n\n"
+            "---\n"
+            "Clean Shot · clean-shot.app\n"
+            "Pour toute question : support@clean-shot.app"
         ),
     }
     headers = {
