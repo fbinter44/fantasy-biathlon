@@ -154,8 +154,6 @@ def update_password(
     current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
-    if len(body.new_password) < 6:
-        raise HTTPException(status_code=400, detail="Le mot de passe doit contenir au moins 6 caractères.")
     user = get_user_by_id(current_user, settings)
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable.")

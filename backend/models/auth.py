@@ -1,4 +1,21 @@
-from pydantic import BaseModel, EmailStr
+from typing import Annotated
+
+from pydantic import AfterValidator, BaseModel, EmailStr
+from pydantic_core import PydanticCustomError
+
+
+def _check_password_length(v: str) -> str:
+    # PydanticCustomError plutôt que ValueError : évite le préfixe anglais
+    # "Value error, " que Pydantic ajoute automatiquement autour d'un ValueError.
+    if len(v) < 6:
+        raise PydanticCustomError(
+            "password_too_short",
+            "Le mot de passe doit contenir au moins 6 caractères.",
+        )
+    return v
+
+
+Password = Annotated[str, AfterValidator(_check_password_length)]
 
 
 class LoginRequest(BaseModel):
@@ -16,7 +33,7 @@ class TokenResponse(BaseModel):
 class RegisterRequest(BaseModel):
     username: str
     email: EmailStr
-    password: str
+    password: Password
 
 
 class UserPublic(BaseModel):
@@ -32,7 +49,7 @@ class ResetRequestBody(BaseModel):
 class ResetPasswordBody(BaseModel):
     email: EmailStr
     code: str
-    new_password: str
+    new_password: Password
 
 
 class UpdateUsernameBody(BaseModel):
@@ -41,7 +58,7 @@ class UpdateUsernameBody(BaseModel):
 
 class UpdatePasswordBody(BaseModel):
     old_password: str
-    new_password: str
+    new_password: Password
 
 
 class FeedbackBody(BaseModel):
