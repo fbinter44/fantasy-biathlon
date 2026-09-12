@@ -14,7 +14,7 @@ from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
 from backend.models.pronostics import PronosticsResponse, PronosticsUpdateRequest, Top5, GlobeWinners
 from backend.services.db import get_all_users, get_all_pronostics, get_pronostics_by_user, upsert_pronostics
-from utils.biathlon_data import PRONOS_DEADLINE, split_top5
+from utils.biathlon_data import get_pronos_deadline, split_top5
 
 router = APIRouter(prefix="/pronostics", tags=["pronostics"])
 
@@ -75,10 +75,12 @@ def update_my_pronostics(
     current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
-    if datetime.now() > PRONOS_DEADLINE:
-        raise HTTPException(status_code=403, detail="La deadline des pronostics est passée.")
-
     s = season or settings.ibu_season_code
+    deadline = get_pronos_deadline(s)
+    if deadline is None:
+        raise HTTPException(status_code=403, detail=f"Deadline des pronostics non configurée pour la saison {s}.")
+    if datetime.now() > deadline:
+        raise HTTPException(status_code=403, detail="La deadline des pronostics est passée.")
     updates = {}
 
     if body.top5_h:

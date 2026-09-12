@@ -17,8 +17,22 @@ from pathlib import Path
 # ---------------------------------------------------------
 # 1) DEADLINE DES PRONOS
 # ---------------------------------------------------------
+#
+# À compléter chaque année, en même temps que NB_VENUES_BY_SEASON ci-dessous,
+# dès que le calendrier de la saison à venir est publié : veille de la 1ère
+# course, 23:59. Pas d'automatisation ici — la date de la 1ère course varie
+# et une erreur de calcul ouvrirait/fermerait les pronos au mauvais moment.
 
-PRONOS_DEADLINE = datetime(2025, 11, 27, 23, 59)  # Veille de la 1ère course 2025/26 (Östersund)
+PRONOS_DEADLINE_BY_SEASON: dict[str, datetime] = {
+    "2526": datetime(2025, 11, 27, 23, 59),  # Veille de la 1ère course (Östersund, 28 nov 2025)
+    "2627": datetime(2026, 11, 25, 23, 59),  # Veille de la 1ère course (Kontiolahti, 26 nov 2026)
+}
+
+
+def get_pronos_deadline(season_code: str) -> datetime | None:
+    """Deadline des pronos pour une saison donnée, ou None si pas encore connue
+    (calendrier de la saison pas encore publié — à ajouter dans PRONOS_DEADLINE_BY_SEASON)."""
+    return PRONOS_DEADLINE_BY_SEASON.get(season_code)
 
 
 def current_ibu_season_code(today: date | None = None) -> str:
