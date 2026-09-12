@@ -61,7 +61,7 @@ tests/
 - `DATABASE_URL` — PostgreSQL connection string (Supabase session pooler)
 - `JWT_SECRET` — token signing key
 - `BREVO_API_KEY` / `BREVO_SENDER` — transactional email for password reset
-- `IBU_SEASON_CODE` — defaults to `"2526"`
+- `IBU_SEASON_CODE` — optional; when unset, computed automatically from the date via `current_ibu_season_code()` (`utils/biathlon_data.py`), which switches on Nov 1st and mirrors `computeCurrentSeason()` in `lib/season.ts` on the frontend. Set explicitly only to force a specific season (tests, emergency rollback).
 
 **DB service** (`backend/services/db.py`): `psycopg2.ThreadedConnectionPool` singleton. Appends `?sslmode=require` if not present. All DB functions take `Settings` as a parameter (injected via FastAPI dependency).
 

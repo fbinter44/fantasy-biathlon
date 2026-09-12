@@ -79,7 +79,7 @@ Scoring is computed in `core/scoring/` and exposed via `GET /classement`.
 
 ## Project history
 
-The app was originally built with **Streamlit + Google Sheets** as a rapid prototype. It was later migrated to **FastAPI + Next.js + PostgreSQL** to support a proper separation of concerns, a richer frontend, and production-grade deployment. The `pages/` and `utils/` directories are the original Streamlit app, kept for reference. The migration script (`scripts/migrate_sheets_to_pg.py`) moved user data from Sheets to Supabase.
+The app was originally built with **Streamlit + Google Sheets** as a rapid prototype. It was later migrated to **FastAPI + Next.js + PostgreSQL** to support a proper separation of concerns, a richer frontend, and production-grade deployment. The `pages/` and `utils/` directories are the original Streamlit app, kept for reference. The one-off migration script that moved user data from Sheets to Supabase has since been removed, along with the Google Sheets service layer, now that the migration is complete.
 
 ---
 

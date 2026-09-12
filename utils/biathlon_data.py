@@ -9,7 +9,7 @@ Responsabilités :
 - Helpers pour formater les labels athlètes et les TOP5
 """
 
-from datetime import datetime
+from datetime import date, datetime
 import json
 from pathlib import Path
 
@@ -19,6 +19,19 @@ from pathlib import Path
 # ---------------------------------------------------------
 
 PRONOS_DEADLINE = datetime(2025, 11, 27, 23, 59)  # Veille de la 1ère course 2025/26 (Östersund)
+
+
+def current_ibu_season_code(today: date | None = None) -> str:
+    """Code de saison IBU en cours à partir de la date, ex. '2627' pour 2026/27.
+
+    Miroir de `computeCurrentSeason` (lib/season.ts) côté frontend, pour que
+    les deux stacks retombent toujours sur la même saison :
+    - Nov → Avr : saison en cours (ex. Jan 2027 → saison 26/27)
+    - Mai → Oct : hors-saison, on pointe déjà sur la saison suivante
+    """
+    today = today or date.today()
+    start_year = today.year - 1 if today.month < 5 else today.year
+    return f"{start_year % 100:02d}{(start_year + 1) % 100:02d}"
 
 
 # ---------------------------------------------------------
