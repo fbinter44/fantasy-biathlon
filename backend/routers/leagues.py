@@ -27,6 +27,8 @@ from utils.sheets import parse_members
 
 router = APIRouter(prefix="/leagues", tags=["leagues"])
 
+MAX_LEAGUE_MEMBERS = 20
+
 
 def _unique_league_id(existing_ids: set) -> str:
     while True:
@@ -118,6 +120,8 @@ def join_league(
     members = parse_members(lg.get("members", ""))
     if current_user in members:
         raise HTTPException(status_code=400, detail="Tu es déjà membre de cette ligue.")
+    if len(members) >= MAX_LEAGUE_MEMBERS:
+        raise HTTPException(status_code=400, detail=f"Cette ligue a atteint sa limite de {MAX_LEAGUE_MEMBERS} membres.")
 
     members.append(current_user)
     update_league_members(lg["league_id"], ",".join(members), settings)

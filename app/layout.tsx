@@ -13,7 +13,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MPG Biathlon",
+  title: "Clean Shot",
   description: "Fantasy Biathlon 2025/26",
 };
 
