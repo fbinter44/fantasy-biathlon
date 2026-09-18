@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { athletes, pronostics, AthleteResponse, Top5, GlobeWinners } from "@/lib/api";
 import { useSeason } from "@/context/SeasonContext";
+import { getPronosDeadline } from "@/lib/season";
 import AthleteSelect from "@/components/AthleteSelect";
 
-const DEADLINE = new Date("2025-11-27T23:59:00"); // Veille de la 1ère course 2025/26
 const TOTAL_FIELDS = 18; // 5 + 5 + 4 + 4
 
 const RANK_STYLES = [
@@ -146,7 +146,10 @@ export default function ModifierPage() {
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const deadlinePassed = new Date() > DEADLINE;
+  // null = deadline pas encore configurée pour cette saison → on verrouille par défaut,
+  // cohérent avec le comportement fail-closed du backend (get_pronos_deadline)
+  const deadline = getPronosDeadline(selected.code);
+  const deadlinePassed = deadline === null || new Date() > deadline;
 
   useEffect(() => {
     if (!user) { router.push("/login"); return; }
@@ -205,6 +208,12 @@ export default function ModifierPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
+      {/* En-tête */}
+      <div className="flex items-center gap-3 mb-1">
+        <button onClick={() => router.back()} className="text-gray-400 hover:text-gray-600 transition-colors">
+          ← Retour
+        </button>
+      </div>
       {/* Titre + progression */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-3">📝 Mes pronostics</h1>

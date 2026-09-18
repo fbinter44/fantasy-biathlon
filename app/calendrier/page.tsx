@@ -308,7 +308,7 @@ export default function CalendrierPage() {
       <div className="flex items-center justify-between mb-1">
         <h1 className="text-2xl font-bold text-gray-900">📅 Calendrier & Résultats</h1>
         <Link
-          href="/pronostics/modifier/course"
+          href="/pronostics/course"
           className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
         >
           🎯 Mes pronos →

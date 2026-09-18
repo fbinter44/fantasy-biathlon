@@ -8,21 +8,21 @@ import { useSeason } from "@/context/SeasonContext";
 import Logo from "@/components/Logo";
 
 const NAV_PERSONAL = [
-  { href: "/ligues",              label: "🏔️ Mes Ski Clubs" },
-  { href: "/pronostics/modifier", label: "📝 Mes Pronos" },
-  { href: "/compte",              label: "👤 Mon Compte" },
+  { href: "/ligues",     label: "🏔️ Mes Ski Clubs" },
+  { href: "/pronostics", label: "📝 Mes Pronos" },
+  { href: "/compte",     label: "👤 Mon Compte" },
 ];
 
 const NAV_LEAGUE = [
-  { href: "/pronostics",           label: "🏔️ Pronos du Ski Club" },
-  { href: "/pronostics/biathlete", label: "🔎 Focus Biathlète" },
-  { href: "/classement",           label: "🏆 Classement du Ski Club" },
-  { href: "/classement/detail",    label: "🔍 Détail des scores" },
+  { href: "/ligue/pronostics",       label: "🏔️ Pronos du Ski Club" },
+  { href: "/ligue/biathlete",        label: "🔎 Focus Biathlète" },
+  { href: "/ligue/classement",       label: "🏆 Classement du Ski Club" },
+  { href: "/ligue/classement/detail", label: "🔍 Détail des scores" },
 ];
 
 const NAV_IBU = [
   { href: "/calendrier", label: "📅 Calendrier & Résultats" },
-  { href: "/resultats",  label: "🏅 Classements généraux" },
+  { href: "/classement", label: "🏅 Classements généraux" },
 ];
 
 // Pages accessibles en hors-saison (doit correspondre à BYPASS_PATHS dans AppGuard)
@@ -74,9 +74,14 @@ function DropdownMenu({
 
 export default function Header() {
   const { user, currentLeague, hasPronos, signOut } = useAuth();
-  const { selected, setSelected, availableSeasons, isReadOnly, isFutureSeason } = useSeason();
+  const { selected, setSelected, defaultSeason, availableSeasons, isReadOnly, isFutureSeason } = useSeason();
   const router = useRouter();
   const pathname = usePathname();
+
+  // La vue "Mon Ski Club" n'est gatée par hasPronos que pour la saison en cours
+  // (on force à remplir ses pronos avant de voir les autres) — une saison
+  // archivée reste consultable même sans pronos remplis pour la saison en cours.
+  const leagueAccessible = hasPronos || selected.code !== defaultSeason.code;
 
   const [openMenu, setOpenMenu] = useState<"personal" | "league" | "ibu" | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -196,7 +201,7 @@ export default function Header() {
                 onMouseLeave={leaveMenu}
               >
                 <button className={`flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  hasPronos
+                  leagueAccessible
                     ? openMenu === "league" ? "bg-blue-700 text-white" : "bg-blue-600 text-white hover:bg-blue-700"
                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}>
@@ -206,7 +211,7 @@ export default function Header() {
                   </svg>
                 </button>
                 {openMenu === "league" && (
-                  hasPronos
+                  leagueAccessible
                     ? <DropdownMenu items={NAV_LEAGUE} onClose={() => setOpenMenu(null)} isFutureSeason={isFutureSeason} />
                     : (
                       <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-50">
@@ -338,7 +343,7 @@ export default function Header() {
                     </button>
                     {mobileSection === "league" && (
                       <div className="mt-1 pl-2">
-                        {hasPronos ? (
+                        {leagueAccessible ? (
                           <div className="flex flex-col gap-0.5">
                             {NAV_LEAGUE.map(({ href, label }) => (
                               <Link

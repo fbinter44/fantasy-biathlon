@@ -88,7 +88,7 @@ Caching: standings pickled under `cache/cache_standings/`, refreshed only when c
 
 Next.js 14 App Router. All API calls go through `lib/api.ts` which reads `NEXT_PUBLIC_API_URL`.
 
-Pages: `login`, `pronostics`, `pronostics/modifier`, `pronostics/biathlete`, `classement`, `classement/evolution`, `resultats`, `ligues`, `compte`, `reglement`, `reset-password`.
+Pages: `login`, `pronostics` (mes pronos — hub + `pronostics/saison`, `pronostics/course`), `ligue/pronostics` (pronos du ski club), `ligue/biathlete` (focus biathlète), `ligue/classement` (+ `ligue/classement/detail`, `ligue/classement/evolution`), `classement` (classements généraux IBU), `ligues`, `compte`, `reglement`, `reset-password`.
 
 Charts use Recharts. Country flags use `flag-icons`.
 
