@@ -105,7 +105,7 @@ export default function PronosSkiClubPage() {
 
       {currentLeague && !deadlinePassed && (
         <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-amber-800 text-sm">
-          <b>🔒</b> Les pronos des autres joueurs restent masqués jusqu'à la deadline de la saison — seuls les tiens sont affichés ci-dessous.
+          <b>🔒</b> Les pronos des autres joueurs restent masqués jusqu&apos;à la deadline de la saison — seuls les tiens sont affichés ci-dessous.
         </div>
       )}
 

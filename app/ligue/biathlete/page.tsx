@@ -134,7 +134,7 @@ export default function BiathletePage() {
       <main className="max-w-7xl mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-6">🔎 Focus Biathlète</h1>
         <div className="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-amber-800 text-sm">
-          <b>🔒</b> Cette vue se base sur les pronos de la ligue, masqués jusqu'à la deadline de la saison.
+          <b>🔒</b> Cette vue se base sur les pronos de la ligue, masqués jusqu&apos;à la deadline de la saison.
         </div>
       </main>
     );
