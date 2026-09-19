@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { pronostics, athletes, leagues, PronosticsResponse, AthleteResponse } from "@/lib/api";
 import { useSeason } from "@/context/SeasonContext";
+import { getPronosDeadline } from "@/lib/season";
 import AthleteSelect from "@/components/AthleteSelect";
 import Flag from "@/components/Flag";
 
@@ -89,7 +90,7 @@ export default function BiathletePage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(selected.code), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list()]);
         const athList = ath as AthleteResponse[];
 
         let filtered = all;
@@ -121,9 +122,23 @@ export default function BiathletePage() {
   const stats = selectedId && user ? computeStats(data, selectedId, user.user_id) : null;
   const selectedAthlete = pickedAthletes.find((a) => a.ibu_id === selectedId);
 
+  const deadline = getPronosDeadline(selected.code);
+  const deadlinePassed = deadline !== null && new Date() > deadline;
+
   if (loading) return (
     <div className="flex justify-center items-center min-h-[60vh] text-gray-400">Chargement...</div>
   );
+
+  if (currentLeague && !deadlinePassed) {
+    return (
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">🔎 Focus Biathlète</h1>
+        <div className="p-4 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-amber-800 text-sm">
+          <b>🔒</b> Cette vue se base sur les pronos de la ligue, masqués jusqu'à la deadline de la saison.
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">

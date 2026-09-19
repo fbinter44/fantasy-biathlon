@@ -169,8 +169,8 @@ export const pronostics = {
   me: (token: string, season?: string) =>
     request<PronosticsResponse>(`/pronostics/me${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 
-  all: (season?: string) =>
-    request<PronosticsResponse[]>(`/pronostics${season ? `?season=${season}` : ""}`),
+  all: (token: string, season?: string) =>
+    request<PronosticsResponse[]>(`/pronostics${season ? `?season=${season}` : ""}`, { headers: authHeaders(token) }),
 
   update: (body: { top5_h?: Top5; top5_f?: Top5; globes?: GlobeWinners }, token: string, season?: string) =>
     request<PronosticsResponse>(`/pronostics/me${season ? `?season=${season}` : ""}`, {

@@ -1,10 +1,12 @@
 """
 Routes pronostics joueurs.
 
-GET  /pronostics              → tous les pronostics
+GET  /pronostics              → pronostics des coéquipiers de ligue (authentifié,
+                                 masqués tant que la deadline de la saison n'est
+                                 pas passée — sauf les tiens, toujours visibles)
 GET  /pronostics/me           → mes pronostics (authentifié)
 PUT  /pronostics/me           → modifier mes pronostics (authentifié, avant deadline)
-GET  /pronostics/{user_id}    → pronostics d'un joueur
+GET  /pronostics/{user_id}    → pronostics d'un joueur (authentifié, même règle que ci-dessus)
 """
 
 from datetime import datetime
@@ -13,10 +15,28 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from backend.config import Settings, get_settings
 from backend.dependencies import get_current_user
 from backend.models.pronostics import PronosticsResponse, PronosticsUpdateRequest, Top5, GlobeWinners
-from backend.services.db import get_all_users, get_all_pronostics, get_pronostics_by_user, upsert_pronostics
+from backend.services.db import get_all_users, get_all_leagues, get_all_pronostics, get_pronostics_by_user, upsert_pronostics
 from utils.biathlon_data import get_pronos_deadline, split_top5
+from utils.sheets import parse_members
 
 router = APIRouter(prefix="/pronostics", tags=["pronostics"])
+
+
+def _league_mates(user_id: str, settings: Settings) -> set[str]:
+    """IDs des joueurs partageant au moins une ligue avec user_id (lui inclus)."""
+    mates = {user_id}
+    for lg in get_all_leagues(settings):
+        members = parse_members(lg.get("members", ""))
+        if user_id in members:
+            mates.update(members)
+    return mates
+
+
+def _deadline_passed(season_code: str) -> bool:
+    """Fail-closed : si la deadline n'est pas encore configurée pour la saison,
+    on considère qu'elle n'est pas passée (donc les pronos des autres restent masqués)."""
+    deadline = get_pronos_deadline(season_code)
+    return deadline is not None and datetime.now() > deadline
 
 
 def _row_to_response(row: dict, username_map: dict) -> PronosticsResponse:
@@ -44,13 +64,21 @@ def _row_to_response(row: dict, username_map: dict) -> PronosticsResponse:
 @router.get("", response_model=list[PronosticsResponse])
 def list_all_pronostics(
     season: str = Query(None),
+    current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
     s = season or settings.ibu_season_code
     pronos = get_all_pronostics(settings, s)
     users = get_all_users(settings)
     umap = {u["user_id"]: u["username"] for u in users}
-    return [_row_to_response(r, umap) for r in pronos]
+
+    mates = _league_mates(current_user, settings)
+    visible_others = _deadline_passed(s)
+    visible = [
+        r for r in pronos
+        if r["user_id"] == current_user or (r["user_id"] in mates and visible_others)
+    ]
+    return [_row_to_response(r, umap) for r in visible]
 
 
 @router.get("/me", response_model=PronosticsResponse)
@@ -112,9 +140,13 @@ def update_my_pronostics(
 def get_user_pronostics(
     user_id: str,
     season: str = Query(None),
+    current_user: str = Depends(get_current_user),
     settings: Settings = Depends(get_settings),
 ):
     s = season or settings.ibu_season_code
+    if user_id != current_user:
+        if user_id not in _league_mates(current_user, settings) or not _deadline_passed(s):
+            raise HTTPException(status_code=403, detail="Tu ne peux pas encore consulter les pronostics de ce joueur.")
     row = get_pronostics_by_user(user_id, settings, s)
     if not row:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable.")

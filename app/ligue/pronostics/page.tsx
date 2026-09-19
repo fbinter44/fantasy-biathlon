@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { pronostics, leagues, athletes, PronosticsResponse, AthleteResponse } from "@/lib/api";
 import { useSeason } from "@/context/SeasonContext";
+import { getPronosDeadline } from "@/lib/season";
 import SeasonGuard from "@/components/SeasonGuard";
 import Flag from "@/components/Flag";
 
@@ -58,7 +59,7 @@ export default function PronosSkiClubPage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(selected.code), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list()]);
         const map: Record<string, AthleteResponse> = {};
         (ath as AthleteResponse[]).forEach((a) => { map[a.ibu_id] = a; });
         setAthMap(map);
@@ -75,12 +76,15 @@ export default function PronosSkiClubPage() {
       }
     }
     load();
-  }, [user, currentLeague, router]);
+  }, [user, currentLeague, router, selected.code]);
 
   // Trier : moi en premier
   const sorted = [...data].sort((a, b) =>
     a.user_id === user?.user_id ? -1 : b.user_id === user?.user_id ? 1 : 0
   );
+
+  const deadline = getPronosDeadline(selected.code);
+  const deadlinePassed = deadline !== null && new Date() > deadline;
 
   if (loading) return (
     <div className="flex justify-center items-center min-h-[60vh] text-gray-400">Chargement...</div>
@@ -92,12 +96,18 @@ export default function PronosSkiClubPage() {
       {/* Titre */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">🏔️ Les Pronos du Ski Club</h1>
-        {currentLeague && (
+        {currentLeague && deadlinePassed && (
           <p className="text-sm text-gray-500 mt-1">
             {currentLeague.name} · {data.length} joueur{data.length > 1 ? "s" : ""}
           </p>
         )}
       </div>
+
+      {currentLeague && !deadlinePassed && (
+        <div className="mb-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-xl text-amber-800 text-sm">
+          <b>🔒</b> Les pronos des autres joueurs restent masqués jusqu'à la deadline de la saison — seuls les tiens sont affichés ci-dessous.
+        </div>
+      )}
 
       {!currentLeague && (
         <div className="mb-6 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-xl text-blue-800 text-sm">
