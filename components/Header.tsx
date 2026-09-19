@@ -8,9 +8,10 @@ import { useSeason } from "@/context/SeasonContext";
 import Logo from "@/components/Logo";
 
 const NAV_PERSONAL = [
-  { href: "/ligues",     label: "🏔️ Mes Ski Clubs" },
-  { href: "/pronostics", label: "📝 Mes Pronos" },
-  { href: "/compte",     label: "👤 Mon Compte" },
+  { href: "/ligues",        label: "🏔️ Mes Ski Clubs" },
+  { href: "/pronostics",    label: "📝 Mes Pronos" },
+  { href: "/mes-resultats", label: "📊 Mes Résultats" },
+  { href: "/compte",        label: "👤 Mon Compte" },
 ];
 
 const NAV_LEAGUE = [
