@@ -7,9 +7,12 @@ Lancer en dev :
 Swagger UI : http://localhost:8000/docs
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from slowapi.errors import RateLimitExceeded
 
+from backend.rate_limit import limiter
 from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar, race_pronostics, score
 
 app = FastAPI(
@@ -17,6 +20,16 @@ app = FastAPI(
     description="Backend FastAPI pour l'app Fantasy Biathlon 2025/26.",
     version="1.0.0",
 )
+
+# ---------------------------------------------------------
+# Rate limiting (auth) — voir backend/rate_limit.py
+# ---------------------------------------------------------
+app.state.limiter = limiter
+
+
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded) -> JSONResponse:
+    return JSONResponse(status_code=429, content={"detail": "Trop de tentatives, réessaie dans un instant."})
 
 # ---------------------------------------------------------
 # CORS — à restreindre en production avec l'URL Next.js réelle

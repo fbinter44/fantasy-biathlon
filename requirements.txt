@@ -5,6 +5,7 @@ pydantic-settings
 pydantic[email]
 python-jose[cryptography]
 python-multipart
+slowapi                       # Rate limiting (auth)
 psycopg2-binary              # PostgreSQL
 bcrypt
 requests

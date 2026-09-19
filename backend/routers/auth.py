@@ -16,9 +16,9 @@ import time
 import uuid
 import bcrypt
 
-RESET_CODE_TTL = 2 * 60  # 2 minutes en secondes
+RESET_CODE_TTL = 15 * 60  # 15 minutes en secondes — doit correspondre à CODE_TTL côté frontend (app/reset-password/page.tsx)
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 
 from backend.config import Settings, get_settings
 from backend.dependencies import create_access_token, get_current_user
@@ -27,6 +27,7 @@ from backend.models.auth import (
     ResetRequestBody, ResetPasswordBody, UserPublic,
     UpdateUsernameBody, UpdatePasswordBody, FeedbackBody,
 )
+from backend.rate_limit import limiter
 from backend.services.db import (
     get_all_users, get_user_by_identifier, get_user_by_id,
     username_exists, email_exists,
@@ -45,6 +46,12 @@ def _verify(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
 
 
+# Hash factice utilisé quand l'utilisateur n'existe pas, pour que le login prenne
+# le même temps que face à un mot de passe incorrect (évite l'énumération de
+# comptes par mesure du temps de réponse).
+_DUMMY_HASH = _hash("dummy-password-for-timing")
+
+
 def _unique_id(existing: set, length: int = 8) -> str:
     while True:
         uid = str(uuid.uuid4())[:length]
@@ -53,19 +60,23 @@ def _unique_id(existing: set, length: int = 8) -> str:
 
 
 @router.post("/login", response_model=TokenResponse)
-def login(body: LoginRequest, settings: Settings = Depends(get_settings)):
+@limiter.limit("10/minute")
+def login(request: Request, body: LoginRequest, settings: Settings = Depends(get_settings)):
     identifier = body.identifier.strip().lower()
     user = get_user_by_identifier(identifier, settings)
-    if not user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Utilisateur introuvable.")
-    if not _verify(body.password, user["password_hash"]):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Mot de passe incorrect.")
+    # Toujours vérifier un hash (réel ou factice) pour que la réponse mette le
+    # même temps que le compte existe ou non — message générique pour la même
+    # raison, cf. _DUMMY_HASH ci-dessus.
+    password_ok = _verify(body.password, user["password_hash"] if user else _DUMMY_HASH)
+    if not user or not password_ok:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Identifiant ou mot de passe incorrect.")
     token = create_access_token(user["user_id"], settings)
     return TokenResponse(access_token=token, user_id=user["user_id"], username=user["username"])
 
 
 @router.post("/register", response_model=UserPublic, status_code=status.HTTP_201_CREATED)
-def register(body: RegisterRequest, settings: Settings = Depends(get_settings)):
+@limiter.limit("5/hour")
+def register(request: Request, body: RegisterRequest, settings: Settings = Depends(get_settings)):
     username = body.username.strip().lower()
     email = body.email.strip().lower()
 
@@ -81,7 +92,8 @@ def register(body: RegisterRequest, settings: Settings = Depends(get_settings)):
 
 
 @router.post("/reset-request")
-def reset_request(body: ResetRequestBody, settings: Settings = Depends(get_settings)):
+@limiter.limit("3/15minutes")
+def reset_request(request: Request, body: ResetRequestBody, settings: Settings = Depends(get_settings)):
     email = body.email.strip().lower()
     users = get_all_users(settings)
     user = next((u for u in users if u["email"] == email), None)
@@ -103,7 +115,8 @@ def reset_request(body: ResetRequestBody, settings: Settings = Depends(get_setti
 
 
 @router.post("/reset-password")
-def reset_password(body: ResetPasswordBody, settings: Settings = Depends(get_settings)):
+@limiter.limit("10/15minutes")
+def reset_password(request: Request, body: ResetPasswordBody, settings: Settings = Depends(get_settings)):
     email = body.email.strip().lower()
     users = get_all_users(settings)
     user = next((u for u in users if u["email"] == email), None)

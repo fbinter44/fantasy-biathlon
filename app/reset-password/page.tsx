@@ -8,7 +8,7 @@ import Logo from "@/components/Logo";
 
 type Step = "email" | "code" | "done";
 
-const CODE_TTL = 120; // secondes — doit correspondre au backend (2 min)
+const CODE_TTL = 15 * 60; // secondes — doit correspondre au backend (RESET_CODE_TTL, 15 min)
 
 function Countdown({ onExpire }: { onExpire: () => void }) {
   const [remaining, setRemaining] = useState(CODE_TTL);
