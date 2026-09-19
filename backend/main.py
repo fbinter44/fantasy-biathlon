@@ -1,5 +1,5 @@
 """
-Point d'entrée FastAPI — MPG Biathlon API.
+Point d'entrée FastAPI — Clean Shot API.
 
 Lancer en dev :
     uvicorn api.main:app --reload
@@ -16,8 +16,8 @@ from backend.rate_limit import limiter
 from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar, race_pronostics, score
 
 app = FastAPI(
-    title="MPG Biathlon API",
-    description="Backend FastAPI pour l'app Fantasy Biathlon 2025/26.",
+    title="Clean Shot API",
+    description="Backend FastAPI pour l'app Fantasy Biathlon.",
     version="1.0.0",
 )
 

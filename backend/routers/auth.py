@@ -33,7 +33,7 @@ from backend.services.db import (
     username_exists, email_exists,
     create_user, update_user_field,
 )
-from backend.services.email import send_reset_email
+from backend.services.email import send_feedback_email, send_reset_email
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -185,14 +185,13 @@ def send_feedback(
     user = get_user_by_id(current_user, settings)
     username = user["username"] if user else current_user
 
-    import requests as req
-    url = "https://api.brevo.com/v3/smtp/email"
-    data = {
-        "sender": {"email": settings.brevo_sender},
-        "to": [{"email": settings.brevo_sender}],
-        "subject": f"[Feedback MPG Biathlon] {body.feedback_type} — {body.subject}",
-        "textContent": f"De : {username}\nType : {body.feedback_type}\n\n{body.message}",
-    }
-    headers = {"api-key": settings.brevo_api_key, "Content-Type": "application/json"}
-    req.post(url, json=data, headers=headers)
+    try:
+        ok = send_feedback_email(username, body.feedback_type, body.subject, body.message, settings)
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    if not ok:
+        raise HTTPException(
+            status_code=500,
+            detail="Le feedback n'a pas pu être envoyé. Vérifie les logs du backend (Brevo).",
+        )
     return {"detail": "Merci pour ton feedback !"}
