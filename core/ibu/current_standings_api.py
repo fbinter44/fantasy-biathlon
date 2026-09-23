@@ -2,11 +2,11 @@ import requests
 import pandas as pd
 import os
 import pickle
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 import json
 
 from utils.api_helpers import DISCIPLINE_CODES
-from utils.cache_helpers import CACHE_STANDINGS_DIR
+from utils.cache_helpers import CACHE_STANDINGS_DIR, should_refresh_after_race, save_pickle_atomic
 
 
 class IBUCurrentStandingsAPI:
@@ -33,22 +33,7 @@ class IBUCurrentStandingsAPI:
         return os.path.join(CACHE_STANDINGS_DIR, f"BT{self.season_code}SWRLCP{code}.pkl")
     
     def should_refresh_standings(self, last_race_end, cache_timestamp):
-        now = datetime.now(timezone.utc)
-
-        if last_race_end is None:
-            return False
-
-        # Attendre 5h après la fin de la dernière course
-        if now < last_race_end + timedelta(hours=5):
-            return False
-
-        if cache_timestamp is None:
-            return True
-
-        if cache_timestamp < last_race_end:
-            return True
-
-        return False
+        return should_refresh_after_race(last_race_end, cache_timestamp)
 
     def get_results(self, gender, discipline, top=10, force_refresh=False):
         cache_path = self.cache_path(gender, discipline)
@@ -86,11 +71,7 @@ class IBUCurrentStandingsAPI:
             "points": [r["Score"] for r in rows],
         })
 
-        with open(cache_path, "wb") as f:
-            pickle.dump({
-                "standings": df,
-                "timestamp": datetime.now(timezone.utc)
-            }, f)
+        save_pickle_atomic(cache_path, {"standings": df, "timestamp": datetime.now(timezone.utc)})
 
         # Mise à jour du fichier de json qui stocke les dates de mise à jour des classements
         if self.should_refresh_standings(last_race_end, cache_timestamp):

@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 from slowapi.errors import RateLimitExceeded
 
 from backend.rate_limit import limiter
-from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar, race_pronostics, score
+from backend.routers import auth, standings, pronostics, classement, leagues, athletes, calendar, race_pronostics, score, admin
 
 app = FastAPI(
     title="Clean Shot API",
@@ -58,6 +58,7 @@ app.include_router(leagues.router)
 app.include_router(calendar.router)
 app.include_router(race_pronostics.router)
 app.include_router(score.router)
+app.include_router(admin.router)
 
 
 @app.get("/", tags=["health"])

@@ -13,6 +13,7 @@ from backend.dependencies import get_current_user
 from backend.models.standings import PlayerPoints, VenueEvolution
 from utils.biathlon_data import VENUES_NAMES
 from backend.services.db import get_all_users, get_all_pronostics, get_all_leagues, get_all_race_pronostics
+from backend.services.classement_cache import get_or_compute
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
@@ -68,21 +69,24 @@ def global_classement(
     users = get_all_users(settings)
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
-
-    records = get_all_pronostics(settings, s)
-    df = load_pronostics_from_records(records)
-    df_league = df[df["user_id"].isin(all_member_ids)]
-    top5_h, top5_f, globes = parse_pronostics(df_league)
-    predictions = build_player_bets(top5_h, top5_f, globes)
-
     client = _ibu_client(settings, s)
-    men_st, women_st = client.load_standings()
-    points_map = compute_all_players_points(predictions, men_st, women_st)
 
-    all_race_pronos, venues = _load_race_winner_data(settings, s)
-    _add_race_points(points_map, all_race_pronos, venues)
+    def compute() -> list[PlayerPoints]:
+        records = get_all_pronostics(settings, s)
+        df = load_pronostics_from_records(records)
+        df_league = df[df["user_id"].isin(all_member_ids)]
+        top5_h, top5_f, globes = parse_pronostics(df_league)
+        predictions = build_player_bets(top5_h, top5_f, globes)
 
-    return _rank_players(points_map, username_map)
+        men_st, women_st = client.load_standings()
+        points_map = compute_all_players_points(predictions, men_st, women_st)
+
+        all_race_pronos, venues = _load_race_winner_data(settings, s)
+        _add_race_points(points_map, all_race_pronos, venues)
+
+        return _rank_players(points_map, username_map)
+
+    return get_or_compute(f"global_{s}.pkl", client, all_member_ids, compute)
 
 
 @router.get("/league/{league_id}", response_model=list[PlayerPoints])
@@ -100,21 +104,24 @@ def league_classement(
     member_ids = parse_members(league["members"])
     users = get_all_users(settings)
     username_map = {u["user_id"]: u["username"] for u in users}
-
-    records = get_all_pronostics(settings, s)
-    df = load_pronostics_from_records(records)
-    df_league = df[df["user_id"].isin(member_ids)]
-    top5_h, top5_f, globes = parse_pronostics(df_league)
-    predictions = build_player_bets(top5_h, top5_f, globes)
-
     client = _ibu_client(settings, s)
-    men_st, women_st = client.load_standings()
-    points_map = compute_all_players_points(predictions, men_st, women_st)
 
-    all_race_pronos, venues = _load_race_winner_data(settings, s)
-    _add_race_points(points_map, all_race_pronos, venues)
+    def compute() -> list[PlayerPoints]:
+        records = get_all_pronostics(settings, s)
+        df = load_pronostics_from_records(records)
+        df_league = df[df["user_id"].isin(member_ids)]
+        top5_h, top5_f, globes = parse_pronostics(df_league)
+        predictions = build_player_bets(top5_h, top5_f, globes)
 
-    return _rank_players(points_map, username_map)
+        men_st, women_st = client.load_standings()
+        points_map = compute_all_players_points(predictions, men_st, women_st)
+
+        all_race_pronos, venues = _load_race_winner_data(settings, s)
+        _add_race_points(points_map, all_race_pronos, venues)
+
+        return _rank_players(points_map, username_map)
+
+    return get_or_compute(f"league_{league_id}_{s}.pkl", client, member_ids, compute)
 
 
 @router.get("/evolution", response_model=list[VenueEvolution])
@@ -126,39 +133,42 @@ def classement_evolution(
     users = get_all_users(settings)
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
-
-    records = get_all_pronostics(settings, s)
-    df = load_pronostics_from_records(records)
-    df_league = df[df["user_id"].isin(all_member_ids)]
-    top5_h, top5_f, globes = parse_pronostics(df_league)
-    predictions = build_player_bets(top5_h, top5_f, globes)
-
     client = _ibu_client(settings, s)
-    client.compute_evolutive_standings()
 
-    # Pronos course chargés une seule fois
-    all_race_pronos = get_all_race_pronostics(settings, s)
+    def compute() -> list[VenueEvolution]:
+        records = get_all_pronostics(settings, s)
+        df = load_pronostics_from_records(records)
+        df_league = df[df["user_id"].isin(all_member_ids)]
+        top5_h, top5_f, globes = parse_pronostics(df_league)
+        predictions = build_player_bets(top5_h, top5_f, globes)
 
-    evolution = []
-    for venue_i, standings_by_gender in client.cumulated_standings.items():
-        venue = client.competitions.venues[venue_i - 1]
-        location = venue.epreuves[0].location if venue.epreuves else ""
-        name = VENUES_NAMES.get(location, location)
+        client.compute_evolutive_standings()
 
-        men_st = standings_by_gender["Men"]
-        women_st = standings_by_gender["Women"]
-        points_map = compute_all_players_points(predictions, men_st, women_st)
+        # Pronos course chargés une seule fois
+        all_race_pronos = get_all_race_pronostics(settings, s)
 
-        # Points course uniquement pour les venues 1..i (progressif)
-        venues_so_far = client.competitions.venues[:venue_i]
-        _add_race_points(points_map, all_race_pronos, venues_so_far)
+        evolution = []
+        for venue_i, standings_by_gender in client.cumulated_standings.items():
+            venue = client.competitions.venues[venue_i - 1]
+            location = venue.epreuves[0].location if venue.epreuves else ""
+            name = VENUES_NAMES.get(location, location)
 
-        evolution.append(VenueEvolution(
-            index=venue_i,
-            name=name,
-            start_date=str(venue.start_date),
-            end_date=str(venue.end_date),
-            players=_rank_players(points_map, username_map),
-        ))
+            men_st = standings_by_gender["Men"]
+            women_st = standings_by_gender["Women"]
+            points_map = compute_all_players_points(predictions, men_st, women_st)
 
-    return sorted(evolution, key=lambda v: v.index)
+            # Points course uniquement pour les venues 1..i (progressif)
+            venues_so_far = client.competitions.venues[:venue_i]
+            _add_race_points(points_map, all_race_pronos, venues_so_far)
+
+            evolution.append(VenueEvolution(
+                index=venue_i,
+                name=name,
+                start_date=str(venue.start_date),
+                end_date=str(venue.end_date),
+                players=_rank_players(points_map, username_map),
+            ))
+
+        return sorted(evolution, key=lambda v: v.index)
+
+    return get_or_compute(f"evolution_{s}.pkl", client, all_member_ids, compute)

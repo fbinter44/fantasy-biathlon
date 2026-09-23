@@ -11,6 +11,7 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 
 from backend.config import Settings, get_settings
+from backend.services.db import get_user_by_id
 
 _bearer = HTTPBearer()
 
@@ -43,3 +44,17 @@ def get_current_user(
         return user_id
     except JWTError:
         raise credentials_exception
+
+
+def require_admin(
+    current_user: str = Depends(get_current_user),
+    settings: Settings = Depends(get_settings),
+) -> str:
+    """Comme get_current_user, mais exige que le compte fasse partie de
+    ADMIN_USERNAMES (voir backend/config.py). Pas de rôle en base — juste une
+    liste de usernames en config, vérifiée sur le compte JWT déjà connecté."""
+    admins = {u.strip().lower() for u in settings.admin_usernames.split(",") if u.strip()}
+    user = get_user_by_id(current_user, settings)
+    if not user or user["username"].lower() not in admins:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Réservé aux administrateurs.")
+    return current_user

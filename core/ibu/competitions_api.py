@@ -2,10 +2,10 @@ import requests
 import pandas as pd
 import pickle
 import os
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 import json
 
-from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR
+from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR, should_refresh_after_race, save_pickle_atomic
 from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON, DISCIPLINE_MAP, GENDERS_CODES, DISCIPLINES_WINNERS
 
 
@@ -32,31 +32,12 @@ class Epreuve:
         return os.path.join(CACHE_RESULTS_DIR, f"{self.race_id}.pkl")
     
     def should_refresh(self):
-        now = datetime.now(timezone.utc)
         if os.path.exists(self.cache_path):
             with open(self.cache_path, "rb") as f:
                 data = pickle.load(f)
                 self.cache_timestamp = data.get("timestamp")
 
-        # 1) Course dans le futur -> pas de refresh
-        if self.start_time > now:
-            return False
-        
-        # 2) Si la course est aujourd’hui mais vient juste de commencer → attendre
-        # On refresh seulement 5h après le début
-        if now < self.start_time + timedelta(hours=5):
-            return False
-        
-        # 3) Si pas de cache → refresh
-        if self.cache_timestamp is None:
-            return True
-
-        # 4) Si le cache est plus vieux que "start_time + 5h" → refresh
-        if self.cache_timestamp < self.start_time + timedelta(hours=5):
-            return True
-
-        # 5) Sinon → cache déjà à jour
-        return False
+        return should_refresh_after_race(self.start_time, self.cache_timestamp)
 
     def load_results(self, force_refresh=False):
         # 1) Retrieve from cache if possible
@@ -81,13 +62,8 @@ class Epreuve:
         )
         self.results = df
 
-        with open(self.cache_path, "wb") as f:
-            pickle.dump(
-                {
-                    "results": df,
-                    "timestamp": datetime.now(timezone.utc)                
-                }, f)
-            
+        save_pickle_atomic(self.cache_path, {"results": df, "timestamp": datetime.now(timezone.utc)})
+
         # Mise à jour du fichier de json qui stocke les dates de mise à jour des classements
         if self.should_refresh():
             state_file = "users_info/results_state.json"
@@ -163,8 +139,7 @@ class CompetitionVenue:
                     }
                 )
 
-            with open(self.cache_path, "wb") as f:
-                pickle.dump({"epreuves": raw}, f)
+            save_pickle_atomic(self.cache_path, {"epreuves": raw})
         
         dates = [e.date for e in self.epreuves]
         self.start_date = min(dates)

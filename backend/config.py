@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     # saison précise (tests, rollback d'urgence) : ça désactive l'auto-bascule.
     ibu_season_code: str = ""
 
+    # Admin — usernames (minuscules, séparés par des virgules) autorisés à
+    # utiliser les routes /admin (ex: purge du cache). Aucun rôle en base :
+    # juste une liste en config, vérifiée sur le compte JWT déjà connecté.
+    admin_usernames: str = ""
+
     @model_validator(mode="after")
     def _resolve_season_code(self) -> "Settings":
         if not self.ibu_season_code:
