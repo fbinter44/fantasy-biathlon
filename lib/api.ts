@@ -137,11 +137,17 @@ export interface AthleteResponse {
   flag: string;
   gender: string;
   label: string;
+  is_active: boolean;
 }
 
 export const athletes = {
-  list: (gender?: "M" | "W") =>
-    request<AthleteResponse[]>(`/athletes${gender ? `?gender=${gender}` : ""}`),
+  list: (gender?: "M" | "W", season?: string) => {
+    const params = new URLSearchParams();
+    if (gender) params.set("gender", gender);
+    if (season) params.set("season", season);
+    const qs = params.toString();
+    return request<AthleteResponse[]>(`/athletes${qs ? `?${qs}` : ""}`);
+  },
 };
 
 // --- Pronostics ---

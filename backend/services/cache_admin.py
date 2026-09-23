@@ -14,6 +14,7 @@ from utils.cache_helpers import (
     CACHE_RESULTS_DIR,
     CACHE_STANDINGS_DIR,
     CACHE_CLASSEMENT_DIR,
+    CACHE_ATHLETES_DIR,
 )
 
 SCOPE_DIRS = {
@@ -21,12 +22,18 @@ SCOPE_DIRS = {
     "results": CACHE_RESULTS_DIR,
     "standings": CACHE_STANDINGS_DIR,
     "classement": CACHE_CLASSEMENT_DIR,
+    "athletes": CACHE_ATHLETES_DIR,
 }
+
+# Scopes dont les fichiers sont nommés "..._{saison}.pkl" (classement calculé,
+# score détaillé, priorité des athlètes) plutôt que "BT{saison}SWRLCP...".
+_SUFFIX_SCOPES = {"classement", "athletes"}
 
 
 def _matches_season(filename: str, season: str, scope: str) -> bool:
-    if scope == "classement":
-        # global_{saison}.pkl, league_{id}_{saison}.pkl, evolution_{saison}.pkl
+    if scope in _SUFFIX_SCOPES:
+        # global_{saison}.pkl, league_{id}_{saison}.pkl, evolution_{saison}.pkl,
+        # score_{user_id}_{saison}.pkl, priority_ibu_ids_{saison}.pkl
         return filename.endswith(f"_{season}.pkl")
     # BT{saison}SWRLCP...
     return filename.startswith(f"BT{season}")

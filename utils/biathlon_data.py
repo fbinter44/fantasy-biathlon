@@ -48,6 +48,13 @@ def current_ibu_season_code(today: date | None = None) -> str:
     return f"{start_year % 100:02d}{(start_year + 1) % 100:02d}"
 
 
+def previous_season_code(season_code: str) -> str:
+    """Code de la saison précédente, ex. '2627' → '2526'."""
+    start = int(season_code[:2]) - 1
+    end = int(season_code[2:]) - 1
+    return f"{start % 100:02d}{end % 100:02d}"
+
+
 # ---------------------------------------------------------
 # 2) CHARGEMENT DES DONNÉES ATHLÈTES
 # ---------------------------------------------------------

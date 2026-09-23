@@ -8,6 +8,7 @@ CACHE_VENUES_DIR = "cache/cache_venues"
 CACHE_RESULTS_DIR = "cache/cache_results"
 CACHE_STANDINGS_DIR = "cache/cache_standings"
 CACHE_CLASSEMENT_DIR = "cache/cache_classement"
+CACHE_ATHLETES_DIR = "cache/cache_athletes"
 
 
 def cache_path(dir, file):

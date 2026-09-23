@@ -156,8 +156,8 @@ export default function ModifierPage() {
     async function load() {
       try {
         const [ah, af, me] = await Promise.all([
-          athletes.list("M"),
-          athletes.list("W"),
+          athletes.list("M", selected.code),
+          athletes.list("W", selected.code),
           pronostics.me(user!.token, selected.code).catch(() => null),
         ]);
         setAthletesH(ah);

@@ -229,7 +229,7 @@ export default function CourseParCoursePage() {
     Promise.all([
       calendar.venues(token, selected.code),
       racePronostics.get(token, selected.code),
-      athletes.list(),
+      athletes.list(undefined, selected.code),
     ])
       .then(([venueData, pronosData, athleteData]) => {
         setVenues(venueData);

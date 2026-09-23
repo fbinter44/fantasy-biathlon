@@ -90,7 +90,7 @@ export default function BiathletePage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list(undefined, selected.code)]);
         const athList = ath as AthleteResponse[];
 
         let filtered = all;

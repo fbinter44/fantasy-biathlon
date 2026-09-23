@@ -59,7 +59,7 @@ export default function PronosSkiClubPage() {
 
     async function load() {
       try {
-        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list()]);
+        const [all, ath] = await Promise.all([pronostics.all(user!.token, selected.code), athletes.list(undefined, selected.code)]);
         const map: Record<string, AthleteResponse> = {};
         (ath as AthleteResponse[]).forEach((a) => { map[a.ibu_id] = a; });
         setAthMap(map);
