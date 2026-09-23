@@ -77,3 +77,25 @@ def should_refresh_after_race(
         return now >= cache_timestamp + timedelta(hours=retry_interval_hours)
 
     return False
+
+
+def should_refresh_calendar(venue_start, cache_timestamp, refresh_interval_hours: float = 24) -> bool:
+    """
+    Fraîcheur du calendrier d'une venue (liste de courses + horaires) — logique
+    inverse de should_refresh_after_race : le risque de changement est **avant**
+    l'événement (l'IBU peut ajuster un horaire), pas après.
+
+    - Venue déjà passée → jamais de refresh (calendrier figé, comme une saison
+      archivée).
+    - Venue à venir → refresh périodique (toutes les `refresh_interval_hours`)
+      pour absorber un ajustement d'horaire annoncé par l'IBU.
+    """
+    now = datetime.now(timezone.utc)
+
+    if venue_start is not None and now >= venue_start:
+        return False
+
+    if cache_timestamp is None:
+        return True
+
+    return now >= cache_timestamp + timedelta(hours=refresh_interval_hours)

@@ -5,7 +5,10 @@ import os
 from datetime import datetime, timezone
 import json
 
-from utils.cache_helpers import CACHE_VENUES_DIR, CACHE_RESULTS_DIR, should_refresh_after_race, save_pickle_atomic
+from utils.cache_helpers import (
+    CACHE_VENUES_DIR, CACHE_RESULTS_DIR,
+    should_refresh_after_race, should_refresh_calendar, save_pickle_atomic,
+)
 from utils.biathlon_data import RELAY_IDS, NB_VENUES_BY_SEASON, DISCIPLINE_MAP, GENDERS_CODES, DISCIPLINES_WINNERS
 
 
@@ -101,23 +104,33 @@ class CompetitionVenue:
         return os.path.join(CACHE_VENUES_DIR, f"BT{self.season_code}SWRLCP{self.event_id}.pkl")
     
     def load_epreuves(self, force_refresh=False):
-        # 1) Retrieve from cache if possible
-        if not force_refresh and os.path.exists(self.cache_path):
+        # 1) Lire le cache s'il existe, pour connaître sa date et sa fraîcheur
+        cached_epreuves = []
+        cache_timestamp = None
+        if os.path.exists(self.cache_path):
             with open(self.cache_path, "rb") as f:
                 data = pickle.load(f)
+            cache_timestamp = data.get("timestamp")
             for c in data["epreuves"]:
-                self.epreuves.append(
+                cached_epreuves.append(
                     Epreuve(
                         c["race_id"], c["short_desc"], c["discipline"],
                         c["category"], c["location"], c["start_time"], self
                     )
                 )
-        # 2) Otherwise request to the API and save to cache
+
+        venue_start = min((e.start_time for e in cached_epreuves), default=None)
+
+        # 2) Cache utilisable : venue passée (figée), ou pas encore due à un refresh
+        if not force_refresh and cached_epreuves and not should_refresh_calendar(venue_start, cache_timestamp):
+            self.epreuves = cached_epreuves
+        # 3) Sinon → requête à l'API et mise à jour du cache
         else:
             url = f"{self.BASE_URL}?EventId=BT{self.season_code}SWRLCP{self.event_id}&Language=EN"
             data = requests.get(url).json()
 
             raw = []
+            self.epreuves = []
             for c in data:
                 if c["DisciplineId"] in RELAY_IDS:
                     continue
@@ -139,8 +152,8 @@ class CompetitionVenue:
                     }
                 )
 
-            save_pickle_atomic(self.cache_path, {"epreuves": raw})
-        
+            save_pickle_atomic(self.cache_path, {"epreuves": raw, "timestamp": datetime.now(timezone.utc)})
+
         dates = [e.date for e in self.epreuves]
         self.start_date = min(dates)
         self.end_date = max(dates)

@@ -20,6 +20,7 @@ from core.ibu.client import IBUClient
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
 from core.pronostics.pronostics_builder import build_player_bets
 from core.scoring.points_table import POINTS_TABLE
+from backend.services.classement_cache import get_or_compute
 from utils.biathlon_data import ATHLETES_BY_IBUID, VENUES_NAMES
 from utils.biathlon_data import DISCIPLINE_MAP, GENDERS_CODES
 
@@ -204,7 +205,6 @@ def get_score_breakdown(
         )
 
     records = [prono_record]
-    from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
     df = load_pronostics_from_records(records)
     top5_h, top5_f, globes_df = parse_pronostics(df)
     predictions = build_player_bets(top5_h, top5_f, globes_df)
@@ -217,34 +217,45 @@ def get_score_breakdown(
             men_athletes=[], women_athletes=[], globes=[], races=[],
         )
 
-    # Standings IBU
     client = IBUClient(season_code=s)
-    men_st, women_st = client.load_standings()
 
-    # Détail saison
-    men_details, men_pts = _build_athlete_details(bet.top_men, men_st.general)
-    women_details, women_pts = _build_athlete_details(bet.top_women, women_st.general)
+    def compute() -> ScoreBreakdown:
+        # Standings IBU
+        men_st, women_st = client.load_standings()
 
-    # Détail globes
-    globe_details, globe_pts = _build_globe_details(bet, men_st, women_st)
+        # Détail saison
+        men_details, men_pts = _build_athlete_details(bet.top_men, men_st.general)
+        women_details, women_pts = _build_athlete_details(bet.top_women, women_st.general)
 
-    # Pronos course + résultats
-    race_pronos = get_race_pronostics_by_user(user_id, settings, s)
-    client.competitions.load_venues_results()
-    race_details, race_pts = _build_race_details(race_pronos, client.competitions.venues)
+        # Détail globes
+        globe_details, globe_pts = _build_globe_details(bet, men_st, women_st)
 
-    total = men_pts + women_pts + globe_pts + race_pts
+        # Pronos course + résultats
+        race_pronos = get_race_pronostics_by_user(user_id, settings, s)
+        client.competitions.load_venues_results()
+        race_details, race_pts = _build_race_details(race_pronos, client.competitions.venues)
 
-    return ScoreBreakdown(
-        user_id=user_id,
-        username=user["username"],
-        total_points=total,
-        men_points=men_pts,
-        women_points=women_pts,
-        globe_points=globe_pts,
-        race_points=race_pts,
-        men_athletes=men_details,
-        women_athletes=women_details,
-        globes=globe_details,
-        races=race_details,
-    )
+        total = men_pts + women_pts + globe_pts + race_pts
+
+        return ScoreBreakdown(
+            user_id=user_id,
+            username=user["username"],
+            total_points=total,
+            men_points=men_pts,
+            women_points=women_pts,
+            globe_points=globe_pts,
+            race_points=race_pts,
+            men_athletes=men_details,
+            women_athletes=women_details,
+            globes=globe_details,
+            races=race_details,
+        )
+
+    # Pas d'empreinte de contenu nécessaire ici : une fois qu'une course a eu
+    # lieu, les pronos saison sont forcément déjà verrouillés (la deadline
+    # saison tombe avant la 1ère course) et modifier un pronostic course futur
+    # ne change rien au score déjà affiché (_build_race_details ignore les
+    # courses futures) — seul un nouveau résultat de course peut faire bouger
+    # ce calcul, d'où la réutilisation telle quelle de get_or_compute avec un
+    # "fingerprint" figé à [user_id].
+    return get_or_compute(f"score_{user_id}_{s}.pkl", client, [user_id], compute)
