@@ -6,7 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { leagues, LeagueResponse } from "@/lib/api";
 
 export default function LiguesPage() {
-  const { user, currentLeague, selectLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague, selectLeague } = useAuth();
   const router = useRouter();
 
   const [myLeagues, setMyLeagues] = useState<LeagueResponse[]>([]);
@@ -37,9 +37,10 @@ export default function LiguesPage() {
   }, [user, currentLeague, selectLeague]);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     fetchLeagues();
-  }, [user, router, fetchLeagues]);
+  }, [user, authLoading, router, fetchLeagues]);
 
   async function handleCreate(e: React.SyntheticEvent) {
     e.preventDefault();

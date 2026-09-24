@@ -147,7 +147,7 @@ function StandingsTable({
 }
 
 export default function ResultatsPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -160,6 +160,7 @@ export default function ResultatsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
 
     async function load() {
@@ -179,7 +180,7 @@ export default function ResultatsPage() {
       setLoading(false);
     }
     load();
-  }, [user, router, selected.code]);
+  }, [user, authLoading, router, selected.code]);
 
   const menAthletes = getDisciplineAthletes(menSt, discipline);
   const womenAthletes = getDisciplineAthletes(womenSt, discipline);

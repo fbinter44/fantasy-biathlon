@@ -273,7 +273,7 @@ function VenueCard({
 // ── Page principale ───────────────────────────────────────
 
 export default function CalendrierPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -283,6 +283,7 @@ export default function CalendrierPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) {
       router.push("/login");
       return;
@@ -299,7 +300,7 @@ export default function CalendrierPage() {
     })
     .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur de chargement"))
     .finally(() => setLoading(false));
-  }, [user, router, selected.code]);
+  }, [user, authLoading, router, selected.code]);
 
   if (!user) return null;
 

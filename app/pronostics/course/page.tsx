@@ -212,7 +212,7 @@ function VenueBlock({
 // ── Page principale ───────────────────────────────────────
 
 export default function CourseParCoursePage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { selected, isReadOnly } = useSeason();
   const router = useRouter();
 
@@ -223,6 +223,7 @@ export default function CourseParCoursePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     const token = user.token;
 
@@ -238,7 +239,7 @@ export default function CourseParCoursePage() {
       })
       .catch((e: unknown) => setError(e instanceof Error ? e.message : "Erreur de chargement"))
       .finally(() => setLoading(false));
-  }, [user, router, selected.code]);
+  }, [user, authLoading, router, selected.code]);
 
   if (!user) return null;
 

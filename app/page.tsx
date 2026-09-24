@@ -5,16 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Home() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      router.push("/ligues");
-    } else if (user === null) {
-      router.push("/login");
-    }
-  }, [user, router]);
+    if (loading) return;
+    router.push(user ? "/ligues" : "/login");
+  }, [user, loading, router]);
 
   return <div>Chargement...</div>;
 }

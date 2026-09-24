@@ -133,7 +133,7 @@ function GenderCard({
 }
 
 export default function ModifierPage() {
-  const { user, setHasPronos } = useAuth();
+  const { user, loading: authLoading, setHasPronos } = useAuth();
   const { selected, isReadOnly } = useSeason();
   const router = useRouter();
 
@@ -152,6 +152,7 @@ export default function ModifierPage() {
   const deadlinePassed = deadline === null || new Date() > deadline;
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     async function load() {
       try {
@@ -168,7 +169,7 @@ export default function ModifierPage() {
       }
     }
     load();
-  }, [user, router, selected.code]);
+  }, [user, authLoading, router, selected.code]);
 
   function setTop5hField(pos: keyof Top5, val: string) { setTop5h((p) => ({ ...p, [pos]: val })); }
   function setTop5fField(pos: keyof Top5, val: string) { setTop5f((p) => ({ ...p, [pos]: val })); }

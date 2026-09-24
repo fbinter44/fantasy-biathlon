@@ -15,6 +15,7 @@ interface CurrentLeague {
 
 interface AuthContextType {
   user: AuthUser | null;
+  loading: boolean; // true tant que la session n'a pas fini d'être relue depuis localStorage
   currentLeague: CurrentLeague | null;
   hasPronos: boolean;
   signIn: (user: AuthUser) => void;
@@ -27,6 +28,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
   const [currentLeague, setCurrentLeague] = useState<CurrentLeague | null>(null);
   const [hasPronos, setHasPronosState] = useState<boolean>(false);
 
@@ -37,6 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (storedLeague) setCurrentLeague(JSON.parse(storedLeague));
     const storedPronos = localStorage.getItem("hasPronos");
     if (storedPronos === "true") setHasPronosState(true);
+    setLoading(false);
   }, []);
 
   const signIn = (user: AuthUser) => {
@@ -65,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, currentLeague, hasPronos, signIn, signOut, selectLeague, setHasPronos }}>
+    <AuthContext.Provider value={{ user, loading, currentLeague, hasPronos, signIn, signOut, selectLeague, setHasPronos }}>
       {children}
     </AuthContext.Provider>
   );

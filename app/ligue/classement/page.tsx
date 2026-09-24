@@ -109,7 +109,7 @@ function PodiumCard({ player }: { player: PlayerPoints }) {
 // ─── Page principale ──────────────────────────────────────────────────────────
 
 export default function ClassementSkiClubPage() {
-  const { user, currentLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -130,6 +130,7 @@ export default function ClassementSkiClubPage() {
 
   // Chargement du classement
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     async function load() {
       try {
@@ -142,7 +143,7 @@ export default function ClassementSkiClubPage() {
       }
     }
     load();
-  }, [user, currentLeague, router, selected.code]);
+  }, [user, authLoading, currentLeague, router, selected.code]);
 
   // Réinitialiser l'évolution quand la saison change
   useEffect(() => {

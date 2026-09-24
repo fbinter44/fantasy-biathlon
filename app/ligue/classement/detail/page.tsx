@@ -199,7 +199,7 @@ function RaceTable({ races }: { races: RaceScoreDetail[] }) {
 // ── Page principale (inner) ───────────────────────────────
 
 function DetailScoreContent() {
-  const { user, currentLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -212,6 +212,7 @@ function DetailScoreContent() {
 
   // Chargement des membres de la ligue
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     if (!currentLeague) return;
     leagues.get(currentLeague.league_id, user.token).then((l) => {
@@ -221,7 +222,7 @@ function DetailScoreContent() {
       const isValidMember = urlUserId && l.members.some((m) => m.user_id === urlUserId);
       setSelectedId(isValidMember ? urlUserId! : user.user_id);
     });
-  }, [user, currentLeague, router, searchParams]);
+  }, [user, authLoading, currentLeague, router, searchParams]);
 
   // Chargement du score quand le joueur sélectionné change
   useEffect(() => {

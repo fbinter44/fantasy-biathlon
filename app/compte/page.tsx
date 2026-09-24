@@ -8,7 +8,7 @@ import { auth, UserPublic } from "@/lib/api";
 const FEEDBACK_TYPES = ["Suggestion", "Bug", "Amélioration", "Autre"];
 
 export default function ComptePage() {
-  const { user, signIn } = useAuth();
+  const { user, loading: authLoading, signIn } = useAuth();
   const router = useRouter();
 
   const [profile, setProfile] = useState<UserPublic | null>(null);
@@ -31,12 +31,13 @@ export default function ComptePage() {
   const [fbMsg, setFbMsg] = useState("");
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
     auth.me(user.token).then((p) => {
       setProfile(p);
       setNewUsername(p.username);
     }).finally(() => setLoading(false));
-  }, [user, router]);
+  }, [user, authLoading, router]);
 
   async function handleUsername(e: React.SyntheticEvent) {
     e.preventDefault();

@@ -76,7 +76,7 @@ const GLOBE_DISCIPLINES = [
 ];
 
 export default function BiathletePage() {
-  const { user, currentLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -86,6 +86,7 @@ export default function BiathletePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
 
     async function load() {
@@ -117,7 +118,7 @@ export default function BiathletePage() {
       }
     }
     load();
-  }, [user, currentLeague, router, selected.code]);
+  }, [user, authLoading, currentLeague, router, selected.code]);
 
   const stats = selectedId && user ? computeStats(data, selectedId, user.user_id) : null;
   const selectedAthlete = pickedAthletes.find((a) => a.ibu_id === selectedId);

@@ -16,7 +16,7 @@ const COLORS = [
 ];
 
 export default function EvolutionPage() {
-  const { user, currentLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague } = useAuth();
   const router = useRouter();
 
   const [chartData, setChartData] = useState<ChartRow[]>([]);
@@ -25,6 +25,7 @@ export default function EvolutionPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
 
     async function load() {
@@ -47,7 +48,7 @@ export default function EvolutionPage() {
       }
     }
     load();
-  }, [user, currentLeague, router]);
+  }, [user, authLoading, currentLeague, router]);
 
   // Pivot table
   const venues = chartData.map((r) => r.venue as string);

@@ -45,7 +45,7 @@ function AthleteCell({ ibuId, map }: { ibuId: string; map: Record<string, Athlet
 }
 
 export default function PronosSkiClubPage() {
-  const { user, currentLeague } = useAuth();
+  const { user, loading: authLoading, currentLeague } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -55,6 +55,7 @@ export default function PronosSkiClubPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
 
     async function load() {
@@ -76,7 +77,7 @@ export default function PronosSkiClubPage() {
       }
     }
     load();
-  }, [user, currentLeague, router, selected.code]);
+  }, [user, authLoading, currentLeague, router, selected.code]);
 
   // Trier : moi en premier
   const sorted = [...data].sort((a, b) =>

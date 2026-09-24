@@ -42,7 +42,7 @@ const COLUMNS: { key: SortKey; label: string }[] = [
 ];
 
 export default function MesResultatsPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -63,6 +63,7 @@ export default function MesResultatsPage() {
   }
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) { router.push("/login"); return; }
 
     async function load() {
@@ -86,7 +87,7 @@ export default function MesResultatsPage() {
       }
     }
     load();
-  }, [user, router, selected.code]);
+  }, [user, authLoading, router, selected.code]);
 
   const myGlobal = globalRanking.find((p) => p.user_id === user?.user_id);
 

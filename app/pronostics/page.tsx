@@ -6,14 +6,15 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 export default function PronosticsHubPage() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
+    if (authLoading) return;
     if (!user) router.push("/login");
-  }, [user, router]);
+  }, [user, authLoading, router]);
 
-  if (!user) return null;
+  if (authLoading || !user) return null;
 
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
