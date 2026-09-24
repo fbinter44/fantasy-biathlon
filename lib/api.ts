@@ -1,7 +1,39 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
+// Un 401 ne veut dire "session expirée" que si la requête portait déjà un
+// token (Authorization) — un 401 sur /auth/login (mauvais mot de passe) ne
+// doit surtout pas être traité comme une déconnexion.
+function hadAuthHeader(headers?: HeadersInit): boolean {
+  if (!headers) return false;
+  if (headers instanceof Headers) return headers.has("Authorization");
+  if (Array.isArray(headers)) return headers.some(([k]) => k.toLowerCase() === "authorization");
+  return "Authorization" in headers;
+}
+
+function clearSessionAndRedirect() {
+  try {
+    localStorage.removeItem("auth");
+    localStorage.removeItem("currentLeague");
+    localStorage.removeItem("hasPronos");
+  } catch {
+    // localStorage indisponible (navigation privée, etc.) — pas bloquant
+  }
+  if (typeof window !== "undefined" && window.location.pathname !== "/login") {
+    // Navigation complète plutôt que le routeur Next.js : `request()` n'est
+    // pas un composant React, et un rechargement garantit un état propre
+    // (AuthContext relit un localStorage déjà nettoyé).
+    window.location.href = "/login";
+  }
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options);
+
+  if (res.status === 401 && hadAuthHeader(options?.headers)) {
+    clearSessionAndRedirect();
+    throw new Error("Session expirée — merci de te reconnecter.");
+  }
+
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     // Pydantic validation errors (422) retournent detail sous forme de tableau
