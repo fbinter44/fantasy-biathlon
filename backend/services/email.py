@@ -77,15 +77,15 @@ def send_reset_email(to_email: str, code: str, settings: Settings) -> bool:
 
 def send_feedback_email(username: str, feedback_type: str, subject: str, message: str, settings: Settings) -> bool:
     """
-    Envoie un feedback utilisateur à l'adresse de contact (BREVO_SENDER), via Brevo.
-    Retourne True si succès, False + log en cas d'échec.
-    Lève une ValueError si la clé ou le sender manquent.
+    Envoie un feedback utilisateur à l'adresse de contact (FEEDBACK_TO_EMAIL, ou
+    BREVO_SENDER à défaut), via Brevo. Retourne True si succès, False + log en
+    cas d'échec. Lève une ValueError si la clé ou le sender manquent.
     """
     _require_brevo_config(settings)
 
     payload = {
         "sender": {"name": "Clean Shot", "email": settings.brevo_sender},
-        "to": [{"email": settings.brevo_sender}],
+        "to": [{"email": settings.feedback_to_email or settings.brevo_sender}],
         "subject": f"[Feedback Clean Shot] {feedback_type} — {subject}",
         "textContent": f"De : {username}\nType : {feedback_type}\n\n{message}",
     }

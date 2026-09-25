@@ -23,9 +23,13 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60 * 24 * 7   # 7 jours
 
-    # Brevo (email)
+    # Brevo (email) — brevo_sender doit être une adresse sur un domaine authentifié
+    # dans Brevo (ex: support@clean-shot.app), sinon Brevo relaie via un domaine
+    # technique brevosend.com au lieu d'envoyer réellement depuis cette adresse.
     brevo_api_key: str = ""
     brevo_sender: str = ""
+    # Où atterrit le feedback joueurs — vide = repart vers brevo_sender par défaut.
+    feedback_to_email: str = ""
 
     # IBU — vide = calculée automatiquement depuis la date (bascule le 1er nov.).
     # Ne renseigner IBU_SEASON_CODE dans .env / Railway que pour forcer une

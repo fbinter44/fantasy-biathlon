@@ -47,7 +47,7 @@ function DropdownMenu({
           return (
             <span
               key={href}
-              title="Disponible à partir du 1er novembre"
+              title="Disponible à partir du 1er octobre"
               className="block px-4 py-2 text-sm text-gray-300 cursor-not-allowed select-none"
             >
               {label}
@@ -113,7 +113,7 @@ export default function Header() {
     <>
       {isFutureSeason && (
         <div className="bg-blue-50 border-b border-blue-200 px-4 py-1.5 text-center text-xs text-blue-700 sticky top-0 z-40">
-          ⏳ La saison {selected.label} n&apos;a pas encore commencé — l&apos;espace pronos ouvrira le 1er novembre
+          ⏳ La saison {selected.label} n&apos;a pas encore commencé — l&apos;espace pronos ouvrira le 1er octobre
         </div>
       )}
       {!isFutureSeason && isViewingPastSeason && (

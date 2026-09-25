@@ -32,7 +32,7 @@ export default function AppGuard({ children }: { children: ReactNode }) {
           La saison {selected.label} n&apos;a pas encore débuté
         </h1>
         <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
-          Reviens à partir du <strong>1er novembre</strong> pour soumettre tes pronostics
+          Reviens à partir du <strong>1er octobre</strong> pour soumettre tes pronostics
           et suivre la saison en direct.
         </p>
         <p className="mt-4 text-xs text-gray-400">

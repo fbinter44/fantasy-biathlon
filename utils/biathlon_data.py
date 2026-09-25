@@ -40,8 +40,12 @@ def current_ibu_season_code(today: date | None = None) -> str:
 
     Miroir de `computeCurrentSeason` (lib/season.ts) côté frontend, pour que
     les deux stacks retombent toujours sur la même saison :
-    - Nov → Avr : saison en cours (ex. Jan 2027 → saison 26/27)
-    - Mai → Oct : hors-saison, on pointe déjà sur la saison suivante
+    - Oct → Avr : saison en cours (ex. Jan 2027 → saison 26/27)
+    - Mai → Sept : hors-saison, on pointe déjà sur la saison suivante
+
+    Note : ce calcul ne distingue pas explicitement Oct de Nov (mai→déc donnent
+    tous `start_year = today.year`) — seul `computeCurrentSeason` a besoin de
+    savoir précisément où bascule `isOffSeason`, pour afficher/masquer le sablier.
     """
     today = today or date.today()
     start_year = today.year - 1 if today.month < 5 else today.year

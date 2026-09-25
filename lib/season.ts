@@ -29,8 +29,9 @@ export function getPronosDeadline(seasonCode: string): Date | null {
 
 // ─── Calcul de la saison courante depuis la date ──────────────────────────────
 //
-//  Nov X → Avr X+1  : saison X/X+1 active (pronos modifiables)
-//  Mai X+1 → Oct X+1 : hors-saison (sablier, saison X+1/X+2 "future")
+//  Oct X → Avr X+1  : saison X/X+1 active (pronos modifiables dès le 1er oct.,
+//                      pour laisser une fenêtre confortable avant la deadline)
+//  Mai X+1 → Sept X+1 : hors-saison (sablier, saison X+1/X+2 "future")
 
 export function computeCurrentSeason(date = new Date()): {
   season: SeasonInfo;
@@ -39,12 +40,12 @@ export function computeCurrentSeason(date = new Date()): {
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // 1-12
 
-  // Mai (5) inclus → Oct (10) inclus = hors-saison
-  const isOffSeason = month >= 5 && month < 11;
+  // Mai (5) inclus → Sept (9) inclus = hors-saison
+  const isOffSeason = month >= 5 && month < 10;
 
   let startYear: number;
-  if (month >= 11) {
-    startYear = year;          // Nov-Déc : saison démarre cette année
+  if (month >= 10) {
+    startYear = year;          // Oct-Déc : saison démarre cette année
   } else if (month < 5) {
     startYear = year - 1;      // Jan-Avr : saison a démarré l'année dernière
   } else {
