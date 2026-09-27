@@ -13,7 +13,7 @@ from typing import Optional
 from backend.config import Settings, get_settings
 from backend.services.classement_cache import get_or_compute
 from core.ibu.client import IBUClient
-from utils.biathlon_data import ATHLETES_BY_IBUID, FLAGS, athlete_label, previous_season_code
+from utils.biathlon_data import ATHLETES_BY_IBUID, FLAGS, NB_VENUES_BY_SEASON, athlete_label, previous_season_code
 from utils.cache_helpers import CACHE_ATHLETES_DIR
 
 router = APIRouter(prefix="/athletes", tags=["athletes"])
@@ -48,7 +48,14 @@ def _compute_priority_ibu_ids(season: str, client: IBUClient) -> tuple[set[str],
     top_ids: set[str] = set()
     participant_ids: set[str] = set()
 
-    for s in {season, previous_season_code(season)}:
+    seasons_to_scan = [season]
+    prev = previous_season_code(season)
+    # La saison précédente n'est pas toujours connue (ex. tout début de
+    # l'historique disponible) — on l'ignore plutôt que de planter.
+    if prev != season and prev in NB_VENUES_BY_SEASON:
+        seasons_to_scan.append(prev)
+
+    for s in seasons_to_scan:
         c = client if s == season else IBUClient(season_code=s)
 
         men_st, women_st = c.load_standings()
