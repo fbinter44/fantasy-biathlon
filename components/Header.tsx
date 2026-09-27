@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useSeason } from "@/context/SeasonContext";
+import { leagues, LeagueListItem } from "@/lib/api";
 import Logo from "@/components/Logo";
 
 const NAV_PERSONAL = [
@@ -74,7 +75,7 @@ function DropdownMenu({
 }
 
 export default function Header() {
-  const { user, currentLeague, hasPronos, signOut } = useAuth();
+  const { user, currentLeague, selectLeague, hasPronos, signOut } = useAuth();
   const { selected, setSelected, defaultSeason, availableSeasons, isReadOnly, isFutureSeason } = useSeason();
   const router = useRouter();
   const pathname = usePathname();
@@ -84,12 +85,22 @@ export default function Header() {
   // archivée reste consultable même sans pronos remplis pour la saison en cours.
   const leagueAccessible = hasPronos || selected.code !== defaultSeason.code;
 
-  const [openMenu, setOpenMenu] = useState<"personal" | "league" | "ibu" | null>(null);
+  const [openMenu, setOpenMenu] = useState<"personal" | "league" | "clubs" | "ibu" | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState<"personal" | "league" | "ibu" | null>(null);
+  const [mobileSection, setMobileSection] = useState<"personal" | "league" | "clubs" | "ibu" | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function enterMenu(menu: "personal" | "league" | "ibu") {
+  // Liste des ski clubs pour le sélecteur rapide "Mes Ski Clubs" (visible
+  // seulement quand aucun n'est sélectionné) — DB pure, pas besoin de cache ;
+  // refetch à chaque changement de page pour rester à jour après une
+  // création/adhésion faite depuis /ligues.
+  const [myLeagues, setMyLeagues] = useState<LeagueListItem[]>([]);
+  useEffect(() => {
+    if (!user) { setMyLeagues([]); return; }
+    leagues.mine(user.token).then(setMyLeagues).catch(() => setMyLeagues([]));
+  }, [user, pathname]);
+
+  function enterMenu(menu: "personal" | "league" | "clubs" | "ibu") {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     setOpenMenu(menu);
   }
@@ -173,7 +184,7 @@ export default function Header() {
               )}
             </div>
 
-            {/* Dropdown "Le Coin de l'IBU" */}
+            {/* Dropdown "Le Coin IBU" */}
             <div
               className="relative"
               onMouseEnter={() => enterMenu("ibu")}
@@ -184,7 +195,7 @@ export default function Header() {
                   ? "bg-gray-100 text-gray-900"
                   : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
               }`}>
-                Le Coin de l&apos;IBU
+                Le Coin IBU
                 <svg className="w-3.5 h-3.5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -193,6 +204,56 @@ export default function Header() {
                 <DropdownMenu items={NAV_IBU} onClose={() => setOpenMenu(null)} isFutureSeason={isFutureSeason} />
               )}
             </div>
+
+            {/* Dropdown "Mes Ski Clubs" — sélecteur rapide, visible seulement si AUCUNE ligue sélectionnée */}
+            {!currentLeague && (
+              <div
+                className="relative"
+                onMouseEnter={() => enterMenu("clubs")}
+                onMouseLeave={leaveMenu}
+              >
+                <button className={`flex items-center gap-1 px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  myLeagues.length === 0
+                    ? "text-gray-300 cursor-not-allowed"
+                    : openMenu === "clubs" ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                }`}>
+                  🏔️ Mes Ski Clubs
+                  <svg className="w-3.5 h-3.5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {openMenu === "clubs" && (
+                  myLeagues.length === 0 ? (
+                    <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-gray-200 rounded-xl shadow-lg p-4 z-50">
+                      <p className="text-sm text-gray-500 text-center">
+                        🏔️ Crée ou rejoins un ski club pour commencer
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-xl shadow-lg py-1 z-50">
+                      {myLeagues.map((lg) => (
+                        <button
+                          key={lg.league_id}
+                          onClick={() => { selectLeague({ league_id: lg.league_id, name: lg.name }); setOpenMenu(null); }}
+                          className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                        >
+                          🏔️ {lg.name}
+                        </button>
+                      ))}
+                      <div className="border-t border-gray-100 mt-1 pt-1">
+                        <Link
+                          href="/ligues"
+                          onClick={() => setOpenMenu(null)}
+                          className="block px-4 py-2 text-xs text-blue-600 hover:bg-gray-50"
+                        >
+                          Gérer mes ski clubs →
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            )}
 
             {/* Dropdown "Mon Ski Club" — visible seulement si ligue sélectionnée */}
             {currentLeague && (
@@ -306,7 +367,7 @@ export default function Header() {
                   onClick={() => setMobileSection(mobileSection === "ibu" ? null : "ibu")}
                   className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50"
                 >
-                  Le Coin de l&apos;IBU
+                  Le Coin IBU
                   <svg className={`w-4 h-4 transition-transform ${mobileSection === "ibu" ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -365,14 +426,42 @@ export default function Header() {
                       </div>
                     )}
                   </>
+                ) : myLeagues.length === 0 ? (
+                  <p className="px-3 py-2.5 rounded-lg text-sm text-gray-400 border border-dashed border-gray-300 text-center">
+                    🏔️ Crée ou rejoins un ski club pour commencer
+                  </p>
                 ) : (
-                  <Link
-                    href="/ligues"
-                    onClick={() => setDrawerOpen(false)}
-                    className="block px-3 py-2.5 rounded-lg text-sm text-gray-400 border border-dashed border-gray-300 hover:border-blue-400 hover:text-blue-500 text-center"
-                  >
-                    Sélectionner un ski club…
-                  </Link>
+                  <>
+                    <button
+                      onClick={() => setMobileSection(mobileSection === "clubs" ? null : "clubs")}
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50"
+                    >
+                      🏔️ Mes Ski Clubs
+                      <svg className={`w-4 h-4 transition-transform ${mobileSection === "clubs" ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {mobileSection === "clubs" && (
+                      <div className="mt-1 flex flex-col gap-0.5 pl-2">
+                        {myLeagues.map((lg) => (
+                          <button
+                            key={lg.league_id}
+                            onClick={() => { selectLeague({ league_id: lg.league_id, name: lg.name }); setDrawerOpen(false); }}
+                            className="text-left px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg"
+                          >
+                            🏔️ {lg.name}
+                          </button>
+                        ))}
+                        <Link
+                          href="/ligues"
+                          onClick={() => setDrawerOpen(false)}
+                          className="px-3 py-2 text-xs text-blue-600 hover:bg-gray-50 rounded-lg"
+                        >
+                          Gérer mes ski clubs →
+                        </Link>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>

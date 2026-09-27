@@ -16,6 +16,7 @@ export default function LiguesPage() {
   const [newName, setNewName] = useState("");
   const [joinCode, setJoinCode] = useState("");
   const [actionMsg, setActionMsg] = useState("");
+  const [membersModal, setMembersModal] = useState<LeagueResponse | null>(null);
 
   const fetchLeagues = useCallback(async () => {
     if (!user) return;
@@ -148,10 +149,12 @@ export default function LiguesPage() {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-500 mb-3">
-                    <b>Membres :</b>{" "}
-                    {league.members.map((m) => m.username).join(", ")}
-                  </p>
+                  <button
+                    onClick={() => setMembersModal(league)}
+                    className="text-sm text-gray-500 hover:text-blue-600 mb-3 underline underline-offset-2"
+                  >
+                    👥 {league.members.length} membre{league.members.length > 1 ? "s" : ""}
+                  </button>
                   {isOwner && (
                     <p className="text-sm text-gray-500 mb-3">
                       <b>Code d&apos;invitation :</b>{" "}
@@ -236,6 +239,42 @@ export default function LiguesPage() {
           </button>
         </form>
       </section>
+
+      {/* Modale liste des membres */}
+      {membersModal && (
+        <div
+          className="fixed inset-0 bg-black/30 z-40 flex items-center justify-center px-4"
+          onClick={() => setMembersModal(null)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-xl max-w-sm w-full max-h-[70vh] overflow-y-auto p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-gray-900">
+                👥 Membres de {membersModal.name} ({membersModal.members.length})
+              </h3>
+              <button
+                onClick={() => setMembersModal(null)}
+                className="p-1 text-gray-400 hover:text-gray-600"
+                aria-label="Fermer"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <ul className="space-y-1.5">
+              {membersModal.members.map((m) => (
+                <li key={m.user_id} className="text-sm text-gray-700 px-3 py-1.5 bg-gray-50 rounded-lg">
+                  {m.username}
+                  {m.user_id === membersModal.owner_id && " 👑"}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
