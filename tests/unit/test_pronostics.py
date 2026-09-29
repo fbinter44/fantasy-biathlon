@@ -104,3 +104,19 @@ class TestParsePronostics:
         assert len(top5_h) == 1
         assert "user1" in top5_h.index
         assert "user2" not in top5_h.index
+
+    def test_empty_after_filter_raises(self):
+        """Caractérise un piège connu : filtrer sur un critère qui ne
+        correspond à personne (ex. aucun membre de la ligue n'a de pronos)
+        laisse un DataFrame à 0 ligne, et parse_pronostics() plante dessus
+        (`Series.rename() got an unexpected keyword argument 'columns'`,
+        car `.apply(pd.Series)` sur une colonne vide renvoie une Series et
+        non un DataFrame). C'est pour ça que backend/routers/classement.py
+        vérifie `df_league.empty` avant d'appeler parse_pronostics() — si ce
+        test se met à passer sans lever, ça veut dire que parse_pronostics()
+        a changé de comportement et que ces garde-fous côté appelant sont
+        peut-être devenus inutiles (ou qu'il faut les revérifier)."""
+        df_filtered = self.df[self.df["user_id"] == "nobody_matches_this"]
+        assert df_filtered.empty
+        with pytest.raises(TypeError):
+            parse_pronostics(df_filtered)

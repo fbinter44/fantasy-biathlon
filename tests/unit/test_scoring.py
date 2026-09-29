@@ -111,6 +111,19 @@ class TestComputeRegularPoints:
         assert total == 0
         assert bonus == 0
 
+    def test_columnless_empty_standings_does_not_crash(self):
+        """Régression : IBUEvolutiveStandings._dict_to_df() produit un
+        pd.DataFrame([]) totalement vide (0 colonne, pas juste 0 ligne) quand
+        aucune course n'a encore eu lieu cette saison — contrairement au
+        fixture ci-dessus (qui a bien une colonne "id", juste vide), un tel
+        DataFrame fait planter `df_top10["id"]` avec un KeyError si la
+        fonction ne le détecte pas explicitement en amont."""
+        standings = pd.DataFrame([])
+        total, bonus, details = compute_regular_points(["A", "B", "C", "D", "E"], standings)
+        assert total == 0
+        assert bonus == 0
+        assert details == {a: 0 for a in ["A", "B", "C", "D", "E"]}
+
 
 # ─── Tests compute_globe_winner_bonus ────────────────────────────────────────
 
