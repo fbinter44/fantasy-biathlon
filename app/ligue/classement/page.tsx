@@ -336,7 +336,9 @@ export default function ClassementSkiClubPage() {
               Calcul de l&apos;évolution… (peut prendre quelques secondes)
             </div>
           ) : chartData.length === 0 ? (
-            <p className="text-gray-500 text-sm">Aucune donnée disponible pour l&apos;instant.</p>
+            <p className="text-gray-500 text-sm">
+              📅 Reviens après les premières courses pour voir les résultats et l&apos;évolution des scores.
+            </p>
           ) : (
             <>
               <div className="mb-6 p-3 bg-yellow-50 border border-yellow-200 rounded-xl text-yellow-800 text-sm">

@@ -164,6 +164,10 @@ def classement_evolution(
         evolution = []
         for venue_i, standings_by_gender in client.cumulated_standings.items():
             venue = client.competitions.venues[venue_i - 1]
+            has_results = any(ep.results is not None and not ep.results.empty for ep in venue.epreuves)
+            if not has_results:
+                continue  # venue future ou pas encore résultée — pas de point à afficher
+
             location = venue.epreuves[0].location if venue.epreuves else ""
             name = VENUES_NAMES.get(location, location)
 

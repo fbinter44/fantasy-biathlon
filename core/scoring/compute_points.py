@@ -1,6 +1,9 @@
 from .points_table import POINTS_TABLE
 
 def compute_regular_points(pred_list, df_top10):
+    if df_top10.empty:
+        return 0, 0, {athlete: 0 for athlete in pred_list}
+
     df_top10 = df_top10.copy()
     candidate_ids = df_top10["id"].tolist()
 
