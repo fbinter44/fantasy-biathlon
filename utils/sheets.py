@@ -6,30 +6,7 @@ le backend FastAPI lit les données depuis PostgreSQL via backend/services/db.py
 Ce module ne conserve que des utilitaires purs sans dépendances externes.
 """
 
-import uuid
-
 from utils.biathlon_data import DISCIPLINES_WINNERS, BIATHLETES_H
-
-
-def extract_unique_ids(data, league_members):
-    unique_ids = set()
-
-    for entry in data:
-        for key, value in entry.items():
-            if key == "user_id":
-                if value not in league_members:
-                    break
-                else:
-                    continue
-            if key == "username":
-                continue  # on ignore le user_id et le username
-
-            # Certains champs contiennent plusieurs IDs séparés par des virgules
-            ids = value.split(",")
-            for id_ in ids:
-                unique_ids.add(id_.strip())
-
-    return unique_ids
 
 
 # ---------------------------------------------------------
@@ -44,38 +21,20 @@ def parse_members(m):
     return [x.strip() for x in str(m).split(",") if x.strip()]
 
 
-def get_all_leagues():
-    records = read_all("Leagues")
-    return records if records else []
-
-
-def generate_unique_league_id(existing_ids):
-    while True:
-        league_id = str(uuid.uuid4())[:8]
-        if league_id not in existing_ids:
-            return league_id
-
-
-def create_league(name, owner):
-    leagues = read_all("Leagues")
-    existing_ids = {row["league_id"] for row in leagues}
-    league_id = generate_unique_league_id(existing_ids)
-    row = {
-        league_id,
-        name,
-        owner,
-        owner,
-    }
-    append_row("Leagues", row)
-    return league_id
-
-
-
 # ---------------------------------------------------------
 # 5) Autres
 # ---------------------------------------------------------
 
 def build_biathlete_summary(pronos, my_user, biathlete_id):
+    """
+    Construit les statistiques de pronostics pour un biathlète donné (utilisé
+    par la page "Focus Biathlète") : pour chaque discipline, combien de
+    joueurs l'ont sélectionné comme vainqueur du globe, et — pour le
+    classement général — sa répartition dans les Top 5 saisie par tous les
+    joueurs (places 1 à 5) ainsi que la position que `my_user` lui a donnée.
+
+    `pronos` : dict {user_id: PlayerBet}. Retourne un BiathleteSummary.
+    """
     biathlete_summary = BiathleteSummary(biathlete_id)
     nb_total_players = len(pronos)
     globe_suffix = "winner_men" if biathlete_id in BIATHLETES_H else "winner_women"

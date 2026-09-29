@@ -4,8 +4,10 @@ import json
 
 class IBUEvolutiveStandings:
     """
-    Standings finaux (ou en cours) d'une saison, par genre.
-    Utilise IBUCupResultsAPI pour charger les top 10.
+    Standings reconstitués à un instant précis de la saison (après la venue
+    n° `venue_number`), par genre — lus depuis `timeline`, la reconstruction
+    cumulative course par course produite par IBUSeasonResultsBuilder.build()
+    (core/ibu/season_results.py), pas depuis une requête API en direct.
     """
 
     def __init__(self, gender, venue_number, timeline, season_code="2526"):

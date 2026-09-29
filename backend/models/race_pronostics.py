@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Pronostics course par course.
+"""
+
 from pydantic import BaseModel
 
 

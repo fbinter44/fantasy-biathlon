@@ -1,3 +1,7 @@
+"""Accumulateur de score d'un joueur — un PlayerPoints par joueur, rempli
+progressivement par les différentes sources de points (top 5 hommes/femmes,
+bonus globes, pronos course par course), puis totalisé."""
+
 from .compute_points import compute_regular_points, compute_globe_winner_bonus, compute_race_winner_points
 
 class PlayerPoints:

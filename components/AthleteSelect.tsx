@@ -52,6 +52,7 @@ export default function AthleteSelect({
     if (disabled) return;
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
+      // 220 ≈ hauteur du dropdown (max-h-52 plus bas) + marge — à ajuster ensemble
       setOpenUpward(window.innerHeight - rect.bottom < 220);
     }
     setQuery("");

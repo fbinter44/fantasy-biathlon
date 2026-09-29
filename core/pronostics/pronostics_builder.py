@@ -1,6 +1,11 @@
+"""Assemble les DataFrames issus de parse_pronostics() en objets PlayerBet,
+un par joueur — la structure attendue par le moteur de scoring."""
+
 from core.pronostics.player_bet import PlayerBet
 
 def build_player_bets(top5_h, top5_f, globes):
+    """top5_h/top5_f/globes : DataFrames indexés par user_id (voir
+    parse_pronostics). Retourne {user_id: PlayerBet}."""
     predictions = {}
 
     for player_id in top5_h.index:

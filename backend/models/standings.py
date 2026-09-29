@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Classements IBU et fantasy (standings, PlayerPoints).
+"""
+
 from pydantic import BaseModel
 from typing import Optional
 

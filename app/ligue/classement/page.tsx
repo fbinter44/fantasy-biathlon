@@ -307,6 +307,7 @@ export default function ClassementSkiClubPage() {
                       <LabelList dataKey="total_points" position="top" style={{ fontSize: 12 }} />
                     </Bar>
                   )}
+                  {/* Tableau, pas <>...</> : Recharts lit children directement et ne déplie pas les Fragments */}
                   {chartMetric === "gender" && [
                     <Bar key="men" dataKey="men_points" name="Hommes" fill="#3b82f6" radius={[4,4,0,0]} />,
                     <Bar key="women" dataKey="women_points" name="Femmes" fill="#ec4899" radius={[4,4,0,0]} />,

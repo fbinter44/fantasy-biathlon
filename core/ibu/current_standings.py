@@ -3,8 +3,8 @@ from .current_standings_api import IBUCurrentStandingsAPI
 
 class IBUCurrentStandings:
     """
-    Standings finaux (ou en cours) d'une saison, par genre.
-    Utilise IBUCupResultsAPI pour charger les top 10.
+    Standings actuels (en direct) d'une saison, par genre — récupérés en
+    interrogeant l'API IBU en temps réel via IBUCurrentStandingsAPI.
     """
 
     def __init__(self, gender, season_code="2526", client=None):

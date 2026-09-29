@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Pronostics saison (Top 5 + globes de cristal).
+"""
+
 from pydantic import BaseModel
 from typing import Optional
 

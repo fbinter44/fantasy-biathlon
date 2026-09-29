@@ -9,6 +9,18 @@ from.evolutive_standings import IBUEvolutiveStandings
 class IBUClient:
     """
     Point d'entrée unique pour toutes les données IBU.
+
+    Deux familles de méthodes, à ne pas mélanger :
+      - load_standings() / load_results() : lecture directe (standings
+        actuels, résultats de courses) via les API IBU en direct.
+      - compute_cumulated_scores() / compute_evolutive_standings() :
+        reconstruction historique venue par venue (utilisée par
+        /classement/evolution), qui s'enchaîne dans cet ordre précis —
+        chaque étape déclenche la précédente si besoin (cumulated_scores
+        charge les résultats s'ils ne le sont pas déjà, evolutive_standings
+        calcule cumulated_scores s'il n'existe pas encore) donc appeler
+        directement compute_evolutive_standings() suffit dans la plupart
+        des cas.
     """
 
     def __init__(self, season_code="2526"):
@@ -37,11 +49,20 @@ class IBUClient:
         self.season_progress = self.competitions.progress_by_discipline
 
     def compute_cumulated_scores(self):
+        """Construit self.cumulated_scores : timeline des standings cumulés
+        venue par venue (voir IBUSeasonResultsBuilder.build), en s'assurant
+        d'abord que les résultats de courses sont chargés."""
         if not self.competitions.venues:
             self.load_results()
         self.cumulated_scores = self.season_results.build(self.competitions.venues)
-    
+
     def compute_evolutive_standings(self):
+        """Remplit self.cumulated_standings : {index_venue: {"Men"/"Women":
+        IBUEvolutiveStandings}} pour CHAQUE venue du calendrier de la saison
+        (passées et futures), reconstruit à partir de self.cumulated_scores.
+        Une venue future a un snapshot identique à la précédente (aucun
+        point n'a pu s'y ajouter) — c'est à l'appelant de filtrer les venues
+        sans résultat réel si besoin (voir /classement/evolution)."""
         if not self.cumulated_scores:
             self.compute_cumulated_scores()
         nb_venues = self.competitions.nb_venues

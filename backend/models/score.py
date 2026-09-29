@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Détail de score joueur (décomposition point par point).
+"""
+
 from pydantic import BaseModel
 from typing import Optional
 

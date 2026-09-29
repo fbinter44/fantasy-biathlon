@@ -10,6 +10,13 @@ import pandas as pd
 
 
 def load_pronostics_from_records(records: list[dict]) -> pd.DataFrame:
+    """Convertit des lignes de pronostics (dicts issus de la DB) en DataFrame.
+
+    Lève KeyError("NO_PRONOS") si `records` est vide, plutôt que de renvoyer
+    un DataFrame vide silencieusement — tous les appelants actuels
+    (classement.py, score.py) vérifient déjà `if not records` avant d'
+    appeler cette fonction et s'arrêtent en amont ; ce garde reste une
+    sécurité si un futur appelant oublie cette vérification."""
     if not records:
         raise KeyError("NO_PRONOS")
     return pd.DataFrame(records)

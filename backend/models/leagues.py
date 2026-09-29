@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Ligues (ski clubs).
+"""
+
 from pydantic import BaseModel
 from typing import Optional
 

@@ -1,3 +1,7 @@
+"""
+Modèles Pydantic — Authentification (login, inscription, reset mot de passe).
+"""
+
 from typing import Annotated
 
 from pydantic import AfterValidator, BaseModel, EmailStr

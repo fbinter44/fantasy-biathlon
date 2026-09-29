@@ -1,6 +1,26 @@
 from .points_table import POINTS_TABLE
 
 def compute_regular_points(pred_list, df_top10):
+    """
+    Points d'un pronostic Top 5 (saison ou évolution) contre un classement
+    réel donné.
+
+    pred_list : liste ordonnée de 5 IBUIds pronostiqués (rang 1 à 5).
+    df_top10  : DataFrame du classement réel (colonnes "id", "rank", ...),
+                borné au nombre de places payantes (voir POINTS_TABLE).
+
+    Retourne (total, total_bonus, details) :
+      - total       : somme des points POINTS_TABLE[rang réel - 1] pour
+                       chaque athlète prédit qui figure dans df_top10.
+      - total_bonus : part de `total` due au bonus de rang exact (+50 quand
+                       le rang prédit == le rang réel), déjà incluse dedans.
+      - details     : {athlete: points} par athlète prédit (0 si absent).
+
+    df_top10 vide (0 colonne, pas juste 0 ligne) arrive avant la 1ère course
+    d'une saison — IBUEvolutiveStandings._dict_to_df() produit un
+    pd.DataFrame([]) totalement vide tant qu'aucun point n'est encore
+    cumulé ; sans ce garde, `df_top10["id"]` lève un KeyError.
+    """
     if df_top10.empty:
         return 0, 0, {athlete: 0 for athlete in pred_list}
 

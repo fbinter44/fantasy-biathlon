@@ -16,7 +16,7 @@ interface SeasonContextValue {
   setSelected: (s: SeasonInfo) => void;
   /** Saison calculée depuis la date du jour (active ou future selon la période) */
   defaultSeason: SeasonInfo;
-  /** On est entre Mai et Nov : aucune saison active, la prochaine n'a pas démarré */
+  /** On est entre mai et septembre : aucune saison active, la prochaine n'a pas démarré */
   isOffSeason: boolean;
   /** La saison sélectionnée est la future (sablier à afficher) */
   isFutureSeason: boolean;
@@ -31,8 +31,7 @@ interface SeasonContextValue {
 const SeasonContext = createContext<SeasonContextValue | null>(null);
 
 export function SeasonProvider({ children }: { children: ReactNode }) {
-  // ⚠️ TEMPORAIRE pour tester l'état "saison ouverte" — remettre computeCurrentSeason() (sans argument) après
-  const { season: defaultSeason, isOffSeason } = computeCurrentSeason(new Date("2026-10-02"));
+  const { season: defaultSeason, isOffSeason } = computeCurrentSeason();
   const availableSeasons = getAvailableSeasons(defaultSeason);
 
   const [selected, setSelected] = useState<SeasonInfo>(defaultSeason);
