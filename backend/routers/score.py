@@ -192,6 +192,9 @@ def get_score_breakdown(
     if not user:
         raise HTTPException(status_code=404, detail="Utilisateur introuvable.")
 
+    client = IBUClient(season_code=s)
+    season_started = client.get_last_race_end() is not None
+
     # Pronostics saison
     prono_record = get_pronostics_by_user(user_id, settings, s)
     if not prono_record:
@@ -202,6 +205,7 @@ def get_score_breakdown(
             total_points=0, men_points=0, women_points=0,
             globe_points=0, race_points=0,
             men_athletes=[], women_athletes=[], globes=[], races=[],
+            season_started=season_started,
         )
 
     records = [prono_record]
@@ -215,9 +219,8 @@ def get_score_breakdown(
             total_points=0, men_points=0, women_points=0,
             globe_points=0, race_points=0,
             men_athletes=[], women_athletes=[], globes=[], races=[],
+            season_started=season_started,
         )
-
-    client = IBUClient(season_code=s)
 
     def compute() -> ScoreBreakdown:
         # Standings IBU
@@ -249,6 +252,7 @@ def get_score_breakdown(
             women_athletes=women_details,
             globes=globe_details,
             races=race_details,
+            season_started=season_started,
         )
 
     # Pas d'empreinte de contenu nécessaire ici : une fois qu'une course a eu

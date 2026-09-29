@@ -50,3 +50,4 @@ class ScoreBreakdown(BaseModel):
     women_athletes: list[AthleteScoreDetail]
     globes: list[GlobeScoreDetail]
     races: list[RaceScoreDetail]
+    season_started: bool       # False si aucune course n'a encore eu lieu cette saison

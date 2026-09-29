@@ -50,7 +50,7 @@ function SummaryBar({ data }: { data: ScoreBreakdown }) {
 
 // ── Bloc athlètes saison ──────────────────────────────────
 
-function AthleteTable({ athletes, title }: { athletes: AthleteScoreDetail[]; title: string }) {
+function AthleteTable({ athletes, title, seasonStarted }: { athletes: AthleteScoreDetail[]; title: string; seasonStarted: boolean }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-4">
       <div className="px-5 py-3 bg-gray-50 border-b border-gray-100 font-semibold text-gray-800 text-sm">
@@ -77,14 +77,18 @@ function AthleteTable({ athletes, title }: { athletes: AthleteScoreDetail[]; tit
                   <span className="text-gray-800">{a.name}</span>
                 </span>
               </td>
-              <td className="px-4 py-2.5 text-center">
+              <td className="px-4 py-2.5 text-center relative">
                 {a.actual_rank != null ? (
-                  <span className={a.exact_rank_bonus ? "text-green-600 font-bold" : "text-gray-600"}>
-                    {a.actual_rank}
-                    {a.exact_rank_bonus && " ⭐"}
-                  </span>
+                  <>
+                    <span className={a.exact_rank_bonus ? "text-green-600 font-bold" : "text-gray-600"}>
+                      {a.actual_rank}
+                    </span>
+                    {a.exact_rank_bonus && (
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2">⭐</span>
+                    )}
+                  </>
                 ) : (
-                  <span className="text-gray-300">hors top</span>
+                  <span className="text-gray-300">{seasonStarted ? "hors top" : "—"}</span>
                 )}
               </td>
               <td className="px-4 py-2.5 text-right">
@@ -154,13 +158,19 @@ function GlobeTable({ globes }: { globes: GlobeScoreDetail[] }) {
 
 // ── Bloc courses ──────────────────────────────────────────
 
-function RaceTable({ races }: { races: RaceScoreDetail[] }) {
+function RaceTable({
+  races, isSelf, playerName, seasonStarted,
+}: { races: RaceScoreDetail[]; isSelf: boolean; playerName: string; seasonStarted: boolean }) {
   const correct = races.filter((r) => r.correct);
 
   if (correct.length === 0)
     return (
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 text-center text-sm text-gray-400 mb-4">
-        Tu n&apos;as pas eu de bons pronostics sur les courses passées
+        {!seasonStarted
+          ? "📅 Reviens après les premières courses pour voir les pronostics gagnants"
+          : isSelf
+          ? "Tu n'as pas eu de bons pronostics sur les courses passées"
+          : `${playerName} n'a pas eu de bons pronostics sur les courses passées`}
       </div>
     );
 
@@ -288,13 +298,18 @@ function DetailScoreContent() {
           <SummaryBar data={breakdown} />
 
           <h2 className="text-base font-semibold text-gray-700 mb-3">🏔️ Pronos Saison</h2>
-          <AthleteTable athletes={breakdown.men_athletes} title="Hommes — Top 5 général" />
-          <AthleteTable athletes={breakdown.women_athletes} title="Femmes — Top 5 général" />
+          <AthleteTable athletes={breakdown.men_athletes} title="Hommes — Top 5 général" seasonStarted={breakdown.season_started} />
+          <AthleteTable athletes={breakdown.women_athletes} title="Femmes — Top 5 général" seasonStarted={breakdown.season_started} />
 
           {breakdown.globes.length > 0 && <GlobeTable globes={breakdown.globes} />}
 
           <h2 className="text-base font-semibold text-gray-700 mb-3 mt-6">🎯 Pronos Course par course</h2>
-          <RaceTable races={breakdown.races} />
+          <RaceTable
+            races={breakdown.races}
+            isSelf={selectedId === user.user_id}
+            playerName={breakdown.username}
+            seasonStarted={breakdown.season_started}
+          />
         </>
       )}
     </div>

@@ -324,6 +324,7 @@ export interface ScoreBreakdown {
   women_athletes: AthleteScoreDetail[];
   globes: GlobeScoreDetail[];
   races: RaceScoreDetail[];
+  season_started: boolean;
 }
 
 export const score = {
