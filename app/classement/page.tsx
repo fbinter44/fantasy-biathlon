@@ -128,11 +128,18 @@ function StandingsTable({
       {top10.length > 0 && (
         <div>
           <p className="text-xs text-gray-500 mb-2">Écarts de points — Top 10</p>
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={top10} margin={{ top: 4, right: 8, left: 0, bottom: 40 }}>
-              <XAxis dataKey="name" tick={{ fontSize: 10 }} angle={-35} textAnchor="end" interval={0} />
+          <ResponsiveContainer width="100%" height={235}>
+            <BarChart data={top10} margin={{ top: 4, right: 12, left: 4, bottom: 58 }}>
+              <XAxis
+                dataKey="name"
+                tick={{ fontSize: 10 }}
+                angle={-45}
+                textAnchor="end"
+                interval={0}
+                tickFormatter={(name: string) => (name.length > 14 ? `${name.slice(0, 13)}…` : name)}
+              />
               <YAxis tick={{ fontSize: 10 }} width={40} />
-              <Tooltip formatter={(v) => [`${v} pts`, "Points"]} />
+              <Tooltip formatter={(v) => [`${v} pts`, "Points"]} labelFormatter={(name) => name} />
               <Bar dataKey="points" radius={[3, 3, 0, 0]}>
                 {top10.map((a) => (
                   <Cell key={a.ibu_id} fill={predictedIds.has(a.ibu_id) ? "#f59e0b" : "#3b82f6"} />
