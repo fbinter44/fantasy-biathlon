@@ -18,11 +18,19 @@ import {
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type View = "classement" | "evolution";
+type ChartMetric = "total" | "gender" | "globes" | "races";
 
 // ─── Constantes ──────────────────────────────────────────────────────────────
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 const COLORS = ["#3b82f6","#ec4899","#10b981","#f59e0b","#8b5cf6","#ef4444","#06b6d4","#84cc16"];
+
+const CHART_METRICS: { key: ChartMetric; label: string; icon: string }[] = [
+  { key: "total",  label: "Répartition des points", icon: "📊" },
+  { key: "gender", label: "Hommes vs Femmes",        icon: "👥" },
+  { key: "globes", label: "Globes de cristal",       icon: "🌍" },
+  { key: "races",  label: "Courses",                 icon: "🎯" },
+];
 
 // ─── Tooltip personnalisé (évolution) ────────────────────────────────────────
 
@@ -114,6 +122,7 @@ export default function ClassementSkiClubPage() {
   const router = useRouter();
 
   const [view, setView] = useState<View>("classement");
+  const [chartMetric, setChartMetric] = useState<ChartMetric>("total");
 
   // Données classement
   const [rankData, setRankData] = useState<PlayerPoints[]>([]);
@@ -264,64 +273,54 @@ export default function ClassementSkiClubPage() {
             </div>
           </section>
 
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">📊 Répartition des points</h2>
-            <div className="bg-white border border-gray-200 rounded-xl p-4">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
-                  <XAxis dataKey="username" tick={{ fontSize: 13 }} />
-                  <YAxis tick={{ fontSize: 12 }} />
-                  <Tooltip />
-                  <Bar dataKey="total_points" name="Total" fill="#3b82f6" radius={[4,4,0,0]}>
-                    <LabelList dataKey="total_points" position="top" style={{ fontSize: 12 }} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </section>
-
-          <section className="mb-10">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">👥 Points Hommes vs Femmes</h2>
-            <div className="bg-white border border-gray-200 rounded-xl p-4">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
-                  <XAxis dataKey="username" tick={{ fontSize: 13 }} />
-                  <YAxis tick={{ fontSize: 12 }} />
-                  <Tooltip /><Legend />
-                  <Bar dataKey="men_points" name="Hommes" fill="#3b82f6" radius={[4,4,0,0]} />
-                  <Bar dataKey="women_points" name="Femmes" fill="#ec4899" radius={[4,4,0,0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </section>
-
           <section className="mb-6">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">🌍 Points Globes de cristal</h2>
-            <div className="bg-white border border-gray-200 rounded-xl p-4">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
-                  <XAxis dataKey="username" tick={{ fontSize: 13 }} />
-                  <YAxis tick={{ fontSize: 12 }} />
-                  <Tooltip />
-                  <Bar dataKey="globe_points" name="Globes" fill="#10b981" radius={[4,4,0,0]}>
-                    <LabelList dataKey="globe_points" position="top" style={{ fontSize: 12 }} />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+              <h2 className="text-lg font-semibold text-gray-700">
+                {CHART_METRICS.find((m) => m.key === chartMetric)?.icon}{" "}
+                {CHART_METRICS.find((m) => m.key === chartMetric)?.label}
+              </h2>
+              <div className="flex bg-gray-100 p-1 rounded-xl gap-1 flex-wrap">
+                {CHART_METRICS.map(({ key, label, icon }) => (
+                  <button
+                    key={key}
+                    onClick={() => setChartMetric(key)}
+                    className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
+                      chartMetric === key
+                        ? "bg-white shadow text-blue-600"
+                        : "text-gray-500 hover:text-gray-700"
+                    }`}
+                  >
+                    {icon} {label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </section>
-
-          <section className="mb-6">
-            <h2 className="text-lg font-semibold text-gray-700 mb-3">🎯 Points Courses</h2>
             <div className="bg-white border border-gray-200 rounded-xl p-4">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
                   <XAxis dataKey="username" tick={{ fontSize: 13 }} />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="race_points" name="Courses" fill="#f59e0b" radius={[4,4,0,0]}>
-                    <LabelList dataKey="race_points" position="top" style={{ fontSize: 12 }} />
-                  </Bar>
+                  {chartMetric === "gender" && <Legend />}
+                  {chartMetric === "total" && (
+                    <Bar dataKey="total_points" name="Total" fill="#3b82f6" radius={[4,4,0,0]}>
+                      <LabelList dataKey="total_points" position="top" style={{ fontSize: 12 }} />
+                    </Bar>
+                  )}
+                  {chartMetric === "gender" && [
+                    <Bar key="men" dataKey="men_points" name="Hommes" fill="#3b82f6" radius={[4,4,0,0]} />,
+                    <Bar key="women" dataKey="women_points" name="Femmes" fill="#ec4899" radius={[4,4,0,0]} />,
+                  ]}
+                  {chartMetric === "globes" && (
+                    <Bar dataKey="globe_points" name="Globes" fill="#10b981" radius={[4,4,0,0]}>
+                      <LabelList dataKey="globe_points" position="top" style={{ fontSize: 12 }} />
+                    </Bar>
+                  )}
+                  {chartMetric === "races" && (
+                    <Bar dataKey="race_points" name="Courses" fill="#f59e0b" radius={[4,4,0,0]}>
+                      <LabelList dataKey="race_points" position="top" style={{ fontSize: 12 }} />
+                    </Bar>
+                  )}
                 </BarChart>
               </ResponsiveContainer>
             </div>
