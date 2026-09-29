@@ -16,7 +16,7 @@ npm run dev
 # → http://localhost:3000
 ```
 
-The project uses Python 3.12 and Node.js 20.
+The project uses Python 3.12 and Node.js 24.
 
 ## Architecture overview
 
