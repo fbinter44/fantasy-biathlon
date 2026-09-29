@@ -31,7 +31,8 @@ interface SeasonContextValue {
 const SeasonContext = createContext<SeasonContextValue | null>(null);
 
 export function SeasonProvider({ children }: { children: ReactNode }) {
-  const { season: defaultSeason, isOffSeason } = computeCurrentSeason();
+  // ⚠️ TEMPORAIRE pour tester l'état "saison ouverte" — remettre computeCurrentSeason() (sans argument) après
+  const { season: defaultSeason, isOffSeason } = computeCurrentSeason(new Date("2026-10-02"));
   const availableSeasons = getAvailableSeasons(defaultSeason);
 
   const [selected, setSelected] = useState<SeasonInfo>(defaultSeason);

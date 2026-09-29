@@ -1,7 +1,11 @@
+import logging
 import os
 import pickle
 import tempfile
+import time
 from datetime import datetime, timedelta, timezone
+
+logger = logging.getLogger(__name__)
 
 
 CACHE_VENUES_DIR = "cache/cache_venues"
@@ -16,24 +20,40 @@ def cache_path(dir, file):
     return os.path.join(dir, file)
 
 
-def save_pickle_atomic(path: str, data) -> None:
+def save_pickle_atomic(path: str, data, *, max_attempts: int = 5) -> None:
     """
     Écrit un fichier pickle de façon atomique : on écrit dans un fichier
     temporaire puis on le renomme sur la cible (os.replace, atomique sur
     Windows comme sur POSIX). Évite qu'une lecture concurrente tombe sur un
     fichier à moitié écrit si deux requêtes rafraîchissent le même cache en
     même temps.
+
+    Sous Windows, ce renommage peut échouer par intermittence (PermissionError)
+    si un autre thread a le fichier cible ouvert en lecture au même instant
+    (chaque requête FastAPI tourne dans son propre thread) — on retente
+    quelques fois avant d'abandonner. Le cache est un confort de performance,
+    pas une donnée critique : en cas d'échec persistant, on log et on
+    abandonne sans faire planter l'appelant (la donnée fraîchement calculée
+    reste utilisable pour la requête en cours, seule la mise en cache échoue).
     """
     directory = os.path.dirname(path) or "."
     fd, tmp_path = tempfile.mkstemp(dir=directory, prefix=".tmp-", suffix=".pkl")
     try:
         with os.fdopen(fd, "wb") as f:
             pickle.dump(data, f)
-        os.replace(tmp_path, path)
-    except Exception:
+
+        for attempt in range(max_attempts):
+            try:
+                os.replace(tmp_path, path)
+                return
+            except PermissionError:
+                if attempt == max_attempts - 1:
+                    logger.warning("Écriture du cache abandonnée après %d tentatives : %s", max_attempts, path)
+                    return
+                time.sleep(0.05 * (attempt + 1))
+    finally:
         if os.path.exists(tmp_path):
             os.remove(tmp_path)
-        raise
 
 
 def should_refresh_after_race(

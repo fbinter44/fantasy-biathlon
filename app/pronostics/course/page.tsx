@@ -67,20 +67,25 @@ function RaceRow({
   // Sync si le prono chargé change après le montage
   useEffect(() => { setSelected(currentIbuId); }, [currentIbuId]);
 
-  const isDirty = selected !== currentIbuId;
-
-  async function handleSave() {
-    if (!selected) return;
+  // Sauvegarde automatique dès la sélection — pas de bouton à penser à cliquer.
+  async function handleSelect(ibuId: string) {
+    setSelected(ibuId);
+    if (ibuId === currentIbuId) return; // pas de changement réel, rien à enregistrer
     setError("");
     setSaved(false);
     setSaving(true);
     try {
-      await racePronostics.set(race.race_id, selected, token, season);
-      onSaved(race.race_id, selected);
+      if (ibuId) {
+        await racePronostics.set(race.race_id, ibuId, token, season);
+      } else {
+        await racePronostics.remove(race.race_id, token, season);
+      }
+      onSaved(race.race_id, ibuId);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Erreur");
+      setSelected(currentIbuId); // échec de l'enregistrement : on revient à l'état réellement sauvegardé
     } finally {
       setSaving(false);
     }
@@ -104,7 +109,7 @@ function RaceRow({
         {locked && <span className="ml-auto text-xs text-gray-400">🔒 Terminée</span>}
       </div>
 
-      {/* Sélecteur + bouton */}
+      {/* Sélecteur (sauvegarde automatique) */}
       <div className="flex items-center gap-2">
         {locked ? (
           <div className="flex-1 px-3 py-1.5 bg-gray-100 rounded-lg text-sm text-gray-400 cursor-not-allowed select-none">
@@ -113,28 +118,20 @@ function RaceRow({
               : "—"}
           </div>
         ) : (
-          <>
-            <div className="flex-1">
-              <AthleteSelect
-                athletes={athleteList.filter((a) => a.gender === genderKey)}
-                value={selected}
-                onChange={setSelected}
-                placeholder="Choisir un vainqueur…"
-              />
-            </div>
-            <button
-              onClick={handleSave}
-              disabled={saving || !selected || !isDirty}
-              title="Enregistrer"
-              className="shrink-0 w-7 h-7 flex items-center justify-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              {saving ? "…" : "🔒"}
-            </button>
-          </>
+          <div className="flex-1">
+            <AthleteSelect
+              athletes={athleteList.filter((a) => a.gender === genderKey)}
+              value={selected}
+              onChange={handleSelect}
+              disabled={saving}
+              placeholder="Choisir un vainqueur…"
+            />
+          </div>
         )}
 
         {/* Feedback */}
-        {saved && !saving && <span className="text-xs text-green-600 shrink-0">✓</span>}
+        {saving && <span className="text-xs text-gray-400 shrink-0">Enregistrement…</span>}
+        {saved && !saving && <span className="text-xs text-green-600 shrink-0">✓ Enregistré</span>}
         {error && <span className="text-xs text-red-500 shrink-0">{error}</span>}
       </div>
     </div>

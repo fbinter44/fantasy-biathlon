@@ -111,7 +111,7 @@ function GenderCard({
               const globeKey = `${key}_${gender}` as keyof GlobeWinners;
               const isFilled = !!globes[globeKey];
               return (
-                <div key={key} className={`flex items-center gap-3 p-2 rounded-lg transition-colors ${isFilled ? "bg-gray-50" : ""}`}>
+                <div key={key} className={`flex items-center gap-3 px-2 rounded-lg transition-colors ${isFilled ? "bg-gray-50" : ""}`}>
                   <span className="w-8 text-center text-lg shrink-0">{icon}</span>
                   <span className="w-20 text-sm text-gray-600 shrink-0">{discLabel}</span>
                   <div className="flex-1">
