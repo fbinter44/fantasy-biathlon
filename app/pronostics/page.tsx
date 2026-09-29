@@ -19,7 +19,7 @@ export default function PronosticsHubPage() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">📝 Mes Pronos</h1>
-      <p className="text-sm text-gray-500 mb-10">Quel type de pronostic veux-tu gérer ?</p>
+      <p className="text-sm text-gray-500 mb-10">Quel type de pronostics veux-tu gérer ?</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-xl">
 
@@ -50,7 +50,7 @@ export default function PronosticsHubPage() {
               Course par course
             </p>
             <p className="text-sm text-gray-400 mt-1">
-              Vainqueur de chaque épreuve · 10 pts
+              Vainqueurs de chaque épreuve
             </p>
           </div>
         </Link>
