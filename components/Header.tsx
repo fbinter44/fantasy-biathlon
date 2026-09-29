@@ -482,8 +482,15 @@ export default function Header() {
                   📘 Comment jouer
                 </Link>
               </div>
-              <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">
-                Déconnexion
+              <button
+                onClick={handleLogout}
+                aria-label="Me déconnecter"
+                className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-50 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.36 6.64a9 9 0 1 1-12.73 0" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v10" />
+                </svg>
               </button>
             </div>
           </div>
