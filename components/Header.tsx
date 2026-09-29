@@ -217,7 +217,7 @@ export default function Header() {
                     ? "text-gray-300 cursor-not-allowed"
                     : openMenu === "clubs" ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                 }`}>
-                  🏔️ Mes Ski Clubs
+                  Le Coin Ski Club
                   <svg className="w-3.5 h-3.5 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
@@ -296,8 +296,16 @@ export default function Header() {
             <span className="text-sm font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-100">
               {user.username}
             </span>
-            <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-700">
-              Déconnexion
+            <button
+              onClick={handleLogout}
+              title="Me déconnecter"
+              aria-label="Me déconnecter"
+              className="p-1.5 rounded-lg text-red-500 hover:text-red-700 hover:bg-red-50 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.36 6.64a9 9 0 1 1-12.73 0" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2v10" />
+              </svg>
             </button>
           </div>
 
@@ -436,7 +444,7 @@ export default function Header() {
                       onClick={() => setMobileSection(mobileSection === "clubs" ? null : "clubs")}
                       className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50"
                     >
-                      🏔️ Mes Ski Clubs
+                      Le Coin Ski Club
                       <svg className={`w-4 h-4 transition-transform ${mobileSection === "clubs" ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
