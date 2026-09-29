@@ -13,7 +13,7 @@ from backend.dependencies import get_current_user
 from backend.models.standings import PlayerPoints, VenueEvolution
 from utils.biathlon_data import VENUES_NAMES
 from backend.services.db import get_all_users, get_all_pronostics, get_all_leagues, get_all_race_pronostics
-from backend.services.classement_cache import get_or_compute
+from backend.services.classement_cache import get_or_compute, pronos_fingerprint_seed
 from core.ibu.client import IBUClient
 from core.scoring.scoring_service import compute_all_players_points
 from core.pronostics.pronostics_loader import load_pronostics_from_records, parse_pronostics
@@ -70,11 +70,15 @@ def global_classement(
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
     client = _ibu_client(settings, s)
+    records = get_all_pronostics(settings, s)
 
     def compute() -> list[PlayerPoints]:
-        records = get_all_pronostics(settings, s)
+        if not records:
+            return []  # personne n'a encore soumis de pronos pour cette saison
         df = load_pronostics_from_records(records)
         df_league = df[df["user_id"].isin(all_member_ids)]
+        if df_league.empty:
+            return []  # personne parmi les joueurs concernés n'a de pronos
         top5_h, top5_f, globes = parse_pronostics(df_league)
         predictions = build_player_bets(top5_h, top5_f, globes)
 
@@ -86,7 +90,8 @@ def global_classement(
 
         return _rank_players(points_map, username_map)
 
-    return get_or_compute(f"global_{s}.pkl", client, all_member_ids, compute)
+    seed = all_member_ids + pronos_fingerprint_seed(records)
+    return get_or_compute(f"global_{s}.pkl", client, seed, compute)
 
 
 @router.get("/league/{league_id}", response_model=list[PlayerPoints])
@@ -105,11 +110,15 @@ def league_classement(
     users = get_all_users(settings)
     username_map = {u["user_id"]: u["username"] for u in users}
     client = _ibu_client(settings, s)
+    records = get_all_pronostics(settings, s)
 
     def compute() -> list[PlayerPoints]:
-        records = get_all_pronostics(settings, s)
+        if not records:
+            return []  # personne n'a encore soumis de pronos pour cette saison
         df = load_pronostics_from_records(records)
         df_league = df[df["user_id"].isin(member_ids)]
+        if df_league.empty:
+            return []  # aucun membre de cette ligue n'a de pronos
         top5_h, top5_f, globes = parse_pronostics(df_league)
         predictions = build_player_bets(top5_h, top5_f, globes)
 
@@ -121,7 +130,8 @@ def league_classement(
 
         return _rank_players(points_map, username_map)
 
-    return get_or_compute(f"league_{league_id}_{s}.pkl", client, member_ids, compute)
+    seed = member_ids + pronos_fingerprint_seed(records)
+    return get_or_compute(f"league_{league_id}_{s}.pkl", client, seed, compute)
 
 
 @router.get("/evolution", response_model=list[VenueEvolution])
@@ -134,11 +144,15 @@ def classement_evolution(
     all_member_ids = [u["user_id"] for u in users]
     username_map = {u["user_id"]: u["username"] for u in users}
     client = _ibu_client(settings, s)
+    records = get_all_pronostics(settings, s)
 
     def compute() -> list[VenueEvolution]:
-        records = get_all_pronostics(settings, s)
+        if not records:
+            return []  # personne n'a encore soumis de pronos pour cette saison
         df = load_pronostics_from_records(records)
         df_league = df[df["user_id"].isin(all_member_ids)]
+        if df_league.empty:
+            return []  # personne parmi les joueurs concernés n'a de pronos
         top5_h, top5_f, globes = parse_pronostics(df_league)
         predictions = build_player_bets(top5_h, top5_f, globes)
 
@@ -171,4 +185,5 @@ def classement_evolution(
 
         return sorted(evolution, key=lambda v: v.index)
 
-    return get_or_compute(f"evolution_{s}.pkl", client, all_member_ids, compute)
+    seed = all_member_ids + pronos_fingerprint_seed(records)
+    return get_or_compute(f"evolution_{s}.pkl", client, seed, compute)

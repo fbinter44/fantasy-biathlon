@@ -47,6 +47,7 @@ export default function MesResultatsPage() {
   const router = useRouter();
 
   const [myLeagueRanks, setMyLeagueRanks] = useState<LeagueRank[]>([]);
+  const [myLeagueCount, setMyLeagueCount] = useState(0); // nb réel de ski clubs, avant filtrage par score
   const [globalRanking, setGlobalRanking] = useState<PlayerPoints[]>([]);
   const [loading, setLoading] = useState(true);
   const [showFullRanking, setShowFullRanking] = useState(false);
@@ -73,6 +74,7 @@ export default function MesResultatsPage() {
           classement.global(selected.code),
         ]);
         setGlobalRanking(global);
+        setMyLeagueCount(myLeagues.length);
 
         const perLeague = await Promise.all(
           myLeagues.map(async (lg): Promise<LeagueRank | null> => {
@@ -147,8 +149,10 @@ export default function MesResultatsPage() {
         {/* Mon classement par ski club */}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-5 mb-6">
           <h2 className="font-semibold text-gray-800 mb-4">🏔️ Mon classement par ski club</h2>
-          {myLeagueRanks.length === 0 ? (
+          {myLeagueCount === 0 ? (
             <p className="text-sm text-gray-400">Tu n&apos;es dans aucun ski club pour l&apos;instant.</p>
+          ) : !myGlobal ? (
+            <p className="text-sm text-gray-400">📝 Remplis tes pronos pour voir ton classement.</p>
           ) : (
             <div className="space-y-2">
               {myLeagueRanks.map((lg) => (
@@ -183,6 +187,12 @@ export default function MesResultatsPage() {
             )}
           </div>
 
+          {myLeagueCount === 0 ? (
+            <p className="text-sm text-gray-400">Tu n&apos;es dans aucun ski club pour l&apos;instant.</p>
+          ) : !myGlobal ? (
+            <p className="text-sm text-gray-400">📝 Remplis tes pronos pour voir ton classement.</p>
+          ) : (
+          <>
           <div className="overflow-x-auto -mx-2">
             <table className="w-full text-sm">
               <thead>
@@ -208,7 +218,11 @@ export default function MesResultatsPage() {
                 {rows.map((row, i) =>
                   row === "gap" ? (
                     <tr key={`gap-${i}`}>
-                      <td colSpan={2 + COLUMNS.length} className="py-2 text-center text-gray-300">···</td>
+                      <td className="py-2 px-2 text-center text-gray-400">···</td>
+                      <td className="py-2 px-2 text-center text-gray-400">···</td>
+                      {COLUMNS.map((col) => (
+                        <td key={col.key} className="py-2 px-2 text-center text-gray-400">···</td>
+                      ))}
                     </tr>
                   ) : (
                     <tr key={row.user_id} className={row.user_id === user?.user_id ? "bg-blue-50" : ""}>
@@ -241,6 +255,8 @@ export default function MesResultatsPage() {
             >
               Réduire
             </button>
+          )}
+          </>
           )}
         </div>
       </main>

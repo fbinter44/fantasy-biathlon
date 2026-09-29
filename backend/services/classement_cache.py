@@ -24,15 +24,39 @@ from utils.cache_helpers import CACHE_CLASSEMENT_DIR, cache_path, should_refresh
 T = TypeVar("T")
 
 
-def _fingerprint(user_ids: list[str]) -> str:
-    """Empreinte bon marché de la liste des joueurs concernés."""
-    return str(hash(tuple(sorted(user_ids))))
+_PRONOS_FIELDS = (
+    "user_id", "top5_h", "top5_f",
+    "globe_sprint_h", "globe_sprint_f",
+    "globe_pursuit_h", "globe_pursuit_f",
+    "globe_individual_h", "globe_individual_f",
+    "globe_mass_start_h", "globe_mass_start_f",
+)
+
+
+def pronos_fingerprint_seed(records: list[dict]) -> list[str]:
+    """
+    Une chaîne de signature par ligne de pronostics saison, sensible au
+    **contenu** (pas juste à l'identité du joueur) — à combiner avec la liste
+    des joueurs concernés dans le fingerprint de get_or_compute.
+
+    Nécessaire car should_refresh_after_race ne peut détecter un changement
+    qu'après qu'une course ait eu lieu (via last_race_end) : avant la 1ère
+    course de la saison, rien ne force sinon le cache à se rafraîchir quand
+    quelqu'un modifie ses pronos.
+    """
+    return ["|".join(str(r.get(f, "")) for f in _PRONOS_FIELDS) for r in records]
+
+
+def _fingerprint(seed: list[str]) -> str:
+    """Empreinte bon marché d'une liste de chaînes (joueurs concernés, et/ou
+    signatures de contenu type pronos_fingerprint_seed)."""
+    return str(hash(tuple(sorted(seed))))
 
 
 def get_or_compute(
     cache_file: str,
     client: IBUClient,
-    user_ids: list[str],
+    fingerprint_seed: list[str],
     compute_fn: Callable[[], T],
     cache_dir: str = CACHE_CLASSEMENT_DIR,
 ) -> T:
@@ -41,7 +65,7 @@ def get_or_compute(
     classement fantasy ; passer un autre dossier (ex. CACHE_ATHLETES_DIR) pour
     d'autres calculs dérivés des mêmes règles de fraîcheur IBU."""
     path = cache_path(cache_dir, cache_file)
-    fingerprint = _fingerprint(user_ids)
+    fingerprint = _fingerprint(fingerprint_seed)
 
     cached = None
     if os.path.exists(path):
