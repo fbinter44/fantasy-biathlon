@@ -12,7 +12,8 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient
 
 from backend.main import app
-from backend.config import Settings
+from backend.config import Settings, get_settings
+from backend.rate_limit import limiter
 
 
 # ─── Données de test ─────────────────────────────────────────────────────────
@@ -143,6 +144,11 @@ _ROUTERS = [
 
 @pytest.fixture
 def client():
+    # Le limiter slowapi est un singleton module-level partagé par tout le
+    # processus pytest — sans reset, le quota (ex. 10/minute sur /auth/login)
+    # se cumule entre tests indépendants et finit par renvoyer des 429 en
+    # cascade sur des tests qui n'ont rien à voir avec le rate limiting.
+    limiter.reset()
     with ExitStack() as stack:
         for router in _ROUTERS:
             for fn_name, fn in _DB_MOCKS.items():
@@ -152,10 +158,25 @@ def client():
                     pass  # ce router n'importe pas cette fonction
 
         stack.enter_context(patch("backend.routers.auth.send_reset_email", return_value=True))
-        stack.enter_context(patch("backend.config.get_settings", return_value=FAKE_SETTINGS))
 
-        with TestClient(app) as c:
-            yield c
+        # patch("backend.config.get_settings", ...) ne suffit PAS : chaque
+        # router fait `from backend.config import get_settings`, donc résout
+        # sa propre référence locale à l'import — patcher l'attribut du
+        # module backend.config n'a aucun effet sur `Depends(get_settings)`
+        # déjà lié dans les routes. app.dependency_overrides est la bonne
+        # façon FastAPI de surcharger une dépendance : indexé par l'objet
+        # fonction lui-même (le même partout, un seul import réel), donc ça
+        # s'applique à tous les routers d'un coup, quel que soit l'ordre
+        # d'import. Sans ce fix, les tests tournaient avec les VRAIS
+        # settings de prod (DB Supabase, JWT secret, clé Brevo, saison IBU
+        # réelle) au lieu de FAKE_SETTINGS — bug de fuite/isolation sérieux.
+        app.dependency_overrides[get_settings] = lambda: FAKE_SETTINGS
+
+        try:
+            with TestClient(app) as c:
+                yield c
+        finally:
+            app.dependency_overrides.pop(get_settings, None)
 
 
 @pytest.fixture

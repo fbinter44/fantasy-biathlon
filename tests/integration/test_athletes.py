@@ -47,10 +47,20 @@ class TestAthletes:
         women_athletes = client.get("/athletes?gender=W").json()
         assert len(men_athletes) + len(women_athletes) == len(all_athletes)
 
-    def test_list_is_sorted_by_family_name(self, client):
+    def test_active_athletes_come_before_inactive(self, client):
+        """Priorité 3 niveaux (top standings > participants saison > reste) —
+        partition stricte, jamais un actif après un inactif dans la liste."""
         data = client.get("/athletes").json()
-        names = [a["family_name"] for a in data]
-        assert names == sorted(names)
+        statuses = [a["is_active"] for a in data]
+        first_inactive = next((i for i, s in enumerate(statuses) if not s), len(statuses))
+        assert all(statuses[:first_inactive])
+        assert not any(statuses[first_inactive:])
+
+    def test_inactive_athletes_sorted_alphabetically(self, client):
+        """Le groupe des inactifs (un seul niveau de priorité) est alphabétique."""
+        data = client.get("/athletes").json()
+        inactive_names = [a["family_name"] for a in data if not a["is_active"]]
+        assert inactive_names == sorted(inactive_names)
 
     def test_get_athlete_by_id_returns_200(self, client):
         all_athletes = client.get("/athletes").json()
