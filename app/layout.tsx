@@ -28,9 +28,16 @@ export default function RootLayout({
         <AuthProvider>
           <SeasonProvider>
             <Header />
-            <AppGuard>
-              {children}
-            </AppGuard>
+            {/* w-full nécessaire : body est flex-col, et sans largeur explicite
+                un enfant flex direct (ici la page courante) peut se calculer
+                plus large que le viewport dès qu'il contient un descendant
+                large (ex. un tableau) — même avec overflow-x-auto dessus,
+                qui ne suffit pas seul à contenir le débordement dans ce cas. */}
+            <div className="w-full">
+              <AppGuard>
+                {children}
+              </AppGuard>
+            </div>
             <footer className="mt-auto border-t border-gray-100 bg-white">
               <div className="max-w-7xl mx-auto px-4 h-10 flex items-center justify-center gap-4 text-xs text-gray-400">
                 <span>© 2026 Clean Shot</span>

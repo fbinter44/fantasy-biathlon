@@ -4,6 +4,9 @@ node_modules/
 package-lock.json
 pages/
 
+# --- TypeScript ---
+tsconfig.tsbuildinfo
+
 # --- Streamlit secrets ---
 .streamlit/secrets.toml
 
