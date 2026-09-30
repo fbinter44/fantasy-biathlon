@@ -56,6 +56,7 @@ function AthleteTable({ athletes, title, seasonStarted }: { athletes: AthleteSco
       <div className="px-5 py-3 bg-gray-50 border-b border-gray-100 font-semibold text-gray-800 text-sm">
         {title}
       </div>
+      <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-xs text-gray-400 border-b border-gray-100">
@@ -101,6 +102,7 @@ function AthleteTable({ athletes, title, seasonStarted }: { athletes: AthleteSco
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -121,6 +123,7 @@ function GlobeTable({ globes }: { globes: GlobeScoreDetail[] }) {
       <div className="px-5 py-3 bg-gray-50 border-b border-gray-100 font-semibold text-gray-800 text-sm">
         🌍 Globes de cristal
       </div>
+      <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-xs text-gray-400 border-b border-gray-100">
@@ -152,6 +155,7 @@ function GlobeTable({ globes }: { globes: GlobeScoreDetail[] }) {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
@@ -179,6 +183,7 @@ function RaceTable({
       <div className="px-5 py-3 bg-gray-50 border-b border-gray-100 font-semibold text-gray-800 text-sm">
         🎯 Courses gagnées ({correct.length})
       </div>
+      <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
           <tr className="text-xs text-gray-400 border-b border-gray-100">
@@ -202,6 +207,7 @@ function RaceTable({
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
