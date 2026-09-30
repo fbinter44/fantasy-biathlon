@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -12,12 +13,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Pas de thème sombre : tous les composants de l'app codent leurs couleurs en
+   dur (bg-white, text-gray-900, ...) en partant du principe d'un fond clair.
+   Le média-query prefers-color-scheme (reliquat du template create-next-app)
+   ne changeait QUE ces deux variables, jamais lues par les classes Tailwind
+   codées en dur — résultat : texte clair hérité sur fond blanc resté clair,
+   illisible en mode sombre système. On force donc le thème clair partout,
+   plutôt que de supporter un vrai mode sombre (non fait, effort à part). */
 
 html, body {
   /* Empêche tout élément descendant en overflow (grille/flex qui refuse de
