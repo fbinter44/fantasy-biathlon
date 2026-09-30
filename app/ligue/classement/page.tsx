@@ -114,10 +114,34 @@ function PodiumCard({ player }: { player: PlayerPoints }) {
   );
 }
 
+// ─── Largeur de viewport (force Recharts à se re-mesurer) ─────────────────────
+//
+// ResponsiveContainer mesure sa largeur une seule fois au montage via
+// ResizeObserver — si le layout n'est pas encore stabilisé à ce moment (ex.
+// chargement async des données au-dessus, rotation d'écran), le graphe reste
+// figé à une largeur obsolète. On force un vrai remount à chaque changement de
+// largeur d'écran via `key`, plutôt que de compter sur le ResizeObserver seul.
+
+function useViewportWidth(): number | null {
+  const [width, setWidth] = useState<number | null>(null);
+  useEffect(() => {
+    const update = () => setWidth(window.innerWidth);
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+    };
+  }, []);
+  return width;
+}
+
 // ─── Page principale ──────────────────────────────────────────────────────────
 
 export default function ClassementSkiClubPage() {
   const { user, loading: authLoading, currentLeague } = useAuth();
+  const viewportWidth = useViewportWidth();
   const { selected } = useSeason();
   const router = useRouter();
 
@@ -296,12 +320,19 @@ export default function ClassementSkiClubPage() {
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-4">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={rankData} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
-                  <XAxis dataKey="username" tick={{ fontSize: 13 }} />
+              <ResponsiveContainer key={viewportWidth} width="100%" height={340}>
+                <BarChart data={rankData} margin={{ top: 20, right: 12, left: 0, bottom: 45 }}>
+                  <XAxis
+                    dataKey="username"
+                    tick={{ fontSize: 12 }}
+                    angle={-45}
+                    textAnchor="end"
+                    interval={0}
+                    tickFormatter={(name: string) => (name.length > 12 ? `${name.slice(0, 11)}…` : name)}
+                  />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  {chartMetric === "gender" && <Legend />}
+                  {chartMetric === "gender" && <Legend verticalAlign="top" height={28} />}
                   {chartMetric === "total" && (
                     <Bar dataKey="total_points" name="Total" fill="#3b82f6" radius={[4,4,0,0]}>
                       <LabelList dataKey="total_points" position="top" style={{ fontSize: 12 }} />
@@ -350,7 +381,7 @@ export default function ClassementSkiClubPage() {
                 <h2 className="text-lg font-semibold text-gray-700 mb-3">📈 Évolution des points</h2>
                 <p className="text-xs text-gray-400 mb-2">Survolez un point pour voir le détail du week-end · Cliquez sur un nom dans la légende pour voir son score détaillé</p>
                 <div className="bg-white border border-gray-200 rounded-xl p-4">
-                  <ResponsiveContainer width="100%" height={420}>
+                  <ResponsiveContainer key={viewportWidth} width="100%" height={420}>
                     <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                       <XAxis dataKey="venue" tick={{ fontSize: 12 }} />
