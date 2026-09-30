@@ -10,7 +10,7 @@ import type { ChartRow } from "@/lib/utils";
 import { useSeason } from "@/context/SeasonContext";
 import SeasonGuard from "@/components/SeasonGuard";
 import {
-  BarChart, Bar, XAxis, YAxis, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, Tooltip,
   ResponsiveContainer, LabelList,
   LineChart, Line, CartesianGrid,
 } from "recharts";
@@ -320,7 +320,7 @@ export default function ClassementSkiClubPage() {
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl p-4">
-              <ResponsiveContainer key={viewportWidth} width="100%" height={340}>
+              <ResponsiveContainer key={viewportWidth} width="100%" height={300}>
                 <BarChart data={rankData} margin={{ top: 20, right: 12, left: 0, bottom: 45 }}>
                   <XAxis
                     dataKey="username"
@@ -332,7 +332,6 @@ export default function ClassementSkiClubPage() {
                   />
                   <YAxis tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  {chartMetric === "gender" && <Legend verticalAlign="top" height={28} />}
                   {chartMetric === "total" && (
                     <Bar dataKey="total_points" name="Total" fill="#3b82f6" radius={[4,4,0,0]}>
                       <LabelList dataKey="total_points" position="top" style={{ fontSize: 12 }} />
@@ -355,6 +354,18 @@ export default function ClassementSkiClubPage() {
                   )}
                 </BarChart>
               </ResponsiveContainer>
+              {/* Légende maison, en dehors du SVG : sous les étiquettes de joueurs
+                  (inclinées), jamais en compétition d'espace avec elles. */}
+              {chartMetric === "gender" && (
+                <div className="flex items-center justify-center gap-4 mt-2 text-xs text-gray-600">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Hommes
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500" /> Femmes
+                  </span>
+                </div>
+              )}
             </div>
           </section>
         </>
@@ -382,9 +393,16 @@ export default function ClassementSkiClubPage() {
                 <p className="text-xs text-gray-400 mb-2">Survolez un point pour voir le détail du week-end · Cliquez sur un nom dans la légende pour voir son score détaillé</p>
                 <div className="bg-white border border-gray-200 rounded-xl p-4">
                   <ResponsiveContainer key={viewportWidth} width="100%" height={420}>
-                    <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <LineChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 45 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                      <XAxis dataKey="venue" tick={{ fontSize: 12 }} />
+                      <XAxis
+                        dataKey="venue"
+                        tick={{ fontSize: 12 }}
+                        angle={-45}
+                        textAnchor="end"
+                        interval={0}
+                        tickFormatter={(name: string) => (name.length > 12 ? `${name.slice(0, 11)}…` : name)}
+                      />
                       <YAxis tick={{ fontSize: 12 }} />
                       <Tooltip
                         content={(props: any) => (
@@ -395,14 +413,6 @@ export default function ClassementSkiClubPage() {
                             fullEvolution={fullEvolution}
                           />
                         )}
-                      />
-                      <Legend
-                        wrapperStyle={{ cursor: "pointer" }}
-                        onClick={(data) => {
-                          const username = data.dataKey as string;
-                          const userId = usernameToUserId.get(username);
-                          if (userId) router.push(`/ligue/classement/detail?userId=${userId}`);
-                        }}
                       />
                       {players.map((username, i) => {
                         const isMe = username === myUsername;
@@ -428,6 +438,30 @@ export default function ClassementSkiClubPage() {
                       })}
                     </LineChart>
                   </ResponsiveContainer>
+                  {/* Légende maison, en dehors du SVG : sous les étiquettes de
+                      week-ends (inclinées), jamais en compétition d'espace
+                      avec elles. Garde le clic vers le détail du joueur. */}
+                  <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 mt-3 text-xs">
+                    {players.map((username, i) => {
+                      const isMe = username === myUsername;
+                      return (
+                        <button
+                          key={username}
+                          onClick={() => {
+                            const userId = usernameToUserId.get(username);
+                            if (userId) router.push(`/ligue/classement/detail?userId=${userId}`);
+                          }}
+                          className={`flex items-center gap-1.5 hover:underline ${isMe ? "font-semibold text-gray-900" : "text-gray-600"}`}
+                        >
+                          <span
+                            className="w-2.5 h-2.5 rounded-full shrink-0"
+                            style={{ backgroundColor: isMe ? "#ef4444" : COLORS[i % COLORS.length] }}
+                          />
+                          {username}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </section>
 
