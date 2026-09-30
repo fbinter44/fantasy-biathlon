@@ -19,6 +19,14 @@
   }
 }
 
+html, body {
+  /* Empêche tout élément descendant en overflow (grille/flex qui refuse de
+     rétrécir sous la largeur de son contenu) de forcer un scroll horizontal
+     sur toute la page en mobile — les conteneurs volontairement scrollables
+     (ex. tableau du classement, `overflow-x-auto`) restent scrollables. */
+  overflow-x: hidden;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

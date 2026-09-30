@@ -21,7 +21,7 @@ function ScoreCard({
   icon, label, value, highlight = false,
 }: { icon: string; label: string; value: number; highlight?: boolean }) {
   return (
-    <div className={`rounded-2xl border shadow-sm p-4 text-center ${
+    <div className={`min-w-0 rounded-2xl border shadow-sm p-4 text-center ${
       highlight ? "bg-blue-50 border-blue-200" : "bg-white border-gray-200"
     }`}>
       <div className="text-2xl mb-1">{icon}</div>
@@ -156,9 +156,9 @@ export default function MesResultatsPage() {
           ) : (
             <div className="space-y-2">
               {myLeagueRanks.map((lg) => (
-                <div key={lg.league_id} className="flex items-center justify-between px-3 py-2 rounded-lg bg-gray-50">
-                  <span className="text-sm text-gray-700">{lg.name}</span>
-                  <span className="text-sm font-semibold text-blue-600">{lg.rank}e sur {lg.total}</span>
+                <div key={lg.league_id} className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-gray-50">
+                  <span className="text-sm text-gray-700 truncate min-w-0">{lg.name}</span>
+                  <span className="text-sm font-semibold text-blue-600 shrink-0">{lg.rank}e sur {lg.total}</span>
                 </div>
               ))}
             </div>
