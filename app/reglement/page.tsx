@@ -248,6 +248,15 @@ export default function ReglementPage() {
           </p>
         </div>
 
+        <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl text-center">
+          <p className="text-sm text-blue-800">
+            Une question sur le fonctionnement pratique du jeu ?{" "}
+            <Link href="/faq" className="font-semibold underline underline-offset-2 hover:text-blue-900">
+              ❓ Consulte la FAQ
+            </Link>
+          </p>
+        </div>
+
       </section>
     </main>
   );
