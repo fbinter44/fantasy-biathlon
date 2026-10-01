@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
-export default function PronosticsHubPage() {
+function PronosticsHubContent() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pronosRequis = searchParams?.get("pronos_requis") === "1";
 
   useEffect(() => {
     if (authLoading) return;
@@ -18,6 +20,18 @@ export default function PronosticsHubPage() {
 
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4">
+      {pronosRequis && (
+        <div className="w-full max-w-xl mb-8 p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl text-center">
+          <p className="text-amber-800 font-semibold">
+            ⚠️ Remplis d&apos;abord tes pronos saison
+          </p>
+          <p className="text-sm text-amber-700 mt-1">
+            Les pages de ton ski club (pronos, classement, détail des scores…) ne
+            sont accessibles qu&apos;une fois tes pronos saison soumis.
+          </p>
+        </div>
+      )}
+
       <h1 className="text-2xl font-bold text-gray-900 mb-2">📝 Mes Pronos</h1>
       <p className="text-sm text-gray-500 mb-10">Quel type de pronostics veux-tu gérer ?</p>
 
@@ -57,5 +71,13 @@ export default function PronosticsHubPage() {
 
       </div>
     </div>
+  );
+}
+
+export default function PronosticsHubPage() {
+  return (
+    <Suspense fallback={null}>
+      <PronosticsHubContent />
+    </Suspense>
   );
 }
