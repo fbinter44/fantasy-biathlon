@@ -139,6 +139,12 @@ _ROUTERS = [
     "backend.routers.pronostics",
     "backend.routers.leagues",
     "backend.routers.classement",
+    "backend.routers.score",
+    # get_league_mates()/deadline_passed() (règle de confidentialité partagée
+    # par /pronostics et /score) appellent get_all_leagues() depuis ce module,
+    # pas depuis le router — sans ça, le mock ne s'applique jamais et la vraie
+    # DB (inexistante en test) est appelée.
+    "backend.services.privacy",
 ]
 
 

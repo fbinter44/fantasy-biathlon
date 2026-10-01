@@ -1,7 +1,9 @@
 """
 Décomposition détaillée du score d'un joueur.
 
-GET /score/{user_id}  → ScoreBreakdown (auth requise)
+GET /score/{user_id}  → ScoreBreakdown (authentifié, même règle de
+                         confidentialité que /pronostics : masqué tant que la
+                         deadline saison n'est pas passée — sauf le tien)
 """
 
 from datetime import datetime, timezone
@@ -21,6 +23,7 @@ from core.pronostics.pronostics_loader import load_pronostics_from_records, pars
 from core.pronostics.pronostics_builder import build_player_bets
 from core.scoring.points_table import POINTS_TABLE
 from backend.services.classement_cache import get_or_compute
+from backend.services.privacy import league_mates, deadline_passed
 from utils.biathlon_data import ATHLETES_BY_IBUID, VENUES_NAMES
 from utils.biathlon_data import DISCIPLINE_MAP, GENDERS_CODES
 
@@ -183,9 +186,17 @@ def get_score_breakdown(
     user_id: str,
     season: str = Query(None),
     settings: Settings = Depends(get_settings),
-    _caller: str = Depends(get_current_user),
+    current_user: str = Depends(get_current_user),
 ):
     s = season or settings.ibu_season_code
+
+    # Même règle de confidentialité que /pronostics : le détail de score
+    # expose les pronos (predicted_rank, predicted_name...), donc ceux d'un
+    # autre joueur restent masqués tant que la deadline saison n'est pas
+    # passée, même entre membres d'un même ski club.
+    if user_id != current_user:
+        if user_id not in league_mates(current_user, settings) or not deadline_passed(s):
+            raise HTTPException(status_code=403, detail="Tu ne peux pas encore consulter le score de ce joueur.")
 
     # Vérification que l'utilisateur existe
     user = get_user_by_id(user_id, settings)
@@ -255,11 +266,13 @@ def get_score_breakdown(
             season_started=season_started,
         )
 
-    # Pas d'empreinte de contenu nécessaire ici : une fois qu'une course a eu
-    # lieu, les pronos saison sont forcément déjà verrouillés (la deadline
-    # saison tombe avant la 1ère course) et modifier un pronostic course futur
-    # ne change rien au score déjà affiché (_build_race_details ignore les
-    # courses futures) — seul un nouveau résultat de course peut faire bouger
-    # ce calcul, d'où la réutilisation telle quelle de get_or_compute avec un
-    # "fingerprint" figé à [user_id].
-    return get_or_compute(f"score_{user_id}_{s}.pkl", client, [user_id], compute)
+    # Pas d'empreinte de contenu des pronos nécessaire ici : une fois qu'une
+    # course a eu lieu, les pronos saison sont forcément déjà verrouillés (la
+    # deadline saison tombe avant la 1ère course) et modifier un pronostic
+    # course futur ne change rien au score déjà affiché (_build_race_details
+    # ignore les courses futures) — seul un nouveau résultat de course peut
+    # faire bouger ce calcul. Le username est quand même inclus dans
+    # l'empreinte : rien d'autre ne force un recalcul quand un joueur change
+    # juste de pseudo, et `username` est renvoyé par ScoreBreakdown.
+    seed = [f"{user_id}:{user['username']}"]
+    return get_or_compute(f"score_{user_id}_{s}.pkl", client, seed, compute)

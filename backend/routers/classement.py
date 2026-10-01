@@ -44,6 +44,15 @@ def _rank_players(points_map: dict, username_map: dict) -> list[PlayerPoints]:
     return result
 
 
+def _id_username_seed(users: list[dict], ids: list[str]) -> list[str]:
+    """Empreinte "qui est concerné" sensible au contenu (pas juste à l'identité) :
+    inclut le username, pas que le user_id, pour qu'un changement de pseudo
+    invalide bien le cache (il ne touche ni aux pronos ni aux résultats IBU,
+    donc rien d'autre ne le ferait rafraîchir)."""
+    ids_set = set(ids)
+    return [f"{u['user_id']}:{u['username']}" for u in users if u["user_id"] in ids_set]
+
+
 def _load_race_winner_data(settings: Settings, season: str):
     """Charge les pronos course + résultats IBU. Retourne (all_race_pronos, venues)."""
     all_race_pronos = get_all_race_pronostics(settings, season)
@@ -90,7 +99,7 @@ def global_classement(
 
         return _rank_players(points_map, username_map)
 
-    seed = all_member_ids + pronos_fingerprint_seed(records)
+    seed = _id_username_seed(users, all_member_ids) + pronos_fingerprint_seed(records)
     return get_or_compute(f"global_{s}.pkl", client, seed, compute)
 
 
@@ -130,7 +139,7 @@ def league_classement(
 
         return _rank_players(points_map, username_map)
 
-    seed = member_ids + pronos_fingerprint_seed(records)
+    seed = _id_username_seed(users, member_ids) + pronos_fingerprint_seed(records)
     return get_or_compute(f"league_{league_id}_{s}.pkl", client, seed, compute)
 
 
@@ -189,5 +198,5 @@ def classement_evolution(
 
         return sorted(evolution, key=lambda v: v.index)
 
-    seed = all_member_ids + pronos_fingerprint_seed(records)
+    seed = _id_username_seed(users, all_member_ids) + pronos_fingerprint_seed(records)
     return get_or_compute(f"evolution_{s}.pkl", client, seed, compute)
