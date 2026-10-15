@@ -87,7 +87,7 @@ Caching: standings pickled under `cache/cache_standings/`, refreshed only when c
 
 ### Frontend (`app/`, `components/`, `lib/`)
 
-Next.js 14 App Router. All API calls go through `lib/api.ts` which reads `NEXT_PUBLIC_API_URL`.
+Next.js 16 App Router (Turbopack), React 19, Tailwind 4, ESLint 9 flat config (`eslint.config.mjs`). All API calls go through `lib/api.ts` which reads `NEXT_PUBLIC_API_URL`.
 
 Pages: `login`, `pronostics` (mes pronos — hub + `pronostics/saison`, `pronostics/course`), `ligue/pronostics` (pronos du ski club), `ligue/biathlete` (focus biathlète), `ligue/classement` (+ `ligue/classement/detail`, `ligue/classement/evolution`), `classement` (classements généraux IBU), `ligues`, `compte`, `reglement`, `reset-password`, `verify-email`.
 

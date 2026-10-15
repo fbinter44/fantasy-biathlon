@@ -1,7 +1,6 @@
 # --- Next.js ---
 .next/
 node_modules/
-package-lock.json
 pages/
 
 # --- TypeScript ---

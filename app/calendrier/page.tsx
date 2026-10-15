@@ -91,7 +91,7 @@ function ResultsTable({
             const isPredicted = predictedIbuId && r.ibu_id === predictedIbuId;
             return (
               <tr
-                key={r.rank}
+                key={r.ibu_id} // pas r.rank : deux athlètes ex aequo partagent le même rang
                 className={`border-b border-gray-50 transition-colors ${
                   isPredicted
                     ? "bg-yellow-50 hover:bg-yellow-100"

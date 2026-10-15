@@ -2,7 +2,7 @@
  * Fonctions utilitaires pures — testables sans DOM ni React.
  */
 
-import type { PlayerPoints, VenueEvolution, PronosticsResponse } from "@/lib/api";
+import type { VenueEvolution, PronosticsResponse } from "@/lib/api";
 
 // ─── Erreurs API ──────────────────────────────────────────────────────────────
 

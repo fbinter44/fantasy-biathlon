@@ -13,6 +13,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip,
   ResponsiveContainer, LabelList,
   LineChart, Line, CartesianGrid,
+  type TooltipContentProps,
 } from "recharts";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -405,11 +406,11 @@ export default function ClassementSkiClubPage() {
                       />
                       <YAxis tick={{ fontSize: 12 }} />
                       <Tooltip
-                        content={(props: any) => (
+                        content={(props: TooltipContentProps) => (
                           <EvoTooltip
                             active={props.active}
-                            payload={props.payload}
-                            label={props.label}
+                            payload={props.payload as unknown as EvoPayloadEntry[]}
+                            label={props.label as string | undefined}
                             fullEvolution={fullEvolution}
                           />
                         )}

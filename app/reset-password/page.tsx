@@ -13,7 +13,7 @@ const CODE_TTL = 15 * 60; // secondes — doit correspondre au backend (RESET_CO
 function Countdown({ onExpire }: { onExpire: () => void }) {
   const [remaining, setRemaining] = useState(CODE_TTL);
   const onExpireRef = useRef(onExpire);
-  onExpireRef.current = onExpire;
+  useEffect(() => { onExpireRef.current = onExpire; }, [onExpire]);
 
   useEffect(() => {
     const interval = setInterval(() => {

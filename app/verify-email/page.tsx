@@ -13,22 +13,17 @@ function VerifyEmail() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { signIn, setHasPronos } = useAuth();
-  const [status, setStatus] = useState<Status>("loading");
-  const [error, setError] = useState("");
+  const token = searchParams?.get("token");
+  const [status, setStatus] = useState<Status>(token ? "loading" : "error");
+  const [error, setError] = useState(token ? "" : "Lien d'activation incomplet.");
   // Le token est à usage unique : sans ce garde, le double appel des effets en
   // mode strict (dev) consommerait le token puis afficherait "déjà utilisé".
   const started = useRef(false);
 
   useEffect(() => {
-    if (started.current) return;
+    if (!token || started.current) return;
     started.current = true;
 
-    const token = searchParams?.get("token");
-    if (!token) {
-      setError("Lien d'activation incomplet.");
-      setStatus("error");
-      return;
-    }
     auth.verifyEmail(token)
       .then((data) => {
         signIn({ user_id: data.user_id, username: data.username, token: data.access_token });
@@ -39,7 +34,7 @@ function VerifyEmail() {
         setError(err instanceof Error ? err.message : "Erreur lors de l'activation");
         setStatus("error");
       });
-  }, [searchParams, signIn, setHasPronos]);
+  }, [token, signIn, setHasPronos]);
 
   const btnClass = "w-full py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors";
 

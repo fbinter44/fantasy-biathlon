@@ -22,6 +22,7 @@ function clearSessionAndRedirect() {
     // Navigation complète plutôt que le routeur Next.js : `request()` n'est
     // pas un composant React, et un rechargement garantit un état propre
     // (AuthContext relit un localStorage déjà nettoyé).
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination -- rechargement complet voulu, cf. ci-dessus
     window.location.href = "/login";
   }
 }
