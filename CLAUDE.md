@@ -12,6 +12,7 @@ python -m uvicorn backend.main:app --reload
 
 ### Frontend (Next.js)
 ```bash
+cd frontend
 npm run dev
 # → http://localhost:3000
 ```
@@ -26,7 +27,7 @@ Stack: **FastAPI + Next.js + PostgreSQL (Supabase)**.
 
 ### Deployment
 
-- **Frontend**: Vercel (`vercel.json` at root forces Next.js detection)
+- **Frontend**: Vercel — project setting *Root Directory* = `frontend` (no `vercel.json`)
 - **Backend**: Railway (`railway.json` at root, `requirements.txt`)
 - **Database**: Supabase PostgreSQL — use the **Session pooler** connection string in `DATABASE_URL` (Railway is IPv4-only)
 
@@ -38,17 +39,18 @@ core/             Business logic — framework-agnostic
   ibu/            IBU API client
   scoring/        Points computation engine
   pronostics/     Prediction loading & building
-app/              Next.js App Router pages
-components/       React components (Header, Logo, AppGuard, SeasonGuard…)
-context/          React contexts (AuthContext, SeasonContext)
-lib/              API client (lib/api.ts), season utils (lib/season.ts)
+frontend/         Next.js app (own package.json, node_modules, configs)
+  app/            App Router pages
+  components/     React components (Header, Logo, AppGuard, SeasonGuard…)
+  context/        React contexts (AuthContext, SeasonContext)
+  lib/            API client (lib/api.ts), season utils (lib/season.ts)
+  tests/          Vitest tests
 utils/            Shared Python constants & helpers (biathlon_data, cache_helpers, api_helpers, sheets)
 biathletes_data/  Static athlete master list (athletes_info.json)
 scripts/          One-off data utilities
 tests/
   unit/           pytest unit tests (scoring, biathlon data)
   integration/    pytest integration tests (require live DB)
-  frontend/       Vitest tests
 ```
 
 ### Backend (`backend/`)
@@ -62,7 +64,7 @@ tests/
 - `JWT_SECRET` — token signing key
 - `BREVO_API_KEY` / `BREVO_SENDER` — transactional email (account activation, password reset)
 - `FRONTEND_URL` — base URL used in the activation link (default `https://clean-shot.app`; set `http://localhost:3000` locally)
-- `IBU_SEASON_CODE` — optional; when unset, computed automatically from the date via `current_ibu_season_code()` (`utils/biathlon_data.py`), which switches on Nov 1st and mirrors `computeCurrentSeason()` in `lib/season.ts` on the frontend. Set explicitly only to force a specific season (tests, emergency rollback).
+- `IBU_SEASON_CODE` — optional; when unset, computed automatically from the date via `current_ibu_season_code()` (`utils/biathlon_data.py`), which switches on Nov 1st and mirrors `computeCurrentSeason()` in `frontend/lib/season.ts`. Set explicitly only to force a specific season (tests, emergency rollback).
 
 **DB service** (`backend/services/db.py`): `psycopg2.ThreadedConnectionPool` singleton. Appends `?sslmode=require` if not present. All DB functions take `Settings` as a parameter (injected via FastAPI dependency).
 
@@ -85,7 +87,7 @@ Caching: standings pickled under `cache/cache_standings/`, refreshed only when c
 
 **Static athlete data** — `biathletes_data/athletes_info.json` is the master list. IBUId is the canonical athlete identifier throughout the app.
 
-### Frontend (`app/`, `components/`, `lib/`)
+### Frontend (`frontend/`)
 
 Next.js 16 App Router (Turbopack), React 19, Tailwind 4, ESLint 9 flat config (`eslint.config.mjs`). All API calls go through `lib/api.ts` which reads `NEXT_PUBLIC_API_URL`.
 
@@ -105,5 +107,5 @@ Charts use Recharts. Country flags use `flag-icons`.
 ```bash
 pytest tests/unit/
 pytest tests/integration/   # requires DATABASE_URL in .env
-npm test                     # Vitest — tests/frontend/
+cd frontend && npm test      # Vitest — frontend/tests/
 ```

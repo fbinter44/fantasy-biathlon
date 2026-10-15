@@ -18,7 +18,7 @@ import time
 import uuid
 import bcrypt
 
-RESET_CODE_TTL = 15 * 60  # 15 minutes en secondes — doit correspondre à CODE_TTL côté frontend (app/reset-password/page.tsx)
+RESET_CODE_TTL = 15 * 60  # 15 minutes en secondes — doit correspondre à CODE_TTL côté frontend (frontend/app/reset-password/page.tsx)
 VERIFY_TOKEN_TTL = 24 * 60 * 60  # 24 heures — mentionné dans le texte de l'email d'activation
 
 # Détail renvoyé (403) par /login pour un compte non activé — le frontend s'appuie

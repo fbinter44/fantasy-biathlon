@@ -2,7 +2,7 @@
 Tests unitaires de la logique de saison (utils/biathlon_data.py).
 
 current_ibu_season_code() est le miroir Python de computeCurrentSeason()
-(lib/season.ts) — les deux DOIVENT retomber sur le même code de saison pour
+(frontend/lib/season.ts) — les deux DOIVENT retomber sur le même code de saison pour
 la même date, sinon front et back se désynchronisent (deadlines, verrous de
 pronos, cache...). Zéro test ne couvrait cette logique avant, alors qu'elle a
 été modifiée en cours de projet (bascule hors-saison déplacée du 1er nov au

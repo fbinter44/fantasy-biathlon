@@ -10,7 +10,7 @@ A full-stack fantasy sports app for the IBU Biathlon World Cup season 2025/26. U
 
 | Layer | Technology |
 |---|---|
-| Frontend | Next.js 14, React 18, TypeScript, Tailwind CSS, Recharts |
+| Frontend | Next.js 16, React 19, TypeScript, Tailwind CSS, Recharts |
 | Backend | FastAPI, Python 3.12, psycopg2, JWT auth |
 | Database | PostgreSQL (Supabase) |
 | Deployment | Vercel (frontend) · Railway (backend) |
@@ -43,9 +43,11 @@ A full-stack fantasy sports app for the IBU Biathlon World Cup season 2025/26. U
 │   ├── scoring/          # Points computation engine
 │   └── pronostics/       # Prediction loading & building
 │
-├── app/                  # Next.js App Router pages
-├── components/           # Shared React components
-├── lib/                  # API client (lib/api.ts), shared utils
+├── frontend/             # Next.js app (deployed on Vercel, Root Directory = frontend)
+│   ├── app/              # App Router pages
+│   ├── components/       # Shared React components
+│   ├── lib/              # API client (lib/api.ts), shared utils
+│   └── tests/            # Vitest tests
 │
 └── scripts/              # Data migration, athlete scraping utilities
 ```
@@ -100,6 +102,7 @@ python -m uvicorn backend.main:app --reload
 ### Frontend
 
 ```bash
+cd frontend
 npm install
 npm run dev
 # → http://localhost:3000
@@ -113,7 +116,7 @@ pytest tests/unit/
 pytest tests/integration/   # requires a live DB in .env
 
 # Frontend
-npm test
+cd frontend && npm test
 ```
 
 ---

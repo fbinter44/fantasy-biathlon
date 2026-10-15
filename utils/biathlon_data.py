@@ -38,7 +38,7 @@ def get_pronos_deadline(season_code: str) -> datetime | None:
 def current_ibu_season_code(today: date | None = None) -> str:
     """Code de saison IBU en cours à partir de la date, ex. '2627' pour 2026/27.
 
-    Miroir de `computeCurrentSeason` (lib/season.ts) côté frontend, pour que
+    Miroir de `computeCurrentSeason` (frontend/lib/season.ts) côté frontend, pour que
     les deux stacks retombent toujours sur la même saison :
     - Oct → Avr : saison en cours (ex. Jan 2027 → saison 26/27)
     - Mai → Sept : hors-saison, on pointe déjà sur la saison suivante
