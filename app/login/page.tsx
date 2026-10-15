@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { auth, pronostics } from "@/lib/api";
+import { auth, pronostics, ApiError } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
 import Logo from "@/components/Logo";
 
@@ -21,6 +21,10 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  // Identifiant (username ou email) d'un compte en attente d'activation —
+  // affiche le bouton de renvoi de l'email d'activation.
+  const [pendingActivation, setPendingActivation] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
 
   // Login
   const [identifier, setIdentifier] = useState("");
@@ -34,6 +38,8 @@ export default function LoginPage() {
   async function handleLogin(e: React.SyntheticEvent) {
     e.preventDefault();
     setError("");
+    setSuccess("");
+    setPendingActivation(null);
     setLoading(true);
     try {
       const data = await auth.login(identifier, password);
@@ -47,6 +53,7 @@ export default function LoginPage() {
       router.push("/");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erreur de connexion");
+      if (err instanceof ApiError && err.status === 403) setPendingActivation(identifier);
     } finally {
       setLoading(false);
     }
@@ -66,11 +73,29 @@ export default function LoginPage() {
       setEmail("");
       setRegPassword("");
       setTab("login");
-      setSuccess("Ton compte a été créé avec succès. Tu peux maintenant te connecter !");
+      setSuccess(
+        `Ton compte a été créé ! Un email d'activation a été envoyé à ${email}. ` +
+        "Clique sur le lien qu'il contient pour activer ton compte (pense à vérifier tes spams)."
+      );
+      setPendingActivation(email);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Erreur lors de l'inscription");
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleResend() {
+    if (!pendingActivation) return;
+    setError("");
+    setResending(true);
+    try {
+      const res = await auth.resendVerification(pendingActivation);
+      setSuccess(res.detail);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Erreur lors de l'envoi");
+    } finally {
+      setResending(false);
     }
   }
 
@@ -119,6 +144,16 @@ export default function LoginPage() {
               <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
                 {success}
               </div>
+            )}
+            {pendingActivation && (
+              <button
+                type="button"
+                onClick={handleResend}
+                disabled={resending}
+                className="mb-4 w-full py-2 border border-blue-200 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-50 disabled:opacity-50 transition-colors"
+              >
+                {resending ? "Envoi..." : "Renvoyer l'email d'activation"}
+              </button>
             )}
 
             {tab === "login" ? (

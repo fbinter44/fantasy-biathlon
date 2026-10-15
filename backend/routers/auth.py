@@ -2,7 +2,9 @@
 Routes d'authentification.
 
 POST /auth/login          → TokenResponse
-POST /auth/register       → UserPublic
+POST /auth/register       → UserPublic (compte non activé, email d'activation envoyé)
+POST /auth/verify-email   → TokenResponse (active le compte et connecte)
+POST /auth/resend-verification → message
 POST /auth/reset-request  → message
 POST /auth/reset-password → message
 GET  /auth/me             → UserPublic
@@ -17,6 +19,11 @@ import uuid
 import bcrypt
 
 RESET_CODE_TTL = 15 * 60  # 15 minutes en secondes — doit correspondre à CODE_TTL côté frontend (app/reset-password/page.tsx)
+VERIFY_TOKEN_TTL = 24 * 60 * 60  # 24 heures — mentionné dans le texte de l'email d'activation
+
+# Détail renvoyé (403) par /login pour un compte non activé — le frontend s'appuie
+# sur le statut 403 pour proposer le renvoi de l'email d'activation.
+NOT_VERIFIED_DETAIL = "Ton compte n'est pas encore activé. Clique sur le lien reçu par email."
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 
@@ -24,6 +31,7 @@ from backend.config import Settings, get_settings
 from backend.dependencies import create_access_token, get_current_user
 from backend.models.auth import (
     LoginRequest, TokenResponse, RegisterRequest,
+    VerifyEmailBody, ResendVerificationBody,
     ResetRequestBody, ResetPasswordBody, UserPublic,
     UpdateUsernameBody, UpdatePasswordBody, FeedbackBody,
 )
@@ -31,9 +39,11 @@ from backend.rate_limit import limiter
 from backend.services.db import (
     get_all_users, get_user_by_identifier, get_user_by_id,
     username_exists, email_exists,
-    create_user, update_user_field,
+    create_user, delete_user, delete_expired_unverified,
+    get_user_by_verify_token, set_verify_token, mark_email_verified,
+    update_user_field,
 )
-from backend.services.email import send_feedback_email, send_reset_email
+from backend.services.email import send_feedback_email, send_reset_email, send_verification_email
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -59,6 +69,14 @@ def _unique_id(existing: set, length: int = 8) -> str:
             return uid
 
 
+def _send_verification(email: str, username: str, token: str, settings: Settings) -> bool:
+    link = f"{settings.frontend_url.rstrip('/')}/verify-email?token={token}"
+    try:
+        return send_verification_email(email, username, link, settings)
+    except ValueError:
+        return False
+
+
 @router.post("/login", response_model=TokenResponse)
 @limiter.limit("10/minute")
 def login(request: Request, body: LoginRequest, settings: Settings = Depends(get_settings)):
@@ -70,6 +88,10 @@ def login(request: Request, body: LoginRequest, settings: Settings = Depends(get
     password_ok = _verify(body.password, user["password_hash"] if user else _DUMMY_HASH)
     if not user or not password_ok:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Identifiant ou mot de passe incorrect.")
+    # Vérifié après le mot de passe : seul le vrai propriétaire apprend que le
+    # compte existe mais n'est pas activé.
+    if not user["email_verified"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=NOT_VERIFIED_DETAIL)
     token = create_access_token(user["user_id"], settings)
     return TokenResponse(access_token=token, user_id=user["user_id"], username=user["username"])
 
@@ -79,6 +101,11 @@ def login(request: Request, body: LoginRequest, settings: Settings = Depends(get
 def register(request: Request, body: RegisterRequest, settings: Settings = Depends(get_settings)):
     username = body.username.strip().lower()
     email = body.email.strip().lower()
+    now = int(time.time())
+
+    # Libère le username/email s'ils ne sont pris que par une inscription
+    # jamais activée et dont le lien a expiré.
+    delete_expired_unverified(username, email, now, settings)
 
     if username_exists(username, settings):
         raise HTTPException(status_code=400, detail="Ce nom d'utilisateur existe déjà.")
@@ -87,8 +114,50 @@ def register(request: Request, body: RegisterRequest, settings: Settings = Depen
 
     users = get_all_users(settings)
     user_id = _unique_id({u["user_id"] for u in users})
-    create_user(user_id, username, email, _hash(body.password), settings)
+    verify_token = secrets.token_urlsafe(32)
+    create_user(user_id, username, email, _hash(body.password), verify_token, now + VERIFY_TOKEN_TTL, settings)
+
+    if not _send_verification(email, username, verify_token, settings):
+        # Sans email, le compte ne pourrait jamais être activé : on annule
+        # l'inscription pour que l'utilisateur puisse réessayer.
+        delete_user(user_id, settings)
+        raise HTTPException(
+            status_code=500,
+            detail="L'email d'activation n'a pas pu être envoyé. Réessaie dans quelques minutes.",
+        )
     return UserPublic(user_id=user_id, username=username, email=email)
+
+
+@router.post("/verify-email", response_model=TokenResponse)
+@limiter.limit("10/15minutes")
+def verify_email(request: Request, body: VerifyEmailBody, settings: Settings = Depends(get_settings)):
+    user = get_user_by_verify_token(body.token, settings) if body.token else None
+    if not user:
+        raise HTTPException(status_code=400, detail="Ce lien d'activation est invalide ou a déjà été utilisé.")
+    if int(time.time()) > user["verify_expires"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Ce lien d'activation a expiré. Connecte-toi pour en recevoir un nouveau.",
+        )
+    mark_email_verified(user["user_id"], settings)
+    token = create_access_token(user["user_id"], settings)
+    return TokenResponse(access_token=token, user_id=user["user_id"], username=user["username"])
+
+
+@router.post("/resend-verification")
+@limiter.limit("3/15minutes")
+def resend_verification(request: Request, body: ResendVerificationBody, settings: Settings = Depends(get_settings)):
+    user = get_user_by_identifier(body.identifier.strip().lower(), settings)
+    # Réponse identique que le compte existe ou non (pas d'énumération).
+    if user and not user["email_verified"]:
+        verify_token = secrets.token_urlsafe(32)
+        set_verify_token(user["user_id"], verify_token, int(time.time()) + VERIFY_TOKEN_TTL, settings)
+        if not _send_verification(user["email"], user["username"], verify_token, settings):
+            raise HTTPException(
+                status_code=500,
+                detail="L'email d'activation n'a pas pu être envoyé. Réessaie dans quelques minutes.",
+            )
+    return {"detail": "Si ce compte attend une activation, un nouvel email vient d'être envoyé."}
 
 
 @router.post("/reset-request")
@@ -131,6 +200,9 @@ def reset_password(request: Request, body: ResetPasswordBody, settings: Settings
         raise HTTPException(status_code=400, detail="Ce code a expiré. Recommence la procédure.")
     update_user_field(user["user_id"], "password_hash", _hash(body.new_password), settings)
     update_user_field(user["user_id"], "reset_code", "", settings)
+    # Le code reçu par email prouve la possession de l'adresse : vaut activation.
+    if not user["email_verified"]:
+        mark_email_verified(user["user_id"], settings)
     return {"detail": "Mot de passe réinitialisé."}
 
 

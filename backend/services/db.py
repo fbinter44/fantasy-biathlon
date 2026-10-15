@@ -44,7 +44,7 @@ def _conn(settings: Settings):
 def get_all_users(settings: Settings) -> list[dict]:
     with _conn(settings) as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute("SELECT user_id, username, email, password_hash, reset_code FROM users")
+            cur.execute("SELECT user_id, username, email, password_hash, reset_code, email_verified FROM users")
             return [dict(r) for r in cur.fetchall()]
 
 
@@ -82,12 +82,64 @@ def email_exists(email: str, settings: Settings) -> bool:
             return cur.fetchone() is not None
 
 
-def create_user(user_id: str, username: str, email: str, password_hash: str, settings: Settings) -> None:
+def create_user(
+    user_id: str, username: str, email: str, password_hash: str,
+    verify_token: str, verify_expires: int, settings: Settings,
+) -> None:
+    """Crée un compte non activé — l'activation passe par verify_email()."""
     with _conn(settings) as conn:
         with conn.cursor() as cur:
             cur.execute(
-                "INSERT INTO users (user_id, username, email, password_hash) VALUES (%s, %s, %s, %s)",
-                (user_id, username, email, password_hash),
+                "INSERT INTO users (user_id, username, email, password_hash, email_verified, verify_token, verify_expires) "
+                "VALUES (%s, %s, %s, %s, FALSE, %s, %s)",
+                (user_id, username, email, password_hash, verify_token, verify_expires),
+            )
+
+
+def delete_user(user_id: str, settings: Settings) -> None:
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM users WHERE user_id = %s", (user_id,))
+
+
+def delete_expired_unverified(username: str, email: str, now: int, settings: Settings) -> None:
+    """
+    Supprime les comptes jamais activés dont le lien a expiré et qui bloquent ce
+    username ou cet email — évite qu'une inscription abandonnée (ou faite avec
+    l'email de quelqu'un d'autre) squatte le nom/l'adresse indéfiniment.
+    """
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "DELETE FROM users WHERE email_verified = FALSE AND verify_expires < %s "
+                "AND (LOWER(username) = %s OR LOWER(email) = %s)",
+                (now, username.lower(), email.lower()),
+            )
+
+
+def get_user_by_verify_token(token: str, settings: Settings) -> dict | None:
+    with _conn(settings) as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("SELECT * FROM users WHERE verify_token = %s AND verify_token <> ''", (token,))
+            row = cur.fetchone()
+            return dict(row) if row else None
+
+
+def set_verify_token(user_id: str, token: str, expires: int, settings: Settings) -> None:
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE users SET verify_token = %s, verify_expires = %s WHERE user_id = %s",
+                (token, expires, user_id),
+            )
+
+
+def mark_email_verified(user_id: str, settings: Settings) -> None:
+    with _conn(settings) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE users SET email_verified = TRUE, verify_token = '', verify_expires = 0 WHERE user_id = %s",
+                (user_id,),
             )
 
 

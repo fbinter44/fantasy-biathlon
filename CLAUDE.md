@@ -60,12 +60,13 @@ tests/
 **Config** (`backend/config.py`): `pydantic-settings` reads from `.env`. Key vars:
 - `DATABASE_URL` — PostgreSQL connection string (Supabase session pooler)
 - `JWT_SECRET` — token signing key
-- `BREVO_API_KEY` / `BREVO_SENDER` — transactional email for password reset
+- `BREVO_API_KEY` / `BREVO_SENDER` — transactional email (account activation, password reset)
+- `FRONTEND_URL` — base URL used in the activation link (default `https://clean-shot.app`; set `http://localhost:3000` locally)
 - `IBU_SEASON_CODE` — optional; when unset, computed automatically from the date via `current_ibu_season_code()` (`utils/biathlon_data.py`), which switches on Nov 1st and mirrors `computeCurrentSeason()` in `lib/season.ts` on the frontend. Set explicitly only to force a specific season (tests, emergency rollback).
 
 **DB service** (`backend/services/db.py`): `psycopg2.ThreadedConnectionPool` singleton. Appends `?sslmode=require` if not present. All DB functions take `Settings` as a parameter (injected via FastAPI dependency).
 
-**Auth**: JWT (python-jose), bcrypt password hashing. Tokens expire after 7 days.
+**Auth**: JWT (python-jose), bcrypt password hashing. Tokens expire after 7 days. New accounts start unverified (`users.email_verified`): registration emails a 24h activation link to `/verify-email?token=…`, and `/auth/login` returns 403 until the account is activated.
 
 ### Core layer (`core/`)
 
@@ -88,7 +89,7 @@ Caching: standings pickled under `cache/cache_standings/`, refreshed only when c
 
 Next.js 14 App Router. All API calls go through `lib/api.ts` which reads `NEXT_PUBLIC_API_URL`.
 
-Pages: `login`, `pronostics` (mes pronos — hub + `pronostics/saison`, `pronostics/course`), `ligue/pronostics` (pronos du ski club), `ligue/biathlete` (focus biathlète), `ligue/classement` (+ `ligue/classement/detail`, `ligue/classement/evolution`), `classement` (classements généraux IBU), `ligues`, `compte`, `reglement`, `reset-password`.
+Pages: `login`, `pronostics` (mes pronos — hub + `pronostics/saison`, `pronostics/course`), `ligue/pronostics` (pronos du ski club), `ligue/biathlete` (focus biathlète), `ligue/classement` (+ `ligue/classement/detail`, `ligue/classement/evolution`), `classement` (classements généraux IBU), `ligues`, `compte`, `reglement`, `reset-password`, `verify-email`.
 
 Charts use Recharts. Country flags use `flag-icons`.
 

@@ -75,6 +75,34 @@ def send_reset_email(to_email: str, code: str, settings: Settings) -> bool:
     return _send_brevo_email(payload, settings, log_context=f"reset pour {to_email}")
 
 
+def send_verification_email(to_email: str, username: str, link: str, settings: Settings) -> bool:
+    """
+    Envoie le lien d'activation de compte via l'API Brevo.
+    Retourne True si succès, False + log en cas d'échec.
+    Lève une ValueError si la clé ou le sender manquent.
+    """
+    _require_brevo_config(settings)
+
+    payload = {
+        "sender": {"name": "Clean Shot", "email": settings.brevo_sender},
+        "to": [{"email": to_email}],
+        "subject": "Active ton compte — Clean Shot",
+        "textContent": (
+            f"Bonjour {username},\n\n"
+            "Bienvenue sur Clean Shot ! Pour activer ton compte, clique sur le lien ci-dessous :\n\n"
+            f"{link}\n\n"
+            "Le lien est valable 24 heures.\n\n"
+            "Si tu n'es pas à l'origine de cette inscription, ignore simplement cet email.\n\n"
+            "À bientôt sur Clean Shot !\n"
+            "— L'équipe Clean Shot\n\n"
+            "---\n"
+            "Clean Shot · clean-shot.app\n"
+            "Pour toute question : support@clean-shot.app"
+        ),
+    }
+    return _send_brevo_email(payload, settings, log_context=f"activation pour {to_email}")
+
+
 def send_feedback_email(username: str, feedback_type: str, subject: str, message: str, settings: Settings) -> bool:
     """
     Envoie un feedback utilisateur à l'adresse de contact (FEEDBACK_TO_EMAIL, ou

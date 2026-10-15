@@ -31,6 +31,10 @@ class Settings(BaseSettings):
     # Où atterrit le feedback joueurs — vide = repart vers brevo_sender par défaut.
     feedback_to_email: str = ""
 
+    # URL du frontend — sert à construire le lien d'activation envoyé par email.
+    # En local : FRONTEND_URL=http://localhost:3000 dans .env.
+    frontend_url: str = "https://clean-shot.app"
+
     # IBU — vide = calculée automatiquement depuis la date (bascule le 1er nov.).
     # Ne renseigner IBU_SEASON_CODE dans .env / Railway que pour forcer une
     # saison précise (tests, rollback d'urgence) : ça désactive l'auto-bascule.

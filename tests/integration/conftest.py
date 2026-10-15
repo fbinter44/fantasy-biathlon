@@ -28,6 +28,9 @@ TEST_USERS = [
         "email":         "test@example.com",
         "password_hash": _hash("password123"),
         "reset_code":    "",
+        "email_verified": True,
+        "verify_token":  "",
+        "verify_expires": 0,
     }
 ]
 TEST_PRONOSTICS = [
@@ -73,9 +76,34 @@ def _username_exists(username: str, *a, **kw):
 def _email_exists(email: str, *a, **kw):
     return any(u["email"] == email.lower() for u in TEST_USERS)
 
-def _create_user(user_id, username, email, password_hash, *a, **kw):
+def _create_user(user_id, username, email, password_hash, verify_token, verify_expires, *a, **kw):
     TEST_USERS.append({"user_id": user_id, "username": username,
-                        "email": email, "password_hash": password_hash, "reset_code": ""})
+                        "email": email, "password_hash": password_hash, "reset_code": "",
+                        "email_verified": False, "verify_token": verify_token,
+                        "verify_expires": verify_expires})
+
+def _delete_user(user_id, *a, **kw):
+    TEST_USERS[:] = [u for u in TEST_USERS if u["user_id"] != user_id]
+
+def _delete_expired_unverified(username, email, now, *a, **kw):
+    TEST_USERS[:] = [
+        u for u in TEST_USERS
+        if u["email_verified"] or u["verify_expires"] >= now
+        or (u["username"] != username.lower() and u["email"] != email.lower())
+    ]
+
+def _get_user_by_verify_token(token, *a, **kw):
+    return next((u for u in TEST_USERS if token and u["verify_token"] == token), None)
+
+def _set_verify_token(user_id, token, expires, *a, **kw):
+    for u in TEST_USERS:
+        if u["user_id"] == user_id:
+            u["verify_token"], u["verify_expires"] = token, expires
+
+def _mark_email_verified(user_id, *a, **kw):
+    for u in TEST_USERS:
+        if u["user_id"] == user_id:
+            u["email_verified"], u["verify_token"], u["verify_expires"] = True, "", 0
 
 def _update_user_field(user_id, field, value, *a, **kw):
     for u in TEST_USERS:
@@ -122,6 +150,11 @@ _DB_MOCKS = {
     "username_exists":           _username_exists,
     "email_exists":              _email_exists,
     "create_user":               _create_user,
+    "delete_user":               _delete_user,
+    "delete_expired_unverified": _delete_expired_unverified,
+    "get_user_by_verify_token":  _get_user_by_verify_token,
+    "set_verify_token":          _set_verify_token,
+    "mark_email_verified":       _mark_email_verified,
     "update_user_field":         _update_user_field,
     "get_all_pronostics":        _get_all_pronostics,
     "get_pronostics_by_user":    _get_pronostics_by_user,
@@ -164,6 +197,7 @@ def client():
                     pass  # ce router n'importe pas cette fonction
 
         stack.enter_context(patch("backend.routers.auth.send_reset_email", return_value=True))
+        stack.enter_context(patch("backend.routers.auth.send_verification_email", return_value=True))
 
         # patch("backend.config.get_settings", ...) ne suffit PAS : chaque
         # router fait `from backend.config import get_settings`, donc résout

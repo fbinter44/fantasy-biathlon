@@ -26,6 +26,16 @@ function clearSessionAndRedirect() {
   }
 }
 
+// Erreur API portant le statut HTTP — permet de distinguer certains cas
+// (ex. 403 sur /auth/login = compte pas encore activé).
+export class ApiError extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, options);
 
@@ -39,9 +49,9 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     // Pydantic validation errors (422) retournent detail sous forme de tableau
     if (Array.isArray(err.detail)) {
       const msg = err.detail.map((e: { msg: string }) => e.msg).join(", ");
-      throw new Error(msg);
+      throw new ApiError(msg, res.status);
     }
-    throw new Error(err.detail ?? `Erreur ${res.status}`);
+    throw new ApiError(err.detail ?? `Erreur ${res.status}`, res.status);
   }
   if (res.status === 204 || res.headers.get("content-length") === "0") {
     return undefined as T;
@@ -118,6 +128,20 @@ export const auth = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
+    }),
+
+  verifyEmail: (token: string) =>
+    request<TokenResponse>("/auth/verify-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    }),
+
+  resendVerification: (identifier: string) =>
+    request<{ detail: string }>("/auth/resend-verification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ identifier }),
     }),
 
   me: (token: string) =>

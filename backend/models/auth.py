@@ -1,5 +1,5 @@
 """
-Modèles Pydantic — Authentification (login, inscription, reset mot de passe).
+Modèles Pydantic — Authentification (login, inscription, activation, reset mot de passe).
 """
 
 from typing import Annotated
@@ -44,6 +44,14 @@ class UserPublic(BaseModel):
     user_id: str
     username: str
     email: str
+
+
+class VerifyEmailBody(BaseModel):
+    token: str
+
+
+class ResendVerificationBody(BaseModel):
+    identifier: str   # username ou email
 
 
 class ResetRequestBody(BaseModel):
