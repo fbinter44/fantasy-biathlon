@@ -5,6 +5,8 @@ Utilise psycopg2 avec un pool de connexions. La pool est initialisée
 une seule fois (singleton) à partir de settings.database_url.
 """
 
+import time
+
 import psycopg2
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import RealDictCursor
@@ -14,6 +16,12 @@ from backend.config import Settings
 
 _pool: ThreadedConnectionPool | None = None
 
+# Une connexion restée inactive plus longtemps est jetée plutôt que réutilisée :
+# en prod, le réseau entre Railway et Supabase coupe silencieusement les
+# connexions inactives, et la requête suivante plantait ("Connection timed out").
+_MAX_IDLE_SECONDS = 60
+_last_used: dict[int, float] = {}  # id(conn) → dernier retour dans la pool
+
 
 def _get_pool(settings: Settings) -> ThreadedConnectionPool:
     global _pool
@@ -21,22 +29,45 @@ def _get_pool(settings: Settings) -> ThreadedConnectionPool:
         dsn = settings.database_url
         if "sslmode" not in dsn:
             dsn += "?sslmode=require"
-        _pool = ThreadedConnectionPool(1, 10, dsn)
+        _pool = ThreadedConnectionPool(
+            1, 10, dsn,
+            connect_timeout=10,
+            # Keepalives TCP : maintiennent la connexion ouverte et détectent vite une coupure.
+            keepalives=1, keepalives_idle=30, keepalives_interval=10, keepalives_count=3,
+        )
     return _pool
+
+
+def _checkout(pool: ThreadedConnectionPool):
+    """Prend une connexion saine dans la pool, en jetant les fermées ou trop longtemps inactives."""
+    while True:
+        conn = pool.getconn()
+        last_used = _last_used.pop(id(conn), None)
+        if not conn.closed and (last_used is None or time.monotonic() - last_used < _MAX_IDLE_SECONDS):
+            return conn
+        pool.putconn(conn, close=True)
 
 
 @contextmanager
 def _conn(settings: Settings):
     pool = _get_pool(settings)
-    conn = pool.getconn()
+    conn = _checkout(pool)
+    broken = False
     try:
         yield conn
         conn.commit()
     except Exception:
-        conn.rollback()
+        try:
+            conn.rollback()
+        except psycopg2.Error:
+            broken = True
         raise
     finally:
-        pool.putconn(conn)
+        # Une connexion cassée est fermée au lieu d'être remise dans la pool.
+        broken = broken or bool(conn.closed)
+        if not broken:
+            _last_used[id(conn)] = time.monotonic()
+        pool.putconn(conn, close=broken)
 
 
 # ─── Users ────────────────────────────────────────────────────────────────────
