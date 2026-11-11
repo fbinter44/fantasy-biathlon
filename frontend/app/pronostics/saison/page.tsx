@@ -55,10 +55,11 @@ function GenderCard({
     ({ key }) => globes[`${key}_${gender}` as keyof GlobeWinners]
   ).length;
 
+  // Pas d'overflow-hidden sur la carte : il rognerait le menu déroulant des derniers AthleteSelect (globe Mass Start)
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
-      {/* Header de la carte */}
-      <div className={`px-5 py-4 ${gender === "h" ? "bg-blue-600" : "bg-pink-500"}`}>
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
+      {/* Header de la carte — coins arrondis portés ici puisque la carte ne rogne plus */}
+      <div className={`px-5 py-4 rounded-t-[15px] ${gender === "h" ? "bg-blue-600" : "bg-pink-500"}`}>
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-white">{emoji} {label}</h2>
           <span className="text-sm text-white/80">
