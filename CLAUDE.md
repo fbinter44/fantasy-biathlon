@@ -105,7 +105,9 @@ Charts use Recharts. Country flags use `flag-icons`.
 ### Tests
 
 ```bash
-pytest tests/unit/
-pytest tests/integration/   # requires DATABASE_URL in .env
+python -m pytest tests/unit/
+python -m pytest tests/integration/   # requires DATABASE_URL in .env
 cd frontend && npm test      # Vitest — frontend/tests/
 ```
+
+Always invoke Python tools as `python -m <tool>` (pytest, uvicorn, pip…): Windows Device Guard on the dev machine blocks the unsigned `.exe` launchers that pip generates in the venv.
