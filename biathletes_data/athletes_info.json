@@ -1586,7 +1586,7 @@
   "BTUSA20312200001": {
     "IBUId": "BTUSA20312200001",
     "FamilyName": "ANDERSON",
-    "GivenName": "Luci",
+    "GivenName": "Lucinda",
     "ShortName": "ANDERSON",
     "NAT": "USA",
     "GenderId": "W"
@@ -2641,9 +2641,9 @@
   },
   "BTCAN21710200701": {
     "IBUId": "BTCAN21710200701",
-    "FamilyName": "ATKINSON-TRELENBERG",
+    "FamilyName": "TRELENBERG",
     "GivenName": "Jessabelle",
-    "ShortName": "ATKINSON-TRELENBERG",
+    "ShortName": "TRELENBERG",
     "NAT": "CAN",
     "GenderId": "W"
   },
@@ -5514,7 +5514,7 @@
   "BTDEN11404201001": {
     "IBUId": "BTDEN11404201001",
     "FamilyName": "BERG",
-    "GivenName": "Magnus",
+    "GivenName": "Magnus Flyvholm",
     "ShortName": "BERG",
     "NAT": "DEN",
     "GenderId": "M"
@@ -13425,9 +13425,9 @@
   },
   "BTAUS20511197001": {
     "IBUId": "BTAUS20511197001",
-    "FamilyName": "CRANAGE",
+    "FamilyName": "CULLEN",
     "GivenName": "Lynn-Maree",
-    "ShortName": "CRANAGE",
+    "ShortName": "CULLEN",
     "NAT": "AUS",
     "GenderId": "W"
   },
@@ -15665,9 +15665,9 @@
   },
   "BTITA13012200901": {
     "IBUId": "BTITA13012200901",
-    "FamilyName": "DIMANI",
-    "GivenName": "Em",
-    "ShortName": "DIMANI",
+    "FamilyName": "DIMAI",
+    "GivenName": "Emanuele",
+    "ShortName": "DIMAI",
     "NAT": "ITA",
     "GenderId": "M"
   },
@@ -16905,9 +16905,9 @@
   },
   "BTKAZ12309198201": {
     "IBUId": "BTKAZ12309198201",
-    "FamilyName": "DUDCHENCO",
+    "FamilyName": "DUDCHENKO",
     "GivenName": "Sergei",
-    "ShortName": "DUDCHENCO",
+    "ShortName": "DUDCHENKO",
     "NAT": "KAZ",
     "GenderId": "M"
   },
@@ -19433,9 +19433,9 @@
   },
   "BTUSA22806200101": {
     "IBUId": "BTUSA22806200101",
-    "FamilyName": "FARRA",
+    "FamilyName": "CERVENKOVA",
     "GivenName": "Lina",
-    "ShortName": "FARRA",
+    "ShortName": "CERVENKOVA",
     "NAT": "USA",
     "GenderId": "W"
   },
@@ -21442,7 +21442,7 @@
   "BTNOR12302200701": {
     "IBUId": "BTNOR12302200701",
     "FamilyName": "FREY",
-    "GivenName": "Sondre",
+    "GivenName": "Sondre Leknes",
     "ShortName": "FREY",
     "NAT": "NOR",
     "GenderId": "M"
@@ -23473,9 +23473,9 @@
   },
   "BTITA12707200801": {
     "IBUId": "BTITA12707200801",
-    "FamilyName": "GIORDANO",
-    "GivenName": "Arnoldo",
-    "ShortName": "GIORDANO",
+    "FamilyName": "ARNOLDO",
+    "GivenName": "Giordano",
+    "ShortName": "ARNOLDO",
     "NAT": "ITA",
     "GenderId": "M"
   },
@@ -29724,7 +29724,7 @@
     "FamilyName": "HOISS",
     "GivenName": "Luna",
     "ShortName": "HOISS",
-    "NAT": "GER",
+    "NAT": "AUT",
     "GenderId": "W"
   },
   "BTGER11506201001": {
@@ -30681,9 +30681,9 @@
   },
   "BTSWE21407200201": {
     "IBUId": "BTSWE21407200201",
-    "FamilyName": "HUBENETTE",
+    "FamilyName": "HUEBENETTE",
     "GivenName": "Sigrid",
-    "ShortName": "HUBENETTE",
+    "ShortName": "HUEBENETTE",
     "NAT": "SWE",
     "GenderId": "W"
   },
@@ -35841,9 +35841,9 @@
   },
   "BTKGZ21401201001": {
     "IBUId": "BTKGZ21401201001",
-    "FamilyName": "KAZIEVA AKYLAI",
+    "FamilyName": "KAZIEVA",
     "GivenName": "Akylai",
-    "ShortName": "KAZIEVA AKYLAI",
+    "ShortName": "KAZIEVA",
     "NAT": "KGZ",
     "GenderId": "W"
   },
@@ -36178,7 +36178,7 @@
   "BTFIN21710200101": {
     "IBUId": "BTFIN21710200101",
     "FamilyName": "KERANEN",
-    "GivenName": "Noora",
+    "GivenName": "Noora Kaisa",
     "ShortName": "KERANEN",
     "NAT": "FIN",
     "GenderId": "W"
@@ -38057,9 +38057,9 @@
   },
   "BTCAN20512198201": {
     "IBUId": "BTCAN20512198201",
-    "FamilyName": "KOCHER",
+    "FamilyName": "LAWSON",
     "GivenName": "Zina",
-    "ShortName": "KOCHER",
+    "ShortName": "LAWSON",
     "NAT": "CAN",
     "GenderId": "W"
   },
@@ -43698,7 +43698,7 @@
   "BTNOR10407200601": {
     "IBUId": "BTNOR10407200601",
     "FamilyName": "LEHN",
-    "GivenName": "Sigurd",
+    "GivenName": "Sigurd Lysberg",
     "ShortName": "LEHN",
     "NAT": "NOR",
     "GenderId": "M"
@@ -49281,9 +49281,9 @@
   },
   "BTNZL21010200901": {
     "IBUId": "BTNZL21010200901",
-    "FamilyName": "MCALLISTER BROWN",
+    "FamilyName": "McALLISTER BROWN",
     "GivenName": "Winifred",
-    "ShortName": "MCALLISTER BROWN",
+    "ShortName": "McALLISTER BROWN",
     "NAT": "NZL",
     "GenderId": "W"
   },
@@ -49633,9 +49633,9 @@
   },
   "BTSUI20203199201": {
     "IBUId": "BTSUI20203199201",
-    "FamilyName": "MEIER-RUGE",
+    "FamilyName": "BURKHALTER",
     "GivenName": "Ladina",
-    "ShortName": "MEIER-RUGE",
+    "ShortName": "BURKHALTER",
     "NAT": "SUI",
     "GenderId": "W"
   },
@@ -54018,7 +54018,7 @@
   "BTITA12403200802": {
     "IBUId": "BTITA12403200802",
     "FamilyName": "NEUMAIR",
-    "GivenName": "Jakub",
+    "GivenName": "Jakob",
     "ShortName": "NEUMAIR",
     "NAT": "ITA",
     "GenderId": "M"
@@ -54858,7 +54858,7 @@
   "BTUSA23005200001": {
     "IBUId": "BTUSA23005200001",
     "FamilyName": "NOBLE",
-    "GivenName": "Zoe",
+    "GivenName": "Zoe May",
     "ShortName": "NOBLE",
     "NAT": "USA",
     "GenderId": "W"
@@ -55882,7 +55882,7 @@
   "BTNOR21708200001": {
     "IBUId": "BTNOR21708200001",
     "FamilyName": "OEIEN",
-    "GivenName": "Kristine",
+    "GivenName": "Kristine Hokseng",
     "ShortName": "OEIEN",
     "NAT": "NOR",
     "GenderId": "W"
@@ -57513,9 +57513,9 @@
   },
   "BTAUS21302196301": {
     "IBUId": "BTAUS21302196301",
-    "FamilyName": "PAINTIN-PAUL",
+    "FamilyName": "PAUL",
     "GivenName": "Sandra",
-    "ShortName": "PAINTIN-PAUL",
+    "ShortName": "PAUL",
     "NAT": "AUS",
     "GenderId": "W"
   },
@@ -64715,7 +64715,7 @@
     "IBUId": "BTSWE10207200901",
     "FamilyName": "RIBBEFORS",
     "GivenName": "William",
-    "ShortName": " RIBBEFORS",
+    "ShortName": "RIBBEFORS",
     "NAT": "SWE",
     "GenderId": "M"
   },
@@ -78058,7 +78058,7 @@
   "BTEST10810200401": {
     "IBUId": "BTEST10810200401",
     "FamilyName": "TIISLAR",
-    "GivenName": "Rasmus",
+    "GivenName": "Karl Rasmus",
     "ShortName": "TIISLAR",
     "NAT": "EST",
     "GenderId": "M"
@@ -78690,7 +78690,7 @@
   "BTCZE22608201001": {
     "IBUId": "BTCZE22608201001",
     "FamilyName": "TOMSOVA",
-    "GivenName": "Barbora",
+    "GivenName": "Bara",
     "ShortName": "TOMSOVA",
     "NAT": "CZE",
     "GenderId": "W"
@@ -79450,7 +79450,7 @@
   "BTUKR21201200901": {
     "IBUId": "BTUKR21201200901",
     "FamilyName": "TRYFONIUK",
-    "GivenName": "Sofiia",
+    "GivenName": "Sofia",
     "ShortName": "TRYFONIUK",
     "NAT": "UKR",
     "GenderId": "W"
@@ -79601,9 +79601,9 @@
   },
   "BTSWE20309200901": {
     "IBUId": "BTSWE20309200901",
-    "FamilyName": "TSHOP",
+    "FamilyName": "TSCHOP",
     "GivenName": "Ida",
-    "ShortName": "TSHOP",
+    "ShortName": "TSCHOP",
     "NAT": "SWE",
     "GenderId": "W"
   },
@@ -80658,7 +80658,7 @@
   "BTSUI22112200801": {
     "IBUId": "BTSUI22112200801",
     "FamilyName": "URFER",
-    "GivenName": "Lisa",
+    "GivenName": "Lisa Mia",
     "ShortName": "URFER",
     "NAT": "SUI",
     "GenderId": "W"
@@ -80962,8 +80962,8 @@
   "BTEST11208200701": {
     "IBUId": "BTEST11208200701",
     "FamilyName": "VAELBE",
-    "GivenName": "Frederik",
-    "ShortName": "VAELBE F.",
+    "GivenName": "Frederik Marten",
+    "ShortName": "VAELBE F.M.",
     "NAT": "EST",
     "GenderId": "M"
   },
@@ -81218,7 +81218,7 @@
   "BTFIN20609200901": {
     "IBUId": "BTFIN20609200901",
     "FamilyName": "VALLE",
-    "GivenName": "Nelli-maria",
+    "GivenName": "Nelli-Maria",
     "ShortName": "VALLE",
     "NAT": "FIN",
     "GenderId": "W"
@@ -81324,7 +81324,7 @@
     "FamilyName": "VAN DEN BERG",
     "GivenName": "Petr",
     "ShortName": "VAN DEN BERG",
-    "NAT": "CZE",
+    "NAT": "NED",
     "GenderId": "M"
   },
   "BTFRA2VANSOP01": {
@@ -81353,9 +81353,9 @@
   },
   "BTUSA20411200601": {
     "IBUId": "BTUSA20411200601",
-    "FamilyName": "VANDORN",
+    "FamilyName": "VAN DORN",
     "GivenName": "Abigail",
-    "ShortName": "VANDORN",
+    "ShortName": "VAN DORN",
     "NAT": "USA",
     "GenderId": "W"
   },
@@ -82538,7 +82538,7 @@
   "BTNED12402200201": {
     "IBUId": "BTNED12402200201",
     "FamilyName": "VISSER",
-    "GivenName": "Jon",
+    "GivenName": "Jon Einar Mattias",
     "ShortName": "VISSER",
     "NAT": "NED",
     "GenderId": "M"
@@ -84562,7 +84562,7 @@
   "BTSWE12908200701": {
     "IBUId": "BTSWE12908200701",
     "FamilyName": "WIKSTROEM",
-    "GivenName": "Axel",
+    "GivenName": "Axel Backola",
     "ShortName": "WIKSTROEM",
     "NAT": "SWE",
     "GenderId": "M"
@@ -85274,7 +85274,7 @@
   "BTGER11403199801": {
     "IBUId": "BTGER11403199801",
     "FamilyName": "WUNDERLE",
-    "GivenName": "Robin Johannes",
+    "GivenName": "Robin",
     "ShortName": "WUNDERLE",
     "NAT": "GER",
     "GenderId": "M"
@@ -86969,9 +86969,9 @@
   },
   "BTLTU20904199901": {
     "IBUId": "BTLTU20904199901",
-    "FamilyName": "ZHURAUSKAITE",
-    "GivenName": "Lidiia",
-    "ShortName": "ZHURAUSKAITE",
+    "FamilyName": "BARAUSKIENE",
+    "GivenName": "Lidija",
+    "ShortName": "BARAUSKIENE",
     "NAT": "LTU",
     "GenderId": "W"
   },
@@ -87677,6 +87677,7030 @@
     "GivenName": "Anastasiia",
     "ShortName": "ZYRIANOVA",
     "NAT": "RUS",
+    "GenderId": "W"
+  },
+  "BTEST20701201101": {
+    "IBUId": "BTEST20701201101",
+    "FamilyName": "AASA",
+    "GivenName": "Marleen",
+    "ShortName": "AASA",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTFRA11101201101": {
+    "IBUId": "BTFRA11101201101",
+    "FamilyName": "ABADIE",
+    "GivenName": "Ethan",
+    "ShortName": "ABADIE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTLAT12701201101": {
+    "IBUId": "BTLAT12701201101",
+    "FamilyName": "ABOLINS",
+    "GivenName": "Markuss",
+    "ShortName": "ABOLINS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTSWE12402201001": {
+    "IBUId": "BTSWE12402201001",
+    "FamilyName": "ABRAHAMSSON",
+    "GivenName": "Edwin",
+    "ShortName": "ABRAHAMSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE12402201002": {
+    "IBUId": "BTSWE12402201002",
+    "FamilyName": "ABRAHAMSSON",
+    "GivenName": "Ludwig",
+    "ShortName": "ABRAHAMSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA21004200901": {
+    "IBUId": "BTFRA21004200901",
+    "FamilyName": "ADAM",
+    "GivenName": "Louane",
+    "ShortName": "ADAM",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSVK10803200601": {
+    "IBUId": "BTSVK10803200601",
+    "FamilyName": "ADAMOV",
+    "GivenName": "Michal",
+    "ShortName": "ADAMOV",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTFRA22205201102": {
+    "IBUId": "BTFRA22205201102",
+    "FamilyName": "AGNOLI",
+    "GivenName": "Lilou",
+    "ShortName": "AGNOLI",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFIN20205201101": {
+    "IBUId": "BTFIN20205201101",
+    "FamilyName": "ALA-KAUPPILA",
+    "GivenName": "Alma-Kaisa",
+    "ShortName": "ALA-KAUPPILA",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFIN20308201001": {
+    "IBUId": "BTFIN20308201001",
+    "FamilyName": "ALA-POIKELA",
+    "GivenName": "Pilvi",
+    "ShortName": "ALA-POIKELA",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFRA12504201101": {
+    "IBUId": "BTFRA12504201101",
+    "FamilyName": "ALEX",
+    "GivenName": "Gaspard",
+    "ShortName": "ALEX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGBR10211198801": {
+    "IBUId": "BTGBR10211198801",
+    "FamilyName": "ALLEN",
+    "GivenName": "Andrew",
+    "ShortName": "ALLEN",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTSWE12001200701": {
+    "IBUId": "BTSWE12001200701",
+    "FamilyName": "ALMGREN",
+    "GivenName": "Felix",
+    "ShortName": "ALMGREN",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA11207200901": {
+    "IBUId": "BTFRA11207200901",
+    "FamilyName": "ALVES",
+    "GivenName": "Nael",
+    "ShortName": "ALVES",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTUSA12605200901": {
+    "IBUId": "BTUSA12605200901",
+    "FamilyName": "ANDERSON",
+    "GivenName": "Colter",
+    "ShortName": "ANDERSON",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTBEL20304201101": {
+    "IBUId": "BTBEL20304201101",
+    "FamilyName": "ANDRE",
+    "GivenName": "Madeleine",
+    "ShortName": "ANDRE",
+    "NAT": "BEL",
+    "GenderId": "W"
+  },
+  "BTITA12908201101": {
+    "IBUId": "BTITA12908201101",
+    "FamilyName": "ANDREOLA",
+    "GivenName": "Enea",
+    "ShortName": "ANDREOLA",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA10610201101": {
+    "IBUId": "BTITA10610201101",
+    "FamilyName": "ANDREOLA",
+    "GivenName": "Tobias",
+    "ShortName": "ANDREOLA",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTBRA10202201101": {
+    "IBUId": "BTBRA10202201101",
+    "FamilyName": "ARAUJO DOS SANTOS",
+    "GivenName": "Jorge Luis",
+    "ShortName": "ARAUJO DOS SANTOS",
+    "NAT": "BRA",
+    "GenderId": "M"
+  },
+  "BTKAZ12701200901": {
+    "IBUId": "BTKAZ12701200901",
+    "FamilyName": "ARINGAZIN",
+    "GivenName": "Kanat",
+    "ShortName": "ARINGAZIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA23005200901": {
+    "IBUId": "BTFRA23005200901",
+    "FamilyName": "ARSON",
+    "GivenName": "Augustine",
+    "ShortName": "ARSON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKGZ12508201001": {
+    "IBUId": "BTKGZ12508201001",
+    "FamilyName": "ASANOV",
+    "GivenName": "Nurel",
+    "ShortName": "ASANOV",
+    "NAT": "KGZ",
+    "GenderId": "M"
+  },
+  "BTFRA20506201001": {
+    "IBUId": "BTFRA20506201001",
+    "FamilyName": "AUBIN",
+    "GivenName": "Zelie",
+    "ShortName": "AUBIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12505201101": {
+    "IBUId": "BTFRA12505201101",
+    "FamilyName": "AUDIBERT CACHAT",
+    "GivenName": "Gaspard",
+    "ShortName": "AUDIBERT CACHAT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10611201101": {
+    "IBUId": "BTFRA10611201101",
+    "FamilyName": "AUGE ALLEGRE",
+    "GivenName": "Noe",
+    "ShortName": "AUGE ALLEGRE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTTUR12807200001": {
+    "IBUId": "BTTUR12807200001",
+    "FamilyName": "AYDIN",
+    "GivenName": "Hamit Tarik",
+    "ShortName": "AYDIN",
+    "NAT": "TUR",
+    "GenderId": "M"
+  },
+  "BTFIN21110201101": {
+    "IBUId": "BTFIN21110201101",
+    "FamilyName": "AYRA",
+    "GivenName": "Elli",
+    "ShortName": "AYRA",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTTUR12610200401": {
+    "IBUId": "BTTUR12610200401",
+    "FamilyName": "AYYILDIZ",
+    "GivenName": "Oguzhan",
+    "ShortName": "AYYILDIZ",
+    "NAT": "TUR",
+    "GenderId": "M"
+  },
+  "BTKOR11705201002": {
+    "IBUId": "BTKOR11705201002",
+    "FamilyName": "BAE",
+    "GivenName": "Sungjun",
+    "ShortName": "BAE",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTSWE10310201001": {
+    "IBUId": "BTSWE10310201001",
+    "FamilyName": "BAERWOLF",
+    "GivenName": "Pelle",
+    "ShortName": "BAERWOLF",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA10306201101": {
+    "IBUId": "BTFRA10306201101",
+    "FamilyName": "BAFFERT",
+    "GivenName": "Taig",
+    "ShortName": "BAFFERT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA21907201001": {
+    "IBUId": "BTITA21907201001",
+    "FamilyName": "BAGGETTO",
+    "GivenName": "Alessandra",
+    "ShortName": "BAGGETTO",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTKAZ12306200501": {
+    "IBUId": "BTKAZ12306200501",
+    "FamilyName": "BAIBOLDY",
+    "GivenName": "Margulan",
+    "ShortName": "BAIBOLDY",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA21110201101": {
+    "IBUId": "BTFRA21110201101",
+    "FamilyName": "BAILLON",
+    "GivenName": "Capucine",
+    "ShortName": "BAILLON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCZE12303201101": {
+    "IBUId": "BTCZE12303201101",
+    "FamilyName": "BAINAR",
+    "GivenName": "Alex",
+    "ShortName": "BAINAR",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTSVK20705201101": {
+    "IBUId": "BTSVK20705201101",
+    "FamilyName": "BAJCICAKOVA",
+    "GivenName": "Ema",
+    "ShortName": "BAJCICAKOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTUKR22604201101": {
+    "IBUId": "BTUKR22604201101",
+    "FamilyName": "BALANIUK",
+    "GivenName": "Mariia",
+    "ShortName": "BALANIUK",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTUKR12510200901": {
+    "IBUId": "BTUKR12510200901",
+    "FamilyName": "BALASHOV",
+    "GivenName": "Matvii",
+    "ShortName": "BALASHOV",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTITA21708201101": {
+    "IBUId": "BTITA21708201101",
+    "FamilyName": "BALLAN",
+    "GivenName": "Elisabetta",
+    "ShortName": "BALLAN",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA10610200901": {
+    "IBUId": "BTFRA10610200901",
+    "FamilyName": "BALLAND",
+    "GivenName": "Mahe",
+    "ShortName": "BALLAND",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKGZ10901201001": {
+    "IBUId": "BTKGZ10901201001",
+    "FamilyName": "BARATOV",
+    "GivenName": "Marsel",
+    "ShortName": "BARATOV",
+    "NAT": "KGZ",
+    "GenderId": "M"
+  },
+  "BTCZE10506201101": {
+    "IBUId": "BTCZE10506201101",
+    "FamilyName": "BARCI",
+    "GivenName": "Jakub",
+    "ShortName": "BARCI",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTSUI22610201001": {
+    "IBUId": "BTSUI22610201001",
+    "FamilyName": "BASELGIA",
+    "GivenName": "Amelie",
+    "ShortName": "BASELGIA",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTBEL11602201101": {
+    "IBUId": "BTBEL11602201101",
+    "FamilyName": "BASTIN",
+    "GivenName": "Simon",
+    "ShortName": "BASTIN",
+    "NAT": "BEL",
+    "GenderId": "M"
+  },
+  "BTGER10301200601": {
+    "IBUId": "BTGER10301200601",
+    "FamilyName": "BAUER",
+    "GivenName": "Alexander",
+    "ShortName": "BAUER",
+    "NAT": "GER",
+    "GenderId": "M"
+  },
+  "BTUKR10703201101": {
+    "IBUId": "BTUKR10703201101",
+    "FamilyName": "BAZARNYK",
+    "GivenName": "Taras",
+    "ShortName": "BAZARNYK",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTFRA10804200901": {
+    "IBUId": "BTFRA10804200901",
+    "FamilyName": "BEAUQUIS",
+    "GivenName": "Paul",
+    "ShortName": "BEAUQUIS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGER12506201102": {
+    "IBUId": "BTGER12506201102",
+    "FamilyName": "BECK",
+    "GivenName": "Paul",
+    "ShortName": "BECK",
+    "NAT": "GER",
+    "GenderId": "M"
+  },
+  "BTKAZ22705200801": {
+    "IBUId": "BTKAZ22705200801",
+    "FamilyName": "BEISEKEYEVA",
+    "GivenName": "Dilyara",
+    "ShortName": "BEISEKEYEVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTCRO21802201001": {
+    "IBUId": "BTCRO21802201001",
+    "FamilyName": "BELJAN",
+    "GivenName": "Lorena",
+    "ShortName": "BELJAN",
+    "NAT": "CRO",
+    "GenderId": "W"
+  },
+  "BTFRA22208201101": {
+    "IBUId": "BTFRA22208201101",
+    "FamilyName": "BELOIN",
+    "GivenName": "Maelle",
+    "ShortName": "BELOIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCAN21708200901": {
+    "IBUId": "BTCAN21708200901",
+    "FamilyName": "BENSON",
+    "GivenName": "Claire",
+    "ShortName": "BENSON",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTSUI11906201001": {
+    "IBUId": "BTSUI11906201001",
+    "FamilyName": "BERDOZ",
+    "GivenName": "Jovian",
+    "ShortName": "BERDOZ",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTUKR22412201001": {
+    "IBUId": "BTUKR22412201001",
+    "FamilyName": "BEREZOVSKA",
+    "GivenName": "Anastasiia",
+    "ShortName": "BEREZOVSKA",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTSLO20301201101": {
+    "IBUId": "BTSLO20301201101",
+    "FamilyName": "BERGANT",
+    "GivenName": "Nusa",
+    "ShortName": "BERGANT",
+    "NAT": "SLO",
+    "GenderId": "W"
+  },
+  "BTCZE21305200101": {
+    "IBUId": "BTCZE21305200101",
+    "FamilyName": "BERGEROVA",
+    "GivenName": "Magdalena",
+    "ShortName": "BERGEROVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTCZE21205200301": {
+    "IBUId": "BTCZE21205200301",
+    "FamilyName": "BERGEROVA",
+    "GivenName": "Veronika",
+    "ShortName": "BERGEROVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA12805201101": {
+    "IBUId": "BTFRA12805201101",
+    "FamilyName": "BERTRAND",
+    "GivenName": "Louis",
+    "ShortName": "BERTRAND",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12911200901": {
+    "IBUId": "BTFRA12911200901",
+    "FamilyName": "BERTRAND",
+    "GivenName": "Timothe",
+    "ShortName": "BERTRAND",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCAN10306200901": {
+    "IBUId": "BTCAN10306200901",
+    "FamilyName": "BERTRAND",
+    "GivenName": "William",
+    "ShortName": "BERTRAND",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTLAT10203201101": {
+    "IBUId": "BTLAT10203201101",
+    "FamilyName": "BERZINS",
+    "GivenName": "Gustavs",
+    "ShortName": "BERZINS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTITA20810201101": {
+    "IBUId": "BTITA20810201101",
+    "FamilyName": "BIANCHI",
+    "GivenName": "Melissa",
+    "ShortName": "BIANCHI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA22608201101": {
+    "IBUId": "BTFRA22608201101",
+    "FamilyName": "BILLON",
+    "GivenName": "Camille",
+    "ShortName": "BILLON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22904201101": {
+    "IBUId": "BTFRA22904201101",
+    "FamilyName": "BILLON",
+    "GivenName": "Leonie",
+    "ShortName": "BILLON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCZE12609201101": {
+    "IBUId": "BTCZE12609201101",
+    "FamilyName": "BITALA",
+    "GivenName": "Vaclav",
+    "ShortName": "BITALA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTSWE21010201001": {
+    "IBUId": "BTSWE21010201001",
+    "FamilyName": "BJUREDAL",
+    "GivenName": "Lilly",
+    "ShortName": "BJUREDAL",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCZE12707201101": {
+    "IBUId": "BTCZE12707201101",
+    "FamilyName": "BLEHA",
+    "GivenName": "Filip",
+    "ShortName": "BLEHA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTGRL22802201101": {
+    "IBUId": "BTGRL22802201101",
+    "FamilyName": "BLICHER",
+    "GivenName": "Alma",
+    "ShortName": "BLICHER",
+    "NAT": "GRL",
+    "GenderId": "W"
+  },
+  "BTFRA10302201101": {
+    "IBUId": "BTFRA10302201101",
+    "FamilyName": "BOIRON",
+    "GivenName": "Jules",
+    "ShortName": "BOIRON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20302201101": {
+    "IBUId": "BTFRA20302201101",
+    "FamilyName": "BOIRON",
+    "GivenName": "Margaux",
+    "ShortName": "BOIRON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22009201101": {
+    "IBUId": "BTFRA22009201101",
+    "FamilyName": "BOISSY",
+    "GivenName": "Naomi",
+    "ShortName": "BOISSY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTUKR12510200902": {
+    "IBUId": "BTUKR12510200902",
+    "FamilyName": "BONDARENKO",
+    "GivenName": "Ivan",
+    "ShortName": "BONDARENKO",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTITA21910201101": {
+    "IBUId": "BTITA21910201101",
+    "FamilyName": "BORBEY",
+    "GivenName": "Cecilie",
+    "ShortName": "BORBEY",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTESP21012201001": {
+    "IBUId": "BTESP21012201001",
+    "FamilyName": "BOSCH BENET",
+    "GivenName": "Ona",
+    "ShortName": "BOSCH BENET",
+    "NAT": "ESP",
+    "GenderId": "W"
+  },
+  "BTITA22403201002": {
+    "IBUId": "BTITA22403201002",
+    "FamilyName": "BOTTINELLI",
+    "GivenName": "Carla",
+    "ShortName": "BOTTINELLI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA22703201001": {
+    "IBUId": "BTFRA22703201001",
+    "FamilyName": "BOUDIN",
+    "GivenName": "Faustine",
+    "ShortName": "BOUDIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21209201101": {
+    "IBUId": "BTFRA21209201101",
+    "FamilyName": "BOUGON",
+    "GivenName": "Candice",
+    "ShortName": "BOUGON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21905201101": {
+    "IBUId": "BTFRA21905201101",
+    "FamilyName": "BOUILLET",
+    "GivenName": "Lilou",
+    "ShortName": "BOUILLET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11011201001": {
+    "IBUId": "BTFRA11011201001",
+    "FamilyName": "BOURCEY",
+    "GivenName": "Robin",
+    "ShortName": "BOURCEY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20710200901": {
+    "IBUId": "BTFRA20710200901",
+    "FamilyName": "BOURGEOIS",
+    "GivenName": "Gabrielle",
+    "ShortName": "BOURGEOIS",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12407200901": {
+    "IBUId": "BTFRA12407200901",
+    "FamilyName": "BOURGEOIS ARMURIER",
+    "GivenName": "Flavien",
+    "ShortName": "BOURGEOIS ARMURIER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21508200901": {
+    "IBUId": "BTFRA21508200901",
+    "FamilyName": "BOURY",
+    "GivenName": "Camille",
+    "ShortName": "BOURY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22002200901": {
+    "IBUId": "BTFRA22002200901",
+    "FamilyName": "BOUVARD",
+    "GivenName": "Axelle",
+    "ShortName": "BOUVARD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20106201001": {
+    "IBUId": "BTFRA20106201001",
+    "FamilyName": "BOUVIER",
+    "GivenName": "Jeanne",
+    "ShortName": "BOUVIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTDEN10808200601": {
+    "IBUId": "BTDEN10808200601",
+    "FamilyName": "BOYE",
+    "GivenName": "Thor",
+    "ShortName": "BOYE",
+    "NAT": "DEN",
+    "GenderId": "M"
+  },
+  "BTHUN10105201101": {
+    "IBUId": "BTHUN10105201101",
+    "FamilyName": "BOZOKI",
+    "GivenName": "Zeno",
+    "ShortName": "BOZOKI",
+    "NAT": "HUN",
+    "GenderId": "M"
+  },
+  "BTFRA22502200901": {
+    "IBUId": "BTFRA22502200901",
+    "FamilyName": "BRAY",
+    "GivenName": "Zoe",
+    "ShortName": "BRAY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12908200901": {
+    "IBUId": "BTFRA12908200901",
+    "FamilyName": "BRETON",
+    "GivenName": "Alexandre",
+    "ShortName": "BRETON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTLAT22103197001": {
+    "IBUId": "BTLAT22103197001",
+    "FamilyName": "BRICE",
+    "GivenName": "Anzela",
+    "ShortName": "BRICE",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTSWE22312199801": {
+    "IBUId": "BTSWE22312199801",
+    "FamilyName": "BROKMEIER",
+    "GivenName": "Lara",
+    "ShortName": "BROKMEIER",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTGER22103201101": {
+    "IBUId": "BTGER22103201101",
+    "FamilyName": "BROSCHART",
+    "GivenName": "Luisa",
+    "ShortName": "BROSCHART",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTKAZ11711200301": {
+    "IBUId": "BTKAZ11711200301",
+    "FamilyName": "BROVKO",
+    "GivenName": "Viktor",
+    "ShortName": "BROVKO",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA22511201101": {
+    "IBUId": "BTFRA22511201101",
+    "FamilyName": "BRUN",
+    "GivenName": "Lucie",
+    "ShortName": "BRUN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20508201101": {
+    "IBUId": "BTFRA20508201101",
+    "FamilyName": "BRUNON",
+    "GivenName": "Lily",
+    "ShortName": "BRUNON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTGER12506201002": {
+    "IBUId": "BTGER12506201002",
+    "FamilyName": "BRYS",
+    "GivenName": "Emil",
+    "ShortName": "BRYS",
+    "NAT": "GER",
+    "GenderId": "M"
+  },
+  "BTFRA11503201001": {
+    "IBUId": "BTFRA11503201001",
+    "FamilyName": "BUCHER",
+    "GivenName": "Leon",
+    "ShortName": "BUCHER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTTHA10906201001": {
+    "IBUId": "BTTHA10906201001",
+    "FamilyName": "BUDPHOSRI",
+    "GivenName": "Kawin",
+    "ShortName": "BUDPHOSRI",
+    "NAT": "THA",
+    "GenderId": "M"
+  },
+  "BTSUI21703201101": {
+    "IBUId": "BTSUI21703201101",
+    "FamilyName": "BUERGLER",
+    "GivenName": "Jill",
+    "ShortName": "BUERGLER",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTFRA12011201002": {
+    "IBUId": "BTFRA12011201002",
+    "FamilyName": "BUIREY",
+    "GivenName": "Valentin",
+    "ShortName": "BUIREY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21803200901": {
+    "IBUId": "BTFRA21803200901",
+    "FamilyName": "BUISSON",
+    "GivenName": "Taina",
+    "ShortName": "BUISSON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11211201001": {
+    "IBUId": "BTFRA11211201001",
+    "FamilyName": "BURATTI",
+    "GivenName": "Thomas",
+    "ShortName": "BURATTI",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUT21401201101": {
+    "IBUId": "BTAUT21401201101",
+    "FamilyName": "BUTZ",
+    "GivenName": "Leni",
+    "ShortName": "BUTZ",
+    "NAT": "AUT",
+    "GenderId": "W"
+  },
+  "BTSWE20502200902": {
+    "IBUId": "BTSWE20502200902",
+    "FamilyName": "BYLUND",
+    "GivenName": "Meja",
+    "ShortName": "BYLUND",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCZE10709201101": {
+    "IBUId": "BTCZE10709201101",
+    "FamilyName": "BYMA",
+    "GivenName": "Patrik",
+    "ShortName": "BYMA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCAN21612201001": {
+    "IBUId": "BTCAN21612201001",
+    "FamilyName": "CADELL",
+    "GivenName": "Skye",
+    "ShortName": "CADELL",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTSUI11910201101": {
+    "IBUId": "BTSUI11910201101",
+    "FamilyName": "CADONAU",
+    "GivenName": "Risch",
+    "ShortName": "CADONAU",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTCAN22903200901": {
+    "IBUId": "BTCAN22903200901",
+    "FamilyName": "CALLAWAY",
+    "GivenName": "Anna",
+    "ShortName": "CALLAWAY",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTGBR22703201101": {
+    "IBUId": "BTGBR22703201101",
+    "FamilyName": "CALVET",
+    "GivenName": "Chloe",
+    "ShortName": "CALVET",
+    "NAT": "GBR",
+    "GenderId": "W"
+  },
+  "BTARG11503200401": {
+    "IBUId": "BTARG11503200401",
+    "FamilyName": "CANDIA",
+    "GivenName": "Valentin Ezequiel",
+    "ShortName": "CANDIA",
+    "NAT": "ARG",
+    "GenderId": "M"
+  },
+  "BTFRA11001201101": {
+    "IBUId": "BTFRA11001201101",
+    "FamilyName": "CANTEGREL",
+    "GivenName": "Martin",
+    "ShortName": "CANTEGREL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA10910201101": {
+    "IBUId": "BTITA10910201101",
+    "FamilyName": "CANTONI",
+    "GivenName": "Davide",
+    "ShortName": "CANTONI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA12703199701": {
+    "IBUId": "BTITA12703199701",
+    "FamilyName": "CAPPELLARI",
+    "GivenName": "Daniele",
+    "ShortName": "CAPPELLARI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTCAN13003201001": {
+    "IBUId": "BTCAN13003201001",
+    "FamilyName": "CARMICHAEL",
+    "GivenName": "Lachlan",
+    "ShortName": "CARMICHAEL",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTUSA22603198701": {
+    "IBUId": "BTUSA22603198701",
+    "FamilyName": "CARPENTER",
+    "GivenName": "Meredith",
+    "ShortName": "CARPENTER",
+    "NAT": "USA",
+    "GenderId": "W"
+  },
+  "BTITA11402196601": {
+    "IBUId": "BTITA11402196601",
+    "FamilyName": "CARRARA",
+    "GivenName": "Pieralberto",
+    "ShortName": "CARRARA",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA22703201002": {
+    "IBUId": "BTFRA22703201002",
+    "FamilyName": "CARRIER",
+    "GivenName": "Ines",
+    "ShortName": "CARRIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA22104201101": {
+    "IBUId": "BTITA22104201101",
+    "FamilyName": "CASANOVA BORCA",
+    "GivenName": "Elisa",
+    "ShortName": "CASANOVA BORCA",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA21911201101": {
+    "IBUId": "BTFRA21911201101",
+    "FamilyName": "CASSET",
+    "GivenName": "Jade",
+    "ShortName": "CASSET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21911201102": {
+    "IBUId": "BTFRA21911201102",
+    "FamilyName": "CASSET",
+    "GivenName": "Lena",
+    "ShortName": "CASSET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTESP22509201001": {
+    "IBUId": "BTESP22509201001",
+    "FamilyName": "CASTELLARNAU RABELLA",
+    "GivenName": "Fiona",
+    "ShortName": "CASTELLARNAU RABELLA",
+    "NAT": "ESP",
+    "GenderId": "W"
+  },
+  "BTITA12109200901": {
+    "IBUId": "BTITA12109200901",
+    "FamilyName": "CAVORSIN",
+    "GivenName": "Jacopo",
+    "ShortName": "CAVORSIN",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTCZE13006196301": {
+    "IBUId": "BTCZE13006196301",
+    "FamilyName": "CECH",
+    "GivenName": "Petr",
+    "ShortName": "CECH",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTITA11107201001": {
+    "IBUId": "BTITA11107201001",
+    "FamilyName": "CECONI",
+    "GivenName": "Luca",
+    "ShortName": "CECONI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTCZE12112201101": {
+    "IBUId": "BTCZE12112201101",
+    "FamilyName": "CERNY",
+    "GivenName": "Dominik",
+    "ShortName": "CERNY",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA20312201101": {
+    "IBUId": "BTFRA20312201101",
+    "FamilyName": "CHAIX",
+    "GivenName": "Margot",
+    "ShortName": "CHAIX",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTBUL11905200601": {
+    "IBUId": "BTBUL11905200601",
+    "FamilyName": "CHAKAROV",
+    "GivenName": "Kostadin",
+    "ShortName": "CHAKAROV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTTHA20911201101": {
+    "IBUId": "BTTHA20911201101",
+    "FamilyName": "CHALERMCHOCKCHAI",
+    "GivenName": "Kanokchaya",
+    "ShortName": "CHALERMCHOCKCHAI",
+    "NAT": "THA",
+    "GenderId": "W"
+  },
+  "BTFRA12709201001": {
+    "IBUId": "BTFRA12709201001",
+    "FamilyName": "CHAMBEROD",
+    "GivenName": "Valentin",
+    "ShortName": "CHAMBEROD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20202201101": {
+    "IBUId": "BTFRA20202201101",
+    "FamilyName": "CHAPELAND",
+    "GivenName": "Lisa",
+    "ShortName": "CHAPELAND",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21009200901": {
+    "IBUId": "BTFRA21009200901",
+    "FamilyName": "CHARDON",
+    "GivenName": "Romane",
+    "ShortName": "CHARDON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20702201101": {
+    "IBUId": "BTFRA20702201101",
+    "FamilyName": "CHARTRAIN",
+    "GivenName": "Charline",
+    "ShortName": "CHARTRAIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20611201001": {
+    "IBUId": "BTFRA20611201001",
+    "FamilyName": "CHATEIGNER-LETINOIS",
+    "GivenName": "Leonie",
+    "ShortName": "CHATEIGNER-LETINOIS",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10410201101": {
+    "IBUId": "BTFRA10410201101",
+    "FamilyName": "CHAUVIN",
+    "GivenName": "Tom",
+    "ShortName": "CHAUVIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE20902201101": {
+    "IBUId": "BTCZE20902201101",
+    "FamilyName": "CHMELIKOVA",
+    "GivenName": "Ester",
+    "ShortName": "CHMELIKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTKAZ22904200701": {
+    "IBUId": "BTKAZ22904200701",
+    "FamilyName": "CHSHEDRINA",
+    "GivenName": "Anastassiya",
+    "ShortName": "CHSHEDRINA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ12504200801": {
+    "IBUId": "BTKAZ12504200801",
+    "FamilyName": "CHUMAKOV",
+    "GivenName": "Ivan",
+    "ShortName": "CHUMAKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ21506201101": {
+    "IBUId": "BTKAZ21506201101",
+    "FamilyName": "CHUPIK",
+    "GivenName": "Liya",
+    "ShortName": "CHUPIK",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTFRA10112201101": {
+    "IBUId": "BTFRA10112201101",
+    "FamilyName": "CLEMENT GRANDCLAUDE",
+    "GivenName": "Jules",
+    "ShortName": "CLEMENT GRANDCLAUDE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21502201101": {
+    "IBUId": "BTFRA21502201101",
+    "FamilyName": "CLEMENT SEKINO",
+    "GivenName": "Yumi",
+    "ShortName": "CLEMENT SEKINO",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10112200901": {
+    "IBUId": "BTFRA10112200901",
+    "FamilyName": "CLOSSET",
+    "GivenName": "Leo",
+    "ShortName": "CLOSSET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCAN10606200901": {
+    "IBUId": "BTCAN10606200901",
+    "FamilyName": "COCHRANE",
+    "GivenName": "John",
+    "ShortName": "COCHRANE",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTITA12701201101": {
+    "IBUId": "BTITA12701201101",
+    "FamilyName": "COLETTI",
+    "GivenName": "Alberto",
+    "ShortName": "COLETTI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA11406201001": {
+    "IBUId": "BTITA11406201001",
+    "FamilyName": "COLLE WINCLER",
+    "GivenName": "Luca",
+    "ShortName": "COLLE WINCLER",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTGBR22704199401": {
+    "IBUId": "BTGBR22704199401",
+    "FamilyName": "COLLETT",
+    "GivenName": "Gabrielle",
+    "ShortName": "COLLETT",
+    "NAT": "GBR",
+    "GenderId": "W"
+  },
+  "BTROU21107201101": {
+    "IBUId": "BTROU21107201101",
+    "FamilyName": "COLTEA",
+    "GivenName": "Petruta-Maria",
+    "ShortName": "COLTEA",
+    "NAT": "ROU",
+    "GenderId": "W"
+  },
+  "BTITA20108201101": {
+    "IBUId": "BTITA20108201101",
+    "FamilyName": "COMPLOJER",
+    "GivenName": "Maja",
+    "ShortName": "COMPLOJER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA11205201001": {
+    "IBUId": "BTFRA11205201001",
+    "FamilyName": "CORDELIER",
+    "GivenName": "Nathan",
+    "ShortName": "CORDELIER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTMEX11602199001": {
+    "IBUId": "BTMEX11602199001",
+    "FamilyName": "CORONA RODRIGUEZ",
+    "GivenName": "Allan Daniel",
+    "ShortName": "CORONA RODRIGUEZ",
+    "NAT": "MEX",
+    "GenderId": "M"
+  },
+  "BTFRA11210201001": {
+    "IBUId": "BTFRA11210201001",
+    "FamilyName": "CORTINOVIS",
+    "GivenName": "Oscar",
+    "ShortName": "CORTINOVIS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA11104201101": {
+    "IBUId": "BTITA11104201101",
+    "FamilyName": "COSTABIEI",
+    "GivenName": "Loris",
+    "ShortName": "COSTABIEI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA11606201001": {
+    "IBUId": "BTITA11606201001",
+    "FamilyName": "COSTAMOLING",
+    "GivenName": "Kevin Joshua",
+    "ShortName": "COSTAMOLING",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA10410200901": {
+    "IBUId": "BTFRA10410200901",
+    "FamilyName": "COULON",
+    "GivenName": "Timeo",
+    "ShortName": "COULON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10107201001": {
+    "IBUId": "BTFRA10107201001",
+    "FamilyName": "CREHALET",
+    "GivenName": "Augustin",
+    "ShortName": "CREHALET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12401200901": {
+    "IBUId": "BTFRA12401200901",
+    "FamilyName": "CREUZET",
+    "GivenName": "Gaston",
+    "ShortName": "CREUZET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA11609201101": {
+    "IBUId": "BTITA11609201101",
+    "FamilyName": "CRIMALDI",
+    "GivenName": "Lorenzo",
+    "ShortName": "CRIMALDI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA12901200901": {
+    "IBUId": "BTFRA12901200901",
+    "FamilyName": "CRUZ",
+    "GivenName": "Auguste",
+    "ShortName": "CRUZ",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21205201101": {
+    "IBUId": "BTFRA21205201101",
+    "FamilyName": "CUCHE",
+    "GivenName": "Marie",
+    "ShortName": "CUCHE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21806201101": {
+    "IBUId": "BTFRA21806201101",
+    "FamilyName": "CULLELL",
+    "GivenName": "Soelie",
+    "ShortName": "CULLELL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTAUS20107201101": {
+    "IBUId": "BTAUS20107201101",
+    "FamilyName": "CULLEN-CROKE",
+    "GivenName": "Carmen",
+    "ShortName": "CULLEN-CROKE",
+    "NAT": "AUS",
+    "GenderId": "W"
+  },
+  "BTAUS12406200901": {
+    "IBUId": "BTAUS12406200901",
+    "FamilyName": "CULLEN-CROKE",
+    "GivenName": "Liam",
+    "ShortName": "CULLEN-CROKE",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTCAN12005196701": {
+    "IBUId": "BTCAN12005196701",
+    "FamilyName": "CYR",
+    "GivenName": "Steve",
+    "ShortName": "CYR",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTITA22412201101": {
+    "IBUId": "BTITA22412201101",
+    "FamilyName": "DA FORNO",
+    "GivenName": "Velica",
+    "ShortName": "DA FORNO",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTITA22504201101": {
+    "IBUId": "BTITA22504201101",
+    "FamilyName": "DA POZZO",
+    "GivenName": "Alessandra",
+    "ShortName": "DA POZZO",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA21208201001": {
+    "IBUId": "BTFRA21208201001",
+    "FamilyName": "DAGUET",
+    "GivenName": "Lolie",
+    "ShortName": "DAGUET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTLAT10105201101": {
+    "IBUId": "BTLAT10105201101",
+    "FamilyName": "DAMBIS",
+    "GivenName": "Ernests",
+    "ShortName": "DAMBIS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTITA10704201101": {
+    "IBUId": "BTITA10704201101",
+    "FamilyName": "DANDRES",
+    "GivenName": "Emil",
+    "ShortName": "DANDRES",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA21609201101": {
+    "IBUId": "BTFRA21609201101",
+    "FamilyName": "DANIEL",
+    "GivenName": "Marilou",
+    "ShortName": "DANIEL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTROU20901200801": {
+    "IBUId": "BTROU20901200801",
+    "FamilyName": "DASCALU",
+    "GivenName": "Ioana",
+    "ShortName": "DASCALU",
+    "NAT": "ROU",
+    "GenderId": "W"
+  },
+  "BTLTU11901201101": {
+    "IBUId": "BTLTU11901201101",
+    "FamilyName": "DAUGIRDAS",
+    "GivenName": "Adas Jonas",
+    "ShortName": "DAUGIRDAS",
+    "NAT": "LTU",
+    "GenderId": "M"
+  },
+  "BTFRA10806200901": {
+    "IBUId": "BTFRA10806200901",
+    "FamilyName": "DAVID",
+    "GivenName": "Antoine",
+    "ShortName": "DAVID",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA10509201101": {
+    "IBUId": "BTITA10509201101",
+    "FamilyName": "DE GIUSEPPE",
+    "GivenName": "Leon",
+    "ShortName": "DE GIUSEPPE",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA20712200902": {
+    "IBUId": "BTFRA20712200902",
+    "FamilyName": "DE GRIMAUDET DE ROCHEBOUET",
+    "GivenName": "Olivia",
+    "ShortName": "DE GRIMAUDET DE ROCHEBOUET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTBRA11604201001": {
+    "IBUId": "BTBRA11604201001",
+    "FamilyName": "DE LIMA SANTOS",
+    "GivenName": "Joao Felipe",
+    "ShortName": "DE LIMA SANTOS",
+    "NAT": "BRA",
+    "GenderId": "M"
+  },
+  "BTITA12107201002": {
+    "IBUId": "BTITA12107201002",
+    "FamilyName": "DE MONTE",
+    "GivenName": "Lukas",
+    "ShortName": "DE MONTE",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTSUI11203201101": {
+    "IBUId": "BTSUI11203201101",
+    "FamilyName": "DEFILA",
+    "GivenName": "Burtel",
+    "ShortName": "DEFILA",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTSUI11203201102": {
+    "IBUId": "BTSUI11203201102",
+    "FamilyName": "DEFILA",
+    "GivenName": "Gisep",
+    "ShortName": "DEFILA",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTITA11808201101": {
+    "IBUId": "BTITA11808201101",
+    "FamilyName": "DEL FABBRO",
+    "GivenName": "Samuel",
+    "ShortName": "DEL FABBRO",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA22506201101": {
+    "IBUId": "BTFRA22506201101",
+    "FamilyName": "DELCASSO MARTIN",
+    "GivenName": "Lilou",
+    "ShortName": "DELCASSO MARTIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12506201101": {
+    "IBUId": "BTFRA12506201101",
+    "FamilyName": "DELCASSO MARTIN",
+    "GivenName": "Yann",
+    "ShortName": "DELCASSO MARTIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11404201101": {
+    "IBUId": "BTFRA11404201101",
+    "FamilyName": "DELON",
+    "GivenName": "Louis",
+    "ShortName": "DELON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21310201101": {
+    "IBUId": "BTFRA21310201101",
+    "FamilyName": "DEMANGE",
+    "GivenName": "Lucy",
+    "ShortName": "DEMANGE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10904201101": {
+    "IBUId": "BTFRA10904201101",
+    "FamilyName": "DEPERRAZ",
+    "GivenName": "Nicolas",
+    "ShortName": "DEPERRAZ",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11903200901": {
+    "IBUId": "BTFRA11903200901",
+    "FamilyName": "DESCOUPS",
+    "GivenName": "Bastien",
+    "ShortName": "DESCOUPS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12909201101": {
+    "IBUId": "BTFRA12909201101",
+    "FamilyName": "DESFEUX",
+    "GivenName": "Tao",
+    "ShortName": "DESFEUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21707201001": {
+    "IBUId": "BTFRA21707201001",
+    "FamilyName": "DESMARTIN",
+    "GivenName": "Elisa",
+    "ShortName": "DESMARTIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12903201001": {
+    "IBUId": "BTFRA12903201001",
+    "FamilyName": "DHENAIN",
+    "GivenName": "Soan",
+    "ShortName": "DHENAIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE10505201102": {
+    "IBUId": "BTSWE10505201102",
+    "FamilyName": "DICKSVED",
+    "GivenName": "Joel",
+    "ShortName": "DICKSVED",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE10505201101": {
+    "IBUId": "BTSWE10505201101",
+    "FamilyName": "DICKSVED",
+    "GivenName": "Sven",
+    "ShortName": "DICKSVED",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTBUL11105201101": {
+    "IBUId": "BTBUL11105201101",
+    "FamilyName": "DIMITROV",
+    "GivenName": "Nikolay",
+    "ShortName": "DIMITROV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTSWE21501200701": {
+    "IBUId": "BTSWE21501200701",
+    "FamilyName": "DISL",
+    "GivenName": "Hanna",
+    "ShortName": "DISL",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCAN20207201101": {
+    "IBUId": "BTCAN20207201101",
+    "FamilyName": "DITTO",
+    "GivenName": "Gwenyth",
+    "ShortName": "DITTO",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTUKR22110201001": {
+    "IBUId": "BTUKR22110201001",
+    "FamilyName": "DMYTRUS",
+    "GivenName": "Mariia",
+    "ShortName": "DMYTRUS",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTSUI12209201101": {
+    "IBUId": "BTSUI12209201101",
+    "FamilyName": "DOLF",
+    "GivenName": "Sven",
+    "ShortName": "DOLF",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTBUL12008201101": {
+    "IBUId": "BTBUL12008201101",
+    "FamilyName": "DONEVSKI",
+    "GivenName": "Kristiyan",
+    "ShortName": "DONEVSKI",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTFRA10102200901": {
+    "IBUId": "BTFRA10102200901",
+    "FamilyName": "DONNADIEU BEAL",
+    "GivenName": "Mathis",
+    "ShortName": "DONNADIEU BEAL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12212201001": {
+    "IBUId": "BTFRA12212201001",
+    "FamilyName": "DORDOR",
+    "GivenName": "Sacha",
+    "ShortName": "DORDOR",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUT22810201101": {
+    "IBUId": "BTAUT22810201101",
+    "FamilyName": "DORNAUER",
+    "GivenName": "Carolin",
+    "ShortName": "DORNAUER",
+    "NAT": "AUT",
+    "GenderId": "W"
+  },
+  "BTFRA11106200901": {
+    "IBUId": "BTFRA11106200901",
+    "FamilyName": "DOUS",
+    "GivenName": "Romeo",
+    "ShortName": "DOUS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE22508200801": {
+    "IBUId": "BTCZE22508200801",
+    "FamilyName": "DRESEROVA",
+    "GivenName": "Daniela",
+    "ShortName": "DRESEROVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA12510200501": {
+    "IBUId": "BTFRA12510200501",
+    "FamilyName": "DREZET",
+    "GivenName": "Victor",
+    "ShortName": "DREZET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12107201101": {
+    "IBUId": "BTFRA12107201101",
+    "FamilyName": "DROZ VINCENT",
+    "GivenName": "Adonis",
+    "ShortName": "DROZ VINCENT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10705201101": {
+    "IBUId": "BTFRA10705201101",
+    "FamilyName": "DROZ VINCENT",
+    "GivenName": "Thibault",
+    "ShortName": "DROZ VINCENT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTROU10206200801": {
+    "IBUId": "BTROU10206200801",
+    "FamilyName": "DUBNOV",
+    "GivenName": "Aleksandr",
+    "ShortName": "DUBNOV",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTGBR12006201101": {
+    "IBUId": "BTGBR12006201101",
+    "FamilyName": "DUBOURDIEU",
+    "GivenName": "Jeremie Aaron",
+    "ShortName": "DUBOURDIEU",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTFRA10908201001": {
+    "IBUId": "BTFRA10908201001",
+    "FamilyName": "DUCHESNE",
+    "GivenName": "Timeo",
+    "ShortName": "DUCHESNE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTROU11005201101": {
+    "IBUId": "BTROU11005201101",
+    "FamilyName": "DUICU",
+    "GivenName": "Daniel Andrei",
+    "ShortName": "DUICU",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTFRA22402200901": {
+    "IBUId": "BTFRA22402200901",
+    "FamilyName": "DUPARCHY",
+    "GivenName": "Isalyne",
+    "ShortName": "DUPARCHY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12010201101": {
+    "IBUId": "BTFRA12010201101",
+    "FamilyName": "DUQUESNOY",
+    "GivenName": "Baptiste",
+    "ShortName": "DUQUESNOY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE22209200801": {
+    "IBUId": "BTCZE22209200801",
+    "FamilyName": "DURAJKOVA",
+    "GivenName": "Vanessa",
+    "ShortName": "DURAJKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTKAZ12011200901": {
+    "IBUId": "BTKAZ12011200901",
+    "FamilyName": "DUSMAGAMBETOV",
+    "GivenName": "Anuar",
+    "ShortName": "DUSMAGAMBETOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA22703200901": {
+    "IBUId": "BTFRA22703200901",
+    "FamilyName": "DUSSERRE",
+    "GivenName": "Rose",
+    "ShortName": "DUSSERRE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11512201001": {
+    "IBUId": "BTFRA11512201001",
+    "FamilyName": "DUVAL",
+    "GivenName": "Pierre",
+    "ShortName": "DUVAL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKAZ12705201101": {
+    "IBUId": "BTKAZ12705201101",
+    "FamilyName": "DYMOVSKIKH",
+    "GivenName": "Vyacheslav",
+    "ShortName": "DYMOVSKIKH",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTGBR10307199601": {
+    "IBUId": "BTGBR10307199601",
+    "FamilyName": "EDEN",
+    "GivenName": "Daniel",
+    "ShortName": "EDEN",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTAUT22506201101": {
+    "IBUId": "BTAUT22506201101",
+    "FamilyName": "EGGER",
+    "GivenName": "Magdalena",
+    "ShortName": "EGGER",
+    "NAT": "AUT",
+    "GenderId": "W"
+  },
+  "BTSWE12704201101": {
+    "IBUId": "BTSWE12704201101",
+    "FamilyName": "EHLERS",
+    "GivenName": "Felix",
+    "ShortName": "EHLERS",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE22204200801": {
+    "IBUId": "BTSWE22204200801",
+    "FamilyName": "EINARSSON",
+    "GivenName": "Lovisa",
+    "ShortName": "EINARSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSLO21002201101": {
+    "IBUId": "BTSLO21002201101",
+    "FamilyName": "EINHAUER",
+    "GivenName": "Neza",
+    "ShortName": "EINHAUER",
+    "NAT": "SLO",
+    "GenderId": "W"
+  },
+  "BTLAT22601201101": {
+    "IBUId": "BTLAT22601201101",
+    "FamilyName": "EISAKA",
+    "GivenName": "Adriana",
+    "ShortName": "EISAKA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTSWE10408201001": {
+    "IBUId": "BTSWE10408201001",
+    "FamilyName": "EK",
+    "GivenName": "Elias",
+    "ShortName": "EK",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE22308201101": {
+    "IBUId": "BTSWE22308201101",
+    "FamilyName": "EKELJUNG",
+    "GivenName": "Alice",
+    "ShortName": "EKELJUNG",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTFRA21004200902": {
+    "IBUId": "BTFRA21004200902",
+    "FamilyName": "EL AMIRI",
+    "GivenName": "Ines",
+    "ShortName": "EL AMIRI",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE12012200801": {
+    "IBUId": "BTSWE12012200801",
+    "FamilyName": "ELGESJO",
+    "GivenName": "Ville",
+    "ShortName": "ELGESJO",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTKOR22409201001": {
+    "IBUId": "BTKOR22409201001",
+    "FamilyName": "EOM",
+    "GivenName": "Soa",
+    "ShortName": "EOM",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTSWE11608200101": {
+    "IBUId": "BTSWE11608200101",
+    "FamilyName": "ERIKSSON",
+    "GivenName": "Alfred",
+    "ShortName": "ERIKSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE21203200801": {
+    "IBUId": "BTSWE21203200801",
+    "FamilyName": "ERIKSSON",
+    "GivenName": "Ida",
+    "ShortName": "ERIKSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSWE10303199701": {
+    "IBUId": "BTSWE10303199701",
+    "FamilyName": "ERIKSSON",
+    "GivenName": "Jonas",
+    "ShortName": "ERIKSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE22107200501": {
+    "IBUId": "BTSWE22107200501",
+    "FamilyName": "ERSSON",
+    "GivenName": "Alva",
+    "ShortName": "ERSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTTUR21510200801": {
+    "IBUId": "BTTUR21510200801",
+    "FamilyName": "ESKIKAN",
+    "GivenName": "Havvanur",
+    "ShortName": "ESKIKAN",
+    "NAT": "TUR",
+    "GenderId": "W"
+  },
+  "BTGBR23008200001": {
+    "IBUId": "BTGBR23008200001",
+    "FamilyName": "EVANS",
+    "GivenName": "Alice",
+    "ShortName": "EVANS",
+    "NAT": "GBR",
+    "GenderId": "W"
+  },
+  "BTFRA11605200901": {
+    "IBUId": "BTFRA11605200901",
+    "FamilyName": "EYMARD",
+    "GivenName": "Niyma",
+    "ShortName": "EYMARD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGRE20306201101": {
+    "IBUId": "BTGRE20306201101",
+    "FamilyName": "FAFALI",
+    "GivenName": "Annalena",
+    "ShortName": "FAFALI",
+    "NAT": "GRE",
+    "GenderId": "W"
+  },
+  "BTGRE13008201101": {
+    "IBUId": "BTGRE13008201101",
+    "FamilyName": "FAFALIS",
+    "GivenName": "Nikolaos",
+    "ShortName": "FAFALIS",
+    "NAT": "GRE",
+    "GenderId": "M"
+  },
+  "BTCZE22609201101": {
+    "IBUId": "BTCZE22609201101",
+    "FamilyName": "FALTUSOVA",
+    "GivenName": "Kristina",
+    "ShortName": "FALTUSOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA21006201101": {
+    "IBUId": "BTFRA21006201101",
+    "FamilyName": "FAVRE",
+    "GivenName": "Juline",
+    "ShortName": "FAVRE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10707200901": {
+    "IBUId": "BTFRA10707200901",
+    "FamilyName": "FAVRE",
+    "GivenName": "Loris",
+    "ShortName": "FAVRE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21711201101": {
+    "IBUId": "BTFRA21711201101",
+    "FamilyName": "FEHR",
+    "GivenName": "Malou",
+    "ShortName": "FEHR",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11703201101": {
+    "IBUId": "BTFRA11703201101",
+    "FamilyName": "FERAUD",
+    "GivenName": "Niels",
+    "ShortName": "FERAUD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUS12704201101": {
+    "IBUId": "BTAUS12704201101",
+    "FamilyName": "FERCOT",
+    "GivenName": "Ewenn Mael Aurelien",
+    "ShortName": "FERCOT",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTPOL12103198701": {
+    "IBUId": "BTPOL12103198701",
+    "FamilyName": "FIJALKOWSKI",
+    "GivenName": "Grzegorz",
+    "ShortName": "FIJALKOWSKI",
+    "NAT": "POL",
+    "GenderId": "M"
+  },
+  "BTUKR21605200901": {
+    "IBUId": "BTUKR21605200901",
+    "FamilyName": "FILINA",
+    "GivenName": "Aryna",
+    "ShortName": "FILINA",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTITA22501201101": {
+    "IBUId": "BTITA22501201101",
+    "FamilyName": "FILIPPI",
+    "GivenName": "Linda",
+    "ShortName": "FILIPPI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTAUS22106201101": {
+    "IBUId": "BTAUS22106201101",
+    "FamilyName": "FINDLAY",
+    "GivenName": "Jade",
+    "ShortName": "FINDLAY",
+    "NAT": "AUS",
+    "GenderId": "W"
+  },
+  "BTFRA12004200901": {
+    "IBUId": "BTFRA12004200901",
+    "FamilyName": "FINE",
+    "GivenName": "Alexis",
+    "ShortName": "FINE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSUI23103199801": {
+    "IBUId": "BTSUI23103199801",
+    "FamilyName": "FISCHER",
+    "GivenName": "Lea",
+    "ShortName": "FISCHER",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTFRA11811201101": {
+    "IBUId": "BTFRA11811201101",
+    "FamilyName": "FLEURY",
+    "GivenName": "Felix",
+    "ShortName": "FLEURY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12904200901": {
+    "IBUId": "BTFRA12904200901",
+    "FamilyName": "FLEURY",
+    "GivenName": "Sacha",
+    "ShortName": "FLEURY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFIN12405195201": {
+    "IBUId": "BTFIN12405195201",
+    "FamilyName": "FLOJT",
+    "GivenName": "Henrik",
+    "ShortName": "FLOJT",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTCZE11811201101": {
+    "IBUId": "BTCZE11811201101",
+    "FamilyName": "FLORIAN",
+    "GivenName": "Adam",
+    "ShortName": "FLORIAN",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTGER12604200601": {
+    "IBUId": "BTGER12604200601",
+    "FamilyName": "FOHR",
+    "GivenName": "Lukas",
+    "ShortName": "FOHR",
+    "NAT": "GER",
+    "GenderId": "M"
+  },
+  "BTKAZ22004200801": {
+    "IBUId": "BTKAZ22004200801",
+    "FamilyName": "FOLENVEIDER",
+    "GivenName": "Diana",
+    "ShortName": "FOLENVEIDER",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTGBR22610200901": {
+    "IBUId": "BTGBR22610200901",
+    "FamilyName": "FORD",
+    "GivenName": "Ella",
+    "ShortName": "FORD",
+    "NAT": "GBR",
+    "GenderId": "W"
+  },
+  "BTUSA11205201101": {
+    "IBUId": "BTUSA11205201101",
+    "FamilyName": "FOREMAN",
+    "GivenName": "Jacob",
+    "ShortName": "FOREMAN",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTITA20401200501": {
+    "IBUId": "BTITA20401200501",
+    "FamilyName": "FORLIN",
+    "GivenName": "Alessia",
+    "ShortName": "FORLIN",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTSWE10405200901": {
+    "IBUId": "BTSWE10405200901",
+    "FamilyName": "FORS",
+    "GivenName": "Eric",
+    "ShortName": "FORS",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE22607201101": {
+    "IBUId": "BTSWE22607201101",
+    "FamilyName": "FORSBERG",
+    "GivenName": "Linnea",
+    "ShortName": "FORSBERG",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTGER21005201101": {
+    "IBUId": "BTGER21005201101",
+    "FamilyName": "FORSTNER",
+    "GivenName": "Antonia",
+    "ShortName": "FORSTNER",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTCAN22509197601": {
+    "IBUId": "BTCAN22509197601",
+    "FamilyName": "FRANCIS",
+    "GivenName": "Ellen",
+    "ShortName": "FRANCIS",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTSVK22108201101": {
+    "IBUId": "BTSVK22108201101",
+    "FamilyName": "FRANOVA",
+    "GivenName": "Lilou",
+    "ShortName": "FRANOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTFRA10610201101": {
+    "IBUId": "BTFRA10610201101",
+    "FamilyName": "FRIEDRICH",
+    "GivenName": "Alexandre",
+    "ShortName": "FRIEDRICH",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA23004201101": {
+    "IBUId": "BTITA23004201101",
+    "FamilyName": "FRIGO",
+    "GivenName": "Angela",
+    "ShortName": "FRIGO",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTCZE12012201101": {
+    "IBUId": "BTCZE12012201101",
+    "FamilyName": "FUCIKOVSKY",
+    "GivenName": "Simon",
+    "ShortName": "FUCIKOVSKY",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTJPN11106200201": {
+    "IBUId": "BTJPN11106200201",
+    "FamilyName": "FUNAYAMA",
+    "GivenName": "Riku",
+    "ShortName": "FUNAYAMA",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTSVK10211201101": {
+    "IBUId": "BTSVK10211201101",
+    "FamilyName": "GAJDOSOVCI",
+    "GivenName": "Andrej",
+    "ShortName": "GAJDOSOVCI",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTFRA20509201101": {
+    "IBUId": "BTFRA20509201101",
+    "FamilyName": "GALLAY",
+    "GivenName": "Eva",
+    "ShortName": "GALLAY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA13003200902": {
+    "IBUId": "BTFRA13003200902",
+    "FamilyName": "GALMACE PAULIN",
+    "GivenName": "Oskar",
+    "ShortName": "GALMACE PAULIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21903201001": {
+    "IBUId": "BTFRA21903201001",
+    "FamilyName": "GAND",
+    "GivenName": "Elena",
+    "ShortName": "GAND",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTAUT11005200201": {
+    "IBUId": "BTAUT11005200201",
+    "FamilyName": "GANNER",
+    "GivenName": "Florian",
+    "ShortName": "GANNER",
+    "NAT": "AUT",
+    "GenderId": "M"
+  },
+  "BTAUT22903201101": {
+    "IBUId": "BTAUT22903201101",
+    "FamilyName": "GATTERER",
+    "GivenName": "Elina",
+    "ShortName": "GATTERER",
+    "NAT": "AUT",
+    "GenderId": "W"
+  },
+  "BTLAT12504201101": {
+    "IBUId": "BTLAT12504201101",
+    "FamilyName": "GAVARS",
+    "GivenName": "Klavs",
+    "ShortName": "GAVARS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTFRA20305201101": {
+    "IBUId": "BTFRA20305201101",
+    "FamilyName": "GEHIN",
+    "GivenName": "Emy",
+    "ShortName": "GEHIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTBUL22310201101": {
+    "IBUId": "BTBUL22310201101",
+    "FamilyName": "GENKOVSKA",
+    "GivenName": "Tsvetelina",
+    "ShortName": "GENKOVSKA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTITA12107201101": {
+    "IBUId": "BTITA12107201101",
+    "FamilyName": "GENS",
+    "GivenName": "Thierry",
+    "ShortName": "GENS",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTBUL21012200301": {
+    "IBUId": "BTBUL21012200301",
+    "FamilyName": "GEORGIEVA",
+    "GivenName": "Aleksandrina",
+    "ShortName": "GEORGIEVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTBUL22807201101": {
+    "IBUId": "BTBUL22807201101",
+    "FamilyName": "GEORGIEVA",
+    "GivenName": "Gabriela",
+    "ShortName": "GEORGIEVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTFRA12802200901": {
+    "IBUId": "BTFRA12802200901",
+    "FamilyName": "GERBER",
+    "GivenName": "Titouan",
+    "ShortName": "GERBER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA20102200902": {
+    "IBUId": "BTITA20102200902",
+    "FamilyName": "GERBORE",
+    "GivenName": "Margot",
+    "ShortName": "GERBORE",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTHUN20411201101": {
+    "IBUId": "BTHUN20411201101",
+    "FamilyName": "GERGELY",
+    "GivenName": "Laura Hanna",
+    "ShortName": "GERGELY",
+    "NAT": "HUN",
+    "GenderId": "W"
+  },
+  "BTHUN12302201101": {
+    "IBUId": "BTHUN12302201101",
+    "FamilyName": "GERGELY",
+    "GivenName": "Marton",
+    "ShortName": "GERGELY",
+    "NAT": "HUN",
+    "GenderId": "M"
+  },
+  "BTDEN21911200801": {
+    "IBUId": "BTDEN21911200801",
+    "FamilyName": "GHISLER-SOLVANG",
+    "GivenName": "Vibe",
+    "ShortName": "GHISLER-SOLVANG",
+    "NAT": "DEN",
+    "GenderId": "W"
+  },
+  "BTFRA20711201102": {
+    "IBUId": "BTFRA20711201102",
+    "FamilyName": "GIGANTE",
+    "GivenName": "Louba",
+    "ShortName": "GIGANTE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA21608201101": {
+    "IBUId": "BTITA21608201101",
+    "FamilyName": "GIORDANENGO",
+    "GivenName": "Ludovica",
+    "ShortName": "GIORDANENGO",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTROU11301199401": {
+    "IBUId": "BTROU11301199401",
+    "FamilyName": "GIRBACEA",
+    "GivenName": "Tudor",
+    "ShortName": "GIRBACEA",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTFRA10201200901": {
+    "IBUId": "BTFRA10201200901",
+    "FamilyName": "GIRIN",
+    "GivenName": "Esteban",
+    "ShortName": "GIRIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21109201101": {
+    "IBUId": "BTFRA21109201101",
+    "FamilyName": "GIRIN",
+    "GivenName": "Maelys",
+    "ShortName": "GIRIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10102201001": {
+    "IBUId": "BTFRA10102201001",
+    "FamilyName": "GIRIN",
+    "GivenName": "Olivan",
+    "ShortName": "GIRIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGRE12006201101": {
+    "IBUId": "BTGRE12006201101",
+    "FamilyName": "GKESOPOULOS",
+    "GivenName": "Iason",
+    "ShortName": "GKESOPOULOS",
+    "NAT": "GRE",
+    "GenderId": "M"
+  },
+  "BTSWE11309201201": {
+    "IBUId": "BTSWE11309201201",
+    "FamilyName": "GLUDERER",
+    "GivenName": "Franz",
+    "ShortName": "GLUDERER",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTGBR12509200601": {
+    "IBUId": "BTGBR12509200601",
+    "FamilyName": "GOLEBIEWSKI",
+    "GivenName": "Adam Joe",
+    "ShortName": "GOLEBIEWSKI",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTKAZ10412200701": {
+    "IBUId": "BTKAZ10412200701",
+    "FamilyName": "GOLOVANOV",
+    "GivenName": "Oleg",
+    "ShortName": "GOLOVANOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ12608201001": {
+    "IBUId": "BTKAZ12608201001",
+    "FamilyName": "GORBACHEVSKIY",
+    "GivenName": "Yegor",
+    "ShortName": "GORBACHEVSKIY",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTUKR12802201101": {
+    "IBUId": "BTUKR12802201101",
+    "FamilyName": "GORISNIJ",
+    "GivenName": "Vitalii",
+    "ShortName": "GORISNIJ",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTKAZ13105200901": {
+    "IBUId": "BTKAZ13105200901",
+    "FamilyName": "GORODNICHEV",
+    "GivenName": "Andrey",
+    "ShortName": "GORODNICHEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA22108201001": {
+    "IBUId": "BTFRA22108201001",
+    "FamilyName": "GOUARD",
+    "GivenName": "Clementine",
+    "ShortName": "GOUARD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTNZL22901200701": {
+    "IBUId": "BTNZL22901200701",
+    "FamilyName": "GOULD",
+    "GivenName": "Jessica",
+    "ShortName": "GOULD",
+    "NAT": "NZL",
+    "GenderId": "W"
+  },
+  "BTFRA22306201001": {
+    "IBUId": "BTFRA22306201001",
+    "FamilyName": "GRANDCLEMENT",
+    "GivenName": "Lise",
+    "ShortName": "GRANDCLEMENT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCRO12501201101": {
+    "IBUId": "BTCRO12501201101",
+    "FamilyName": "GRGURIC",
+    "GivenName": "Gabriel",
+    "ShortName": "GRGURIC",
+    "NAT": "CRO",
+    "GenderId": "M"
+  },
+  "BTFRA11409200901": {
+    "IBUId": "BTFRA11409200901",
+    "FamilyName": "GRITTI",
+    "GivenName": "Raphael",
+    "ShortName": "GRITTI",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10804201001": {
+    "IBUId": "BTFRA10804201001",
+    "FamilyName": "GROGNIEUX",
+    "GivenName": "Nils",
+    "ShortName": "GROGNIEUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA11904201101": {
+    "IBUId": "BTITA11904201101",
+    "FamilyName": "GROSSI",
+    "GivenName": "Santiago",
+    "ShortName": "GROSSI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTROU12502201101": {
+    "IBUId": "BTROU12502201101",
+    "FamilyName": "GROZA",
+    "GivenName": "Maximilian-Stefan",
+    "ShortName": "GROZA",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTNOR20312200701": {
+    "IBUId": "BTNOR20312200701",
+    "FamilyName": "GRUBBEN",
+    "GivenName": "Lisa",
+    "ShortName": "GRUBBEN",
+    "NAT": "NOR",
+    "GenderId": "W"
+  },
+  "BTBUL10903201001": {
+    "IBUId": "BTBUL10903201001",
+    "FamilyName": "GRUEV",
+    "GivenName": "Nikolay",
+    "ShortName": "GRUEV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTITA10802201101": {
+    "IBUId": "BTITA10802201101",
+    "FamilyName": "GUADAGNINI",
+    "GivenName": "Filippo Giovanni",
+    "ShortName": "GUADAGNINI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA11803201001": {
+    "IBUId": "BTFRA11803201001",
+    "FamilyName": "GUERIN",
+    "GivenName": "Liam",
+    "ShortName": "GUERIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12703200901": {
+    "IBUId": "BTFRA12703200901",
+    "FamilyName": "GUILLET",
+    "GivenName": "Emilian",
+    "ShortName": "GUILLET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTLTU23005201101": {
+    "IBUId": "BTLTU23005201101",
+    "FamilyName": "GURSKA",
+    "GivenName": "Monika",
+    "ShortName": "GURSKA",
+    "NAT": "LTU",
+    "GenderId": "W"
+  },
+  "BTFIN12804200901": {
+    "IBUId": "BTFIN12804200901",
+    "FamilyName": "HAAPAMAKI",
+    "GivenName": "Elmeri",
+    "ShortName": "HAAPAMAKI",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTFRA20611201002": {
+    "IBUId": "BTFRA20611201002",
+    "FamilyName": "HABERT",
+    "GivenName": "Laly",
+    "ShortName": "HABERT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSVK10912200901": {
+    "IBUId": "BTSVK10912200901",
+    "FamilyName": "HALAK",
+    "GivenName": "Dominik",
+    "ShortName": "HALAK",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTSWE20208200701": {
+    "IBUId": "BTSWE20208200701",
+    "FamilyName": "HALLIN",
+    "GivenName": "Lilly",
+    "ShortName": "HALLIN",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTGER20602201101": {
+    "IBUId": "BTGER20602201101",
+    "FamilyName": "HAMMEN",
+    "GivenName": "Jana",
+    "ShortName": "HAMMEN",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTKOR12704200701": {
+    "IBUId": "BTKOR12704200701",
+    "FamilyName": "HAN",
+    "GivenName": "Gyumin",
+    "ShortName": "HAN",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR12310200801": {
+    "IBUId": "BTKOR12310200801",
+    "FamilyName": "HAN",
+    "GivenName": "Sangwon",
+    "ShortName": "HAN",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTLBN11510200601": {
+    "IBUId": "BTLBN11510200601",
+    "FamilyName": "HANNA",
+    "GivenName": "Anthony",
+    "ShortName": "HANNA",
+    "NAT": "LBN",
+    "GenderId": "M"
+  },
+  "BTFIN23101201101": {
+    "IBUId": "BTFIN23101201101",
+    "FamilyName": "HARJU",
+    "GivenName": "Heta",
+    "ShortName": "HARJU",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTGER12210198601": {
+    "IBUId": "BTGER12210198601",
+    "FamilyName": "HARTMANN",
+    "GivenName": "Markus",
+    "ShortName": "HARTMANN",
+    "NAT": "GER",
+    "GenderId": "M"
+  },
+  "BTCZE21804201101": {
+    "IBUId": "BTCZE21804201101",
+    "FamilyName": "HARTMANNOVA",
+    "GivenName": "Eliska",
+    "ShortName": "HARTMANNOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTAUS23103200901": {
+    "IBUId": "BTAUS23103200901",
+    "FamilyName": "HARVEY",
+    "GivenName": "Thea",
+    "ShortName": "HARVEY",
+    "NAT": "AUS",
+    "GenderId": "W"
+  },
+  "BTFRA12510201101": {
+    "IBUId": "BTFRA12510201101",
+    "FamilyName": "HASENFRATZ",
+    "GivenName": "Robin",
+    "ShortName": "HASENFRATZ",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTJPN10312198101": {
+    "IBUId": "BTJPN10312198101",
+    "FamilyName": "HATAKEYAMA",
+    "GivenName": "Nodoka",
+    "ShortName": "HATAKEYAMA",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTFRA21101201101": {
+    "IBUId": "BTFRA21101201101",
+    "FamilyName": "HEITZ",
+    "GivenName": "Servane",
+    "ShortName": "HEITZ",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10807200901": {
+    "IBUId": "BTFRA10807200901",
+    "FamilyName": "HELLE",
+    "GivenName": "Max-Emilien",
+    "ShortName": "HELLE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE12906201101": {
+    "IBUId": "BTSWE12906201101",
+    "FamilyName": "HELMERSSON",
+    "GivenName": "Anton",
+    "ShortName": "HELMERSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSUI22710201101": {
+    "IBUId": "BTSUI22710201101",
+    "FamilyName": "HENGARTNER",
+    "GivenName": "Seraina",
+    "ShortName": "HENGARTNER",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTFRA12308201001": {
+    "IBUId": "BTFRA12308201001",
+    "FamilyName": "HENOCQ",
+    "GivenName": "Achille",
+    "ShortName": "HENOCQ",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20304201101": {
+    "IBUId": "BTFRA20304201101",
+    "FamilyName": "HERMANN",
+    "GivenName": "Melie",
+    "ShortName": "HERMANN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10403201101": {
+    "IBUId": "BTFRA10403201101",
+    "FamilyName": "HERNANDEZ GRAFF",
+    "GivenName": "Joachim",
+    "ShortName": "HERNANDEZ GRAFF",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSLO10410201101": {
+    "IBUId": "BTSLO10410201101",
+    "FamilyName": "HERNAUS",
+    "GivenName": "Maks",
+    "ShortName": "HERNAUS",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTFRA11909201001": {
+    "IBUId": "BTFRA11909201001",
+    "FamilyName": "HEUSEY",
+    "GivenName": "Lois",
+    "ShortName": "HEUSEY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFIN21210201101": {
+    "IBUId": "BTFIN21210201101",
+    "FamilyName": "HIETAMAKI",
+    "GivenName": "Noora",
+    "ShortName": "HIETAMAKI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFIN20305201101": {
+    "IBUId": "BTFIN20305201101",
+    "FamilyName": "HIETAMAKI",
+    "GivenName": "Outi",
+    "ShortName": "HIETAMAKI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFIN11207201101": {
+    "IBUId": "BTFIN11207201101",
+    "FamilyName": "HIETAOJA",
+    "GivenName": "Eemeli",
+    "ShortName": "HIETAOJA",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTITA21802201101": {
+    "IBUId": "BTITA21802201101",
+    "FamilyName": "HILBER",
+    "GivenName": "Eva",
+    "ShortName": "HILBER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFIN20608201001": {
+    "IBUId": "BTFIN20608201001",
+    "FamilyName": "HIRVONEN",
+    "GivenName": "Hilla",
+    "ShortName": "HIRVONEN",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTITA22508201101": {
+    "IBUId": "BTITA22508201101",
+    "FamilyName": "HOCHRAINER",
+    "GivenName": "Lea",
+    "ShortName": "HOCHRAINER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTHUN20102201101": {
+    "IBUId": "BTHUN20102201101",
+    "FamilyName": "HOLCZER",
+    "GivenName": "Hanka",
+    "ShortName": "HOLCZER",
+    "NAT": "HUN",
+    "GenderId": "W"
+  },
+  "BTGBR20808200101": {
+    "IBUId": "BTGBR20808200101",
+    "FamilyName": "HOLLAND",
+    "GivenName": "Shauna",
+    "ShortName": "HOLLAND",
+    "NAT": "GBR",
+    "GenderId": "W"
+  },
+  "BTUKR11802201101": {
+    "IBUId": "BTUKR11802201101",
+    "FamilyName": "HOPANIUK",
+    "GivenName": "Andrii",
+    "ShortName": "HOPANIUK",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTCZE20311201101": {
+    "IBUId": "BTCZE20311201101",
+    "FamilyName": "HORACKOVA",
+    "GivenName": "Viktorie Anna",
+    "ShortName": "HORACKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTSWE22411201101": {
+    "IBUId": "BTSWE22411201101",
+    "FamilyName": "HORCIC",
+    "GivenName": "Ruth",
+    "ShortName": "HORCIC",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCZE11506201101": {
+    "IBUId": "BTCZE11506201101",
+    "FamilyName": "HRIB",
+    "GivenName": "Ondrej",
+    "ShortName": "HRIB",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE10304201101": {
+    "IBUId": "BTCZE10304201101",
+    "FamilyName": "HULKA",
+    "GivenName": "Lukas",
+    "ShortName": "HULKA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA13003200901": {
+    "IBUId": "BTFRA13003200901",
+    "FamilyName": "HUMBERT",
+    "GivenName": "Noa",
+    "ShortName": "HUMBERT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12511200901": {
+    "IBUId": "BTFRA12511200901",
+    "FamilyName": "HUMBERT",
+    "GivenName": "Noe",
+    "ShortName": "HUMBERT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCAN20203200401": {
+    "IBUId": "BTCAN20203200401",
+    "FamilyName": "HUPE",
+    "GivenName": "Isla",
+    "ShortName": "HUPE",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTCZE22201201101": {
+    "IBUId": "BTCZE22201201101",
+    "FamilyName": "HURNIKOVA",
+    "GivenName": "Martina",
+    "ShortName": "HURNIKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTKAZ11103200901": {
+    "IBUId": "BTKAZ11103200901",
+    "FamilyName": "ILCHENKO",
+    "GivenName": "Igor",
+    "ShortName": "ILCHENKO",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTUZB12011200801": {
+    "IBUId": "BTUZB12011200801",
+    "FamilyName": "ILESOV",
+    "GivenName": "Janibek",
+    "ShortName": "ILESOV",
+    "NAT": "UZB",
+    "GenderId": "M"
+  },
+  "BTBUL11107201101": {
+    "IBUId": "BTBUL11107201101",
+    "FamilyName": "IVANOV",
+    "GivenName": "Konstantin",
+    "ShortName": "IVANOV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTKAZ10810199201": {
+    "IBUId": "BTKAZ10810199201",
+    "FamilyName": "IVANOV",
+    "GivenName": "Vadim",
+    "ShortName": "IVANOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ12809196901": {
+    "IBUId": "BTKAZ12809196901",
+    "FamilyName": "IVANOV",
+    "GivenName": "Valeri",
+    "ShortName": "IVANOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ22206200801": {
+    "IBUId": "BTKAZ22206200801",
+    "FamilyName": "IVANOVSKAYA",
+    "GivenName": "Zlata",
+    "ShortName": "IVANOVSKAYA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTFRA21701200901": {
+    "IBUId": "BTFRA21701200901",
+    "FamilyName": "JACKIW",
+    "GivenName": "Margot",
+    "ShortName": "JACKIW",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12011201001": {
+    "IBUId": "BTFRA12011201001",
+    "FamilyName": "JACQMIN",
+    "GivenName": "Gaspard",
+    "ShortName": "JACQMIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10802201001": {
+    "IBUId": "BTFRA10802201001",
+    "FamilyName": "JACQUET",
+    "GivenName": "Mathis",
+    "ShortName": "JACQUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12208201101": {
+    "IBUId": "BTFRA12208201101",
+    "FamilyName": "JACQUET",
+    "GivenName": "Maxence",
+    "ShortName": "JACQUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22411201101": {
+    "IBUId": "BTFRA22411201101",
+    "FamilyName": "JACQUOLETTO",
+    "GivenName": "Eva",
+    "ShortName": "JACQUOLETTO",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE21803200901": {
+    "IBUId": "BTSWE21803200901",
+    "FamilyName": "JADERBERG",
+    "GivenName": "Moa",
+    "ShortName": "JADERBERG",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTEST13112201001": {
+    "IBUId": "BTEST13112201001",
+    "FamilyName": "JAERVISTE",
+    "GivenName": "Robert",
+    "ShortName": "JAERVISTE",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTSWE20506200801": {
+    "IBUId": "BTSWE20506200801",
+    "FamilyName": "JAKOBSSON",
+    "GivenName": "Telma",
+    "ShortName": "JAKOBSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSLO21803201101": {
+    "IBUId": "BTSLO21803201101",
+    "FamilyName": "JAKSA",
+    "GivenName": "Tinkara",
+    "ShortName": "JAKSA",
+    "NAT": "SLO",
+    "GenderId": "W"
+  },
+  "BTSLO11508201101": {
+    "IBUId": "BTSLO11508201101",
+    "FamilyName": "JAN",
+    "GivenName": "Filip Mario",
+    "ShortName": "JAN",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTCZE11906196101": {
+    "IBUId": "BTCZE11906196101",
+    "FamilyName": "JANDA",
+    "GivenName": "Petr",
+    "ShortName": "JANDA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE11806201101": {
+    "IBUId": "BTCZE11806201101",
+    "FamilyName": "JANSA",
+    "GivenName": "Stepan",
+    "ShortName": "JANSA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTSWE11601200801": {
+    "IBUId": "BTSWE11601200801",
+    "FamilyName": "JANSSON",
+    "GivenName": "Erik",
+    "ShortName": "JANSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTCZE12711201101": {
+    "IBUId": "BTCZE12711201101",
+    "FamilyName": "JANU",
+    "GivenName": "Jiri",
+    "ShortName": "JANU",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA10101201001": {
+    "IBUId": "BTFRA10101201001",
+    "FamilyName": "JARNIAS LE BOURHIS",
+    "GivenName": "Eol",
+    "ShortName": "JARNIAS LE BOURHIS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSVK22504200901": {
+    "IBUId": "BTSVK22504200901",
+    "FamilyName": "JAROSCAKOVA",
+    "GivenName": "Viktoria",
+    "ShortName": "JAROSCAKOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTPOL10402200501": {
+    "IBUId": "BTPOL10402200501",
+    "FamilyName": "JASKIEWICZ",
+    "GivenName": "Leszek",
+    "ShortName": "JASKIEWICZ",
+    "NAT": "POL",
+    "GenderId": "M"
+  },
+  "BTFRA12409201101": {
+    "IBUId": "BTFRA12409201101",
+    "FamilyName": "JAVAUX",
+    "GivenName": "Camille",
+    "ShortName": "JAVAUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20209200901": {
+    "IBUId": "BTFRA20209200901",
+    "FamilyName": "JEANNEROD",
+    "GivenName": "Coline",
+    "ShortName": "JEANNEROD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA21505201101": {
+    "IBUId": "BTITA21505201101",
+    "FamilyName": "JENEI",
+    "GivenName": "Nelli",
+    "ShortName": "JENEI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTKOR20302201001": {
+    "IBUId": "BTKOR20302201001",
+    "FamilyName": "JEON",
+    "GivenName": "Seongeun",
+    "ShortName": "JEON",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTKOR20809201001": {
+    "IBUId": "BTKOR20809201001",
+    "FamilyName": "JEONG",
+    "GivenName": "Dagyo",
+    "ShortName": "JEONG",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTCZE10410201101": {
+    "IBUId": "BTCZE10410201101",
+    "FamilyName": "JIRICKA",
+    "GivenName": "David",
+    "ShortName": "JIRICKA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA10812201101": {
+    "IBUId": "BTFRA10812201101",
+    "FamilyName": "JOBARD",
+    "GivenName": "Jules",
+    "ShortName": "JOBARD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12505200901": {
+    "IBUId": "BTFRA12505200901",
+    "FamilyName": "JOBARD",
+    "GivenName": "Martin",
+    "ShortName": "JOBARD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA12905201001": {
+    "IBUId": "BTFRA12905201001",
+    "FamilyName": "JOCTEUR",
+    "GivenName": "Damien",
+    "ShortName": "JOCTEUR",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE20609200601": {
+    "IBUId": "BTSWE20609200601",
+    "FamilyName": "JOHANSSON",
+    "GivenName": "Ida",
+    "ShortName": "JOHANSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSWE10904200901": {
+    "IBUId": "BTSWE10904200901",
+    "FamilyName": "JOHANSSON",
+    "GivenName": "Olof",
+    "ShortName": "JOHANSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE12606197901": {
+    "IBUId": "BTSWE12606197901",
+    "FamilyName": "JOHANSSON",
+    "GivenName": "Sven",
+    "ShortName": "JOHANSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA13112201001": {
+    "IBUId": "BTFRA13112201001",
+    "FamilyName": "JOLLY",
+    "GivenName": "Remi",
+    "ShortName": "JOLLY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21302201101": {
+    "IBUId": "BTFRA21302201101",
+    "FamilyName": "JULLIEN",
+    "GivenName": "Elina",
+    "ShortName": "JULLIEN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKOR12402200901": {
+    "IBUId": "BTKOR12402200901",
+    "FamilyName": "JUNG",
+    "GivenName": "Siwoo",
+    "ShortName": "JUNG",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTCZE21205201101": {
+    "IBUId": "BTCZE21205201101",
+    "FamilyName": "JUNGOVA",
+    "GivenName": "Karolina",
+    "ShortName": "JUNGOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA10406200901": {
+    "IBUId": "BTFRA10406200901",
+    "FamilyName": "JUVENET",
+    "GivenName": "Augustin",
+    "ShortName": "JUVENET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTTHA10306201001": {
+    "IBUId": "BTTHA10306201001",
+    "FamilyName": "KAEWWONGSA",
+    "GivenName": "Bunyarit",
+    "ShortName": "KAEWWONGSA",
+    "NAT": "THA",
+    "GenderId": "M"
+  },
+  "BTFIN11203200901": {
+    "IBUId": "BTFIN11203200901",
+    "FamilyName": "KALLIOMAKI",
+    "GivenName": "Konsta",
+    "ShortName": "KALLIOMAKI",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTLAT20703200502": {
+    "IBUId": "BTLAT20703200502",
+    "FamilyName": "KALNINA",
+    "GivenName": "Enia",
+    "ShortName": "KALNINA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTCHN20909200401": {
+    "IBUId": "BTCHN20909200401",
+    "FamilyName": "KAN",
+    "GivenName": "Zimeng",
+    "ShortName": "KAN",
+    "NAT": "CHN",
+    "GenderId": "W"
+  },
+  "BTKOR22209200901": {
+    "IBUId": "BTKOR22209200901",
+    "FamilyName": "KANG",
+    "GivenName": "Jiyeon",
+    "ShortName": "KANG",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTHUN10812200901": {
+    "IBUId": "BTHUN10812200901",
+    "FamilyName": "KARAKO",
+    "GivenName": "Milan",
+    "ShortName": "KARAKO",
+    "NAT": "HUN",
+    "GenderId": "M"
+  },
+  "BTFRA21407201001": {
+    "IBUId": "BTFRA21407201001",
+    "FamilyName": "KARLESKIND",
+    "GivenName": "Lina",
+    "ShortName": "KARLESKIND",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ12209201101": {
+    "IBUId": "BTKAZ12209201101",
+    "FamilyName": "KARPACHEV",
+    "GivenName": "Fyodor",
+    "ShortName": "KARPACHEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCZE11912201101": {
+    "IBUId": "BTCZE11912201101",
+    "FamilyName": "KAVALEK",
+    "GivenName": "Jan",
+    "ShortName": "KAVALEK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTKAZ20411200901": {
+    "IBUId": "BTKAZ20411200901",
+    "FamilyName": "KAZBEK",
+    "GivenName": "Alina",
+    "ShortName": "KAZBEK",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTSUI21705201101": {
+    "IBUId": "BTSUI21705201101",
+    "FamilyName": "KELLER",
+    "GivenName": "Jonna",
+    "ShortName": "KELLER",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTSVK10102201101": {
+    "IBUId": "BTSVK10102201101",
+    "FamilyName": "KEPKO",
+    "GivenName": "Michal",
+    "ShortName": "KEPKO",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTUSA11304201101": {
+    "IBUId": "BTUSA11304201101",
+    "FamilyName": "KERR",
+    "GivenName": "Saku",
+    "ShortName": "KERR",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTCAN10211200901": {
+    "IBUId": "BTCAN10211200901",
+    "FamilyName": "KERR",
+    "GivenName": "Tobin",
+    "ShortName": "KERR",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTLBN21306200201": {
+    "IBUId": "BTLBN21306200201",
+    "FamilyName": "KEYROUZ",
+    "GivenName": "Amanda",
+    "ShortName": "KEYROUZ",
+    "NAT": "LBN",
+    "GenderId": "W"
+  },
+  "BTLBN12309200702": {
+    "IBUId": "BTLBN12309200702",
+    "FamilyName": "KEYROUZ",
+    "GivenName": "Botros",
+    "ShortName": "KEYROUZ",
+    "NAT": "LBN",
+    "GenderId": "M"
+  },
+  "BTKAZ20906201001": {
+    "IBUId": "BTKAZ20906201001",
+    "FamilyName": "KHAFIZOVA",
+    "GivenName": "Albina",
+    "ShortName": "KHAFIZOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ21003201101": {
+    "IBUId": "BTKAZ21003201101",
+    "FamilyName": "KHARIS",
+    "GivenName": "Amili",
+    "ShortName": "KHARIS",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ13112200701": {
+    "IBUId": "BTKAZ13112200701",
+    "FamilyName": "KHARLAMPOV",
+    "GivenName": "Gleb",
+    "ShortName": "KHARLAMPOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTUKR12706201101": {
+    "IBUId": "BTUKR12706201101",
+    "FamilyName": "KHILCHENKO",
+    "GivenName": "Serhii",
+    "ShortName": "KHILCHENKO",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTKAZ20208200501": {
+    "IBUId": "BTKAZ20208200501",
+    "FamilyName": "KHOLOPTSEVA",
+    "GivenName": "Anastassiya",
+    "ShortName": "KHOLOPTSEVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTUZB11505201001": {
+    "IBUId": "BTUZB11505201001",
+    "FamilyName": "KHUJANAZAROV",
+    "GivenName": "Behzodbek",
+    "ShortName": "KHUJANAZAROV",
+    "NAT": "UZB",
+    "GenderId": "M"
+  },
+  "BTKAZ10802200801": {
+    "IBUId": "BTKAZ10802200801",
+    "FamilyName": "KICHKIN",
+    "GivenName": "Denis",
+    "ShortName": "KICHKIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTEST11602201101": {
+    "IBUId": "BTEST11602201101",
+    "FamilyName": "KIILBERG",
+    "GivenName": "Herman",
+    "ShortName": "KIILBERG",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTSUI10307198001": {
+    "IBUId": "BTSUI10307198001",
+    "FamilyName": "KILCHENMANN",
+    "GivenName": "Emanuel",
+    "ShortName": "KILCHENMANN",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTAUT11007201101": {
+    "IBUId": "BTAUT11007201101",
+    "FamilyName": "KILGA",
+    "GivenName": "Bernhard",
+    "ShortName": "KILGA",
+    "NAT": "AUT",
+    "GenderId": "M"
+  },
+  "BTKOR12203200401": {
+    "IBUId": "BTKOR12203200401",
+    "FamilyName": "KIM",
+    "GivenName": "Habeen",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR10105199901": {
+    "IBUId": "BTKOR10105199901",
+    "FamilyName": "KIM",
+    "GivenName": "Heesang",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR12207200601": {
+    "IBUId": "BTKOR12207200601",
+    "FamilyName": "KIM",
+    "GivenName": "Jeongyeon",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR12012200901": {
+    "IBUId": "BTKOR12012200901",
+    "FamilyName": "KIM",
+    "GivenName": "Jisu",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR12312198001": {
+    "IBUId": "BTKOR12312198001",
+    "FamilyName": "KIM",
+    "GivenName": "Kyung-Tae",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR11305201001": {
+    "IBUId": "BTKOR11305201001",
+    "FamilyName": "KIM",
+    "GivenName": "Minjun",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR22208200002": {
+    "IBUId": "BTKOR22208200002",
+    "FamilyName": "KIM",
+    "GivenName": "Seungyeon",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTKOR21801200901": {
+    "IBUId": "BTKOR21801200901",
+    "FamilyName": "KIM",
+    "GivenName": "Yejin",
+    "ShortName": "KIM",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTAUS10512199701": {
+    "IBUId": "BTAUS10512199701",
+    "FamilyName": "KINNEAR",
+    "GivenName": "Thomas Sebastian",
+    "ShortName": "KINNEAR",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTKAZ12501200401": {
+    "IBUId": "BTKAZ12501200401",
+    "FamilyName": "KINOLBAYEV",
+    "GivenName": "Maxat",
+    "ShortName": "KINOLBAYEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ21306201001": {
+    "IBUId": "BTKAZ21306201001",
+    "FamilyName": "KIRICHKOVA",
+    "GivenName": "Margarita",
+    "ShortName": "KIRICHKOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTBIH22206198201": {
+    "IBUId": "BTBIH22206198201",
+    "FamilyName": "KLACAR",
+    "GivenName": "Svjetlana",
+    "ShortName": "KLACAR",
+    "NAT": "BIH",
+    "GenderId": "W"
+  },
+  "BTBUL20705198001": {
+    "IBUId": "BTBUL20705198001",
+    "FamilyName": "KLENOVSKA",
+    "GivenName": "Nina",
+    "ShortName": "KLENOVSKA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTUSA12102200201": {
+    "IBUId": "BTUSA12102200201",
+    "FamilyName": "KOCH",
+    "GivenName": "Will",
+    "ShortName": "KOCH",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTSVK22904201101": {
+    "IBUId": "BTSVK22904201101",
+    "FamilyName": "KOCUROVA",
+    "GivenName": "Ella",
+    "ShortName": "KOCUROVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTFRA12502201101": {
+    "IBUId": "BTFRA12502201101",
+    "FamilyName": "KOLB",
+    "GivenName": "Tao",
+    "ShortName": "KOLB",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGRE10307201101": {
+    "IBUId": "BTGRE10307201101",
+    "FamilyName": "KOLTSIS",
+    "GivenName": "Konstantinos",
+    "ShortName": "KOLTSIS",
+    "NAT": "GRE",
+    "GenderId": "M"
+  },
+  "BTCZE12707201102": {
+    "IBUId": "BTCZE12707201102",
+    "FamilyName": "KONOPAC",
+    "GivenName": "Jonas",
+    "ShortName": "KONOPAC",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTJPN11602200701": {
+    "IBUId": "BTJPN11602200701",
+    "FamilyName": "KONUMA",
+    "GivenName": "Toki",
+    "ShortName": "KONUMA",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTCZE11305201101": {
+    "IBUId": "BTCZE11305201101",
+    "FamilyName": "KOPRIVA",
+    "GivenName": "Erik Theodor",
+    "ShortName": "KOPRIVA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTSLO10108201101": {
+    "IBUId": "BTSLO10108201101",
+    "FamilyName": "KOREN",
+    "GivenName": "Nik",
+    "ShortName": "KOREN",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTFIN21102201101": {
+    "IBUId": "BTFIN21102201101",
+    "FamilyName": "KORPILAMMI",
+    "GivenName": "Anni",
+    "ShortName": "KORPILAMMI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTKAZ10803200901": {
+    "IBUId": "BTKAZ10803200901",
+    "FamilyName": "KOSSOLAPOV",
+    "GivenName": "Kirill",
+    "ShortName": "KOSSOLAPOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCZE10404201101": {
+    "IBUId": "BTCZE10404201101",
+    "FamilyName": "KOTAS",
+    "GivenName": "Vojtech",
+    "ShortName": "KOTAS",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTUKR10504200901": {
+    "IBUId": "BTUKR10504200901",
+    "FamilyName": "KOTENKO",
+    "GivenName": "Kostiantyn",
+    "ShortName": "KOTENKO",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTBIH21603201101": {
+    "IBUId": "BTBIH21603201101",
+    "FamilyName": "KOVACEVIC",
+    "GivenName": "Irina",
+    "ShortName": "KOVACEVIC",
+    "NAT": "BIH",
+    "GenderId": "W"
+  },
+  "BTKAZ22912200901": {
+    "IBUId": "BTKAZ22912200901",
+    "FamilyName": "KOVALZHI",
+    "GivenName": "Valeriya",
+    "ShortName": "KOVALZHI",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ21006201001": {
+    "IBUId": "BTKAZ21006201001",
+    "FamilyName": "KOVANOVA",
+    "GivenName": "Ulyana",
+    "ShortName": "KOVANOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ21406201101": {
+    "IBUId": "BTKAZ21406201101",
+    "FamilyName": "KOVGAN",
+    "GivenName": "Anastassiya",
+    "ShortName": "KOVGAN",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ10910200901": {
+    "IBUId": "BTKAZ10910200901",
+    "FamilyName": "KRASHANNIKOV",
+    "GivenName": "Andrey",
+    "ShortName": "KRASHANNIKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ21512201101": {
+    "IBUId": "BTKAZ21512201101",
+    "FamilyName": "KRASHKEVICH",
+    "GivenName": "Xeniya",
+    "ShortName": "KRASHKEVICH",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ12710200801": {
+    "IBUId": "BTKAZ12710200801",
+    "FamilyName": "KRASSIKOV",
+    "GivenName": "Vitaliy",
+    "ShortName": "KRASSIKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BT-NOR-W-KRIUNN": {
+    "IBUId": "BT-NOR-W-KRIUNN",
+    "FamilyName": "KRISTIANSEN",
+    "GivenName": "Unni",
+    "ShortName": "KRISTIANSEN",
+    "NAT": "NOR",
+    "GenderId": "W"
+  },
+  "BTBIH20905201001": {
+    "IBUId": "BTBIH20905201001",
+    "FamilyName": "KRSMANOVIC",
+    "GivenName": "Isidora",
+    "ShortName": "KRSMANOVIC",
+    "NAT": "BIH",
+    "GenderId": "W"
+  },
+  "BTKOR21503200801": {
+    "IBUId": "BTKOR21503200801",
+    "FamilyName": "KU",
+    "GivenName": "Su Hye",
+    "ShortName": "KU",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTCZE20103201101": {
+    "IBUId": "BTCZE20103201101",
+    "FamilyName": "KUCEROVA",
+    "GivenName": "Nicole",
+    "ShortName": "KUCEROVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTSWE20603200901": {
+    "IBUId": "BTSWE20603200901",
+    "FamilyName": "KUOKKANEN",
+    "GivenName": "Vilma",
+    "ShortName": "KUOKKANEN",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTFIN21908201101": {
+    "IBUId": "BTFIN21908201101",
+    "FamilyName": "KUTINLAHTI",
+    "GivenName": "Lina",
+    "ShortName": "KUTINLAHTI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTKOR20502200801": {
+    "IBUId": "BTKOR20502200801",
+    "FamilyName": "KWAG",
+    "GivenName": "Heonkyung",
+    "ShortName": "KWAG",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTFRA10511201101": {
+    "IBUId": "BTFRA10511201101",
+    "FamilyName": "LACHAMBRE",
+    "GivenName": "Jonah",
+    "ShortName": "LACHAMBRE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10303200901": {
+    "IBUId": "BTFRA10303200901",
+    "FamilyName": "LAFOUX",
+    "GivenName": "Jules",
+    "ShortName": "LAFOUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21312201001": {
+    "IBUId": "BTFRA21312201001",
+    "FamilyName": "LAFOUX",
+    "GivenName": "Pauline",
+    "ShortName": "LAFOUX",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTGBR12910200401": {
+    "IBUId": "BTGBR12910200401",
+    "FamilyName": "LAFRENIERE",
+    "GivenName": "Leon Mark",
+    "ShortName": "LAFRENIERE",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTFRA22909201001": {
+    "IBUId": "BTFRA22909201001",
+    "FamilyName": "LAGER",
+    "GivenName": "Anna",
+    "ShortName": "LAGER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11105201001": {
+    "IBUId": "BTFRA11105201001",
+    "FamilyName": "LAGOUTTE MARTENON",
+    "GivenName": "Lenny",
+    "ShortName": "LAGOUTTE MARTENON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFIN20403201101": {
+    "IBUId": "BTFIN20403201101",
+    "FamilyName": "LAITILA",
+    "GivenName": "Elle",
+    "ShortName": "LAITILA",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFRA13010201101": {
+    "IBUId": "BTFRA13010201101",
+    "FamilyName": "LAMARQUE",
+    "GivenName": "Maxence",
+    "ShortName": "LAMARQUE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE20403201101": {
+    "IBUId": "BTSWE20403201101",
+    "FamilyName": "LANDGREN",
+    "GivenName": "Emma",
+    "ShortName": "LANDGREN",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTFRA10201201101": {
+    "IBUId": "BTFRA10201201101",
+    "FamilyName": "LANDURE",
+    "GivenName": "Quentin",
+    "ShortName": "LANDURE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTBEL12502201101": {
+    "IBUId": "BTBEL12502201101",
+    "FamilyName": "LANGER",
+    "GivenName": "Max",
+    "ShortName": "LANGER",
+    "NAT": "BEL",
+    "GenderId": "M"
+  },
+  "BTFIN20101201101": {
+    "IBUId": "BTFIN20101201101",
+    "FamilyName": "LANKINEN",
+    "GivenName": "Iida-Mari",
+    "ShortName": "LANKINEN",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTGER21703201101": {
+    "IBUId": "BTGER21703201101",
+    "FamilyName": "LAPPER",
+    "GivenName": "Leni",
+    "ShortName": "LAPPER",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTFRA10201201102": {
+    "IBUId": "BTFRA10201201102",
+    "FamilyName": "LARIOS",
+    "GivenName": "Noe",
+    "ShortName": "LARIOS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTROU11904201101": {
+    "IBUId": "BTROU11904201101",
+    "FamilyName": "LASCU",
+    "GivenName": "Daniel-Andrei",
+    "ShortName": "LASCU",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTFRA21609201001": {
+    "IBUId": "BTFRA21609201001",
+    "FamilyName": "LATHURAZ",
+    "GivenName": "Giulia",
+    "ShortName": "LATHURAZ",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21603201101": {
+    "IBUId": "BTFRA21603201101",
+    "FamilyName": "LAZZERINI",
+    "GivenName": "Nina",
+    "ShortName": "LAZZERINI",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10406201001": {
+    "IBUId": "BTFRA10406201001",
+    "FamilyName": "LE DORE",
+    "GivenName": "Milo",
+    "ShortName": "LE DORE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11604201101": {
+    "IBUId": "BTFRA11604201101",
+    "FamilyName": "LEAUTE",
+    "GivenName": "Thais",
+    "ShortName": "LEAUTE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCAN12101200801": {
+    "IBUId": "BTCAN12101200801",
+    "FamilyName": "LEBARGE",
+    "GivenName": "Alexander",
+    "ShortName": "LEBARGE",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTKOR11705201001": {
+    "IBUId": "BTKOR11705201001",
+    "FamilyName": "LEE",
+    "GivenName": "Eunseong",
+    "ShortName": "LEE",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTFRA22012201001": {
+    "IBUId": "BTFRA22012201001",
+    "FamilyName": "LEHALLE",
+    "GivenName": "Cleo",
+    "ShortName": "LEHALLE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10910200901": {
+    "IBUId": "BTFRA10910200901",
+    "FamilyName": "LEVY",
+    "GivenName": "Valentin",
+    "ShortName": "LEVY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE20909201001": {
+    "IBUId": "BTSWE20909201001",
+    "FamilyName": "LINDBLOM",
+    "GivenName": "Elsa",
+    "ShortName": "LINDBLOM",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSWE21402201101": {
+    "IBUId": "BTSWE21402201101",
+    "FamilyName": "LINDH",
+    "GivenName": "Elina",
+    "ShortName": "LINDH",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCHN11102200601": {
+    "IBUId": "BTCHN11102200601",
+    "FamilyName": "LIU",
+    "GivenName": "Huizhu",
+    "ShortName": "LIU",
+    "NAT": "CHN",
+    "GenderId": "M"
+  },
+  "BTCHN10801200601": {
+    "IBUId": "BTCHN10801200601",
+    "FamilyName": "LIU",
+    "GivenName": "Zenghui",
+    "ShortName": "LIU",
+    "NAT": "CHN",
+    "GenderId": "M"
+  },
+  "BTFRA10508201101": {
+    "IBUId": "BTFRA10508201101",
+    "FamilyName": "LLERES",
+    "GivenName": "Pablo",
+    "ShortName": "LLERES",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22206201101": {
+    "IBUId": "BTFRA22206201101",
+    "FamilyName": "LOGIER",
+    "GivenName": "Louisa",
+    "ShortName": "LOGIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22306201101": {
+    "IBUId": "BTFRA22306201101",
+    "FamilyName": "LOISIER",
+    "GivenName": "Meije",
+    "ShortName": "LOISIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10401201101": {
+    "IBUId": "BTFRA10401201101",
+    "FamilyName": "LORIDAT",
+    "GivenName": "Louis",
+    "ShortName": "LORIDAT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTLBN20204199301": {
+    "IBUId": "BTLBN20204199301",
+    "FamilyName": "LOZOM",
+    "GivenName": "Ghinwa",
+    "ShortName": "LOZOM",
+    "NAT": "LBN",
+    "GenderId": "W"
+  },
+  "BTSWE11507201101": {
+    "IBUId": "BTSWE11507201101",
+    "FamilyName": "LUND JUNG",
+    "GivenName": "Torkel",
+    "ShortName": "LUND JUNG",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE11411201001": {
+    "IBUId": "BTSWE11411201001",
+    "FamilyName": "LUNDQVIST",
+    "GivenName": "Aron",
+    "ShortName": "LUNDQVIST",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFIN20402200701": {
+    "IBUId": "BTFIN20402200701",
+    "FamilyName": "LUNDSTROM",
+    "GivenName": "Anniina",
+    "ShortName": "LUNDSTROM",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFIN21103201001": {
+    "IBUId": "BTFIN21103201001",
+    "FamilyName": "LUNDSTROM",
+    "GivenName": "Milja",
+    "ShortName": "LUNDSTROM",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTCZE12405201101": {
+    "IBUId": "BTCZE12405201101",
+    "FamilyName": "LYSAK",
+    "GivenName": "Jonas",
+    "ShortName": "LYSAK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTEST21501201101": {
+    "IBUId": "BTEST21501201101",
+    "FamilyName": "MAASEN",
+    "GivenName": "Elis",
+    "ShortName": "MAASEN",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTCZE11109201101": {
+    "IBUId": "BTCZE11109201101",
+    "FamilyName": "MACEK",
+    "GivenName": "Simon",
+    "ShortName": "MACEK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTUZB23012200801": {
+    "IBUId": "BTUZB23012200801",
+    "FamilyName": "MADAMINOVA",
+    "GivenName": "Noila",
+    "ShortName": "MADAMINOVA",
+    "NAT": "UZB",
+    "GenderId": "W"
+  },
+  "BTEST10809201101": {
+    "IBUId": "BTEST10809201101",
+    "FamilyName": "MAENNA",
+    "GivenName": "Rasmus",
+    "ShortName": "MAENNA",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTBEL11710200501": {
+    "IBUId": "BTBEL11710200501",
+    "FamilyName": "MAES",
+    "GivenName": "Samuel",
+    "ShortName": "MAES",
+    "NAT": "BEL",
+    "GenderId": "M"
+  },
+  "BTFRA22602201001": {
+    "IBUId": "BTFRA22602201001",
+    "FamilyName": "MAGNIN-FEYSOT",
+    "GivenName": "Marion",
+    "ShortName": "MAGNIN-FEYSOT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12606201101": {
+    "IBUId": "BTFRA12606201101",
+    "FamilyName": "MAILLOT",
+    "GivenName": "Guirec",
+    "ShortName": "MAILLOT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA11908201101": {
+    "IBUId": "BTITA11908201101",
+    "FamilyName": "MAIRVONGROSSSPEINTEN",
+    "GivenName": "Philipp",
+    "ShortName": "MAIRVONGROSSSPEINTEN",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA10705201102": {
+    "IBUId": "BTFRA10705201102",
+    "FamilyName": "MAITRE",
+    "GivenName": "Leo",
+    "ShortName": "MAITRE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKAZ10809200501": {
+    "IBUId": "BTKAZ10809200501",
+    "FamilyName": "MAKLAKOV",
+    "GivenName": "Maxim",
+    "ShortName": "MAKLAKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA12609200901": {
+    "IBUId": "BTFRA12609200901",
+    "FamilyName": "MALIQUEO-REPOUX",
+    "GivenName": "Mael",
+    "ShortName": "MALIQUEO-REPOUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE21603201101": {
+    "IBUId": "BTCZE21603201101",
+    "FamilyName": "MALKOVA",
+    "GivenName": "Amalie",
+    "ShortName": "MALKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTKAZ22101201001": {
+    "IBUId": "BTKAZ22101201001",
+    "FamilyName": "MALTSEVA",
+    "GivenName": "Kristina",
+    "ShortName": "MALTSEVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTFRA11702200901": {
+    "IBUId": "BTFRA11702200901",
+    "FamilyName": "MANCEAU-BARON",
+    "GivenName": "Bjorn",
+    "ShortName": "MANCEAU-BARON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCRO12401201101": {
+    "IBUId": "BTCRO12401201101",
+    "FamilyName": "MANDIC",
+    "GivenName": "Dino",
+    "ShortName": "MANDIC",
+    "NAT": "CRO",
+    "GenderId": "M"
+  },
+  "BTCAN12206200901": {
+    "IBUId": "BTCAN12206200901",
+    "FamilyName": "MANN",
+    "GivenName": "Rhett",
+    "ShortName": "MANN",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTSWE12201200301": {
+    "IBUId": "BTSWE12201200301",
+    "FamilyName": "MANNELQVIST",
+    "GivenName": "Axel",
+    "ShortName": "MANNELQVIST",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA11702201001": {
+    "IBUId": "BTFRA11702201001",
+    "FamilyName": "MANSORD",
+    "GivenName": "Lysandre",
+    "ShortName": "MANSORD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22404201002": {
+    "IBUId": "BTFRA22404201002",
+    "FamilyName": "MARCELAT",
+    "GivenName": "Charlotte",
+    "ShortName": "MARCELAT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22404201001": {
+    "IBUId": "BTFRA22404201001",
+    "FamilyName": "MARCELAT",
+    "GivenName": "Emilie",
+    "ShortName": "MARCELAT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11510201101": {
+    "IBUId": "BTFRA11510201101",
+    "FamilyName": "MARCHANDISE",
+    "GivenName": "Evan",
+    "ShortName": "MARCHANDISE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21604200901": {
+    "IBUId": "BTFRA21604200901",
+    "FamilyName": "MARCHANDISE",
+    "GivenName": "Lena",
+    "ShortName": "MARCHANDISE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA23007200901": {
+    "IBUId": "BTFRA23007200901",
+    "FamilyName": "MARCOUX",
+    "GivenName": "Eva",
+    "ShortName": "MARCOUX",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22210201101": {
+    "IBUId": "BTFRA22210201101",
+    "FamilyName": "MARCOUX",
+    "GivenName": "Pauline",
+    "ShortName": "MARCOUX",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11406201001": {
+    "IBUId": "BTFRA11406201001",
+    "FamilyName": "MARGUET",
+    "GivenName": "Jean",
+    "ShortName": "MARGUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22712201101": {
+    "IBUId": "BTFRA22712201101",
+    "FamilyName": "MARGUET",
+    "GivenName": "Line",
+    "ShortName": "MARGUET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20808201001": {
+    "IBUId": "BTFRA20808201001",
+    "FamilyName": "MARGUIER",
+    "GivenName": "Lilou",
+    "ShortName": "MARGUIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE12903201101": {
+    "IBUId": "BTSWE12903201101",
+    "FamilyName": "MARKLUND",
+    "GivenName": "Liam",
+    "ShortName": "MARKLUND",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTCZE23101201101": {
+    "IBUId": "BTCZE23101201101",
+    "FamilyName": "MAROVA",
+    "GivenName": "Natalia",
+    "ShortName": "MAROVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA11009201001": {
+    "IBUId": "BTFRA11009201001",
+    "FamilyName": "MARREL",
+    "GivenName": "Mathieu",
+    "ShortName": "MARREL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTARG22206200501": {
+    "IBUId": "BTARG22206200501",
+    "FamilyName": "MARTINEZ",
+    "GivenName": "Lucia Belen",
+    "ShortName": "MARTINEZ",
+    "NAT": "ARG",
+    "GenderId": "W"
+  },
+  "BTSWE23103200701": {
+    "IBUId": "BTSWE23103200701",
+    "FamilyName": "MARTINSSON",
+    "GivenName": "Elsa",
+    "ShortName": "MARTINSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTFRA21408201001": {
+    "IBUId": "BTFRA21408201001",
+    "FamilyName": "MARTUCHOU",
+    "GivenName": "Lise",
+    "ShortName": "MARTUCHOU",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22410201001": {
+    "IBUId": "BTFRA22410201001",
+    "FamilyName": "MARVILLET",
+    "GivenName": "Elsa",
+    "ShortName": "MARVILLET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ10908200901": {
+    "IBUId": "BTKAZ10908200901",
+    "FamilyName": "MASHKOV",
+    "GivenName": "Zakhar",
+    "ShortName": "MASHKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTSWE21111201101": {
+    "IBUId": "BTSWE21111201101",
+    "FamilyName": "MATTSSON",
+    "GivenName": "Flora",
+    "ShortName": "MATTSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTFIN22312201101": {
+    "IBUId": "BTFIN22312201101",
+    "FamilyName": "MATTURI",
+    "GivenName": "Nella",
+    "ShortName": "MATTURI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTKAZ10104201001": {
+    "IBUId": "BTKAZ10104201001",
+    "FamilyName": "MATVEYEV",
+    "GivenName": "Ruslan",
+    "ShortName": "MATVEYEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTSWE10811201101": {
+    "IBUId": "BTSWE10811201101",
+    "FamilyName": "MATYYUK",
+    "GivenName": "Ivan",
+    "ShortName": "MATYYUK",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA20303201101": {
+    "IBUId": "BTFRA20303201101",
+    "FamilyName": "MAURICE",
+    "GivenName": "Apolline",
+    "ShortName": "MAURICE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCZE22601201101": {
+    "IBUId": "BTCZE22601201101",
+    "FamilyName": "MAXOVA",
+    "GivenName": "Adela",
+    "ShortName": "MAXOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTITA20111201101": {
+    "IBUId": "BTITA20111201101",
+    "FamilyName": "MAZZARINI",
+    "GivenName": "Aurora",
+    "ShortName": "MAZZARINI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA20403201101": {
+    "IBUId": "BTFRA20403201101",
+    "FamilyName": "MAZZILLI",
+    "GivenName": "Julia",
+    "ShortName": "MAZZILLI",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTAUS11510201101": {
+    "IBUId": "BTAUS11510201101",
+    "FamilyName": "MCARTHUR",
+    "GivenName": "Henry",
+    "ShortName": "MCARTHUR",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTFRA11501201001": {
+    "IBUId": "BTFRA11501201001",
+    "FamilyName": "MELDENER",
+    "GivenName": "Loic",
+    "ShortName": "MELDENER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGER21606201101": {
+    "IBUId": "BTGER21606201101",
+    "FamilyName": "MENZEL",
+    "GivenName": "Nora",
+    "ShortName": "MENZEL",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTKAZ10607200901": {
+    "IBUId": "BTKAZ10607200901",
+    "FamilyName": "MEREZHIN",
+    "GivenName": "Yaroslav",
+    "ShortName": "MEREZHIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA22907201102": {
+    "IBUId": "BTFRA22907201102",
+    "FamilyName": "MERMET",
+    "GivenName": "Chloe",
+    "ShortName": "MERMET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11301201101": {
+    "IBUId": "BTFRA11301201101",
+    "FamilyName": "MERMILLOD BLONDIN",
+    "GivenName": "Gustave",
+    "ShortName": "MERMILLOD BLONDIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTEST23003201101": {
+    "IBUId": "BTEST23003201101",
+    "FamilyName": "METS",
+    "GivenName": "Ann-Marii",
+    "ShortName": "METS",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTKAZ11306200801": {
+    "IBUId": "BTKAZ11306200801",
+    "FamilyName": "METS",
+    "GivenName": "Vladislav",
+    "ShortName": "METS",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTITA13009201101": {
+    "IBUId": "BTITA13009201101",
+    "FamilyName": "MICH",
+    "GivenName": "Federico",
+    "ShortName": "MICH",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA20212200901": {
+    "IBUId": "BTFRA20212200901",
+    "FamilyName": "MICHAUD",
+    "GivenName": "Laure",
+    "ShortName": "MICHAUD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20501201101": {
+    "IBUId": "BTFRA20501201101",
+    "FamilyName": "MICHEL",
+    "GivenName": "Capucine",
+    "ShortName": "MICHEL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22607200901": {
+    "IBUId": "BTFRA22607200901",
+    "FamilyName": "MIDEZ",
+    "GivenName": "Canelle",
+    "ShortName": "MIDEZ",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFIN11402201201": {
+    "IBUId": "BTFIN11402201201",
+    "FamilyName": "MIETTINEN",
+    "GivenName": "Tuukka",
+    "ShortName": "MIETTINEN",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTEST11710201001": {
+    "IBUId": "BTEST11710201001",
+    "FamilyName": "MIINA",
+    "GivenName": "Albert",
+    "ShortName": "MIINA",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTHUN13008196801": {
+    "IBUId": "BTHUN13008196801",
+    "FamilyName": "MILE",
+    "GivenName": "Lajos",
+    "ShortName": "MILE",
+    "NAT": "HUN",
+    "GenderId": "M"
+  },
+  "BTSWE20902200901": {
+    "IBUId": "BTSWE20902200901",
+    "FamilyName": "MILLESTU",
+    "GivenName": "Alvina",
+    "ShortName": "MILLESTU",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTCAN13103200901": {
+    "IBUId": "BTCAN13103200901",
+    "FamilyName": "MILLS",
+    "GivenName": "Zachary",
+    "ShortName": "MILLS",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTFRA10209200901": {
+    "IBUId": "BTFRA10209200901",
+    "FamilyName": "MINAZZI",
+    "GivenName": "Martin",
+    "ShortName": "MINAZZI",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20711201101": {
+    "IBUId": "BTFRA20711201101",
+    "FamilyName": "MINET",
+    "GivenName": "Emilia",
+    "ShortName": "MINET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTBUL12709201001": {
+    "IBUId": "BTBUL12709201001",
+    "FamilyName": "MINKOV",
+    "GivenName": "Momchil",
+    "ShortName": "MINKOV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTKAZ20704200801": {
+    "IBUId": "BTKAZ20704200801",
+    "FamilyName": "MIRONENKO",
+    "GivenName": "Darya",
+    "ShortName": "MIRONENKO",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTLTU10607201101": {
+    "IBUId": "BTLTU10607201101",
+    "FamilyName": "MIRONOV",
+    "GivenName": "Kiril",
+    "ShortName": "MIRONOV",
+    "NAT": "LTU",
+    "GenderId": "M"
+  },
+  "BTLTU20607201101": {
+    "IBUId": "BTLTU20607201101",
+    "FamilyName": "MIRONOVA",
+    "GivenName": "Milana",
+    "ShortName": "MIRONOVA",
+    "NAT": "LTU",
+    "GenderId": "W"
+  },
+  "BTCZE22006201101": {
+    "IBUId": "BTCZE22006201101",
+    "FamilyName": "MOCIKOVA",
+    "GivenName": "Lucie",
+    "ShortName": "MOCIKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA11011201101": {
+    "IBUId": "BTFRA11011201101",
+    "FamilyName": "MOISE",
+    "GivenName": "Gabin",
+    "ShortName": "MOISE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20310201001": {
+    "IBUId": "BTFRA20310201001",
+    "FamilyName": "MOLLIERE",
+    "GivenName": "Leane",
+    "ShortName": "MOLLIERE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ10204201001": {
+    "IBUId": "BTKAZ10204201001",
+    "FamilyName": "MONCHENKO",
+    "GivenName": "Dmitriy",
+    "ShortName": "MONCHENKO",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA21702200901": {
+    "IBUId": "BTFRA21702200901",
+    "FamilyName": "MOREIRA",
+    "GivenName": "Lana",
+    "ShortName": "MOREIRA",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22407200901": {
+    "IBUId": "BTFRA22407200901",
+    "FamilyName": "MOREL",
+    "GivenName": "Clemence",
+    "ShortName": "MOREL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22710201001": {
+    "IBUId": "BTFRA22710201001",
+    "FamilyName": "MOREL",
+    "GivenName": "Jade",
+    "ShortName": "MOREL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21105201001": {
+    "IBUId": "BTFRA21105201001",
+    "FamilyName": "MORIN",
+    "GivenName": "Leonie",
+    "ShortName": "MORIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12803200901": {
+    "IBUId": "BTFRA12803200901",
+    "FamilyName": "MORIN",
+    "GivenName": "Samuel",
+    "ShortName": "MORIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21308201101": {
+    "IBUId": "BTFRA21308201101",
+    "FamilyName": "MROCZKA",
+    "GivenName": "Sasha",
+    "ShortName": "MROCZKA",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCHN11801200301": {
+    "IBUId": "BTCHN11801200301",
+    "FamilyName": "MU",
+    "GivenName": "Xinyuan",
+    "ShortName": "MU",
+    "NAT": "CHN",
+    "GenderId": "M"
+  },
+  "BTFRA22304200901": {
+    "IBUId": "BTFRA22304200901",
+    "FamilyName": "MULLER",
+    "GivenName": "Nelly",
+    "ShortName": "MULLER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ12604201001": {
+    "IBUId": "BTKAZ12604201001",
+    "FamilyName": "MUSSA",
+    "GivenName": "Khalid",
+    "ShortName": "MUSSA",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ10804200201": {
+    "IBUId": "BTKAZ10804200201",
+    "FamilyName": "MYULBERGER",
+    "GivenName": "Danil",
+    "ShortName": "MYULBERGER",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTHUN20412201101": {
+    "IBUId": "BTHUN20412201101",
+    "FamilyName": "NAGY",
+    "GivenName": "Sarolta",
+    "ShortName": "NAGY",
+    "NAT": "HUN",
+    "GenderId": "W"
+  },
+  "BTGRE11909201101": {
+    "IBUId": "BTGRE11909201101",
+    "FamilyName": "NAKAS",
+    "GivenName": "Anastasios",
+    "ShortName": "NAKAS",
+    "NAT": "GRE",
+    "GenderId": "M"
+  },
+  "BTKAZ13103201001": {
+    "IBUId": "BTKAZ13103201001",
+    "FamilyName": "NANAKIN",
+    "GivenName": "Artyom",
+    "ShortName": "NANAKIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCZE20410201101": {
+    "IBUId": "BTCZE20410201101",
+    "FamilyName": "NDUWIMANA",
+    "GivenName": "Ania",
+    "ShortName": "NDUWIMANA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTBUL21805200101": {
+    "IBUId": "BTBUL21805200101",
+    "FamilyName": "NEDYALKOVA",
+    "GivenName": "Kalina",
+    "ShortName": "NEDYALKOVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTCZE22905201101": {
+    "IBUId": "BTCZE22905201101",
+    "FamilyName": "NEUMANOVA",
+    "GivenName": "Berta",
+    "ShortName": "NEUMANOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA10303201101": {
+    "IBUId": "BTFRA10303201101",
+    "FamilyName": "NICOUD",
+    "GivenName": "Romain",
+    "ShortName": "NICOUD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKAZ10909200901": {
+    "IBUId": "BTKAZ10909200901",
+    "FamilyName": "NIKITIN",
+    "GivenName": "Vladislav",
+    "ShortName": "NIKITIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTSWE21004201101": {
+    "IBUId": "BTSWE21004201101",
+    "FamilyName": "NILSSON",
+    "GivenName": "Julia",
+    "ShortName": "NILSSON",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSWE10512201101": {
+    "IBUId": "BTSWE10512201101",
+    "FamilyName": "NILSSON",
+    "GivenName": "Marcus",
+    "ShortName": "NILSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE12802200702": {
+    "IBUId": "BTSWE12802200702",
+    "FamilyName": "NILSSON",
+    "GivenName": "Martin",
+    "ShortName": "NILSSON",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA11602201101": {
+    "IBUId": "BTFRA11602201101",
+    "FamilyName": "NODIN",
+    "GivenName": "Remy",
+    "ShortName": "NODIN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA13008200901": {
+    "IBUId": "BTFRA13008200901",
+    "FamilyName": "NOLIN-BERNOLE",
+    "GivenName": "Mael",
+    "ShortName": "NOLIN-BERNOLE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE10208201101": {
+    "IBUId": "BTSWE10208201101",
+    "FamilyName": "NORDGREN",
+    "GivenName": "Vidar",
+    "ShortName": "NORDGREN",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFIN20811201001": {
+    "IBUId": "BTFIN20811201001",
+    "FamilyName": "NOUSIAINEN",
+    "GivenName": "Isabella",
+    "ShortName": "NOUSIAINEN",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTCZE23007200402": {
+    "IBUId": "BTCZE23007200402",
+    "FamilyName": "NOVAKOVA",
+    "GivenName": "Nicol",
+    "ShortName": "NOVAKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA11203200901": {
+    "IBUId": "BTFRA11203200901",
+    "FamilyName": "NOVAT",
+    "GivenName": "Elias",
+    "ShortName": "NOVAT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUS12206201201": {
+    "IBUId": "BTAUS12206201201",
+    "FamilyName": "O'SULLIVAN",
+    "GivenName": "Oscar",
+    "ShortName": "O'SULLIVAN",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTITA22704201101": {
+    "IBUId": "BTITA22704201101",
+    "FamilyName": "OBERHAUSER",
+    "GivenName": "Lara",
+    "ShortName": "OBERHAUSER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTITA21304201101": {
+    "IBUId": "BTITA21304201101",
+    "FamilyName": "OBERHOFER",
+    "GivenName": "Lisa",
+    "ShortName": "OBERHOFER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTCZE11108201101": {
+    "IBUId": "BTCZE11108201101",
+    "FamilyName": "OCENASEK",
+    "GivenName": "Vojtech",
+    "ShortName": "OCENASEK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA11102201001": {
+    "IBUId": "BTFRA11102201001",
+    "FamilyName": "OLLIER",
+    "GivenName": "Come",
+    "ShortName": "OLLIER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTJPN20710200901": {
+    "IBUId": "BTJPN20710200901",
+    "FamilyName": "OMURA",
+    "GivenName": "Yuna",
+    "ShortName": "OMURA",
+    "NAT": "JPN",
+    "GenderId": "W"
+  },
+  "BTCZE22006201102": {
+    "IBUId": "BTCZE22006201102",
+    "FamilyName": "ONDRAKOVA",
+    "GivenName": "Adela",
+    "ShortName": "ONDRAKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA12604201101": {
+    "IBUId": "BTFRA12604201101",
+    "FamilyName": "ORBAN",
+    "GivenName": "Tage",
+    "ShortName": "ORBAN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSLO12608201101": {
+    "IBUId": "BTSLO12608201101",
+    "FamilyName": "OSTRC",
+    "GivenName": "Maksimilijan",
+    "ShortName": "OSTRC",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTJPN12510199801": {
+    "IBUId": "BTJPN12510199801",
+    "FamilyName": "OTAKI",
+    "GivenName": "Hyuga",
+    "ShortName": "OTAKI",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTDEN12202200901": {
+    "IBUId": "BTDEN12202200901",
+    "FamilyName": "OTTNER",
+    "GivenName": "Mikkel",
+    "ShortName": "OTTNER",
+    "NAT": "DEN",
+    "GenderId": "M"
+  },
+  "BTEST22608201101": {
+    "IBUId": "BTEST22608201101",
+    "FamilyName": "PAERTEL",
+    "GivenName": "Miina",
+    "ShortName": "PAERTEL",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTGRE21312201101": {
+    "IBUId": "BTGRE21312201101",
+    "FamilyName": "PAFI",
+    "GivenName": "Paraskevi",
+    "ShortName": "PAFI",
+    "NAT": "GRE",
+    "GenderId": "W"
+  },
+  "BTAND22708200901": {
+    "IBUId": "BTAND22708200901",
+    "FamilyName": "PAGES DE AMORIN",
+    "GivenName": "Aurem",
+    "ShortName": "PAGES DE AMORIN",
+    "NAT": "AND",
+    "GenderId": "W"
+  },
+  "BTEST12502201101": {
+    "IBUId": "BTEST12502201101",
+    "FamilyName": "PAJUSALU",
+    "GivenName": "Tormi",
+    "ShortName": "PAJUSALU",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTSVK12908201101": {
+    "IBUId": "BTSVK12908201101",
+    "FamilyName": "PALGUTA",
+    "GivenName": "David",
+    "ShortName": "PALGUTA",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTCZE22502201101": {
+    "IBUId": "BTCZE22502201101",
+    "FamilyName": "PANKOVA",
+    "GivenName": "Pavla",
+    "ShortName": "PANKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTBIH12403201101": {
+    "IBUId": "BTBIH12403201101",
+    "FamilyName": "PANTIC",
+    "GivenName": "Kristijan",
+    "ShortName": "PANTIC",
+    "NAT": "BIH",
+    "GenderId": "M"
+  },
+  "BTFRA21210201101": {
+    "IBUId": "BTFRA21210201101",
+    "FamilyName": "PARDIN",
+    "GivenName": "Emmy",
+    "ShortName": "PARDIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12407201101": {
+    "IBUId": "BTFRA12407201101",
+    "FamilyName": "PARIS",
+    "GivenName": "Nathanael",
+    "ShortName": "PARIS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGBR10303200301": {
+    "IBUId": "BTGBR10303200301",
+    "FamilyName": "PARISH",
+    "GivenName": "Luke Edward",
+    "ShortName": "PARISH",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTKOR10903200801": {
+    "IBUId": "BTKOR10903200801",
+    "FamilyName": "PARK",
+    "GivenName": "Jimin",
+    "ShortName": "PARK",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR23003200901": {
+    "IBUId": "BTKOR23003200901",
+    "FamilyName": "PARK",
+    "GivenName": "Yujin",
+    "ShortName": "PARK",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTITA11811201102": {
+    "IBUId": "BTITA11811201102",
+    "FamilyName": "PAROLA",
+    "GivenName": "Matteo",
+    "ShortName": "PAROLA",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA11811201101": {
+    "IBUId": "BTITA11811201101",
+    "FamilyName": "PAROLA",
+    "GivenName": "Pietro",
+    "ShortName": "PAROLA",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA10207201101": {
+    "IBUId": "BTFRA10207201101",
+    "FamilyName": "PATOIS BEDEL",
+    "GivenName": "Aubin",
+    "ShortName": "PATOIS BEDEL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGER21008201101": {
+    "IBUId": "BTGER21008201101",
+    "FamilyName": "PAUEN",
+    "GivenName": "Jule",
+    "ShortName": "PAUEN",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTFRA21706201101": {
+    "IBUId": "BTFRA21706201101",
+    "FamilyName": "PAUL-VITRANO",
+    "GivenName": "Morgane",
+    "ShortName": "PAUL-VITRANO",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA20508201101": {
+    "IBUId": "BTITA20508201101",
+    "FamilyName": "PEAQUIN",
+    "GivenName": "Aline",
+    "ShortName": "PEAQUIN",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA20712200901": {
+    "IBUId": "BTFRA20712200901",
+    "FamilyName": "PENALVERT",
+    "GivenName": "Noemie",
+    "ShortName": "PENALVERT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21709201001": {
+    "IBUId": "BTFRA21709201001",
+    "FamilyName": "PENNA",
+    "GivenName": "Louise",
+    "ShortName": "PENNA",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA22507201101": {
+    "IBUId": "BTITA22507201101",
+    "FamilyName": "PERATHONER",
+    "GivenName": "Greta",
+    "ShortName": "PERATHONER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA21211200901": {
+    "IBUId": "BTFRA21211200901",
+    "FamilyName": "PERREY",
+    "GivenName": "Maya",
+    "ShortName": "PERREY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA10902201101": {
+    "IBUId": "BTFRA10902201101",
+    "FamilyName": "PERRIER",
+    "GivenName": "Noa",
+    "ShortName": "PERRIER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21210201102": {
+    "IBUId": "BTFRA21210201102",
+    "FamilyName": "PERRILLAT",
+    "GivenName": "Line",
+    "ShortName": "PERRILLAT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11502200901": {
+    "IBUId": "BTFRA11502200901",
+    "FamilyName": "PERRILLAT BOTTONET",
+    "GivenName": "Leo",
+    "ShortName": "PERRILLAT BOTTONET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10110201001": {
+    "IBUId": "BTFRA10110201001",
+    "FamilyName": "PERRILLAT BOTTONET",
+    "GivenName": "Timote",
+    "ShortName": "PERRILLAT BOTTONET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10101201101": {
+    "IBUId": "BTFRA10101201101",
+    "FamilyName": "PERRIN PIERRAT",
+    "GivenName": "Valentin",
+    "ShortName": "PERRIN PIERRAT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20706201101": {
+    "IBUId": "BTFRA20706201101",
+    "FamilyName": "PERROT-AUDET",
+    "GivenName": "Louna",
+    "ShortName": "PERROT-AUDET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTEST11010201101": {
+    "IBUId": "BTEST11010201101",
+    "FamilyName": "PERV",
+    "GivenName": "Karl Aleksander",
+    "ShortName": "PERV",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTFIN22707201101": {
+    "IBUId": "BTFIN22707201101",
+    "FamilyName": "PESAMAA",
+    "GivenName": "Oona",
+    "ShortName": "PESAMAA",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTSUI10301201101": {
+    "IBUId": "BTSUI10301201101",
+    "FamilyName": "PETER",
+    "GivenName": "Jonn",
+    "ShortName": "PETER",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTSLO13101201101": {
+    "IBUId": "BTSLO13101201101",
+    "FamilyName": "PETRIC",
+    "GivenName": "Tai",
+    "ShortName": "PETRIC",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTEST10812201101": {
+    "IBUId": "BTEST10812201101",
+    "FamilyName": "PETROV",
+    "GivenName": "Mark",
+    "ShortName": "PETROV",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTBUL11910201101": {
+    "IBUId": "BTBUL11910201101",
+    "FamilyName": "PETROV",
+    "GivenName": "Samuil",
+    "ShortName": "PETROV",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTROU21906200901": {
+    "IBUId": "BTROU21906200901",
+    "FamilyName": "PETROVICI",
+    "GivenName": "Petronela Ionela",
+    "ShortName": "PETROVICI",
+    "NAT": "ROU",
+    "GenderId": "W"
+  },
+  "BTTHA12808201101": {
+    "IBUId": "BTTHA12808201101",
+    "FamilyName": "PHANYOSARANYA",
+    "GivenName": "Chatnaphat",
+    "ShortName": "PHANYOSARANYA",
+    "NAT": "THA",
+    "GenderId": "M"
+  },
+  "BTFRA21106200901": {
+    "IBUId": "BTFRA21106200901",
+    "FamilyName": "PIC",
+    "GivenName": "Zelie",
+    "ShortName": "PIC",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA20607200901": {
+    "IBUId": "BTFRA20607200901",
+    "FamilyName": "PICARD",
+    "GivenName": "Janie",
+    "ShortName": "PICARD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTUKR11809200801": {
+    "IBUId": "BTUKR11809200801",
+    "FamilyName": "PIDRUCHNYI",
+    "GivenName": "Maksym",
+    "ShortName": "PIDRUCHNYI",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTSUI11609201101": {
+    "IBUId": "BTSUI11609201101",
+    "FamilyName": "PINCHERA",
+    "GivenName": "Corsin",
+    "ShortName": "PINCHERA",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTITA20106201101": {
+    "IBUId": "BTITA20106201101",
+    "FamilyName": "PINET",
+    "GivenName": "Linda Laura",
+    "ShortName": "PINET",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTITA22409201101": {
+    "IBUId": "BTITA22409201101",
+    "FamilyName": "PIVIDORI",
+    "GivenName": "Zoe",
+    "ShortName": "PIVIDORI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA10701201101": {
+    "IBUId": "BTFRA10701201101",
+    "FamilyName": "POCHARD",
+    "GivenName": "Mathis Kei",
+    "ShortName": "POCHARD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA20607201001": {
+    "IBUId": "BTFRA20607201001",
+    "FamilyName": "POLNY",
+    "GivenName": "Tilia",
+    "ShortName": "POLNY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTEST21112201101": {
+    "IBUId": "BTEST21112201101",
+    "FamilyName": "POLTORUHHO",
+    "GivenName": "Polina",
+    "ShortName": "POLTORUHHO",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTKAZ21008201001": {
+    "IBUId": "BTKAZ21008201001",
+    "FamilyName": "POPKOVA",
+    "GivenName": "Polina",
+    "ShortName": "POPKOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTCZE12406201102": {
+    "IBUId": "BTCZE12406201102",
+    "FamilyName": "POSPISIL",
+    "GivenName": "Ivo",
+    "ShortName": "POSPISIL",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTIRL21703201001": {
+    "IBUId": "BTIRL21703201001",
+    "FamilyName": "POST",
+    "GivenName": "Grace",
+    "ShortName": "POST",
+    "NAT": "IRL",
+    "GenderId": "W"
+  },
+  "BTLTU20304201101": {
+    "IBUId": "BTLTU20304201101",
+    "FamilyName": "POZNIAK",
+    "GivenName": "Kamila",
+    "ShortName": "POZNIAK",
+    "NAT": "LTU",
+    "GenderId": "W"
+  },
+  "BTCZE20312201101": {
+    "IBUId": "BTCZE20312201101",
+    "FamilyName": "PROCHAZKOVA",
+    "GivenName": "Kaisa",
+    "ShortName": "PROCHAZKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA23001201101": {
+    "IBUId": "BTFRA23001201101",
+    "FamilyName": "PRUD HOMME",
+    "GivenName": "Anaelle",
+    "ShortName": "PRUD HOMME",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCZE22707201101": {
+    "IBUId": "BTCZE22707201101",
+    "FamilyName": "PSENKOVA",
+    "GivenName": "Tereza",
+    "ShortName": "PSENKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTLAT23010201101": {
+    "IBUId": "BTLAT23010201101",
+    "FamilyName": "PURINA",
+    "GivenName": "Nellija",
+    "ShortName": "PURINA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTFIN22706201101": {
+    "IBUId": "BTFIN22706201101",
+    "FamilyName": "PYYKKO",
+    "GivenName": "Milja",
+    "ShortName": "PYYKKO",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFRA11711201001": {
+    "IBUId": "BTFRA11711201001",
+    "FamilyName": "QUERE",
+    "GivenName": "Antonin",
+    "ShortName": "QUERE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTISL22301200601": {
+    "IBUId": "BTISL22301200601",
+    "FamilyName": "RAGNARSDOTTIR",
+    "GivenName": "Thorey Dogg",
+    "ShortName": "RAGNARSDOTTIR",
+    "NAT": "ISL",
+    "GenderId": "W"
+  },
+  "BTISL12202200101": {
+    "IBUId": "BTISL12202200101",
+    "FamilyName": "RAGNARSSON",
+    "GivenName": "Stefan Snaer",
+    "ShortName": "RAGNARSSON",
+    "NAT": "ISL",
+    "GenderId": "M"
+  },
+  "BTSWE20102201101": {
+    "IBUId": "BTSWE20102201101",
+    "FamilyName": "RAHM",
+    "GivenName": "Marta",
+    "ShortName": "RAHM",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTKAZ12802201101": {
+    "IBUId": "BTKAZ12802201101",
+    "FamilyName": "RAIKHANOV",
+    "GivenName": "Damir",
+    "ShortName": "RAIKHANOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ22805200901": {
+    "IBUId": "BTKAZ22805200901",
+    "FamilyName": "RAMAZAN",
+    "GivenName": "Aruzhan",
+    "ShortName": "RAMAZAN",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTCZE21301201101": {
+    "IBUId": "BTCZE21301201101",
+    "FamilyName": "RANDAKOVA",
+    "GivenName": "Jana",
+    "ShortName": "RANDAKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTLUX21605200301": {
+    "IBUId": "BTLUX21605200301",
+    "FamilyName": "RAOULT",
+    "GivenName": "Zoe",
+    "ShortName": "RAOULT",
+    "NAT": "LUX",
+    "GenderId": "W"
+  },
+  "BTCAN21109200901": {
+    "IBUId": "BTCAN21109200901",
+    "FamilyName": "RAPCEWICZ",
+    "GivenName": "Sonija",
+    "ShortName": "RAPCEWICZ",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTKAZ12004201001": {
+    "IBUId": "BTKAZ12004201001",
+    "FamilyName": "RASHIDOV",
+    "GivenName": "Muslim",
+    "ShortName": "RASHIDOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA21607200901": {
+    "IBUId": "BTFRA21607200901",
+    "FamilyName": "RAT-PATRON",
+    "GivenName": "Marion",
+    "ShortName": "RAT-PATRON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTEST12009201101": {
+    "IBUId": "BTEST12009201101",
+    "FamilyName": "RAUDIK",
+    "GivenName": "Oskar",
+    "ShortName": "RAUDIK",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTFRA11105201101": {
+    "IBUId": "BTFRA11105201101",
+    "FamilyName": "RAVON",
+    "GivenName": "Alexis",
+    "ShortName": "RAVON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE11112201101": {
+    "IBUId": "BTCZE11112201101",
+    "FamilyName": "RAZAK",
+    "GivenName": "Matyas",
+    "ShortName": "RAZAK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA13004201001": {
+    "IBUId": "BTFRA13004201001",
+    "FamilyName": "REGAIRAZ",
+    "GivenName": "Mathis",
+    "ShortName": "REGAIRAZ",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCZE10412201101": {
+    "IBUId": "BTCZE10412201101",
+    "FamilyName": "REICH",
+    "GivenName": "Robin",
+    "ShortName": "REICH",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTKAZ23001200701": {
+    "IBUId": "BTKAZ23001200701",
+    "FamilyName": "REITAROVA",
+    "GivenName": "Valentina",
+    "ShortName": "REITAROVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ23001200702": {
+    "IBUId": "BTKAZ23001200702",
+    "FamilyName": "REITAROVA",
+    "GivenName": "Varvara",
+    "ShortName": "REITAROVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTFRA22209201101": {
+    "IBUId": "BTFRA22209201101",
+    "FamilyName": "REMESY LAURENT",
+    "GivenName": "Lou",
+    "ShortName": "REMESY LAURENT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSLO11409201101": {
+    "IBUId": "BTSLO11409201101",
+    "FamilyName": "REPNIK",
+    "GivenName": "Anze",
+    "ShortName": "REPNIK",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTFRA21304201101": {
+    "IBUId": "BTFRA21304201101",
+    "FamilyName": "REVERTE",
+    "GivenName": "Aline",
+    "ShortName": "REVERTE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA21404201001": {
+    "IBUId": "BTFRA21404201001",
+    "FamilyName": "REYMOND",
+    "GivenName": "Lisia",
+    "ShortName": "REYMOND",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE11903201101": {
+    "IBUId": "BTSWE11903201101",
+    "FamilyName": "RIBBEFORS",
+    "GivenName": "Hugo",
+    "ShortName": "RIBBEFORS",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTFRA20208201001": {
+    "IBUId": "BTFRA20208201001",
+    "FamilyName": "RICHARD",
+    "GivenName": "Gaia",
+    "ShortName": "RICHARD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCAN12506200801": {
+    "IBUId": "BTCAN12506200801",
+    "FamilyName": "RICHTER",
+    "GivenName": "Jesse",
+    "ShortName": "RICHTER",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTFRA22212201101": {
+    "IBUId": "BTFRA22212201101",
+    "FamilyName": "RIEU",
+    "GivenName": "Leane",
+    "ShortName": "RIEU",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12009200901": {
+    "IBUId": "BTFRA12009200901",
+    "FamilyName": "RIEU",
+    "GivenName": "Timeo",
+    "ShortName": "RIEU",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFIN21506200901": {
+    "IBUId": "BTFIN21506200901",
+    "FamilyName": "RINTA-KETURI",
+    "GivenName": "Neea",
+    "ShortName": "RINTA-KETURI",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTFRA20410201001": {
+    "IBUId": "BTFRA20410201001",
+    "FamilyName": "ROBBE",
+    "GivenName": "Louise",
+    "ShortName": "ROBBE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA22403201101": {
+    "IBUId": "BTFRA22403201101",
+    "FamilyName": "ROBERT",
+    "GivenName": "Maia",
+    "ShortName": "ROBERT",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTBEL10212201101": {
+    "IBUId": "BTBEL10212201101",
+    "FamilyName": "RODRIGUEZ",
+    "GivenName": "Diego",
+    "ShortName": "RODRIGUEZ",
+    "NAT": "BEL",
+    "GenderId": "M"
+  },
+  "BTFRA10504200901": {
+    "IBUId": "BTFRA10504200901",
+    "FamilyName": "ROGUET",
+    "GivenName": "Yann",
+    "ShortName": "ROGUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22907201101": {
+    "IBUId": "BTFRA22907201101",
+    "FamilyName": "ROLANDEZ VERVUST",
+    "GivenName": "Anais",
+    "ShortName": "ROLANDEZ VERVUST",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11807201001": {
+    "IBUId": "BTFRA11807201001",
+    "FamilyName": "ROLLAND",
+    "GivenName": "Alix",
+    "ShortName": "ROLLAND",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTBRA20807201101": {
+    "IBUId": "BTBRA20807201101",
+    "FamilyName": "ROMAN DE COL",
+    "GivenName": "Geovanna",
+    "ShortName": "ROMAN DE COL",
+    "NAT": "BRA",
+    "GenderId": "W"
+  },
+  "BTITA11210201101": {
+    "IBUId": "BTITA11210201101",
+    "FamilyName": "ROMANIN",
+    "GivenName": "Mathias",
+    "ShortName": "ROMANIN",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTFRA12606201102": {
+    "IBUId": "BTFRA12606201102",
+    "FamilyName": "ROMEU LE LOC'H",
+    "GivenName": "Hugo",
+    "ShortName": "ROMEU LE LOC'H",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTHUN22009201101": {
+    "IBUId": "BTHUN22009201101",
+    "FamilyName": "ROSIVALL",
+    "GivenName": "Emma Nora",
+    "ShortName": "ROSIVALL",
+    "NAT": "HUN",
+    "GenderId": "W"
+  },
+  "BTTHA21707201001": {
+    "IBUId": "BTTHA21707201001",
+    "FamilyName": "ROSS",
+    "GivenName": "Angelina Wachirapron",
+    "ShortName": "ROSS",
+    "NAT": "THA",
+    "GenderId": "W"
+  },
+  "BTCAN13112201001": {
+    "IBUId": "BTCAN13112201001",
+    "FamilyName": "ROSTOKER",
+    "GivenName": "Logan",
+    "ShortName": "ROSTOKER",
+    "NAT": "CAN",
+    "GenderId": "M"
+  },
+  "BTFRA12202201001": {
+    "IBUId": "BTFRA12202201001",
+    "FamilyName": "ROTH",
+    "GivenName": "Sebald",
+    "ShortName": "ROTH",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA22607201101": {
+    "IBUId": "BTFRA22607201101",
+    "FamilyName": "ROUMANEIX",
+    "GivenName": "Albane",
+    "ShortName": "ROUMANEIX",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12504201001": {
+    "IBUId": "BTFRA12504201001",
+    "FamilyName": "ROUSSET VACHON",
+    "GivenName": "Martin",
+    "ShortName": "ROUSSET VACHON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUS10811199701": {
+    "IBUId": "BTAUS10811199701",
+    "FamilyName": "ROWE",
+    "GivenName": "Lachlan",
+    "ShortName": "ROWE",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTCZE21808201101": {
+    "IBUId": "BTCZE21808201101",
+    "FamilyName": "ROZKOSNA",
+    "GivenName": "Erika",
+    "ShortName": "ROZKOSNA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTKAZ11407200901": {
+    "IBUId": "BTKAZ11407200901",
+    "FamilyName": "RUCHYEV",
+    "GivenName": "Kirill",
+    "ShortName": "RUCHYEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCZE22503201101": {
+    "IBUId": "BTCZE22503201101",
+    "FamilyName": "RUCKOVA",
+    "GivenName": "Eva",
+    "ShortName": "RUCKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTUKR11901201001": {
+    "IBUId": "BTUKR11901201001",
+    "FamilyName": "RUDENKO",
+    "GivenName": "Dmytro",
+    "ShortName": "RUDENKO",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTSUI21301200401": {
+    "IBUId": "BTSUI21301200401",
+    "FamilyName": "RUEEGG",
+    "GivenName": "Celia",
+    "ShortName": "RUEEGG",
+    "NAT": "SUI",
+    "GenderId": "W"
+  },
+  "BTLAT21211201101": {
+    "IBUId": "BTLAT21211201101",
+    "FamilyName": "RULUKA",
+    "GivenName": "Darta",
+    "ShortName": "RULUKA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTUKR22103201101": {
+    "IBUId": "BTUKR22103201101",
+    "FamilyName": "RUSAL",
+    "GivenName": "Valeriia",
+    "ShortName": "RUSAL",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTEST21106200501": {
+    "IBUId": "BTEST21106200501",
+    "FamilyName": "SAAR",
+    "GivenName": "Annaliisa",
+    "ShortName": "SAAR",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTEST21511201101": {
+    "IBUId": "BTEST21511201101",
+    "FamilyName": "SAAR",
+    "GivenName": "Mirtel",
+    "ShortName": "SAAR",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTFRA21903201002": {
+    "IBUId": "BTFRA21903201002",
+    "FamilyName": "SAILLARD",
+    "GivenName": "Lena",
+    "ShortName": "SAILLARD",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTLAT22208201101": {
+    "IBUId": "BTLAT22208201101",
+    "FamilyName": "SALMINA",
+    "GivenName": "Zane",
+    "ShortName": "SALMINA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTNOR10101201001": {
+    "IBUId": "BTNOR10101201001",
+    "FamilyName": "SANDAKER",
+    "GivenName": "Henrik Martin",
+    "ShortName": "SANDAKER",
+    "NAT": "NOR",
+    "GenderId": "M"
+  },
+  "BTFRA21705200901": {
+    "IBUId": "BTFRA21705200901",
+    "FamilyName": "SANSEIGNE",
+    "GivenName": "Emmy",
+    "ShortName": "SANSEIGNE",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTITA20201201101": {
+    "IBUId": "BTITA20201201101",
+    "FamilyName": "SANTER",
+    "GivenName": "Kathrin",
+    "ShortName": "SANTER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA12203201101": {
+    "IBUId": "BTFRA12203201101",
+    "FamilyName": "SATTLER",
+    "GivenName": "Antonin",
+    "ShortName": "SATTLER",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTUKR11205201101": {
+    "IBUId": "BTUKR11205201101",
+    "FamilyName": "SAVONIK",
+    "GivenName": "Tymofii",
+    "ShortName": "SAVONIK",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTKAZ21404200701": {
+    "IBUId": "BTKAZ21404200701",
+    "FamilyName": "SAYENKO",
+    "GivenName": "Yelena",
+    "ShortName": "SAYENKO",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTITA13110201101": {
+    "IBUId": "BTITA13110201101",
+    "FamilyName": "SCALET",
+    "GivenName": "Mirko",
+    "ShortName": "SCALET",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTGER20411201101": {
+    "IBUId": "BTGER20411201101",
+    "FamilyName": "SCHLEDERER",
+    "GivenName": "Emma",
+    "ShortName": "SCHLEDERER",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTGER22802201101": {
+    "IBUId": "BTGER22802201101",
+    "FamilyName": "SCHNEIDER",
+    "GivenName": "Isabella",
+    "ShortName": "SCHNEIDER",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTFRA11701200901": {
+    "IBUId": "BTFRA11701200901",
+    "FamilyName": "SCHOTT",
+    "GivenName": "Clement",
+    "ShortName": "SCHOTT",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA12202201001": {
+    "IBUId": "BTITA12202201001",
+    "FamilyName": "SCHWITZER",
+    "GivenName": "Matthaeus",
+    "ShortName": "SCHWITZER",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTCZE10710201101": {
+    "IBUId": "BTCZE10710201101",
+    "FamilyName": "SEDIVY",
+    "GivenName": "Marek",
+    "ShortName": "SEDIVY",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE10406201101": {
+    "IBUId": "BTCZE10406201101",
+    "FamilyName": "SEDLAK",
+    "GivenName": "Vaclav",
+    "ShortName": "SEDLAK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTFRA11401201001": {
+    "IBUId": "BTFRA11401201001",
+    "FamilyName": "SEGON",
+    "GivenName": "Antonin",
+    "ShortName": "SEGON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTAUT22410201101": {
+    "IBUId": "BTAUT22410201101",
+    "FamilyName": "SEIDL",
+    "GivenName": "Simone",
+    "ShortName": "SEIDL",
+    "NAT": "AUT",
+    "GenderId": "W"
+  },
+  "BTFRA12708200901": {
+    "IBUId": "BTFRA12708200901",
+    "FamilyName": "SEIGNEUR",
+    "GivenName": "Martin",
+    "ShortName": "SEIGNEUR",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTITA11405201101": {
+    "IBUId": "BTITA11405201101",
+    "FamilyName": "SELLE",
+    "GivenName": "Cristiano",
+    "ShortName": "SELLE",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTLTU11706201101": {
+    "IBUId": "BTLTU11706201101",
+    "FamilyName": "SEMASKO",
+    "GivenName": "Daniel",
+    "ShortName": "SEMASKO",
+    "NAT": "LTU",
+    "GenderId": "M"
+  },
+  "BTFIN11507201101": {
+    "IBUId": "BTFIN11507201101",
+    "FamilyName": "SEPPALA",
+    "GivenName": "Juho",
+    "ShortName": "SEPPALA",
+    "NAT": "FIN",
+    "GenderId": "M"
+  },
+  "BTSLO11506201101": {
+    "IBUId": "BTSLO11506201101",
+    "FamilyName": "SEVER",
+    "GivenName": "Kristian",
+    "ShortName": "SEVER",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTFRA21103200901": {
+    "IBUId": "BTFRA21103200901",
+    "FamilyName": "SGAROS ROHMER",
+    "GivenName": "Pauline",
+    "ShortName": "SGAROS ROHMER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ20803200301": {
+    "IBUId": "BTKAZ20803200301",
+    "FamilyName": "SHIRYAYEVA",
+    "GivenName": "Viktoriya",
+    "ShortName": "SHIRYAYEVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ11312200701": {
+    "IBUId": "BTKAZ11312200701",
+    "FamilyName": "SHNAIDER",
+    "GivenName": "Artem",
+    "ShortName": "SHNAIDER",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ22606201101": {
+    "IBUId": "BTKAZ22606201101",
+    "FamilyName": "SHNEIDER",
+    "GivenName": "Anna",
+    "ShortName": "SHNEIDER",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ13005200701": {
+    "IBUId": "BTKAZ13005200701",
+    "FamilyName": "SHVACHKO",
+    "GivenName": "Nikita",
+    "ShortName": "SHVACHKO",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTBRA12104201101": {
+    "IBUId": "BTBRA12104201101",
+    "FamilyName": "SILVA GOMES",
+    "GivenName": "Pedro",
+    "ShortName": "SILVA GOMES",
+    "NAT": "BRA",
+    "GenderId": "M"
+  },
+  "BTFRA12911200902": {
+    "IBUId": "BTFRA12911200902",
+    "FamilyName": "SIMEON",
+    "GivenName": "Thibaud",
+    "ShortName": "SIMEON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTEST13103199001": {
+    "IBUId": "BTEST13103199001",
+    "FamilyName": "SIREL",
+    "GivenName": "Kaupo",
+    "ShortName": "SIREL",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTSVK20606201101": {
+    "IBUId": "BTSVK20606201101",
+    "FamilyName": "SITARIKOVA",
+    "GivenName": "Klaudia",
+    "ShortName": "SITARIKOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTAUS20509201201": {
+    "IBUId": "BTAUS20509201201",
+    "FamilyName": "SKILTON",
+    "GivenName": "Eva",
+    "ShortName": "SKILTON",
+    "NAT": "AUS",
+    "GenderId": "W"
+  },
+  "BTCZE20711201101": {
+    "IBUId": "BTCZE20711201101",
+    "FamilyName": "SKODOVA",
+    "GivenName": "Daniela",
+    "ShortName": "SKODOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTLAT22112201101": {
+    "IBUId": "BTLAT22112201101",
+    "FamilyName": "SKOPINA",
+    "GivenName": "Vanesa Patricija",
+    "ShortName": "SKOPINA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTLTU10212201101": {
+    "IBUId": "BTLTU10212201101",
+    "FamilyName": "SKYDANENKO",
+    "GivenName": "Nazar",
+    "ShortName": "SKYDANENKO",
+    "NAT": "LTU",
+    "GenderId": "M"
+  },
+  "BTLAT22803201101": {
+    "IBUId": "BTLAT22803201101",
+    "FamilyName": "SLEZINA",
+    "GivenName": "Adele",
+    "ShortName": "SLEZINA",
+    "NAT": "LAT",
+    "GenderId": "W"
+  },
+  "BTUSA10706201001": {
+    "IBUId": "BTUSA10706201001",
+    "FamilyName": "SMITH",
+    "GivenName": "Lance",
+    "ShortName": "SMITH",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTUSA21102201201": {
+    "IBUId": "BTUSA21102201201",
+    "FamilyName": "SMITH",
+    "GivenName": "Naomi",
+    "ShortName": "SMITH",
+    "NAT": "USA",
+    "GenderId": "W"
+  },
+  "BTCRO22307201001": {
+    "IBUId": "BTCRO22307201001",
+    "FamilyName": "SOBOL",
+    "GivenName": "Lana",
+    "ShortName": "SOBOL",
+    "NAT": "CRO",
+    "GenderId": "W"
+  },
+  "BTFRA11702201101": {
+    "IBUId": "BTFRA11702201101",
+    "FamilyName": "SOCQUET",
+    "GivenName": "Dylan",
+    "ShortName": "SOCQUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTBEL12604201101": {
+    "IBUId": "BTBEL12604201101",
+    "FamilyName": "SOLTANI",
+    "GivenName": "Sacha",
+    "ShortName": "SOLTANI",
+    "NAT": "BEL",
+    "GenderId": "M"
+  },
+  "BTKOR11511200901": {
+    "IBUId": "BTKOR11511200901",
+    "FamilyName": "SON",
+    "GivenName": "Siwoo",
+    "ShortName": "SON",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTKOR22910200901": {
+    "IBUId": "BTKOR22910200901",
+    "FamilyName": "SONG",
+    "GivenName": "Minju",
+    "ShortName": "SONG",
+    "NAT": "KOR",
+    "GenderId": "W"
+  },
+  "BTEST11711201101": {
+    "IBUId": "BTEST11711201101",
+    "FamilyName": "SOO",
+    "GivenName": "Oskar",
+    "ShortName": "SOO",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTAUS20408201101": {
+    "IBUId": "BTAUS20408201101",
+    "FamilyName": "SPARKE",
+    "GivenName": "Sapphire",
+    "ShortName": "SPARKE",
+    "NAT": "AUS",
+    "GenderId": "W"
+  },
+  "BTSWE20610201001": {
+    "IBUId": "BTSWE20610201001",
+    "FamilyName": "SPETS",
+    "GivenName": "Mimmi",
+    "ShortName": "SPETS",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTKAZ12510201001": {
+    "IBUId": "BTKAZ12510201001",
+    "FamilyName": "SPODIN",
+    "GivenName": "Vladislav",
+    "ShortName": "SPODIN",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTBUL12912201101": {
+    "IBUId": "BTBUL12912201101",
+    "FamilyName": "STAEVSKI",
+    "GivenName": "Emil",
+    "ShortName": "STAEVSKI",
+    "NAT": "BUL",
+    "GenderId": "M"
+  },
+  "BTITA12802201101": {
+    "IBUId": "BTITA12802201101",
+    "FamilyName": "STEINKASSERER",
+    "GivenName": "Elia",
+    "ShortName": "STEINKASSERER",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTITA21311201101": {
+    "IBUId": "BTITA21311201101",
+    "FamilyName": "STOFFIE",
+    "GivenName": "Sofia",
+    "ShortName": "STOFFIE",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTROU11501201101": {
+    "IBUId": "BTROU11501201101",
+    "FamilyName": "STOIAN",
+    "GivenName": "Alexandru",
+    "ShortName": "STOIAN",
+    "NAT": "ROU",
+    "GenderId": "M"
+  },
+  "BTLAT10709201101": {
+    "IBUId": "BTLAT10709201101",
+    "FamilyName": "STRAUME",
+    "GivenName": "Emils",
+    "ShortName": "STRAUME",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTCZE12105201101": {
+    "IBUId": "BTCZE12105201101",
+    "FamilyName": "STRNAD",
+    "GivenName": "Jan",
+    "ShortName": "STRNAD",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE12802201101": {
+    "IBUId": "BTCZE12802201101",
+    "FamilyName": "STRNADEK",
+    "GivenName": "Jan",
+    "ShortName": "STRNADEK",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTUKR12712200801": {
+    "IBUId": "BTUKR12712200801",
+    "FamilyName": "SULZHYK",
+    "GivenName": "Oleksandr",
+    "ShortName": "SULZHYK",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTJPN11710200901": {
+    "IBUId": "BTJPN11710200901",
+    "FamilyName": "SUTO",
+    "GivenName": "Kai",
+    "ShortName": "SUTO",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTSWE21906201001": {
+    "IBUId": "BTSWE21906201001",
+    "FamilyName": "SVEDENBJORK",
+    "GivenName": "Ellen",
+    "ShortName": "SVEDENBJORK",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTKAZ11408200901": {
+    "IBUId": "BTKAZ11408200901",
+    "FamilyName": "SVISTICH",
+    "GivenName": "Roman",
+    "ShortName": "SVISTICH",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCZE10612201101": {
+    "IBUId": "BTCZE10612201101",
+    "FamilyName": "SVOBODA",
+    "GivenName": "Jiri",
+    "ShortName": "SVOBODA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE22501201101": {
+    "IBUId": "BTCZE22501201101",
+    "FamilyName": "SVOBODOVA",
+    "GivenName": "Nela",
+    "ShortName": "SVOBODOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTFRA11801201001": {
+    "IBUId": "BTFRA11801201001",
+    "FamilyName": "TANCHOUX",
+    "GivenName": "Cyprien",
+    "ShortName": "TANCHOUX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSWE22105201101": {
+    "IBUId": "BTSWE22105201101",
+    "FamilyName": "TANGLANDER",
+    "GivenName": "Alva",
+    "ShortName": "TANGLANDER",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTSWE21011201001": {
+    "IBUId": "BTSWE21011201001",
+    "FamilyName": "TAPPER",
+    "GivenName": "Agnes",
+    "ShortName": "TAPPER",
+    "NAT": "SWE",
+    "GenderId": "W"
+  },
+  "BTKAZ11305201001": {
+    "IBUId": "BTKAZ11305201001",
+    "FamilyName": "TARASSOV",
+    "GivenName": "Nikita",
+    "ShortName": "TARASSOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA11905201001": {
+    "IBUId": "BTFRA11905201001",
+    "FamilyName": "TARDY",
+    "GivenName": "Bastien",
+    "ShortName": "TARDY",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKAZ11810201101": {
+    "IBUId": "BTKAZ11810201101",
+    "FamilyName": "TAZHIBAYEV",
+    "GivenName": "Aryn",
+    "ShortName": "TAZHIBAYEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTUKR20712201101": {
+    "IBUId": "BTUKR20712201101",
+    "FamilyName": "TELEHUZ",
+    "GivenName": "Kateryna",
+    "ShortName": "TELEHUZ",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTFRA10306201102": {
+    "IBUId": "BTFRA10306201102",
+    "FamilyName": "TENDRON",
+    "GivenName": "Aubin",
+    "ShortName": "TENDRON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21108200401": {
+    "IBUId": "BTFRA21108200401",
+    "FamilyName": "TEYSSANDIER",
+    "GivenName": "Jeanne",
+    "ShortName": "TEYSSANDIER",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTUSA12707199601": {
+    "IBUId": "BTUSA12707199601",
+    "FamilyName": "THEISEN",
+    "GivenName": "Achilles",
+    "ShortName": "THEISEN",
+    "NAT": "USA",
+    "GenderId": "M"
+  },
+  "BTFRA12910200901": {
+    "IBUId": "BTFRA12910200901",
+    "FamilyName": "THIBERT JOUAN",
+    "GivenName": "Candide",
+    "ShortName": "THIBERT JOUAN",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11407200901": {
+    "IBUId": "BTFRA11407200901",
+    "FamilyName": "THOMAS",
+    "GivenName": "Elouan",
+    "ShortName": "THOMAS",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTSVK12710200901": {
+    "IBUId": "BTSVK12710200901",
+    "FamilyName": "TIKVES",
+    "GivenName": "Edis Timur",
+    "ShortName": "TIKVES",
+    "NAT": "SVK",
+    "GenderId": "M"
+  },
+  "BTKAZ11409200901": {
+    "IBUId": "BTKAZ11409200901",
+    "FamilyName": "TIMOFEYEV",
+    "GivenName": "David",
+    "ShortName": "TIMOFEYEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ22910201101": {
+    "IBUId": "BTKAZ22910201101",
+    "FamilyName": "TIMOFEYEVA",
+    "GivenName": "Evelina",
+    "ShortName": "TIMOFEYEVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTEST21201201101": {
+    "IBUId": "BTEST21201201101",
+    "FamilyName": "TINTERA",
+    "GivenName": "Karin",
+    "ShortName": "TINTERA",
+    "NAT": "EST",
+    "GenderId": "W"
+  },
+  "BTITA23009201101": {
+    "IBUId": "BTITA23009201101",
+    "FamilyName": "TIRABOSCHI",
+    "GivenName": "Martina",
+    "ShortName": "TIRABOSCHI",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTJPN21305200101": {
+    "IBUId": "BTJPN21305200101",
+    "FamilyName": "TOCHITANI",
+    "GivenName": "Nodoka",
+    "ShortName": "TOCHITANI",
+    "NAT": "JPN",
+    "GenderId": "W"
+  },
+  "BTKGZ20202201101": {
+    "IBUId": "BTKGZ20202201101",
+    "FamilyName": "TOKTOSUNOVA",
+    "GivenName": "Karlygach",
+    "ShortName": "TOKTOSUNOVA",
+    "NAT": "KGZ",
+    "GenderId": "W"
+  },
+  "BTITA22105201101": {
+    "IBUId": "BTITA22105201101",
+    "FamilyName": "TOMASIN",
+    "GivenName": "Alice",
+    "ShortName": "TOMASIN",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA12709201101": {
+    "IBUId": "BTFRA12709201101",
+    "FamilyName": "TONON",
+    "GivenName": "Charly",
+    "ShortName": "TONON",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTBUL21206200901": {
+    "IBUId": "BTBUL21206200901",
+    "FamilyName": "TORLAKOVA",
+    "GivenName": "Nikol",
+    "ShortName": "TORLAKOVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTFIN22407201101": {
+    "IBUId": "BTFIN22407201101",
+    "FamilyName": "TORVINEN",
+    "GivenName": "Iita",
+    "ShortName": "TORVINEN",
+    "NAT": "FIN",
+    "GenderId": "W"
+  },
+  "BTBUL23103201101": {
+    "IBUId": "BTBUL23103201101",
+    "FamilyName": "TOSKOVA",
+    "GivenName": "Iliyana",
+    "ShortName": "TOSKOVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTITA12601201101": {
+    "IBUId": "BTITA12601201101",
+    "FamilyName": "TOTSCH",
+    "GivenName": "Elias",
+    "ShortName": "TOTSCH",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTGBR11706200901": {
+    "IBUId": "BTGBR11706200901",
+    "FamilyName": "TOWNSEND",
+    "GivenName": "Harry",
+    "ShortName": "TOWNSEND",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTITA11709201101": {
+    "IBUId": "BTITA11709201101",
+    "FamilyName": "TRABUCCHI",
+    "GivenName": "Filippo",
+    "ShortName": "TRABUCCHI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTKAZ11606201101": {
+    "IBUId": "BTKAZ11606201101",
+    "FamilyName": "TRAIBER",
+    "GivenName": "Danil",
+    "ShortName": "TRAIBER",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTMKD11307201101": {
+    "IBUId": "BTMKD11307201101",
+    "FamilyName": "TRAJANOSKI",
+    "GivenName": "Blagoja",
+    "ShortName": "TRAJANOSKI",
+    "NAT": "MKD",
+    "GenderId": "M"
+  },
+  "BTSLO11202201101": {
+    "IBUId": "BTSLO11202201101",
+    "FamilyName": "TRCEK",
+    "GivenName": "Brin",
+    "ShortName": "TRCEK",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTGBR12105199301": {
+    "IBUId": "BTGBR12105199301",
+    "FamilyName": "TREBLE",
+    "GivenName": "Cameron",
+    "ShortName": "TREBLE",
+    "NAT": "GBR",
+    "GenderId": "M"
+  },
+  "BTITA22104201102": {
+    "IBUId": "BTITA22104201102",
+    "FamilyName": "TRUC",
+    "GivenName": "Elodie",
+    "ShortName": "TRUC",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTTPE22404200801": {
+    "IBUId": "BTTPE22404200801",
+    "FamilyName": "TSAI",
+    "GivenName": "Chiao-Wei",
+    "ShortName": "TSAI",
+    "NAT": "TPE",
+    "GenderId": "W"
+  },
+  "BTUKR22005201101": {
+    "IBUId": "BTUKR22005201101",
+    "FamilyName": "TSVYAKH",
+    "GivenName": "Viktoriia",
+    "ShortName": "TSVYAKH",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTKAZ20506200901": {
+    "IBUId": "BTKAZ20506200901",
+    "FamilyName": "TUDAKHUNOVA",
+    "GivenName": "Zhanerke",
+    "ShortName": "TUDAKHUNOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTUZB13001200901": {
+    "IBUId": "BTUZB13001200901",
+    "FamilyName": "TURGINBOEV",
+    "GivenName": "Erjigit",
+    "ShortName": "TURGINBOEV",
+    "NAT": "UZB",
+    "GenderId": "M"
+  },
+  "BTFRA22205201101": {
+    "IBUId": "BTFRA22205201101",
+    "FamilyName": "TURIN",
+    "GivenName": "Laura",
+    "ShortName": "TURIN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11012200901": {
+    "IBUId": "BTFRA11012200901",
+    "FamilyName": "TUTTINO",
+    "GivenName": "Samuel",
+    "ShortName": "TUTTINO",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTGER22511201101": {
+    "IBUId": "BTGER22511201101",
+    "FamilyName": "UHRMANN",
+    "GivenName": "Lotta",
+    "ShortName": "UHRMANN",
+    "NAT": "GER",
+    "GenderId": "W"
+  },
+  "BTSLO11104201101": {
+    "IBUId": "BTSLO11104201101",
+    "FamilyName": "ULE",
+    "GivenName": "Vitan",
+    "ShortName": "ULE",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTLTU22810200001": {
+    "IBUId": "BTLTU22810200001",
+    "FamilyName": "UMBRASAITE",
+    "GivenName": "Juste",
+    "ShortName": "UMBRASAITE",
+    "NAT": "LTU",
+    "GenderId": "W"
+  },
+  "BTLAT11205201001": {
+    "IBUId": "BTLAT11205201001",
+    "FamilyName": "USVILS",
+    "GivenName": "Juris",
+    "ShortName": "USVILS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTCZE21309201101": {
+    "IBUId": "BTCZE21309201101",
+    "FamilyName": "UZLIKOVA",
+    "GivenName": "Stella",
+    "ShortName": "UZLIKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTCZE12409201101": {
+    "IBUId": "BTCZE12409201101",
+    "FamilyName": "VACHA",
+    "GivenName": "Jan",
+    "ShortName": "VACHA",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTKAZ22004200701": {
+    "IBUId": "BTKAZ22004200701",
+    "FamilyName": "VADUTOVA",
+    "GivenName": "Yevgeniya",
+    "ShortName": "VADUTOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTKAZ10309200201": {
+    "IBUId": "BTKAZ10309200201",
+    "FamilyName": "VAGANOV",
+    "GivenName": "Alisher",
+    "ShortName": "VAGANOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTEST11907201101": {
+    "IBUId": "BTEST11907201101",
+    "FamilyName": "VAHTRA",
+    "GivenName": "Eerik",
+    "ShortName": "VAHTRA",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTSVK20705200901": {
+    "IBUId": "BTSVK20705200901",
+    "FamilyName": "VALEKOVA",
+    "GivenName": "Lea Elisa",
+    "ShortName": "VALEKOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTFRA11303201001": {
+    "IBUId": "BTFRA11303201001",
+    "FamilyName": "VALETTE",
+    "GivenName": "Antoine",
+    "ShortName": "VALETTE",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTBUL21808201101": {
+    "IBUId": "BTBUL21808201101",
+    "FamilyName": "VALEVA",
+    "GivenName": "Maraya",
+    "ShortName": "VALEVA",
+    "NAT": "BUL",
+    "GenderId": "W"
+  },
+  "BTUZB20411199901": {
+    "IBUId": "BTUZB20411199901",
+    "FamilyName": "VALIJONOVA",
+    "GivenName": "Diyorakhon",
+    "ShortName": "VALIJONOVA",
+    "NAT": "UZB",
+    "GenderId": "W"
+  },
+  "BTFRA21406201101": {
+    "IBUId": "BTFRA21406201101",
+    "FamilyName": "VALLET",
+    "GivenName": "Lorelai",
+    "ShortName": "VALLET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE11307200901": {
+    "IBUId": "BTSWE11307200901",
+    "FamilyName": "VALLIN",
+    "GivenName": "Isak",
+    "ShortName": "VALLIN",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTCZE22402201101": {
+    "IBUId": "BTCZE22402201101",
+    "FamilyName": "VASICKOVA",
+    "GivenName": "Nella",
+    "ShortName": "VASICKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTSVK21108201001": {
+    "IBUId": "BTSVK21108201001",
+    "FamilyName": "VASICOVA",
+    "GivenName": "Aneta",
+    "ShortName": "VASICOVA",
+    "NAT": "SVK",
+    "GenderId": "W"
+  },
+  "BTFRA21505200501": {
+    "IBUId": "BTFRA21505200501",
+    "FamilyName": "VASSEL",
+    "GivenName": "Lou-Ann",
+    "ShortName": "VASSEL",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA12501200801": {
+    "IBUId": "BTFRA12501200801",
+    "FamilyName": "VASSEL",
+    "GivenName": "Martin",
+    "ShortName": "VASSEL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA10702201101": {
+    "IBUId": "BTFRA10702201101",
+    "FamilyName": "VAUBOURG",
+    "GivenName": "Gabriel",
+    "ShortName": "VAUBOURG",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTEST12111201101": {
+    "IBUId": "BTEST12111201101",
+    "FamilyName": "VEERPALU",
+    "GivenName": "Andorres",
+    "ShortName": "VEERPALU",
+    "NAT": "EST",
+    "GenderId": "M"
+  },
+  "BTGRE22510201101": {
+    "IBUId": "BTGRE22510201101",
+    "FamilyName": "VELIVASI",
+    "GivenName": "Evdokia",
+    "ShortName": "VELIVASI",
+    "NAT": "GRE",
+    "GenderId": "W"
+  },
+  "BTFRA10710200901": {
+    "IBUId": "BTFRA10710200901",
+    "FamilyName": "VERCUEIL",
+    "GivenName": "Nans",
+    "ShortName": "VERCUEIL",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11005201101": {
+    "IBUId": "BTFRA11005201101",
+    "FamilyName": "VERGES",
+    "GivenName": "Eden",
+    "ShortName": "VERGES",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA11111201001": {
+    "IBUId": "BTFRA11111201001",
+    "FamilyName": "VERGUET",
+    "GivenName": "Tom",
+    "ShortName": "VERGUET",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTKAZ12309200502": {
+    "IBUId": "BTKAZ12309200502",
+    "FamilyName": "VERKHOVNIKOV",
+    "GivenName": "Eldar",
+    "ShortName": "VERKHOVNIKOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA22502200902": {
+    "IBUId": "BTFRA22502200902",
+    "FamilyName": "VERMEULEN",
+    "GivenName": "Chloe",
+    "ShortName": "VERMEULEN",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTCAN22804201101": {
+    "IBUId": "BTCAN22804201101",
+    "FamilyName": "VERSTRAETE",
+    "GivenName": "Mika",
+    "ShortName": "VERSTRAETE",
+    "NAT": "CAN",
+    "GenderId": "W"
+  },
+  "BTCZE12607201101": {
+    "IBUId": "BTCZE12607201101",
+    "FamilyName": "VESELY",
+    "GivenName": "Tobias",
+    "ShortName": "VESELY",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTKAZ12109201001": {
+    "IBUId": "BTKAZ12109201001",
+    "FamilyName": "VETRIGOV",
+    "GivenName": "Ruslan",
+    "ShortName": "VETRIGOV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTFRA11001200901": {
+    "IBUId": "BTFRA11001200901",
+    "FamilyName": "VIDAUD",
+    "GivenName": "Jules",
+    "ShortName": "VIDAUD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21201200901": {
+    "IBUId": "BTFRA21201200901",
+    "FamilyName": "VIGNON",
+    "GivenName": "Axelle",
+    "ShortName": "VIGNON",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTFRA11011201002": {
+    "IBUId": "BTFRA11011201002",
+    "FamilyName": "VILLARD",
+    "GivenName": "Zach",
+    "ShortName": "VILLARD",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTFRA21706201102": {
+    "IBUId": "BTFRA21706201102",
+    "FamilyName": "VINAY",
+    "GivenName": "Alice",
+    "ShortName": "VINAY",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTSWE13010200601": {
+    "IBUId": "BTSWE13010200601",
+    "FamilyName": "VINDA",
+    "GivenName": "Benjamin",
+    "ShortName": "VINDA",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTSWE12608200401": {
+    "IBUId": "BTSWE12608200401",
+    "FamilyName": "VINDA",
+    "GivenName": "Jonathan",
+    "ShortName": "VINDA",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTUKR10508201001": {
+    "IBUId": "BTUKR10508201001",
+    "FamilyName": "VISHTALIUK",
+    "GivenName": "Zakharii",
+    "ShortName": "VISHTALIUK",
+    "NAT": "UKR",
+    "GenderId": "M"
+  },
+  "BTUKR21501200901": {
+    "IBUId": "BTUKR21501200901",
+    "FamilyName": "VITCHYNKINA",
+    "GivenName": "Khrystyna",
+    "ShortName": "VITCHYNKINA",
+    "NAT": "UKR",
+    "GenderId": "W"
+  },
+  "BTGRE10612201101": {
+    "IBUId": "BTGRE10612201101",
+    "FamilyName": "VITKAS",
+    "GivenName": "Nikolaos",
+    "ShortName": "VITKAS",
+    "NAT": "GRE",
+    "GenderId": "M"
+  },
+  "BTFRA21905201102": {
+    "IBUId": "BTFRA21905201102",
+    "FamilyName": "VIVET",
+    "GivenName": "Jeanne",
+    "ShortName": "VIVET",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ20701201001": {
+    "IBUId": "BTKAZ20701201001",
+    "FamilyName": "VOLOSNOVA",
+    "GivenName": "Yekaterina",
+    "ShortName": "VOLOSNOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTSLO10804201101": {
+    "IBUId": "BTSLO10804201101",
+    "FamilyName": "VOVK",
+    "GivenName": "Nik",
+    "ShortName": "VOVK",
+    "NAT": "SLO",
+    "GenderId": "M"
+  },
+  "BTFRA11607201101": {
+    "IBUId": "BTFRA11607201101",
+    "FamilyName": "VUARCHEX",
+    "GivenName": "Alexis",
+    "ShortName": "VUARCHEX",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTCHN10507200401": {
+    "IBUId": "BTCHN10507200401",
+    "FamilyName": "WANG",
+    "GivenName": "Guanghao",
+    "ShortName": "WANG",
+    "NAT": "CHN",
+    "GenderId": "M"
+  },
+  "BTCHN22509200301": {
+    "IBUId": "BTCHN22509200301",
+    "FamilyName": "WANG",
+    "GivenName": "Menglu",
+    "ShortName": "WANG",
+    "NAT": "CHN",
+    "GenderId": "W"
+  },
+  "BTAUS10310196301": {
+    "IBUId": "BTAUS10310196301",
+    "FamilyName": "WATERS",
+    "GivenName": "Christopher Graham",
+    "ShortName": "WATERS",
+    "NAT": "AUS",
+    "GenderId": "M"
+  },
+  "BTITA20111201102": {
+    "IBUId": "BTITA20111201102",
+    "FamilyName": "WIERER",
+    "GivenName": "Maya",
+    "ShortName": "WIERER",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTSWE12004201001": {
+    "IBUId": "BTSWE12004201001",
+    "FamilyName": "WIKSTROEM",
+    "GivenName": "Joel",
+    "ShortName": "WIKSTROEM",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTAUT11411201101": {
+    "IBUId": "BTAUT11411201101",
+    "FamilyName": "WINKLER",
+    "GivenName": "Tobias",
+    "ShortName": "WINKLER",
+    "NAT": "AUT",
+    "GenderId": "M"
+  },
+  "BTITA21202201101": {
+    "IBUId": "BTITA21202201101",
+    "FamilyName": "WOLF",
+    "GivenName": "Anna",
+    "ShortName": "WOLF",
+    "NAT": "ITA",
+    "GenderId": "W"
+  },
+  "BTFRA21307201101": {
+    "IBUId": "BTFRA21307201101",
+    "FamilyName": "WORM",
+    "GivenName": "Felicie",
+    "ShortName": "WORM",
+    "NAT": "FRA",
+    "GenderId": "W"
+  },
+  "BTKAZ12806200801": {
+    "IBUId": "BTKAZ12806200801",
+    "FamilyName": "YAKOVLEV",
+    "GivenName": "Yakov",
+    "ShortName": "YAKOVLEV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTJPN10107200901": {
+    "IBUId": "BTJPN10107200901",
+    "FamilyName": "YAMAUCHI",
+    "GivenName": "Yu",
+    "ShortName": "YAMAUCHI",
+    "NAT": "JPN",
+    "GenderId": "M"
+  },
+  "BTCHN21506200401": {
+    "IBUId": "BTCHN21506200401",
+    "FamilyName": "YANG",
+    "GivenName": "Xiulamao",
+    "ShortName": "YANG",
+    "NAT": "CHN",
+    "GenderId": "W"
+  },
+  "BTKAZ10407200901": {
+    "IBUId": "BTKAZ10407200901",
+    "FamilyName": "YERECHSHENKO",
+    "GivenName": "Andrey",
+    "ShortName": "YERECHSHENKO",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ20308200801": {
+    "IBUId": "BTKAZ20308200801",
+    "FamilyName": "YEVLANENKOVA",
+    "GivenName": "Alina",
+    "ShortName": "YEVLANENKOVA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTJPN21902201001": {
+    "IBUId": "BTJPN21902201001",
+    "FamilyName": "YONEKURA",
+    "GivenName": "Emiko",
+    "ShortName": "YONEKURA",
+    "NAT": "JPN",
+    "GenderId": "W"
+  },
+  "BTKOR11502200801": {
+    "IBUId": "BTKOR11502200801",
+    "FamilyName": "YOO",
+    "GivenName": "Hyeonmin",
+    "ShortName": "YOO",
+    "NAT": "KOR",
+    "GenderId": "M"
+  },
+  "BTSWE13004201001": {
+    "IBUId": "BTSWE13004201001",
+    "FamilyName": "YRI",
+    "GivenName": "Wilhelm",
+    "ShortName": "YRI",
+    "NAT": "SWE",
+    "GenderId": "M"
+  },
+  "BTCHN12808200201": {
+    "IBUId": "BTCHN12808200201",
+    "FamilyName": "YU",
+    "GivenName": "Fuqiang",
+    "ShortName": "YU",
+    "NAT": "CHN",
+    "GenderId": "M"
+  },
+  "BTFRA12012200901": {
+    "IBUId": "BTFRA12012200901",
+    "FamilyName": "YUNG",
+    "GivenName": "Martin",
+    "ShortName": "YUNG",
+    "NAT": "FRA",
+    "GenderId": "M"
+  },
+  "BTLAT12107201101": {
+    "IBUId": "BTLAT12107201101",
+    "FamilyName": "ZAKIS",
+    "GivenName": "Arturs",
+    "ShortName": "ZAKIS",
+    "NAT": "LAT",
+    "GenderId": "M"
+  },
+  "BTITA10303201101": {
+    "IBUId": "BTITA10303201101",
+    "FamilyName": "ZAMPIERI",
+    "GivenName": "Tiziano",
+    "ShortName": "ZAMPIERI",
+    "NAT": "ITA",
+    "GenderId": "M"
+  },
+  "BTSUI10804201101": {
+    "IBUId": "BTSUI10804201101",
+    "FamilyName": "ZELLER",
+    "GivenName": "Jonas",
+    "ShortName": "ZELLER",
+    "NAT": "SUI",
+    "GenderId": "M"
+  },
+  "BTSLO20406201101": {
+    "IBUId": "BTSLO20406201101",
+    "FamilyName": "ZEMVA",
+    "GivenName": "Ema",
+    "ShortName": "ZEMVA",
+    "NAT": "SLO",
+    "GenderId": "W"
+  },
+  "BTSLO20406201102": {
+    "IBUId": "BTSLO20406201102",
+    "FamilyName": "ZEMVA",
+    "GivenName": "Tadeja",
+    "ShortName": "ZEMVA",
+    "NAT": "SLO",
+    "GenderId": "W"
+  },
+  "BTKAZ10310200802": {
+    "IBUId": "BTKAZ10310200802",
+    "FamilyName": "ZHAKUP",
+    "GivenName": "Abdirakhman",
+    "ShortName": "ZHAKUP",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTKAZ23101201002": {
+    "IBUId": "BTKAZ23101201002",
+    "FamilyName": "ZHAKUP",
+    "GivenName": "Aisha",
+    "ShortName": "ZHAKUP",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTCHN20511200301": {
+    "IBUId": "BTCHN20511200301",
+    "FamilyName": "ZHENG",
+    "GivenName": "Dongxue",
+    "ShortName": "ZHENG",
+    "NAT": "CHN",
+    "GenderId": "W"
+  },
+  "BTKAZ21003201102": {
+    "IBUId": "BTKAZ21003201102",
+    "FamilyName": "ZHIGULINA",
+    "GivenName": "Sofiya",
+    "ShortName": "ZHIGULINA",
+    "NAT": "KAZ",
+    "GenderId": "W"
+  },
+  "BTCZE12406201101": {
+    "IBUId": "BTCZE12406201101",
+    "FamilyName": "ZIDLICKY",
+    "GivenName": "Simon",
+    "ShortName": "ZIDLICKY",
+    "NAT": "CZE",
+    "GenderId": "M"
+  },
+  "BTCZE21004201101": {
+    "IBUId": "BTCZE21004201101",
+    "FamilyName": "ZMEKOVA",
+    "GivenName": "Karolina",
+    "ShortName": "ZMEKOVA",
+    "NAT": "CZE",
+    "GenderId": "W"
+  },
+  "BTHUN12004200901": {
+    "IBUId": "BTHUN12004200901",
+    "FamilyName": "ZSOLDOS",
+    "GivenName": "Domonkos",
+    "ShortName": "ZSOLDOS",
+    "NAT": "HUN",
+    "GenderId": "M"
+  },
+  "BTKAZ11404201101": {
+    "IBUId": "BTKAZ11404201101",
+    "FamilyName": "ZUBAREV",
+    "GivenName": "Vitaliy",
+    "ShortName": "ZUBAREV",
+    "NAT": "KAZ",
+    "GenderId": "M"
+  },
+  "BTCHI11805201101": {
+    "IBUId": "BTCHI11805201101",
+    "FamilyName": "ZUNIGA",
+    "GivenName": "Marco",
+    "ShortName": "ZUNIGA",
+    "NAT": "CHI",
+    "GenderId": "M"
+  },
+  "BTCZE20405201101": {
+    "IBUId": "BTCZE20405201101",
+    "FamilyName": "ZUZANKOVA",
+    "GivenName": "Anna",
+    "ShortName": "ZUZANKOVA",
+    "NAT": "CZE",
     "GenderId": "W"
   }
 }

@@ -36,3 +36,7 @@ cache_*/
 # --- Users Infos ---
 users_info/standings_state.json
 users_info/results_state.json
+
+# --- Fichiers perso ---
+followup_users.xlsx
+~$*.xlsx
