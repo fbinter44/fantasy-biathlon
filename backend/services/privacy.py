@@ -7,7 +7,7 @@ moins un ski club. Ses propres pronostics/score restent toujours visibles.
 Utilisé par backend/routers/pronostics.py et backend/routers/score.py.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from backend.config import Settings
 from backend.services.db import get_all_leagues
@@ -29,4 +29,4 @@ def deadline_passed(season_code: str) -> bool:
     """Fail-closed : si la deadline n'est pas encore configurée pour la saison,
     on considère qu'elle n'est pas passée (donc les pronos des autres restent masqués)."""
     deadline = get_pronos_deadline(season_code)
-    return deadline is not None and datetime.now() > deadline
+    return deadline is not None and datetime.now(timezone.utc) > deadline

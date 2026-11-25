@@ -9,7 +9,7 @@ PUT  /pronostics/me           → modifier mes pronostics (authentifié, avant d
 GET  /pronostics/{user_id}    → pronostics d'un joueur (authentifié, même règle que ci-dessus)
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, Query
 
 from backend.config import Settings, get_settings
@@ -90,7 +90,7 @@ def update_my_pronostics(
     deadline = get_pronos_deadline(s)
     if deadline is None:
         raise HTTPException(status_code=403, detail=f"Deadline des pronostics non configurée pour la saison {s}.")
-    if datetime.now() > deadline:
+    if datetime.now(timezone.utc) > deadline:
         raise HTTPException(status_code=403, detail="La deadline des pronostics est passée.")
     updates = {}
 

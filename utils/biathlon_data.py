@@ -9,7 +9,7 @@ Responsabilités :
 - Helpers pour formater les labels athlètes et les TOP5
 """
 
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 import json
 from pathlib import Path
 
@@ -22,10 +22,16 @@ from pathlib import Path
 # dès que le calendrier de la saison à venir est publié : veille de la 1ère
 # course, 23:59. Pas d'automatisation ici — la date de la 1ère course varie
 # et une erreur de calcul ouvrirait/fermerait les pronos au mauvais moment.
+#
+# Heure de Paris explicite : sans fuseau, le serveur (Railway, en UTC) fermait
+# une heure après le frontend. Les deadlines tombant toujours fin novembre,
+# c'est l'heure d'hiver (UTC+1) — décalage fixe, pas besoin de tzdata.
+
+PARIS_WINTER = timezone(timedelta(hours=1))
 
 PRONOS_DEADLINE_BY_SEASON: dict[str, datetime] = {
-    "2526": datetime(2025, 11, 27, 23, 59),  # Veille de la 1ère course (Östersund, 28 nov 2025)
-    "2627": datetime(2026, 11, 25, 23, 59),  # Veille de la 1ère course (Kontiolahti, 26 nov 2026)
+    "2526": datetime(2025, 11, 27, 23, 59, tzinfo=PARIS_WINTER),  # Veille de la 1ère course (Östersund, 28 nov 2025)
+    "2627": datetime(2026, 11, 25, 23, 59, tzinfo=PARIS_WINTER),  # Veille de la 1ère course (Kontiolahti, 26 nov 2026)
 }
 
 

@@ -14,11 +14,12 @@ export const KNOWN_PAST_SEASONS: SeasonInfo[] = [
 // ─── Deadlines pronostics saison, par code de saison ──────────────────────────
 // Miroir de PRONOS_DEADLINE_BY_SEASON (utils/biathlon_data.py) — à compléter à
 // chaque nouvelle saison, en même temps que côté backend. Veille de la 1ère
-// course, 23:59.
+// course, 23:59 heure de Paris (hiver, +01:00) — fuseau explicite pour ne pas
+// dépendre de celui du navigateur.
 
 const PRONOS_DEADLINE_BY_SEASON: Record<string, string> = {
-  "2526": "2025-11-27T23:59:00", // Veille de la 1ère course (Östersund, 28 nov 2025)
-  "2627": "2026-11-25T23:59:00", // Veille de la 1ère course (Kontiolahti, 26 nov 2026)
+  "2526": "2025-11-27T23:59:00+01:00", // Veille de la 1ère course (Östersund, 28 nov 2025)
+  "2627": "2026-11-25T23:59:00+01:00", // Veille de la 1ère course (Kontiolahti, 26 nov 2026)
 };
 
 /** Deadline des pronos pour une saison, ou null si pas encore connue (saison à compléter ci-dessus). */
